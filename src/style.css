@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, black;
+}
+
+@font-face {
+  font-family: 'xwing';
+  src: url('../public/fonts/xwing-miniatures.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ships';
+  src: url('../public/fonts/xwing-miniatures-ships.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.inria-sans-light {
+  font-family: "Inria Sans", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.inria-sans-regular {
+  font-family: "Inria Sans", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.inria-sans-bold {
+  font-family: "Inria Sans", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.inria-sans-light-italic {
+  font-family: "Inria Sans", serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.inria-sans-regular-italic {
+  font-family: "Inria Sans", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.inria-sans-bold-italic {
+  font-family: "Inria Sans", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+@theme {
+  --color-empire: #3c617e;
+  --color-force: #f9a8d4;
+  --color-resistance: #ff9900;
+  --color-firstorder: #870000;
+  --color-scum: #22c55e;
+  --color-republic: #ef4444;
+  --color-separatists: #1e40af;
+  --color-neutral: #9ca3af;
+}
+
+@layer utilities {
+  .border-selected {
+    border-color: oklch(85.2% 0.199 91.936) !important;
+    /* border-width: 0.3rem !important; */
+  }
+
+  .border-taken {
+    border-color: oklch(57.7% 0.245 27.325) !important;
+    /* border-width: 0.3rem !important; */
+  }
+
+.border-empire {
+  border-color: var(--color-empire) !important;
+}
+
+.border-force {
+  border-color: var(--color-force) !important;
+}
+
+.border-resistance {
+  border-color: var(--color-resistance) !important;
+}
+
+.border-firstorder {
+  border-color: var(--color-firstorder) !important;
+}
+
+.border-scum {
+  border-color: var(--color-scum) !important;
+}
+
+.border-republic {
+  border-color: var(--color-republic) !important;
+}
+
+.border-separatists {
+  border-color: var(--color-separatists) !important;
+}
+
+.border-neutral {
+  border-color: var(--color-neutral) !important;
+}
+}
