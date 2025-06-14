@@ -6,8 +6,32 @@
       <div class="flex flex-col justify-between h-full">
         <div class="flex-1">
           <div class="flex flex-row justify-between w-full items-center">
-            <h2 class="text-lg font-bold mb-4">Hand</h2>
+            <h2 class="text-lg font-bold mb-4"></h2>
             <PilotTabs />
+          </div>
+          <div class="flex flex-row w-full justify-center items-center">
+            <div class="flex flex-row">
+              <span class="font-[xwing]  text-[18rem] -mt-32" :style="{ color: `${color}` }">{{ icon }}</span>
+              <div class="flex flex-col justify-center pb-10  flex-wrap ml-4">
+                <span class="text-white/30">{{ store.currentPilot?.name }}</span>
+                <span class=" text-7xl" :style="{ color: `${color}` }">The {{ store.currentPilot?.class }}</span>
+                <div class="flex-row flex-wrap justify-start font-[xwing] text-4xl">
+                  <span class="text-white/80">A</span>
+                  <span class="text-white/80">m</span>
+                  <span class="text-white/80">M</span>
+                  <span class="text-white/80">P</span>
+                  <span class="text-white/80">A</span>
+                  <span class="text-white/80">A</span>
+                  <span class="text-white/80">A</span>
+                  <span class="text-white/80">A</span>
+                  <span class="text-white/80">A</span>
+                  <span class="text-white/80">A</span>
+                </div>
+                <div class="flex flex-row gap-2 mt-2">
+                  <span class="text-white/30 text-2xl">XP: {{ store.currentPilot?.xp }}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div>
@@ -60,10 +84,20 @@ import PilotTabs from './components/PilotTabs.vue'
 import { usePilotStore } from './stores/pilotStore'
 import { useCardFilter } from './composables/useCardFilter'
 import Ships from './components/Ships.vue'
+import classData from './data/classes.json'
+import { computed } from 'vue'
 
 const store = usePilotStore()
 const { all } = useCardFilter()
 const complete = all()
+
+const icon = computed(() => {
+  return classData[store.currentPilot?.class]?.icon || ''
+})
+
+const color = computed(() => {
+  return classData[store.currentPilot?.class]?.color || 'amber'
+})
 
 const select = (card) => {
   store.selectCard(card.id, { unique: card.unique })

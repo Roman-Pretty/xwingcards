@@ -7,25 +7,44 @@
         'bg-yellow-800 hover:cursor-auto': getRankStatus(pilotRank, rank.rank) === 'unlocked',
         'hover:bg-yellow-700 hover:scale-105': getRankStatus(pilotRank, rank.rank) === 'next',
         'opacity-40 pointer-events-none cursor-default': getRankStatus(pilotRank, rank.rank) === 'locked',
-      }"
-      @click="getRankStatus(pilotRank, rank.rank) === 'next' && onRankClick(rank)"
-    >
+      }" @click="getRankStatus(pilotRank, rank.rank) === 'next' && onRankClick(rank)">
       <div class="flex items-center justify-between w-full p-1 border-b-2 border-b-white/10">
         <span>Rank {{ rank.rank }}</span>
         <span class="text-amber-500">In {{ rank.initiative }}</span>
       </div>
 
-      <div v-if="rank.slots?.length" class="flex items-center justify-center gap-2 flex-wrap">
-        <span v-for="slot in rank.slots" :key="slot" class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
+      <!-- Slots -->
+      <span v-for="slot in rank.slots" :key="slot" class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
+        <template v-if="slot.includes('<')">
+          {{ slot.split('<')[0] }} <sup class="text-xs -mt-2 line-through">{{ slot.split('<')[1] }}</sup>
+        </template>
+        <template v-else-if="slot.length > 1">
+          {{ slot[0] }}
+          <sup class="text-xs -mt-2">{{ slot.slice(1) }}</sup>
+        </template>
+        <template v-else>
           {{ slot }}
+        </template>
+      </span>
+
+      <!-- Optional Slots -->
+      <div v-if="rank.optionalslots?.length" class="flex items-center justify-center gap-2 flex-wrap">
+        <span v-for="(slot, index) in rank.optionalslots" :key="slot"
+          class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
+          <span class="inria-sans-light text-xl" v-if="index !== 0">/ </span>
+          <template v-if="slot.includes('<')">
+            {{ slot.split('<')[0] }} <sup class="text-xs -mt-2 line-through">{{ slot.split('<')[1] }}</sup>
+          </template>
+          <template v-else-if="slot.length > 1">
+            {{ slot[0] }}
+            <sup class="text-xs -mt-2">{{ slot.slice(1) }}</sup>
+          </template>
+          <template v-else>
+            {{ slot }}
+          </template>
         </span>
       </div>
 
-      <div v-if="rank.optionalslots?.length" class="flex items-center justify-center gap-2 flex-wrap">
-        <span v-for="(slot, index) in rank.optionalslots" :key="slot" class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
-          <span class="inria-sans-light text-xl" v-if="index !== 0">/ </span>{{ slot }}
-        </span>
-      </div>
 
       <div v-if="rank.faction?.length" class="flex items-center justify-center gap-2 flex-wrap">
         <span v-for="slot in rank.faction" :key="slot" class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
@@ -50,18 +69,16 @@
 <script setup>
 import { computed } from 'vue'
 import { usePilotStore } from '../stores/pilotStore'
+import classData from '../data/classes.json'
+
 
 const store = usePilotStore()
 const pilotRank = computed(() => store.currentPilot?.rank ?? 0)
 
-const ranks = [
-  { rank: 1, xp: 'FREE', initiative: 2, faction: ['!'] },
-  { rank: 2, xp: '9 XP', initiative: 3, optionalslots: ['x', 'E'], ships: ['a', 'h', 'b'] },
-  { rank: 3, xp: '12 XP', initiative: 4, ships: ['{'], slots: ['m'] },
-  { rank: 4, xp: '15 XP', initiative: 5, optionalslots: ['x', 'E', 'F'], faction: ['!'], ships: ['w', 'E'] },
-  { rank: 5, xp: '18 XP', initiative: 6, slots: ['m', 'x'] },
-  { rank: 6, xp: '21 XP', initiative: 7, slots: [')'] },
-]
+
+const ranks = computed(() => {
+  return classData[store.currentPilot?.class]?.ranks || []
+})
 
 const getRankStatus = (pilotRank, thisRank) => {
   if (thisRank < pilotRank) return 'unlocked'

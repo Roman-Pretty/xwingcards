@@ -40,20 +40,18 @@
 <script setup>
 import { usePilotStore } from '../stores/pilotStore'
 import { storeToRefs } from 'pinia'
+import classData from '../data/classes.json'
+
 
 const pilotStore = usePilotStore()
 const { currentPilot } = storeToRefs(pilotStore)
 
-const ships = [
-  { ship: 'X-Wing', icon: 'x', slots: ['A', 'P', 'm', 'n'], cost: 5, rank: 0 },
-  { ship: 'Y-Wing', icon: 'y', slots: ['A', 'P', 'U', 'B', 'Y', 'm'], cost: 5, rank: 0 },
-  { ship: 'A-Wing', icon: 'a', slots: ['E', 'M', 'm', 'n'], cost: 5, rank: 2 },
-  { ship: 'B-Wing', icon: 'b', slots: ['S', 'P', 'm', 'C', 'C', 'n'], cost: 5, rank: 2 },
-  { ship: 'Hawk-170', icon: 'h', slots: ['A', 'W', 'I', 'm', 'm', 'B'], cost: 5, rank: 2 },
-  { ship: 'NR Y-Wing', icon: '{', slots: ['X', 'A', 'U', 'B', 'm', 'm'], cost: 4, rank: 3 },
-  { ship: 'NR A-Wing', icon: 'E', slots: ['E', 'M', 'X'], cost: 8, rank: 4 },
-  { ship: 'NR X-Wing', icon: 'w', slots: ['A', 'X', 'm', 'n'], cost: 12, rank: 4 },
-]
+import { computed } from 'vue'
+
+
+const ships = computed(() => {
+  return classData[pilotStore.currentPilot?.class]?.ships || []
+})
 
 function getShipStatus(ship) {
   const pilot = currentPilot.value
