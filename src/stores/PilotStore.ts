@@ -13,7 +13,7 @@ export const usePilotStore = defineStore("pilotStore", {
         class: "Ace",
         selectedCards: [],
         slotCards: {},
-        ownedCards: ["r2d2", "r5d8"],
+        ownedCards: ["r2d2", "r5d8", "mynock"],
         ships: ["Y-Wing", "X-Wing"],
         selectedShip: "X-Wing",
         slots: [],
@@ -86,22 +86,6 @@ export const usePilotStore = defineStore("pilotStore", {
       if (this.currentPilotId === id) return;
       this.currentPilotId = id;
       this.updatePilotSlots();
-    },
-
-    selectCard(cardId) {
-      const pilot = this.currentPilot;
-      if (!pilot) return;
-
-      const card = cards.find((c) => c.id === cardId);
-      const unique = card ? card.unique : false;
-
-      if (unique && this.isCardTaken(cardId)) {
-        return;
-      }
-
-      if (!pilot.selectedCards.includes(cardId)) {
-        pilot.selectedCards.push(cardId);
-      }
     },
 
     unselectCard(cardId) {

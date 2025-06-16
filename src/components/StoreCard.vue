@@ -1,7 +1,12 @@
 <template>
-  <div @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
-    'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer max-h-[44vh] aspect-[2/3] rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative',
-  ]">
+  <div
+    @click="purchaseCard"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+    :class="[
+      'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer max-h-[44vh] aspect-[2/3] rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative',
+    ]"
+  >
     <!-- Faction icon -->
     <div class="corner absolute top-2 left-2 z-20 flex items-center justify-center">
       <div v-if="factionClass === 'empire'" class="faction-icon bg-empire"><span>@</span></div>
@@ -13,28 +18,29 @@
       <div v-else-if="factionClass === 'separatists'" class="faction-icon bg-separatists"><span>.</span></div>
     </div>
 
+    <!-- Cost badge -->
+    <div class="absolute top-2 right-2 pr-2 pl-1 pb-1 text-xs font-semibold rounded-full bg-black bg-opacity-70 text-white select-none z-20">
+      <span>
+        <span class="font-[xwing] text-lg font-light">Ì</span>{{ cost }}
+      </span>
+    </div>
+
+    <!-- Flip indicator -->
     <div v-if="flippable" class="absolute bottom-2 left-2 transform text-white z-30 opacity-50 text-sm">
       <kbd class="kbd text-black kbd-sm bg-white">F</kbd> Flip
     </div>
 
-    <!-- Gloss effect -->
-    <div
-      class="gloss absolute top-0 left-[-100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none transition-all duration-400 ease-in-out">
-    </div>
+    <div class="gloss absolute top-0 left-[-100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none transition-all duration-400 ease-in-out" />
 
-    <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30"></div>
+    <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30" />
 
-    <!-- Card image -->
     <figure class="relative rounded-t-lg overflow-hidden h-1/2">
       <img :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
     </figure>
 
-    <!-- Card text -->
     <div class="relative p-2 text-center h-1/2 flex flex-col justify-start">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="font-[xwing] text-[18rem] text-white/2 -mt-[6rem] leading-none">
-          {{ typeLetter }}
-        </span>
+        <span class="font-[xwing] text-[18rem] text-white/2 -mt-[6rem] leading-none">{{ typeLetter }}</span>
       </div>
 
       <h2 class="text-md font-bold text-white mb-1">
@@ -45,22 +51,18 @@
 
     <!-- Energy/Force Display -->
     <div v-if="hasAnyToken" class="absolute bottom-2 right-2 flex space-x-2 items-center select-none z-30">
-      <!-- Energy -->
       <template v-if="displayedEnergy !== null">
         <span class="flex items-center space-x-1 text-yellow-400">
           <span class="font-[xwing] -mt-1 text-lg leading-none">{{ energyLetter }}</span>
-          <span v-if="displayedRecurringEnergy" class="font-[xwing] text-lg leading-none">{{ displayedRecurringEnergy
-          }}</span>
+          <span v-if="displayedRecurringEnergy" class="font-[xwing] text-lg leading-none">{{ displayedRecurringEnergy }}</span>
           <span class="font-semibold text-lg">{{ displayedEnergy }}</span>
         </span>
       </template>
 
-      <!-- Force -->
       <template v-if="displayedForce !== null">
         <span class="flex items-center space-x-1 text-[#72bbe3]">
           <span class="font-[xwing] -mt-1 text-lg leading-none">{{ forceLetter }}</span>
-          <span v-if="displayedRecurringForce" class="font-[xwing] text-lg leading-none">{{ displayedRecurringForce
-          }}</span>
+          <span v-if="displayedRecurringForce" class="font-[xwing] text-lg leading-none">{{ displayedRecurringForce }}</span>
           <span class="font-semibold text-lg">{{ displayedForce }}</span>
         </span>
       </template>
@@ -69,7 +71,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { usePilotStore } from '../stores/pilotStore'
 import { tokenToLetterMap } from '../utils/mappings'
 
@@ -95,7 +97,6 @@ const props = defineProps({
   flippable: Boolean,
 })
 
-const pilotStore = usePilotStore()
 const isHovered = ref(false)
 const flipped = ref(false)
 
@@ -108,22 +109,20 @@ function handleKeyDown(e) {
   }
 }
 
-const cardId = computed(() => props.name)
-
-const isTaken = computed(() =>
-  pilotStore.isCardTaken(cardId.value)
-)
-
+const pilotStore = usePilotStore()
 const factionClass = computed(() => (props.faction || '').toLowerCase() || 'neutral')
 const typeLetter = computed(() => tokenToLetterMap[(props.type || '').toLowerCase()] || '?')
 const energyLetter = 'g'
 const forceLetter = 'h'
 const recurringSymbols = ['', '`', '_', '']
 
-function recurringSymbol(count) {
+const recurringSymbol = (count) => {
   const val = Number(count) || 0
   return recurringSymbols[Math.min(val, 3)]
 }
+
+const displayedName = computed(() => flipped.value && props.flippable ? props.flippedName || props.name : props.name)
+const displayedImage = computed(() => flipped.value && props.flippable ? props.flippedImage || props.image : props.image)
 
 const displayedDescription = computed(() => {
   const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || ''
@@ -132,9 +131,6 @@ const displayedDescription = computed(() => {
     return `<span class="font-[xwing]">${letter}</span>`
   })
 })
-
-const displayedName = computed(() => flipped.value && props.flippable ? props.flippedName || props.name : props.name)
-const displayedImage = computed(() => flipped.value && props.flippable ? props.flippedImage || props.image : props.image)
 
 const displayedEnergy = computed(() => {
   const val = flipped.value ? props.flippedEnergy : props.energy
@@ -150,6 +146,11 @@ const displayedRecurringForce = computed(() => recurringSymbol(flipped.value ? p
 const hasAnyToken = computed(() =>
   displayedEnergy.value != null || displayedForce.value != null
 )
+
+const purchaseCard = () => {
+  console.log(`Purchased card: ${props.name}`)
+  // TODO: Hook in your store transaction or action here
+}
 </script>
 
 <style scoped>
@@ -157,7 +158,6 @@ const hasAnyToken = computed(() =>
   0% {
     background-position: 0% 0%;
   }
-
   50% {
     background-position: 100% 100%;
   }

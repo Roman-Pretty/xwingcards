@@ -16,6 +16,8 @@ export const tokenToLetterMap = {
   sr: '6',
   af: '{',
   ab: '}',
+  barrel: 'r',
+  boost: 'b',
   crit: 'c',
   hit: 'd',
   focus: 'f',
