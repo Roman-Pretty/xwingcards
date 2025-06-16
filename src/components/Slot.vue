@@ -1,90 +1,120 @@
 <template>
   <div
-    :key="selectedOption"
     class="relative group transition-colors duration-200 rounded flex-1 bg-neutral-800 cursor-default"
-    :class="{
-      'bg-neutral-800': true
-    }"
+    :class="{ 'opacity-50 pointer-events-none': !unlocked }"
     tabindex="0"
     ref="slotRef"
+    @dragover.prevent="onDragOver"
+    @drop.prevent="onDrop"
   >
-    <!-- Swap icon in top right -->
+    <!-- Remove button overlay -->
     <div
-      v-if="hasMultipleOptions"
-      class="absolute top-2 right-2 w-6 h-6 text-neutral-600 opacity-80 group-hover:opacity-0 transition-opacity duration-200 pointer-events-none"
-      aria-hidden="true"
+      v-if="props.card"
+      class="absolute inset-0 bg-red-700/80 cursor-pointer text-white text-center flex items-center justify-center text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded z-10"
+      @click.stop="clearCard"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-           viewBox="0 0 24 24" fill="none" stroke="currentColor" 
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-           class="lucide lucide-arrow-left-right-icon">
-        <path d="M8 3 4 7l4 4"/>
-        <path d="M4 7h16"/>
-        <path d="m16 21 4-4-4-4"/>
-        <path d="M20 17H4"/>
-      </svg>
-    </div>
-
-    <!-- Overlay on hover -->
-    <div
-      v-if="hasMultipleOptions"
-      class="absolute inset-0 bg-amber-700/80 cursor-pointer text-white text-center flex items-center justify-center text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded z-10"
-    >
-      Switch Slot
+      Unequip Card
     </div>
 
     <!-- Slot content -->
     <div class="flex flex-row items-center gap-2 p-3 rounded relative z-0 h-full">
-      <span class="font-[xwing] text-5xl font-extralight opacity-60 -mt-3.5">
-        {{ mappedLetter }}
-      </span>
+      <div class="flex flex-row gap-1 items-center">
+        <span
+          v-for="option in props.options"
+          :key="option"
+          class="font-[xwing] text-5xl font-extralight opacity-60 -mt-3.5 select-none"
+        >
+          {{ tokenToLetterMap[option.toLowerCase()] || '?' }}
+        </span>
+      </div>
       <div class="flex flex-col">
-        <h2>{{ selectedOption }}</h2>
-        <span class="text-sm text-white/80">{{ card || 'Empty' }}</span>
+        <h2 class="text-white truncate">
+          {{ displayName }}
+        </h2>
+        <span class="text-sm text-white/80 select-none">
+          {{ cardName || "Empty" }}
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
-import { tokenToLetterMap } from '../utils/mappings';
+import { computed } from "vue";
+import cards from "../data/cards.json";
+import { tokenToLetterMap } from "../utils/mappings";
 
 const props = defineProps({
   options: {
     type: Array,
     required: true,
-    default: () => []
+    default: () => [],
   },
   unlocked: {
     type: Boolean,
-    required: true
+    required: true,
   },
   card: {
     type: String,
-    default: ''
-  }
-});
-
-const selectedOption = ref(props.options[0] ?? '');
-
-const hasMultipleOptions = computed(() => props.options.length > 1);
-
-watch(
-  () => props.options,
-  (newOptions) => {
-    if (!newOptions.includes(selectedOption.value)) {
-      selectedOption.value = newOptions[0] ?? '';
-    }
+    default: "",
   },
-  { immediate: true }
-);
-
-const mappedLetter = computed(() => {
-  return tokenToLetterMap[selectedOption.value?.toLowerCase()] || '?';
 });
+
+const emit = defineEmits(["card-drop"]);
+
+const cardName = computed(() => {
+  if (!props.card) return "Empty";
+  const found = cards.find((c) => c.id === props.card);
+  return found ? found.name : "Unknown";
+});
+
+const displayName = computed(() => {
+  return props.options.join(" or ");
+});
+
+function onDragOver(event) {
+  if (!props.unlocked) return;
+
+  const cardId = event.dataTransfer.getData("text/plain");
+  if (!cardId) return;
+
+  const draggedCard = cards.find(c => c.id === cardId);
+  if (!draggedCard) {
+    event.dataTransfer.dropEffect = "none";
+    return;
+  }
+
+  const allowed = props.options.some(opt =>
+    opt.toLowerCase() === draggedCard.type.toLowerCase()
+  );
+
+  event.dataTransfer.dropEffect = allowed ? "move" : "none";
+}
+
+function onDrop(event) {
+  if (!props.unlocked) return;
+
+  const cardId = event.dataTransfer.getData("text/plain");
+  if (!cardId) return;
+
+  const droppedCard = cards.find(c => c.id === cardId);
+  if (!droppedCard) return;
+
+  const allowed = props.options.some(opt =>
+    opt.toLowerCase() === droppedCard.type.toLowerCase()
+  );
+
+  if (!allowed) return;
+
+  emit("card-drop", cardId);
+}
+
+function clearCard() {
+  if (!props.unlocked) return;
+  emit("card-drop", "");
+}
 </script>
 
 <style scoped>
-/* No changes needed */
+/* No extra styles needed */
 </style>

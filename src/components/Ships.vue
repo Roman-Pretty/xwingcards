@@ -31,7 +31,7 @@
         <span v-if="getShipStatus(ship) === 'locked'">Locked</span>
         <span v-else-if="getShipStatus(ship) === 'owned'">Owned</span>
         <span v-else-if="getShipStatus(ship) === 'selected'" class="text-yellow-400">Selected</span>
-        <span v-else>{{ ship.cost }} XP</span>
+        <span v-else><span class="font-[xwing] text-lg ">Ì</span>{{ ship.cost }}</span>
       </div>
     </div>
   </div>
@@ -70,12 +70,19 @@ function onShipClick(ship) {
   if (status === 'available') return
 
   if (status !== 'selected') {
-    // Update selected ship
-    pilotStore.switchPilot(pilot.id) // Make sure current pilot is active
+    // Keep current pilot active
+    pilotStore.switchPilot(pilot.id)
+    console.log(`Switching to ship: ${ship.ship}`)
+
+    // Update selected ship directly (reactive)
     pilot.selectedShip = ship.ship
 
-    // Clear selected cards because slots changed
+    // Clear selected cards
     pilot.selectedCards = []
+
+    // Update slots after changing ship
+    pilotStore.updatePilotSlots()
   }
 }
+
 </script>

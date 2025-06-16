@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown dropdown-end ">
-<div tabindex="0" role="button" class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity m-1 flex flex-row justify-end">
+<div tabindex="0" role="button" class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity  mb-1 flex flex-row justify-end">
       {{ selectedPilotName }}
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

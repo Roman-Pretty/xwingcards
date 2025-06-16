@@ -14,11 +14,11 @@
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["!"] },
-      { "rank": 2, "xp": "9 XP", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
-      { "rank": 3, "xp": "12 XP", "initiative": 4, "ships": ["{"], "slots": ["m"] },
-      { "rank": 4, "xp": "15 XP", "initiative": 5, "optionalslots": ["x", "E", "F"], "faction": ["!"], "ships": ["w", "E"] },
-      { "rank": 5, "xp": "18 XP", "initiative": 6, "slots": ["m", "x"] },
-      { "rank": 6, "xp": "21 XP", "initiative": 7, "slots": [")"] }
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "ships": ["{"], "slots": ["m"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E", "F"], "faction": ["!"], "ships": ["w", "E"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m", "x"] },
+      { "rank": 6, "xp": "21", "initiative": 7, "slots": [")"] }
     ]
   },
   "Defector": {
@@ -35,11 +35,11 @@
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["@"] },
-      { "rank": 2, "xp": "9 XP", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
-      { "rank": 3, "xp": "12 XP", "initiative": 4, "ships": ["I"], "slots": ["m"] },
-      { "rank": 4, "xp": "15 XP", "initiative": 5, "optionalslots": ["x", "E", "F"], "faction": ["@"], "ships": ["P"] },
-      { "rank": 5, "xp": "18 XP", "initiative": 6, "slots": ["m"], "optionalslots": ["E", "x"] },
-      { "rank": 6, "xp": "21 XP", "initiative": 6, "slots": [")"] }
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "ships": ["I"], "slots": ["m"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E", "F"], "faction": ["@"], "ships": ["P"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m"], "optionalslots": ["E", "x"] },
+      { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
     ]
   },
   "Veteran": {
@@ -56,11 +56,11 @@
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 3, "faction": ["/"] },
-      { "rank": 2, "xp": "9 XP", "initiative": 4, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
-      { "rank": 3, "xp": "12 XP", "initiative": 4, "ships": [":"], "slots": ["m"] },
-      { "rank": 4, "xp": "15 XP", "initiative": 5, "optionalslots": ["x", "E"], "faction": ["/"], "ships": ["c"] },
-      { "rank": 5, "xp": "18 XP", "initiative": 6, "slots": ["m"], "optionalslots": ["E", "x"] },
-      { "rank": 6, "xp": "21 XP", "initiative": 6, "slots": [")"] }
+      { "rank": 2, "xp": "9", "initiative": 4, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "ships": [":"], "slots": ["m"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E"], "faction": ["/"], "ships": ["c"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m"], "optionalslots": ["E", "x"] },
+      { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
     ]
   }
 }

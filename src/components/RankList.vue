@@ -80,7 +80,7 @@
 
       <span class="mt-auto">
         <span v-if="['next', 'locked'].includes(getRankStatus(pilotRank, rank.rank))">
-          {{ rank.xp }}
+          <span class="font-[xwing] text-lg ">Ì</span>{{ rank.xp }}
         </span>
         <span v-else class="opacity-20">Unlocked</span>
       </span>

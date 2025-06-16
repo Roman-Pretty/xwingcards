@@ -1,11 +1,8 @@
 <template>
-  <div @click="toggleSelection" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
+  <div @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
     'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer max-h-[44vh] aspect-[2/3] rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative',
-    isSelected ? [`border-selected`] :
-      !isSelected && isTaken ? ['border-taken'] :
-        ['border-2', `border-${factionClass}`]
+    isTaken ? 'border-taken' : `border-2 border-${factionClass}`
   ]">
-
     <!-- Faction icon -->
     <div class="corner absolute top-2 left-2 z-20 flex items-center justify-center">
       <div v-if="factionClass === 'empire'" class="faction-icon bg-empire"><span>@</span></div>
@@ -18,16 +15,12 @@
     </div>
 
     <!-- Cost badge -->
-    <div class="absolute top-2 right-2 px-2 py-1 text-xs font-semibold rounded-full bg-black bg-opacity-70 text-white select-none z-20">
-      {{ cost }} XP
-    </div>
+    <div
+      class="absolute top-2 right-2 pr-2 pl-1 pb-1 text-xs font-semibold rounded-full bg-black bg-opacity-70 text-white select-none z-20">
+      <span>
+        <span class="font-[xwing] text-lg font-light">Ì</span>{{ cost }}
+      </span>
 
-    <!-- Selection state -->
-    <div v-if="isSelected" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-yellow-400 text-black text-xs rounded-t z-30">
-      Selected
-    </div>
-    <div v-else-if="isTaken" class="absolute bottom-0 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-red-600 text-white text-xs rounded-t z-30">
-      Taken
     </div>
 
     <div v-if="flippable" class="absolute bottom-2 left-2 transform text-white z-30 opacity-50 text-sm">
@@ -35,11 +28,11 @@
     </div>
 
     <!-- Gloss effect -->
-    <div class="gloss absolute top-0 left-[-100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none transition-all duration-400 ease-in-out">
+    <div
+      class="gloss absolute top-0 left-[-100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none transition-all duration-400 ease-in-out">
     </div>
 
-    <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30">
-    </div>
+    <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30"></div>
 
     <!-- Card image -->
     <figure class="relative rounded-t-lg overflow-hidden h-1/2">
@@ -66,7 +59,8 @@
       <template v-if="displayedEnergy !== null">
         <span class="flex items-center space-x-1 text-yellow-400">
           <span class="font-[xwing] -mt-1 text-lg leading-none">{{ energyLetter }}</span>
-          <span v-if="displayedRecurringEnergy" class="font-[xwing] text-lg leading-none">{{ displayedRecurringEnergy }}</span>
+          <span v-if="displayedRecurringEnergy" class="font-[xwing] text-lg leading-none">{{ displayedRecurringEnergy
+            }}</span>
           <span class="font-semibold text-lg">{{ displayedEnergy }}</span>
         </span>
       </template>
@@ -75,12 +69,12 @@
       <template v-if="displayedForce !== null">
         <span class="flex items-center space-x-1 text-[#72bbe3]">
           <span class="font-[xwing] -mt-1 text-lg leading-none">{{ forceLetter }}</span>
-          <span v-if="displayedRecurringForce" class="font-[xwing] text-lg leading-none">{{ displayedRecurringForce }}</span>
+          <span v-if="displayedRecurringForce" class="font-[xwing] text-lg leading-none">{{ displayedRecurringForce
+            }}</span>
           <span class="font-semibold text-lg">{{ displayedForce }}</span>
         </span>
       </template>
     </div>
-
   </div>
 </template>
 
@@ -126,17 +120,9 @@ function handleKeyDown(e) {
 
 const cardId = computed(() => props.name)
 
-const isSelected = computed(() =>
-  pilotStore.currentPilot?.selectedCards.includes(cardId.value)
-)
 const isTaken = computed(() =>
-  pilotStore.isCardTaken(cardId.value) && !isSelected.value
+  pilotStore.isCardTaken(cardId.value)
 )
-
-function toggleSelection() {
-  if (isSelected.value) pilotStore.unselectCard(cardId.value)
-  else if (!isTaken.value) pilotStore.selectCard(cardId.value)
-}
 
 const factionClass = computed(() => (props.faction || '').toLowerCase() || 'neutral')
 const typeLetter = computed(() => tokenToLetterMap[(props.type || '').toLowerCase()] || '?')
@@ -149,7 +135,6 @@ function recurringSymbol(count) {
   return recurringSymbols[Math.min(val, 3)]
 }
 
-// Flipping logic
 const displayedDescription = computed(() => {
   const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || ''
   return raw.replace(/\{([^}]+)\}/g, (_, token) => {
@@ -179,8 +164,13 @@ const hasAnyToken = computed(() =>
 
 <style scoped>
 @keyframes holoMove {
-  0% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
+  0% {
+    background-position: 0% 0%;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
 }
 
 .holographic-overlay {

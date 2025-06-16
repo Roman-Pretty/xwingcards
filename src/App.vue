@@ -6,28 +6,39 @@
       <div class="flex flex-col justify-between h-full">
         <div class="flex-1">
           <div class="flex flex-row justify-between w-full items-center">
-            <div class="text-xl mb-4 flex flex-row gap-2 items-center cursor-default">
-              <span class="font-[xwing] text-3xl  -mt-2" :style="{ color: `${color}` }">{{ icon }}</span>
-              <span class=" font-bold" :style="{ color: `${color}` }">The {{ store.currentPilot?.class }}</span>
+            <div class="flex flex-row gap-4">
+            <div class="text-xl flex flex-row gap-2 items-center cursor-default">
+              <span class="font-[xwing] text-3xl -mt-2" :style="{ color: color }">{{ icon }}</span>
+              <span class="font-bold" :style="{ color: color }">The {{ store.currentPilot?.class }}</span>
             </div>
-            <PilotTabs />
+            <div class="text-xl flex flex-row  items-center cursor-default text-yellow-300">
+              <span class="font-[xwing] text-3xl -mt-2">Ì</span>
+              <span class="font-bold">{{ store.currentPilot?.xp }}</span>
+            </div>
+            </div>
+            <div class="flex flex-row-reverse gap-2 items-center">
+              <span class="btn">Add XP</span>
+              <PilotTabs />
+            </div>
+            
           </div>
-          
+
         </div>
+
         <div class="flex flex-col w-full mt-auto overflow-auto">
-        <div class="">
+          <div>
             <h2 class="text-lg mb-4">Loadout</h2>
             <Slots />
           </div>
-        <div>
-          <h2 class="text-lg mb-4">Ships</h2>
-          <Ships />
+          <div>
+            <h2 class="text-lg mb-4">Ships</h2>
+            <Ships />
+          </div>
+          <div>
+            <h2 class="text-lg mb-4">Rank</h2>
+            <RankList />
+          </div>
         </div>
-        <div>
-          <h2 class="text-lg mb-4">Rank</h2>
-          <RankList />
-        </div>
-      </div>
       </div>
     </div>
 
@@ -44,14 +55,21 @@
       </div>
 
       <!-- Scrollable Cards List -->
-      <div class="flex-1 overflow-y-auto p-4 flex flex-row flex-wrap gap-6 justify-center">
-        <Card v-for="card in complete" :key="card.id" v-bind="card" @click="select(card)" />
-      </div>
+      <section class="flex-1 overflow-y-auto p-4 flex flex-row flex-wrap gap-6 justify-center">
+        <Card v-for="card in complete" :key="card.id" v-bind="card" :draggable="!store.isCardTaken(card.id)"
+          @dragstart="onDragStart(card.id, $event)" @click="select(card)" :class="{
+            'opacity-50 cursor-not-allowed': store.isCardTaken(card.id),
+            'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out':
+              !store.isCardTaken(card.id),
+          }" />
+
+      </section>
     </div>
   </main>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import RankList from './components/RankList.vue'
 import Card from './components/Card.vue'
 import MenuIcon from './components/MenuIcon.vue'
@@ -59,14 +77,13 @@ import PilotTabs from './components/PilotTabs.vue'
 import { usePilotStore } from './stores/pilotStore'
 import { useCardFilter } from './composables/useCardFilter'
 import Ships from './components/Ships.vue'
-import classData from './data/classes.json'
-import { computed } from 'vue'
 import Slots from './components/Slots.vue'
+import classData from './data/classes.json'
 
 const store = usePilotStore()
-const { all } = useCardFilter()
-const complete = all()
+const complete = computed(() => store.ownedCards);
 
+// Use direct access of store.currentPilot.class for reactivity
 const icon = computed(() => {
   return classData[store.currentPilot?.class]?.icon || ''
 })
@@ -77,5 +94,10 @@ const color = computed(() => {
 
 const select = (card) => {
   store.selectCard(card.id, { unique: card.unique })
+}
+
+function onDragStart(cardId, event) {
+  event.dataTransfer.effectAllowed = 'move'
+  event.dataTransfer.setData('text/plain', cardId)
 }
 </script>
