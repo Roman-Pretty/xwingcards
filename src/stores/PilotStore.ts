@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import classData from "../data/classes.json";
 
 export const usePilotStore = defineStore("pilotStore", {
   state: () => ({
@@ -13,20 +14,10 @@ export const usePilotStore = defineStore("pilotStore", {
         ownedCards: [],
         ships: ["Y-Wing", "X-Wing"],
         selectedShip: "X-Wing",
+        slots: [],
       },
       {
         id: "2",
-        name: "Luke",
-        rank: 2,
-        xp: 15,
-        class: "Force User",
-        selectedCards: [],
-        ownedCards: [],
-        ships: ["X-Wing"],
-        selectedShip: "X-Wing",
-      },
-      {
-        id: "3",
         name: "Soontir Fell",
         rank: 2,
         xp: 15,
@@ -35,9 +26,10 @@ export const usePilotStore = defineStore("pilotStore", {
         ownedCards: [],
         ships: ["X-Wing"],
         selectedShip: "X-Wing",
+        slots: [],
       },
       {
-        id: "4",
+        id: "3",
         name: "Captain Rex",
         rank: 2,
         xp: 15,
@@ -46,6 +38,7 @@ export const usePilotStore = defineStore("pilotStore", {
         ownedCards: [],
         ships: ["X-Wing"],
         selectedShip: "X-Wing",
+        slots: [],
       },
     ],
     currentPilotId: null,
@@ -61,11 +54,15 @@ export const usePilotStore = defineStore("pilotStore", {
   },
 
   actions: {
+    switchPilot(id) {
+      this.currentPilotId = id;
+      this.updatePilotSlots();
+    },
+
     selectCard(cardId, { unique = false } = {}) {
       const pilot = this.currentPilot;
       if (!pilot) return;
 
-      // If unique and someone else has it, reject
       if (unique && this.isCardTaken(cardId)) return;
 
       if (!pilot.selectedCards.includes(cardId)) {
@@ -79,8 +76,37 @@ export const usePilotStore = defineStore("pilotStore", {
         pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
       }
     },
-    switchPilot(id) {
-      this.currentPilotId = id;
+
+    updatePilotSlots() {
+      const pilot = this.currentPilot;
+      if (!pilot) return;
+
+      const pilotClass = classData[pilot.class];
+      if (!pilotClass) return;
+
+      // Get ship slot info
+      const shipEntry = pilotClass.ships.find(
+        (s) => s.ship === pilot.selectedShip
+      );
+
+      const shipSlots = shipEntry?.slots ?? [];
+
+      // Get rank data
+      const rankData = pilotClass.ranks.find((r) => r.rank === pilot.rank);
+      const rankSlots = rankData?.slots ?? [];
+      const optionalSlots = rankData?.optionalslots ?? [];
+
+      // Combine and assign
+      pilot.slots = [...shipSlots, ...rankSlots, ...optionalSlots];
+    },
+
+    changeSelectedShip(shipName) {
+      const pilot = this.currentPilot;
+      if (!pilot) return;
+      if (!pilot.ships.includes(shipName)) return;
+
+      pilot.selectedShip = shipName;
+      this.updatePilotSlots();
     },
   },
 

@@ -1,7 +1,10 @@
 <template>
-    <button class="btn btn-neutral btn-square font-light text-3xl">
-        <span class="-mt-2 opacity-90">
+    <button class="btn btn-ghost font-light border-white ">
+        <span class="-mt-2 opacity-90 font-[xwing] text-2xl">
             {{ i }}
+        </span>
+        <span class="ml-1">
+            Filter
         </span>
     </button>
 </template>

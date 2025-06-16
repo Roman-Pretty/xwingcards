@@ -1,7 +1,12 @@
 <template>
-  <div class="dropdown dropdown-end">
-    <div tabindex="0" role="button" class="btn w-[6vw] m-1">
-      {{ selectedPilotName }} 
+  <div class="dropdown dropdown-end ">
+<div tabindex="0" role="button" class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity m-1 flex flex-row justify-end">
+      {{ selectedPilotName }}
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-chevron-down-icon lucide-chevron-down">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
     </div>
 
     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-md">

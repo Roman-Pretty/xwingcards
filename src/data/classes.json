@@ -62,27 +62,5 @@
       { "rank": 5, "xp": "18 XP", "initiative": 6, "slots": ["m"], "optionalslots": ["E", "x"] },
       { "rank": 6, "xp": "21 XP", "initiative": 6, "slots": [")"] }
     ]
-  },
-  "Force User": {
-    "icon": "h",
-    "color": "#f9a8d4",
-    "ships": [
-      { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 0 },
-      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 0 },
-      { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "cost": 5, "rank": 2 },
-      { "ship": "Hawk-170", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "cost": 5, "rank": 2 },
-      { "ship": "NR Y-Wing", "icon": "{", "slots": ["X", "A", "U", "B", "m", "m"], "cost": 4, "rank": 3 },
-      { "ship": "NR A-Wing", "icon": "E", "slots": ["E", "M", "X"], "cost": 8, "rank": 4 },
-      { "ship": "NR X-Wing", "icon": "w", "slots": ["A", "X", "m", "n"], "cost": 12, "rank": 4 }
-    ],
-    "ranks": [
-      { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["!"] },
-      { "rank": 2, "xp": "9 XP", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
-      { "rank": 3, "xp": "12 XP", "initiative": 4, "ships": ["{"], "slots": ["m"] },
-      { "rank": 4, "xp": "15 XP", "initiative": 5, "optionalslots": ["x", "E", "F"], "faction": ["!"], "ships": ["w", "E"] },
-      { "rank": 5, "xp": "18 XP", "initiative": 6, "slots": ["m", "x"] },
-      { "rank": 6, "xp": "21 XP", "initiative": 7, "slots": [")"] }
-    ]
   }
 }

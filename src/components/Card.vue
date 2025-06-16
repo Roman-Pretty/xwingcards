@@ -31,7 +31,7 @@
     </div>
 
     <div v-if="flippable" class="absolute bottom-2 left-2 transform text-white z-30 opacity-50 text-sm">
-      <kbd class="kbd text-black kbd-sm">F</kbd> Flip
+      <kbd class="kbd text-black kbd-sm bg-white">F</kbd> Flip
     </div>
 
     <!-- Gloss effect -->

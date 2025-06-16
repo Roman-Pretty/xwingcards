@@ -20,6 +20,15 @@ export const tokenToLetterMap = {
   hit: 'd',
   focus: 'f',
   evade: 'e',
-  helmet: 'x',
-  talent: 'E'
+  pilot: 'x',
+  talent: 'E',
+  configuration: 'n',
+  turret: 'U',
+  bomb: 'B',
+  gunner: 'Y',
+  any: ')'
 }
+
+export const letterToTokenMap = Object.fromEntries(
+  Object.entries(tokenToLetterMap).map(([k, v]) => [v, k])
+);
