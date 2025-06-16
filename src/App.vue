@@ -1,5 +1,21 @@
 <template>
-  <main class="bg-neutral-900 w-full h-screen p-4 flex flex-row gap-4 inria-sans-regular">
+  <main class="bg-neutral-900 w-full h-screen p-4 flex flex-row gap-4 inria-sans-regular overflow-hidden">
+
+    <!-- XP Modal -->
+    <dialog id="my_modal_1" class="modal">
+      <div class="modal-box bg-neutral-800 text-white">
+        <h3 class="text-lg font-bold mb-2">Add XP to {{ store.currentPilot?.name }}</h3>
+        <input v-model.number="xpToAdd" type="number" min="1" class="input input-bordered w-full mb-4 text-white"
+          placeholder="Enter XP amount" />
+        <div class="modal-action">
+          <form method="dialog" class="flex gap-2">
+            <button type="button" class="btn" @click="confirmAddXP">Confirm</button>
+            <button class="btn btn-neutral">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
     <!-- Left Side: Level -->
     <div
       class="flex-1 border-2 border-neutral-700 rounded-2xl p-4 flex flex-col justify-between text-white overflow-hidden">
@@ -7,25 +23,24 @@
         <div class="flex-1">
           <div class="flex flex-row justify-between w-full items-center">
             <div class="flex flex-row gap-4">
-            <div class="text-xl flex flex-row gap-2 items-center cursor-default">
-              <span class="font-[xwing] text-3xl -mt-2" :style="{ color: color }">{{ icon }}</span>
-              <span class="font-bold" :style="{ color: color }">The {{ store.currentPilot?.class }}</span>
-            </div>
-            <div class="text-xl flex flex-row  items-center cursor-default text-yellow-300">
-              <span class="font-[xwing] text-3xl -mt-2">Ì</span>
-              <span class="font-bold">{{ store.currentPilot?.xp }}</span>
-            </div>
+              <div class="text-xl flex flex-row gap-2 items-center cursor-default">
+                <span class="font-[xwing] text-3xl -mt-2" :style="{ color: color }">{{ icon }}</span>
+                <span class="font-bold" :style="{ color: color }">The {{ store.currentPilot?.class }}</span>
+              </div>
+              <div class="text-xl flex flex-row items-center cursor-default text-yellow-300">
+                <span class="font-[xwing] text-3xl -mt-2">Ì</span>
+                <span class="font-bold">{{ store.currentPilot?.xp }}</span>
+              </div>
             </div>
             <div class="flex flex-row-reverse gap-2 items-center">
-              <span class="btn">Add XP</span>
+              <button class="btn" @click="openModal">Add XP</button>
               <PilotTabs />
             </div>
-            
           </div>
-
         </div>
 
-        <div class="flex flex-col w-full mt-auto overflow-auto">
+        <!-- Bottom Content -->
+        <div class="flex flex-col w-full mt-auto">
           <div>
             <h2 class="text-lg mb-4">Loadout</h2>
             <Slots />
@@ -44,7 +59,8 @@
 
     <!-- Right Side: Card UI -->
     <div class="flex-1 flex flex-col overflow-hidden">
-      <div class="p-4 bg-neutral-800 flex justify-between items-center flex-row">
+      <div
+        class="p-4  border-2 border-neutral-700 rounded-2xl flex justify-between items-center flex-row">
         <div class="flex items-center gap-4">
           <button class="btn btn-warning">Deck</button>
           <button class="btn btn-neutral">Store</button>
@@ -59,31 +75,27 @@
         <Card v-for="card in complete" :key="card.id" v-bind="card" :draggable="!store.isCardTaken(card.id)"
           @dragstart="onDragStart(card.id, $event)" @click="select(card)" :class="{
             'opacity-50 cursor-not-allowed': store.isCardTaken(card.id),
-            'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out':
-              !store.isCardTaken(card.id),
+            'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out': !store.isCardTaken(card.id),
           }" />
-
       </section>
     </div>
   </main>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import RankList from './components/RankList.vue'
 import Card from './components/Card.vue'
 import MenuIcon from './components/MenuIcon.vue'
 import PilotTabs from './components/PilotTabs.vue'
-import { usePilotStore } from './stores/pilotStore'
-import { useCardFilter } from './composables/useCardFilter'
 import Ships from './components/Ships.vue'
 import Slots from './components/Slots.vue'
 import classData from './data/classes.json'
+import { usePilotStore } from './stores/pilotStore'
 
 const store = usePilotStore()
-const complete = computed(() => store.ownedCards);
+const complete = computed(() => store.ownedCards)
 
-// Use direct access of store.currentPilot.class for reactivity
 const icon = computed(() => {
   return classData[store.currentPilot?.class]?.icon || ''
 })
@@ -100,4 +112,24 @@ function onDragStart(cardId, event) {
   event.dataTransfer.effectAllowed = 'move'
   event.dataTransfer.setData('text/plain', cardId)
 }
+
+// XP Modal Logic
+const xpToAdd = ref(null)
+
+function openModal() {
+  const modal = document.getElementById('my_modal_1')
+  if (modal?.showModal) {
+    modal.showModal()
+  }
+}
+
+function confirmAddXP() {
+  if (xpToAdd.value > 0) {
+    store.currentPilot.xp += xpToAdd.value
+    const modal = document.getElementById('my_modal_1')
+    modal?.close()
+    xpToAdd.value = null
+  }
+}
+
 </script>

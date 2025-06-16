@@ -49,38 +49,37 @@ export const usePilotStore = defineStore("pilotStore", {
   }),
 
   getters: {
-  currentPilot(state) {
-    return state.pilots.find((p) => p.id === state.currentPilotId);
+    currentPilot(state) {
+      return state.pilots.find((p) => p.id === state.currentPilotId);
+    },
+
+    ownedCards(state) {
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!pilot) return [];
+      return cards.filter((card) => pilot.ownedCards.includes(card.id));
+    },
+
+    isCardOwnedByCurrentPilot: (state) => (cardId) => {
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      return pilot ? pilot.ownedCards.includes(cardId) : false;
+    },
+
+    isCardTaken: (state) => (cardId) => {
+      const card = cards.find((c) => c.id === cardId);
+      const isUnique = card?.unique;
+
+      return state.pilots.some(
+        (p) =>
+          (isUnique &&
+            p.id !== state.currentPilotId &&
+            (p.selectedCards.includes(cardId) ||
+              Object.values(p.slotCards).includes(cardId))) ||
+          (p.id === state.currentPilotId &&
+            (p.selectedCards.includes(cardId) ||
+              Object.values(p.slotCards).includes(cardId)))
+      );
+    },
   },
-
-  ownedCards(state) {
-    const pilot = state.pilots.find(p => p.id === state.currentPilotId);
-    if (!pilot) return [];
-    return cards.filter(card => pilot.ownedCards.includes(card.id));
-  },
-
-  isCardOwnedByCurrentPilot: (state) => (cardId) => {
-    const pilot = state.pilots.find(p => p.id === state.currentPilotId);
-    return pilot ? pilot.ownedCards.includes(cardId) : false;
-  },
-
-  // Only count the card as taken if it's unique AND used by another pilot
-  isCardTaken: (state) => (cardId) => {
-  const card = cards.find(c => c.id === cardId);
-  const isUnique = card?.unique;
-
-  return state.pilots.some(p =>
-    // Disable if another pilot is using a unique card
-    (isUnique && p.id !== state.currentPilotId &&
-      (p.selectedCards.includes(cardId) || Object.values(p.slotCards).includes(cardId))) ||
-    
-    // Disable if the current pilot already selected/assigned it
-    (p.id === state.currentPilotId &&
-      (p.selectedCards.includes(cardId) || Object.values(p.slotCards).includes(cardId)))
-  );
-},
-
-},
 
   actions: {
     switchPilot(id) {
@@ -90,21 +89,20 @@ export const usePilotStore = defineStore("pilotStore", {
     },
 
     selectCard(cardId) {
-    const pilot = this.currentPilot;
-    if (!pilot) return;
+      const pilot = this.currentPilot;
+      if (!pilot) return;
 
-    const card = cards.find(c => c.id === cardId);
-    const unique = card ? card.unique : false;
+      const card = cards.find((c) => c.id === cardId);
+      const unique = card ? card.unique : false;
 
-    if (unique && this.isCardTaken(cardId)) {
-      // Unique card is already taken by another pilot, block selection
-      return;
-    }
+      if (unique && this.isCardTaken(cardId)) {
+        return;
+      }
 
-    if (!pilot.selectedCards.includes(cardId)) {
-      pilot.selectedCards.push(cardId);
-    }
-  },
+      if (!pilot.selectedCards.includes(cardId)) {
+        pilot.selectedCards.push(cardId);
+      }
+    },
 
     unselectCard(cardId) {
       const pilot = this.currentPilot;
@@ -125,27 +123,20 @@ export const usePilotStore = defineStore("pilotStore", {
       );
 
       const shipSlots = shipEntry?.slots ?? [];
-
       const rankData = pilotClass.ranks.find((r) => r.rank === pilot.rank);
       const rankSlots = rankData?.slots ?? [];
       const optionalSlots = rankData?.optionalslots ?? [];
 
-      // Update slots array reactively
-      pilot.slots.splice(
-  0,
-  pilot.slots.length,
-  ...shipSlots,
-  ...rankSlots,
-  ...optionalSlots
-);
+      const allSlots = [...shipSlots, ...rankSlots, ...optionalSlots];
 
-const validSlotKeys = new Set(pilot.slots.map((slot, index) => `${slot}-${index}`));
-pilot.slotCards = Object.fromEntries(
-  Object.entries(pilot.slotCards).filter(([key]) => validSlotKeys.has(key))
-);
+      pilot.slots.splice(0, pilot.slots.length, ...allSlots);
+      const validSlotKeys = allSlots.map((slot, index) => `${slot}-${index}`);
 
-      // Do NOT reset slotCards here
-      // pilot.slotCards = {};  <=== remove this line
+      // pilot.slotCards = Object.fromEntries(
+      //   Object.entries(pilot.slotCards).filter(([slotKey]) =>
+      //     validSlotKeys.includes(slotKey)
+      //   )
+      // );
     },
 
     changeSelectedShip(shipName) {
@@ -155,12 +146,13 @@ pilot.slotCards = Object.fromEntries(
 
       pilot.selectedShip = shipName;
       this.updatePilotSlots();
+      pilot.slotCards = [];
     },
+
     changeSlotOption(slotKey, option) {
       const pilot = this.currentPilot;
       if (!pilot) return;
 
-      // Update slot option or whatever logic you need
       pilot.slotCards = {
         ...pilot.slotCards,
         [slotKey]: option,
@@ -177,10 +169,8 @@ pilot.slotCards = Object.fromEntries(
       const pilot = this.currentPilot;
       if (!pilot) return;
 
-      // Remove card from selectedCards if present
       pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
 
-      // Assign card to slot reactively
       pilot.slotCards = {
         ...pilot.slotCards,
         [slotKey]: cardId,

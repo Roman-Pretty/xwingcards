@@ -1,29 +1,20 @@
 <template>
-  <div
-    class="relative group transition-colors duration-200 rounded flex-1 bg-neutral-800 cursor-default"
-    :class="{ 'opacity-50 pointer-events-none': !unlocked }"
-    tabindex="0"
-    ref="slotRef"
-    @dragover.prevent="onDragOver"
-    @drop.prevent="onDrop"
-  >
+  <div class="relative group transition-colors duration-200 rounded flex-1 bg-neutral-800 cursor-default" :class="{
+    'opacity-50 pointer-events-none': !unlocked,
+    'bg-yellow-700 outline-2 outline-yellow-500 shadow-[0_0_8px_2px_rgba(204,153,0,0.5)]': props.card
+  }" tabindex="0" ref="slotRef" @dragover.prevent="onDragOver" @drop.prevent="onDrop">
     <!-- Remove button overlay -->
-    <div
-      v-if="props.card"
+    <div v-if="props.card"
       class="absolute inset-0 bg-red-700/80 cursor-pointer text-white text-center flex items-center justify-center text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded z-10"
-      @click.stop="clearCard"
-    >
+      @click.stop="clearCard">
       Unequip Card
     </div>
 
     <!-- Slot content -->
     <div class="flex flex-row items-center gap-2 p-3 rounded relative z-0 h-full">
       <div class="flex flex-row gap-1 items-center">
-        <span
-          v-for="option in props.options"
-          :key="option"
-          class="font-[xwing] text-5xl font-extralight opacity-60 -mt-3.5 select-none"
-        >
+        <span v-for="option in props.options" :key="option"
+          class="font-[xwing] text-5xl font-extralight opacity-60 -mt-3.5 select-none">
           {{ tokenToLetterMap[option.toLowerCase()] || '?' }}
         </span>
       </div>

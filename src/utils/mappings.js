@@ -24,10 +24,15 @@ export const tokenToLetterMap = {
   talent: 'E',
   configuration: 'n',
   turret: 'U',
-  bomb: 'B',
+  device: 'B',
   gunner: 'Y',
   any: ')',
-  force: 'F'
+  force: 'F',
+  sensor: 'S',
+  cannon: 'C',
+  crew: 'W',
+  illicit: 'I',
+  tech: 'X'
 }
 
 export const letterToTokenMap = Object.fromEntries(
