@@ -5,45 +5,45 @@ import cards from "../data/cards.json";
 export const usePilotStore = defineStore("pilotStore", {
   state: () => ({
     pilots: [
-      {
-        id: "1",
-        name: "Wedge",
-        rank: 3,
-        xp: 10,
-        class: "Ace",
-        selectedCards: [],
-        slotCards: {},
-        ownedCards: ["r2d2", "r5d8", "mynock"],
-        ships: ["Y-Wing", "X-Wing"],
-        selectedShip: "X-Wing",
-        slots: [],
-      },
-      {
-        id: "2",
-        name: "Soontir Fell",
-        rank: 2,
-        xp: 15,
-        class: "Defector",
-        selectedCards: [],
-        slotCards: {},
-        ownedCards: ["chopper", "r3astromech", "r5d8"],
-        ships: ["X-Wing"],
-        selectedShip: "X-Wing",
-        slots: [],
-      },
-      {
-        id: "3",
-        name: "Captain Rex",
-        rank: 2,
-        xp: 15,
-        class: "Veteran",
-        selectedCards: [],
-        slotCards: {},
-        ownedCards: ["r3astromech", "r5d8"],
-        ships: ["X-Wing"],
-        selectedShip: "X-Wing",
-        slots: [],
-      },
+      // {
+      //   id: "1",
+      //   name: "Wedge",
+      //   rank: 3,
+      //   xp: 10,
+      //   class: "Ace",
+      //   selectedCards: [],
+      //   slotCards: {},
+      //   ownedCards: ["r2d2", "r5d8", "mynock"],
+      //   ships: ["Y-Wing", "X-Wing"],
+      //   selectedShip: "X-Wing",
+      //   slots: [],
+      // },
+      // {
+      //   id: "2",
+      //   name: "Soontir Fell",
+      //   rank: 2,
+      //   xp: 15,
+      //   class: "Defector",
+      //   selectedCards: [],
+      //   slotCards: {},
+      //   ownedCards: ["chopper", "r3astromech", "r5d8"],
+      //   ships: ["X-Wing"],
+      //   selectedShip: "X-Wing",
+      //   slots: [],
+      // },
+      // {
+      //   id: "3",
+      //   name: "Captain Rex",
+      //   rank: 2,
+      //   xp: 15,
+      //   class: "Veteran",
+      //   selectedCards: [],
+      //   slotCards: {},
+      //   ownedCards: ["r3astromech", "r5d8"],
+      //   ships: ["X-Wing"],
+      //   selectedShip: "X-Wing",
+      //   slots: [],
+      // },
     ],
     currentPilotId: "1",
   }),
@@ -167,6 +167,15 @@ export const usePilotStore = defineStore("pilotStore", {
 
       const { [slotKey]: removed, ...rest } = pilot.slotCards;
       pilot.slotCards = rest;
+    },
+
+    addCardToDeck(cardId) {
+      const pilot = this.currentPilot;
+      if (!pilot) return;
+
+      if (!pilot.ownedCards.includes(cardId)) {
+        pilot.ownedCards.push(cardId);
+      }
     },
   },
 

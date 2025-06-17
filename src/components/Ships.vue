@@ -46,7 +46,7 @@
         </h3>
         <p class="mb-4">
           Are you sure you want to buy <strong>{{ pendingShip?.ship }}</strong> for
-          <span class="font-[xwing] text-lg">Ì</span>{{ pendingShip?.cost }} XP?
+          <span class="font-[xwing] text-lg">Ì</span>{{ pendingShip?.cost }}?
         </p>
         <div class="modal-action">
           <form method="dialog" class="flex gap-2">

@@ -1,14 +1,14 @@
-import cards from '../data/cards.json'
+import cards from '../data/cards.json';
 
 export function useCardFilter() {
   const sortByCost = (arr) =>
-    [...arr].sort((a, b) => (a.cost ?? 0) - (b.cost ?? 0))
+    [...arr].sort((a, b) => (a.cost ?? 0) - (b.cost ?? 0));
 
   const byType = (type) =>
-    sortByCost(cards.filter((c) => c.type.toLowerCase() === type.toLowerCase()))
+    sortByCost(cards.filter((c) => c.type.toLowerCase() === type.toLowerCase()));
 
   const byFaction = (faction) =>
-    sortByCost(cards.filter((c) => c.faction.toLowerCase() === faction.toLowerCase()))
+    sortByCost(cards.filter((c) => c.faction.toLowerCase() === faction.toLowerCase()));
 
   const byTypeAndFaction = (type, faction) =>
     sortByCost(
@@ -17,14 +17,25 @@ export function useCardFilter() {
           c.type.toLowerCase() === type.toLowerCase() &&
           c.faction.toLowerCase() === faction.toLowerCase()
       )
-    )
+    );
 
-  const all = () => sortByCost(cards)
+  const all = () => sortByCost(cards);
 
   const byAllowedFactions = (factions = []) =>
-    sortByCost(cards.filter((c) =>
-      factions.includes(c.faction.toLowerCase()) || c.faction.toLowerCase() === 'neutral'
-    ))
+    sortByCost(
+      cards.filter(
+        (c) =>
+          factions.includes(c.faction.toLowerCase()) ||
+          c.faction.toLowerCase() === 'neutral'
+      )
+    );
+
+  const bySlotType = (cards, selectedSlots = []) => {
+    if (!selectedSlots.length) return cards;
+    return cards.filter((card) =>
+      card.slots?.some((slot) => selectedSlots.includes(slot.toLowerCase()))
+    );
+  };
 
   return {
     all: all(),
@@ -32,6 +43,7 @@ export function useCardFilter() {
     byFaction,
     byTypeAndFaction,
     byAllowedFactions,
+    bySlotType,
     all,
-  }
+  };
 }

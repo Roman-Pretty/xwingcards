@@ -2,28 +2,15 @@
 <template>
   <div class="flex flex-row gap-4 flex-wrap mb-4 min-h-[20vh]">
     <!-- Fixed slots -->
-    <Slot
-      v-for="(slot, index) in fixedSlots"
-      :key="'fixed-' + index"
-      :slot-key="'fixed-' + index"
-      :options="[slot]"
-      :unlocked="true"
-      :card="currentPilot?.slotCards['fixed-' + index] || null"
-      @card-drop="handleCardDrop('fixed-' + index, $event)"
-      @slot-switch="handleSlotSwitch('fixed-' + index, $event)"
-    />
+    <Slot v-for="(slot, index) in fixedSlots" :key="'fixed-' + index" :slot-key="'fixed-' + index" :options="[slot]"
+      :unlocked="true" :card="currentPilot?.slotCards['fixed-' + index] || null"
+      @card-drop="handleCardDrop('fixed-' + index, $event)" @slot-switch="handleSlotSwitch('fixed-' + index, $event)" />
 
     <!-- Optional slots -->
-    <Slot
-      v-for="(opts, index) in optionalSlots"
-      :key="'optional-' + index"
-      :slot-key="'optional-' + index"
-      :options="opts"
-      :unlocked="true"
-      :card="currentPilot?.slotCards['optional-' + index] || null"
+    <Slot v-for="(opts, index) in optionalSlots" :key="'optional-' + index" :slot-key="'optional-' + index"
+      :options="opts" :unlocked="true" :card="currentPilot?.slotCards['optional-' + index] || null"
       @card-drop="handleCardDrop('optional-' + index, $event)"
-      @slot-switch="handleSlotSwitch('optional-' + index, $event)"
-    />
+      @slot-switch="handleSlotSwitch('optional-' + index, $event)" />
   </div>
 </template>
 
@@ -57,7 +44,15 @@ const rankSlots = computed(() => {
 
   unlockedRanks.forEach((r) => {
     if (r.slots) fixed.push(...r.slots);
-    if (r.optionalslots) optional.push(r.optionalslots);
+    if (r.optionalslots) {
+      // If rank.optionalslots is already an array of arrays (new format)
+      if (Array.isArray(r.optionalslots[0])) {
+        optional.push(...r.optionalslots);
+      } else {
+        // Backward compatible fallback: treat as single set
+        optional.push(r.optionalslots);
+      }
+    }
   });
 
   return {

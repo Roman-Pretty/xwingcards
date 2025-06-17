@@ -110,3 +110,7 @@
   border-color: var(--color-neutral) !important;
 }
 }
+
+html {
+  scrollbar-gutter: auto !important;
+}
