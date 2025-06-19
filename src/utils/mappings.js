@@ -1,4 +1,6 @@
 export const tokenToLetterMap = {
+  resistance: '!',
+  payload: 'B',
   astromech: 'A',
   modification: 'm',
   missile: 'M',
@@ -26,7 +28,6 @@ export const tokenToLetterMap = {
   talent: 'E',
   configuration: 'n',
   turret: 'U',
-  device: 'B',
   gunner: 'Y',
   any: ')',
   force: 'F',

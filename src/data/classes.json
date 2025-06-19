@@ -4,7 +4,7 @@
     "color": "#a8a8a8",
     "factions": [],
     "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/cavernangelszealot.jpg?raw=true",
-    "description": "The default HotAC Experience. Use this class if you want to play without any special cards or ships.",
+    "description": "The basic HotAC Experience. Use this class if you want to play without any special cards or ships.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "x", "m"], "cost": 5, "rank": 2 },
@@ -224,13 +224,14 @@
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "Belballub-22", "icon": "[", "slots": ["Z","m"], "lockedSlots": [{ "slot": "t", "xp": 11 }],"cost": 6, "rank": 3 },
-      { "ship": "HMP-Gunship", "icon": ".", "slots": ["M","M","C","C","Z","m","n"], "cost": 12, "rank": 4 }
+      { "ship": "Gunship", "icon": ".", "slots": ["M","M","C","C","Z","m","n"], "cost": 12, "rank": 4 },
+      { "ship": "Tri-Fighter", "icon": "+", "slots": ["S","M","m","m","n"], "cost": 12, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["."], "other": ["a"] },
       { "rank": 2, "xp": "9", "initiative": 2, "optionalslots": ["x","Z"], "ships": ["a", "h", "b"], "other": ["><a"] },
       { "rank": 3, "xp": "12", "initiative": 3, "optionalslots": ["m","X"], "other": ["j"], "ships": ["["] },
-      { "rank": 4, "xp": "15", "initiative": 4, "slots": ["x"], "ships": ["."], "faction": ["."], "other": [">a"] },
+      { "rank": 4, "xp": "15", "initiative": 4, "slots": ["x"], "ships": [".", "+"], "faction": ["."], "other": [">a"] },
       { "rank": 5, "xp": "18", "initiative": 5, "slots": ["m"], "optionalslots": ["S","X"], "other": ["><j"] },
       { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
     ]

@@ -16,7 +16,7 @@
       <div v-else-if="factionClass === 'firstorder'" class="faction-icon bg-firstorder"><span>+</span></div>
       <div v-else-if="factionClass === 'scum'" class="faction-icon bg-scum"><span>#</span></div>
       <div v-else-if="factionClass === 'republic'" class="faction-icon bg-republic"><span>/</span></div>
-      <div v-else-if="factionClass === 'separatists'" class="faction-icon bg-separatists"><span>.</span></div>
+      <div v-else-if="factionClass === 'separatist'" class="faction-icon bg-separatists"><span>.</span></div>
     </div>
 
     <!-- Cost badge -->

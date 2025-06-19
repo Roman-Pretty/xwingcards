@@ -266,18 +266,19 @@ const typeOptions = [
   { name: "Cannon" },
   { name: "Configuration" },
   { name: "Crew" },
-  { name: "Device" },
   { name: "Force" },
   { name: "Illicit" },
   { name: "Missile" },
   { name: "Modification" },
+  { name: "Payload" },
   { name: "Sensor" },
   { name: "Sensitive" },
   { name: "Talent" },
   { name: "Tech" },
   { name: "Title" },
   { name: "Torpedo" },
-];
+  { name: "Turret" }
+].sort((a, b) => a.name.localeCompare(b.name));
 
 // Watchers
 watch(
