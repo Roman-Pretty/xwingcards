@@ -107,6 +107,8 @@ export const usePilotStore = defineStore("pilotStore", {
       );
 
       const shipSlots = shipEntry?.slots ?? [];
+      const lockedSlots = shipEntry?.lockedSlots ?? [];
+
       const rankData = pilotClass.ranks.find((r) => r.rank === pilot.rank);
       const rankSlots = rankData?.slots ?? [];
       const optionalSlots = rankData?.optionalslots ?? [];
@@ -114,13 +116,10 @@ export const usePilotStore = defineStore("pilotStore", {
       const allSlots = [...shipSlots, ...rankSlots, ...optionalSlots];
 
       pilot.slots.splice(0, pilot.slots.length, ...allSlots);
-      const validSlotKeys = allSlots.map((slot, index) => `${slot}-${index}`);
 
-      // pilot.slotCards = Object.fromEntries(
-      //   Object.entries(pilot.slotCards).filter(([slotKey]) =>
-      //     validSlotKeys.includes(slotKey)
-      //   )
-      // );
+      if (!pilot.unlockedSlots) {
+        pilot.unlockedSlots = [];
+      }
     },
 
     changeSelectedShip(shipName) {

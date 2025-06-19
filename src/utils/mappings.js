@@ -22,7 +22,7 @@ export const tokenToLetterMap = {
   hit: 'd',
   focus: 'f',
   evade: 'e',
-  pilot: 'y',
+  pilot: 'x',
   talent: 'E',
   configuration: 'n',
   turret: 'U',

@@ -7,17 +7,17 @@
     "description": "The default HotAC Experience. Use this class if you want to play without any special cards or ships.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "x", "m"], "cost": 5, "rank": 2 },
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "cost": 5, "rank": 2 },
-      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "cost": 5, "rank": 2 }
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2 },
-      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["y", "E", "F"], "ships": ["a", "h", "b"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x", "E", "F"], "ships": ["a", "h", "b"] },
       { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"] },
-      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["y", "E", "F"] },
-      { "rank": 5, "xp": "18", "initiative": 6, "optionalslots": ["y", "E", "F"] }
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E", "F"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "optionalslots": ["x", "E", "F"] }
     ]
   },
   "Ace": {
@@ -30,18 +30,18 @@
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "cost": 5, "rank": 2 },
-      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "cost": 5, "rank": 2 },
-      { "ship": "NR2 Y-Wing", "icon": "{", "slots": ["y", "A", "U", "B", "m", "m"], "cost": 4, "rank": 3 },
-      { "ship": "RZ-2 A-Wing", "icon": "E", "slots": ["E", "M", "y"], "cost": 8, "rank": 4 },
-      { "ship": "T-70 X-Wing", "icon": "w", "slots": ["A", "y", "m", "n"], "cost": 12, "rank": 4 }
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "NR2 Y-Wing", "icon": "{", "slots": ["X", "A", "U", "B", "m", "m"], "lockedSlots": [{ "slot": "n", "xp": 4 }], "cost": 4, "rank": 3 },
+      { "ship": "RZ-2 A-Wing", "icon": "E", "slots": ["E", "M", "X"], "cost": 8, "rank": 4 },
+      { "ship": "T-70 X-Wing", "icon": "w", "slots": ["A", "X", "m", "n"],  "lockedSlots": [{ "slot": "t", "xp": 6 }], "optionalSlots": [["C","M","P"]], "cost": 12, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["!"] },
-      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["y", "E"], "ships": ["a", "h", "b"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
       { "rank": 3, "xp": "12", "initiative": 4, "ships": ["{"], "slots": ["m"] },
-      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["y", "E", "F"], "faction": ["!"], "ships": ["w", "E"] },
-      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m", "y"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E", "F"], "faction": ["!"], "ships": ["w", "E"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m", "x"] },
       { "rank": 6, "xp": "21", "initiative": 7, "slots": [")"] }
     ]
   },
@@ -55,17 +55,17 @@
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "cost": 5, "rank": 2 },
-      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "cost": 5, "rank": 2 },
+            { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "Tie Interceptor", "icon": "I", "slots": ["m","m","n"], "cost": 5, "rank": 3 },
       { "ship": "Tie Phantom", "icon": "P", "slots": ["S","Y","m"], "cost": 12, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["@"] },
-      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["y", "E"], "ships": ["a", "h", "b"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
       { "rank": 3, "xp": "12", "initiative": 4, "ships": ["I"], "slots": ["m"] },
-      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["y", "E", "F"], "faction": ["@"], "ships": ["P"] },
-      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m"], "optionalslots": ["E", "y"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E", "F"], "faction": ["@"], "ships": ["P"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m"], "optionalslots": ["x", "E"] },
       { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
     ]
   },
@@ -79,17 +79,17 @@
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "cost": 5, "rank": 2 },
-      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "cost": 5, "rank": 2 },
+            { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "BTL-B Y-Wing", "icon": ":", "slots": ["A","P","U","B","Y","m"], "cost": 2, "rank": 3 },
       { "ship": "ARC-170", "icon": "c", "slots": ["A","P","W","Y","m"], "cost": 12, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 3, "faction": ["/"] },
-      { "rank": 2, "xp": "9", "initiative": 4, "optionalslots": ["y", "E"], "ships": ["a", "h", "b"] },
+      { "rank": 2, "xp": "9", "initiative": 4, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
       { "rank": 3, "xp": "12", "initiative": 4, "ships": [":"], "slots": ["m"] },
-      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["y", "E"], "faction": ["/"], "ships": ["c"] },
-      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m"], "optionalslots": ["E", "y"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E"], "faction": ["/"], "ships": ["c"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m"], "optionalslots": ["x", "E"] },
       { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
     ]
   },
@@ -103,17 +103,17 @@
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "cost": 5, "rank": 2 },
-      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "cost": 5, "rank": 2 },
-      { "ship": "Kihraxz Fighter", "icon": "r", "slots": ["A","P","U","B","Y","m"], "cost": 2, "rank": 3 },
-      { "ship": "StarViper", "icon": "v", "slots": ["A","P","W","Y","m"], "cost": 12, "rank": 4 }
+            { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "Kihraxz Fighter", "icon": "r", "slots": ["M","I","I","m","m"], "cost": 2, "rank": 3 },
+      { "ship": "StarViper", "icon": "v", "slots": ["X","P","m"], "cost": 12, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["/"] },
-      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["y", "E"], "ships": ["a", "h", "b"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x", "E"], "ships": ["a", "h", "b"] },
       { "rank": 3, "xp": "12", "initiative": 4, "optionalslots": ["m","I"], "ships": ["r"] },
-      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["y", "E"], "faction": ["/"], "ships": ["v"] },
-      { "rank": 5, "xp": "18", "initiative": 6, "optionalslots": [["E", "y"], ["m","I"]] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E"], "faction": ["/"], "ships": ["v"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "optionalslots": [["x", "E"], ["m","I"]] },
       { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
     ]
   },
@@ -125,10 +125,10 @@
     "description": "A pilot who has trained in the ways of the Force, using their abilities to enhance their piloting.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "y", "m"], "cost": 5, "rank": 2 },
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
-      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "cost": 5, "rank": 2 },
-      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "cost": 5, "rank": 2 },
+            { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "Delta-7", "icon": "\\", "slots": ["E","A","m"], "cost": 7, "rank": 4 }
     ],
     "ranks": [
