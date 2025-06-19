@@ -97,7 +97,7 @@ const lockedSlots = computed(() => {
 });
 
 function handleLockedSlotClick(slot) {
-console.log("Clicked locked slot:", slot);
+  console.log("Clicked locked slot:", slot);
 
   if (slot.unlocked) return;
 

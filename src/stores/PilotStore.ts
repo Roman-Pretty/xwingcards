@@ -2,49 +2,24 @@ import { defineStore } from "pinia";
 import classData from "../data/classes.json";
 import cards from "../data/cards.json";
 
+export interface Pilot {
+  id: string;
+  name: string;
+  class: string;
+  rank: string;
+  ships: string[];
+  selectedShip: string;
+  slots: string[];
+  slotCards: Record<string, string>;
+  selectedCards: string[];
+  ownedCards: string[];
+  unlockedSlots?: string[];
+  usedFactionSlots?: Record<string, number>; // ✅ Moved into Pilot
+}
+
 export const usePilotStore = defineStore("pilotStore", {
   state: () => ({
-    pilots: [
-      // {
-      //   id: "1",
-      //   name: "Wedge",
-      //   rank: 3,
-      //   xp: 10,
-      //   class: "Ace",
-      //   selectedCards: [],
-      //   slotCards: {},
-      //   ownedCards: ["r2d2", "r5d8", "mynock"],
-      //   ships: ["Y-Wing", "X-Wing"],
-      //   selectedShip: "X-Wing",
-      //   slots: [],
-      // },
-      // {
-      //   id: "2",
-      //   name: "Soontir Fell",
-      //   rank: 2,
-      //   xp: 15,
-      //   class: "Defector",
-      //   selectedCards: [],
-      //   slotCards: {},
-      //   ownedCards: ["chopper", "r3astromech", "r5d8"],
-      //   ships: ["X-Wing"],
-      //   selectedShip: "X-Wing",
-      //   slots: [],
-      // },
-      // {
-      //   id: "3",
-      //   name: "Captain Rex",
-      //   rank: 2,
-      //   xp: 15,
-      //   class: "Veteran",
-      //   selectedCards: [],
-      //   slotCards: {},
-      //   ownedCards: ["r3astromech", "r5d8"],
-      //   ships: ["X-Wing"],
-      //   selectedShip: "X-Wing",
-      //   slots: [],
-      // },
-    ],
+    pilots: [] as Pilot[],
     currentPilotId: "1",
   }),
 
@@ -79,19 +54,61 @@ export const usePilotStore = defineStore("pilotStore", {
               Object.values(p.slotCards).includes(cardId)))
       );
     },
+
+    getMappedFactionSlots: (state) => (factionIcon) => {
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!pilot) return {};
+      const usedFactionSlots = pilot.usedFactionSlots || {};
+
+      const mappings = {
+        "@": "empire",
+        "h": "force",
+        "!": "resistance",
+        "+": "firstorder",
+        "#": "scum",
+        "/": "republic",
+        ".": "separatists"
+      };
+
+      return usedFactionSlots[mappings[factionIcon]] || 0;
+    },
   },
 
   actions: {
-    switchPilot(id) {
+    calculateUsedFactionSlots(pilot: Pilot) {
+      if (!pilot) return {};
+
+      const factionCount: Record<string, number> = {};
+
+      Object.values(pilot.slotCards).forEach((cardId) => {
+        const card = cards.find((c) => c.id === cardId);
+        const faction = card?.faction;
+        if (faction && faction.toLowerCase() !== "neutral") {
+          factionCount[faction] = (factionCount[faction] || 0) + 1;
+        }
+      });
+
+      return factionCount;
+    },
+
+    updateUsedFactionSlots() {
+      const pilot = this.currentPilot;
+      if (!pilot) return;
+      pilot.usedFactionSlots = this.calculateUsedFactionSlots(pilot);
+    },
+
+    switchPilot(id: string) {
       if (this.currentPilotId === id) return;
       this.currentPilotId = id;
       this.updatePilotSlots();
+      this.updateUsedFactionSlots();
     },
 
-    unselectCard(cardId) {
+    unselectCard(cardId: string) {
       const pilot = this.currentPilot;
       if (pilot) {
         pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
+        this.updateUsedFactionSlots();
       }
     },
 
@@ -120,19 +137,25 @@ export const usePilotStore = defineStore("pilotStore", {
       if (!pilot.unlockedSlots) {
         pilot.unlockedSlots = [];
       }
+
+      // Initialize usedFactionSlots if missing
+      if (!pilot.usedFactionSlots) {
+        pilot.usedFactionSlots = {};
+      }
     },
 
-    changeSelectedShip(shipName) {
+    changeSelectedShip(shipName: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
       if (!pilot.ships.includes(shipName)) return;
 
       pilot.selectedShip = shipName;
       this.updatePilotSlots();
-      pilot.slotCards = [];
+      pilot.slotCards = {};
+      this.updateUsedFactionSlots();
     },
 
-    changeSlotOption(slotKey, option) {
+    changeSlotOption(slotKey: string, option: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
 
@@ -140,6 +163,8 @@ export const usePilotStore = defineStore("pilotStore", {
         ...pilot.slotCards,
         [slotKey]: option,
       };
+
+      this.updateUsedFactionSlots();
     },
 
     resetSelectedCards() {
@@ -148,27 +173,30 @@ export const usePilotStore = defineStore("pilotStore", {
       pilot.selectedCards = [];
     },
 
-    assignCardToSlot(slotKey, cardId) {
+    assignCardToSlot(slotKey: string, cardId: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
 
       pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
-
       pilot.slotCards = {
         ...pilot.slotCards,
         [slotKey]: cardId,
       };
+
+      this.updateUsedFactionSlots();
     },
 
-    removeCardFromSlot(slotKey) {
+    removeCardFromSlot(slotKey: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
 
       const { [slotKey]: removed, ...rest } = pilot.slotCards;
       pilot.slotCards = rest;
+
+      this.updateUsedFactionSlots();
     },
 
-    addCardToDeck(cardId) {
+    addCardToDeck(cardId: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
 

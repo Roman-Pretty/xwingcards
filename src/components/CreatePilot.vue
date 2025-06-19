@@ -142,6 +142,7 @@ function createPilot() {
         ships: [startingShip.value],
         selectedShip: startingShip.value,
         slots: [],
+        usedFactionSlots: {},
     });
     name.value = "";
     pilotClass.value = "";

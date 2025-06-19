@@ -51,6 +51,7 @@
                   <span class="font-bold" :style="{ color: color }">The {{ store.currentPilot?.class }}</span>
                 </div>
                 <div class="text-xl flex flex-row items-center cursor-default text-yellow-300">
+                  <!-- XP icon + value -->
                   <span class="font-[xwing] text-3xl -mt-2">Ì</span>
                   <span class="font-bold">{{ store.currentPilot?.xp }}</span>
                 </div>
@@ -66,7 +67,17 @@
           <!-- Bottom Content -->
           <div class="flex flex-col w-full mt-auto">
             <div>
-              <h2 class="text-lg mb-4">Loadout</h2>
+              <div class="w-full flex flex-row items-center justify-between mb-4">
+                <h2 class="text-lg ">Loadout</h2>
+                <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color }"
+                    class="text-xl flex flex-row items-center gap-1 cursor-default ">
+                    <span class="font-[xwing] font-light text-2xl -mt-1.5">
+                      {{ symbol }}
+                    </span>
+<span class="font-bold">{{ getFactionSlots(symbol) }} / {{ count }}</span>
+
+                  </div>
+              </div>
               <Slots />
             </div>
             <div>
@@ -186,6 +197,27 @@ import CreatePilot from "./components/CreatePilot.vue";
 import { tokenToLetterMap } from "./utils/mappings";
 
 const store = usePilotStore();
+
+
+// compute how many of each faction‐symbol the pilot has unlocked by rank
+const unlockedFactionCounts = computed(() => {
+  const pilot = store.currentPilot;
+  if (!pilot) return {};
+  const classInfo = classData[pilot.class];
+  if (!classInfo) return {};
+
+  // all ranks up to current
+  const ranks = classInfo.ranks.filter(r => r.rank <= pilot.rank);
+  const counts = {};
+  for (const r of ranks) {
+    if (!r.faction) continue;
+    for (const sym of r.faction) {
+      counts[sym] = (counts[sym] || 0) + 1;
+    }
+  }
+  return counts;  // e.g. { "!": 2, "@": 1 }
+});
+
 const { byAllowedFactions } = useCardFilter();
 
 const selectedType = ref('all');
@@ -260,6 +292,9 @@ const icon = computed(() => {
 const color = computed(() => {
   return classData[store.currentPilot?.class]?.color || "amber";
 });
+
+const getFactionSlots = (symbol) => store.getMappedFactionSlots(symbol);
+
 
 function onDragStart(cardId, event) {
   if (activeTab.value !== "deck") {
@@ -340,4 +375,5 @@ function onPilotCreated(newPilot) {
   store.pilots.push(newPilot);
   store.currentPilotId = newPilot.id;
 }
+
 </script>
