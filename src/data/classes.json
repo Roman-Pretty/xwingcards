@@ -223,7 +223,7 @@
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
-      { "ship": "Bellbalub-22", "icon": "[", "slots": ["Z","m"], "lockedSlots": [{ "slot": "t", "xp": 11 }],"cost": 6, "rank": 3 },
+      { "ship": "Belballub-22", "icon": "[", "slots": ["Z","m"], "lockedSlots": [{ "slot": "t", "xp": 11 }],"cost": 6, "rank": 3 },
       { "ship": "HMP-Gunship", "icon": ".", "slots": ["M","M","C","C","Z","m","n"], "cost": 12, "rank": 4 }
     ],
     "ranks": [
@@ -232,6 +232,78 @@
       { "rank": 3, "xp": "12", "initiative": 3, "optionalslots": ["m","X"], "other": ["j"], "ships": ["["] },
       { "rank": 4, "xp": "15", "initiative": 4, "slots": ["x"], "ships": ["."], "faction": ["."], "other": [">a"] },
       { "rank": 5, "xp": "18", "initiative": 5, "slots": ["m"], "optionalslots": ["S","X"], "other": ["><j"] },
+      { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
+    ]
+  },
+  "Fringer": {
+    "icon": "x",
+    "color": "#009999",
+    "factions": ["scum", "republic", "separatist", "resistance", "empire"],
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/colossusstationmechanic.jpg?raw=true",
+    "description": "A highly versatile pilot with access to many factions and ships, allowing for a unique playstyle.",
+    "ships": [
+      { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "Quadrijet", "icon": "q", "slots": ["X","W","B","I","m"],"cost": 6, "rank": 3 },
+      { "ship": "Fireball", "icon": "0", "slots": ["M","A","I","m","m"], "lockedSlots": [{ "slot": "t", "xp": 1 }],  "cost": 9, "rank": 4 }
+    ],
+    "ranks": [
+      { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["#","!","@","/","."] },
+      { "rank": 2, "xp": "9", "initiative": 3, "ships": ["a", "h", "b"], "slots": ["E"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "optionalslots": ["m","I"], "ships": ["q"] },
+      { "rank": 4, "xp": "15", "initiative": 4, "optionalslots": ["E","x","F"], "ships": ["0"] },
+      { "rank": 5, "xp": "18", "initiative": 5, "slots": ["m"], "optionalslots": ["E","x"] },
+      { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
+    ]
+  },
+  "Scout": {
+    "icon": "k",
+    "color": "#3fbf7f",
+    "factions": [],
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/4lom.jpg?raw=true",
+    "description": "A pilot who excels at reconnaissance and gathering intelligence, often operating behind enemy lines.",
+    "ships": [
+      { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "Shuttle", "icon": "g", "slots": ["W","m","U"],"cost": 4, "rank": 3 },
+      { "ship": "G1-A", "icon": "n", "slots": ["S","W","W","I","m"], "lockedSlots": [{ "slot": "t", "xp": 5 }],  "cost": 13, "rank": 4 }
+    ],
+    "ranks": [
+      { "rank": 1, "xp": "FREE", "initiative": 2, "slots": ["S"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "ships": ["a", "h", "b"], "optionalslots": ["x", "E"], "other": ["<k"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"], "ships": ["g"] },
+      { "rank": 4, "xp": "15", "initiative": 4, "optionalslots": ["x", "E"], "ships": ["n"], "other": ["k"] },
+      { "rank": 5, "xp": "18", "initiative": 5, "slots": ["m", "E"], "other": ["><k"] },
+      { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
+    ]
+  },
+  "Zealot": {
+    "icon": "+",
+    "color": "#ff4e32",
+    "factions": ["firstorder"],
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/lokrevenant.jpg?raw=true",
+    "description": "A fervent believer in the Rebellion's cause, willing to sacrifice everything for their ideals.",
+    "ships": [
+      { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "Fang Fighter", "icon": "M", "slots": ["P","m","m"],"cost": 8, "rank": 3 },
+      { "ship": "Scurrg H-6", "icon": "H", "slots": ["U","W","Y","B","B","m"], "lockedSlots": [{ "slot": "t", "xp": 5 }],  "cost": 14, "rank": 4 }
+    ],
+    "ranks": [
+      { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["+"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "ships": ["a", "h", "b"], "optionalslots": ["x", "E"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"], "ships": ["M"] },
+      { "rank": 4, "xp": "15", "initiative": 4, "optionalslots": ["x", "E"], "ships": ["H"], "faction": ["+"] },
+      { "rank": 5, "xp": "18", "initiative": 5, "slots": ["m"], "optionalslots": ["x", "E"]},
       { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
     ]
   }

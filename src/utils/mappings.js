@@ -39,6 +39,7 @@ export const tokenToLetterMap = {
   medium: 'Â',
   large: 'Ã',
   sensitive: 'Î',
+  tactical: 'Z',
 }
 
 export const letterToTokenMap = Object.fromEntries(
