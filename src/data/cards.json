@@ -37,7 +37,7 @@
     "faction": "Neutral",
     "cost": 2,
     "unique": false,
-    "requires": "Small Ship",
+    "requires": "{small}",
     "description": "Decrease the diffculty of your speed 1-2 basic maneuvers ({sl}, {bl}, {s}, {br}, {sr}).",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/r4astromech.png"
   },
@@ -402,7 +402,7 @@
     "ranged": "2-3",
     "energy": 2,
     "recurringEnergy": 1,
-    "requires": "Two Cannon Slots"
+    "requires": "{cannon} {cannon}"
   },
   {
     "id": "syncedlasercannons",
@@ -416,7 +416,7 @@
     "damage": 3,
     "arc": "{",
     "ranged": "2-3",
-    "requires": "Two Cannon Slots"
+    "requires": "{cannon} {cannon}"
   },
   {
     "id": "composure",
@@ -436,7 +436,7 @@
     "faction": "Neutral",
     "cost": 1,
     "unique": false,
-    "requires": "Small or Medium Ship",
+    "requires": "{small} or {medium}",
     "description": "While you perform a primary attack, if the defender is in your {ab}, you may spend 1 {hit} result or change 1 {crit} result to a {hit} result. If you do, the defender exposes 1 of its damage cards.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/deadeyeshot.png"
   },
@@ -457,7 +457,7 @@
     "faction": "Neutral",
     "cost": 1,
     "unique": false,
-    "requires": "Small or Medium Ship",
+    "requires": "{small} or {medium}",
     "description": "After you fully execute a maneuver, if you moved through an obstacle, structure, or huge ship, or if you deployed, you may choose 1 enemy ship in your {af} at range 1-2. That ship gains 1 strain token.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/margsablclosure.png"
   },
@@ -477,7 +477,7 @@
     "type": "Talent",
     "faction": "Neutral",
     "cost": 2,
-    "requires": "{boost}, Small Ship",
+    "requires": "{boost}, {small}",
     "unique": false,
     "description": "While you perform a white {boost} action, you may treat it as red to use the [{Sl}] or [{Sr}] template instead.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/daredevil.png"
@@ -488,7 +488,7 @@
     "type": "Talent",
     "faction": "Neutral",
     "cost": 2,
-    "requires": "Small or Medium Ship",
+    "requires": "{small} or {medium}",
     "unique": false,
     "energy": 1,
     "description": "While you defend, you may spend 1{charge} to reroll 1 defense die. After you fully execute a red maneuver, recover 1{charge}.",

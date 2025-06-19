@@ -2,6 +2,12 @@
   <div @click="handleClick" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
     'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer max-h-[44vh] aspect-[2/3] rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative',
   ]">
+
+    <div
+      class="gloss absolute top-0 left-[-100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none transition-all duration-400 ease-in-out" />
+
+    <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30" />
+
     <!-- Faction icon -->
     <div class="corner absolute top-2 left-2 z-20 flex items-center justify-center">
       <div v-if="factionClass === 'empire'" class="faction-icon bg-empire"><span>@</span></div>
@@ -26,12 +32,19 @@
       <kbd class="kbd text-black kbd-sm bg-white">F</kbd> Flip
     </div>
 
-    <div
-      class="gloss absolute top-0 left-[-100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none transition-all duration-400 ease-in-out" />
+    <!-- Requires indicator -->
+    <div v-if="requires"
+      class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-white z-30 opacity-50 text-sm border-x-1 border-t-1 px-1 rounded-t">
+      <p class="text-sm text-neutral-content leading-snug" v-html="displayedRequires"></p>
+    </div>
 
-    <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30" />
 
     <figure class="relative rounded-t-lg overflow-hidden h-1/2">
+      <!-- Owned badge -->
+      <div v-if="owned"
+        class="absolute bg-neutral-900 bottom-0 left-0 transform text-white/80 z-20 text-sm w-full text-center">
+        Owned
+      </div>
       <img :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
     </figure>
 
@@ -45,7 +58,7 @@
         <span v-if="unique" class="font-[xwing] mr-1">u</span>{{ displayedName }}
       </h2>
       <div v-if="damage" class="text-md text-red-400 mb-1 flex flex-row items-center justify-center gap-1">
-        <span class="font-[xwing] -mt-1">{{arc}}</span>
+        <span class="font-[xwing] -mt-1">{{ arc }}</span>
         <span class="font-semibold">{{ damage }}</span>
         <span v-if="isMissile" class="font-[xwing] -mt-1">?</span>
         <span class="ml-3 font-semibold text-white/80">{{ ranged }}</span>
@@ -107,6 +120,11 @@ const props = defineProps({
   ranged: String,
   arc: String,
   isMissile: Boolean,
+  requires: String,
+  owned: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['card-click'])
@@ -139,6 +157,14 @@ const displayedImage = computed(() => flipped.value && props.flippable ? props.f
 
 const displayedDescription = computed(() => {
   const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || ''
+  return raw.replace(/\{([^}]+)\}/g, (_, token) => {
+    const letter = tokenToLetterMap[token.toLowerCase()] || '?'
+    return `<span class="font-[xwing]">${letter}</span>`
+  })
+})
+
+const displayedRequires = computed(() => {
+  const raw = props.requires || ''
   return raw.replace(/\{([^}]+)\}/g, (_, token) => {
     const letter = tokenToLetterMap[token.toLowerCase()] || '?'
     return `<span class="font-[xwing]">${letter}</span>`

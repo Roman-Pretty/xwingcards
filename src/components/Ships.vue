@@ -2,31 +2,34 @@
   <div>
     <!-- Ships list -->
     <div class="flex flex-row gap-4 flex-wrap mb-4 max-w-full overflow-x-clip">
-      <div
-        v-for="ship in ships"
-        :key="ship.ship"
+      <div v-for="ship in ships" :key="ship.ship"
         class="flex flex-col items-center gap-2 p-3 rounded flex-1 cursor-pointer transition-transform duration-300"
         :class="{
           'bg-yellow-700 border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)] hover:cursor-auto': getShipStatus(ship) === 'selected',
           'bg-yellow-800 hover:scale-105 cursor-pointer': getShipStatus(ship) === 'owned',
           'hover:bg-yellow-700 hover:scale-105 bg-neutral-800 cursor-pointer': getShipStatus(ship) === 'available',
           'bg-neutral-800 opacity-40 pointer-events-none cursor-default': getShipStatus(ship) === 'locked',
-        }"
-        @click="onShipClick(ship)"
-      >
+        }" @click="onShipClick(ship)">
         <span class="font-[ships] text-3xl">{{ ship.icon }}</span>
         <span class="text-sm -mt-2 border-b-2 w-full text-center pb-2 mb-1 border-b-white/20">
           {{ ship.ship }}
         </span>
 
         <div class="flex items-center justify-evenly w-full flex-wrap">
-          <span
-            v-for="slot in ship.slots"
-            :key="slot"
-            class="font-[xwing] text-md font-extralight -mt-1"
-          >
+          <span v-for="slot in ship.slots" :key="slot" class="font-[xwing] text-md font-extralight -mt-1">
             {{ slot }}
           </span>
+        </div>
+
+        <div v-if="ship.optionalSlots?.length" class="flex flex-col items-center">
+          <div v-for="(group, gIndex) in normalizeOptionalSlots(ship.optionalSlots)" :key="'group-' + gIndex"
+            class="flex items-center justify-center gap-1 flex-wrap">
+            <span v-for="(slot, index) in group" :key="slot + '-' + index"
+              class="font-[xwing] text-md font-extralight -mt-1">
+              <span class="inria-sans-light text-xs" v-if="index !== 0">/</span>
+              {{ slot }}
+            </span>
+          </div>
         </div>
 
         <div class="mt-auto text-sm text-white/80">
@@ -138,5 +141,13 @@ function closeModal() {
     document.body.style.overflow = ''
   }
   pendingShip.value = null
+}
+
+function normalizeOptionalSlots(optionals) {
+  if (!optionals) return [];
+  if (!Array.isArray(optionals[0])) {
+    return [optionals];
+  }
+  return optionals;
 }
 </script>

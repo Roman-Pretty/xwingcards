@@ -17,11 +17,11 @@
         <!-- Slots -->
         <span v-for="slot in rank.slots" :key="slot" class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
           <template v-if="slot.includes('<')">
-            {{ slot.split('<')[0] }} <sup class="text-xs -mt-2 line-through">{{ slot.split('<')[1] }}</sup>
+            {{ slot.split('<')[0] }} <sup class="text-xs -mt-2 -ml-2 line-through">{{ slot.split('<')[1] }}</sup>
           </template>
           <template v-else-if="slot.length > 1">
             {{ slot[0] }}
-            <sup class="text-xs -mt-2">{{ slot.slice(1) }}</sup>
+            <sup class="text-xs -mt-2 -ml-2">{{ slot.slice(1) }}</sup>
           </template>
           <template v-else>
             {{ slot }}
@@ -29,22 +29,42 @@
         </span>
 
         <!-- Optional Slots -->
-
         <div v-if="rank.optionalslots?.length" class="flex flex-col items-center gap-1">
           <div v-for="(group, gIndex) in normalizeOptionalSlots(rank.optionalslots)" :key="'group-' + gIndex"
             class="flex items-center justify-center gap-1 flex-wrap">
             <span v-for="(slot, index) in group" :key="slot + '-' + index"
               class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
               <span class="inria-sans-light text-xl" v-if="index !== 0">/ </span>
-              {{ slot }}
+              <template v-if="slot.includes('<')">
+                {{ slot.split('<')[0] }} <sup class="text-xs -mt-2 -ml-2 line-through">{{ slot.split('<')[1] }}</sup>
+              </template>
+              <template v-else-if="slot.length > 1">
+                {{ slot[0] }}
+                <sup class="text-xs -mt-2 -ml-2">{{ slot.slice(1) }}</sup>
+              </template>
+              <template v-else>
+                {{ slot }}
+              </template>
             </span>
           </div>
         </div>
 
+        <!-- Faction -->
         <div v-if="rank.faction?.length" class="flex items-center justify-center gap-2 flex-wrap">
           <span v-for="slot in rank.faction" :key="slot" class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
             {{ slot }}
           </span>
+        </div>
+
+        <div v-if="rank.other?.length" class="flex items-center justify-center gap-2 flex-wrap">
+          <template v-for="(other, index) in rank.other" :key="index">
+            <span :class="{
+              'text-red-400': index >= 1,
+              'font-[xwing] text-2xl font-extralight opacity-60 -mt-1': true
+            }">
+              {{ other }}
+            </span>
+          </template>
         </div>
 
         <div v-if="rank.ships?.length" class="flex items-center justify-center gap-2 flex-wrap">

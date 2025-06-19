@@ -50,11 +50,25 @@
                   <span class="font-[xwing] text-3xl -mt-2" :style="{ color: color }">{{ icon }}</span>
                   <span class="font-bold" :style="{ color: color }">The {{ store.currentPilot?.class }}</span>
                 </div>
+
+                <!-- XP icon + value -->
                 <div class="text-xl flex flex-row items-center cursor-default text-yellow-300">
-                  <!-- XP icon + value -->
                   <span class="font-[xwing] text-3xl -mt-2">Ì</span>
                   <span class="font-bold">{{ store.currentPilot?.xp }}</span>
                 </div>
+
+                <div v-if="store.currentPilot?.class === 'Force User' && forceCount < 1"
+                  class="text-xl flex flex-row items-center cursor-default text-force gap-1">
+                  <span class="font-[xwing] text-xl -mt-1">h</span>
+                  <span class="font-bold">1</span>
+                </div>
+
+                <!-- Force -->
+                <div v-if="forceCount > 0" class="text-xl flex flex-row items-center cursor-default text-force gap-1">
+                  <span class="font-[xwing] text-xl -mt-1">h`</span>
+                  <span class="font-bold">{{ forceCount }}</span>
+                </div>
+
               </div>
               <div class="flex flex-row-reverse gap-2 items-center">
                 <button class="btn" @click="openModal">Add XP</button>
@@ -70,13 +84,13 @@
               <div class="w-full flex flex-row items-center justify-between mb-4">
                 <h2 class="text-lg ">Loadout</h2>
                 <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color }"
-                    class="text-xl flex flex-row items-center gap-1 cursor-default ">
-                    <span class="font-[xwing] font-light text-2xl -mt-1.5">
-                      {{ symbol }}
-                    </span>
-<span class="font-bold">{{ getFactionSlots(symbol) }} / {{ count }}</span>
+                  class="text-xl flex flex-row items-center gap-1 cursor-default ">
+                  <span class="font-[xwing] font-light text-2xl -mt-1.5">
+                    {{ symbol }}
+                  </span>
+                  <span class="font-bold">{{ getFactionSlots(symbol) }} / {{ count }}</span>
 
-                  </div>
+                </div>
               </div>
               <Slots />
             </div>
@@ -159,13 +173,16 @@
         <!-- Scrollable Cards List -->
         <section class="flex-1 overflow-y-auto p-4 flex flex-row flex-wrap gap-6 justify-center pb-16 pt-8 min-h-0">
           <Card v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
-            :showXP="activeTab === 'store'" :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)"
-            @dragstart="onDragStart(card.id, $event)" @click="select(card)" :class="{
+            :showXP="activeTab === 'store'" :owned="activeTab === 'store' && store.isCardOwnedByCurrentPilot(card.id)"
+            :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" @dragstart="onDragStart(card.id, $event)"
+            @click="select(card)" :class="{
+              'pointer-events-none opacity-50': store.isCardOwnedByCurrentPilot(card.id) && activeTab === 'store',
               'opacity-50 cursor-not-allowed': activeTab === 'deck' && store.isCardTaken(card.id),
               'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out':
                 activeTab === 'deck' && !store.isCardTaken(card.id),
               'cursor-default': activeTab !== 'deck',
             }" />
+
           <div v-if="cardsToShow.length === 0 && activeTab === 'hand'"
             class="text-white text-center text-lg opacity-70 font-medium flex items-center justify-center w-2/3">
             You have no equipped cards. You can equip cards from your deck or purchase new ones from the
@@ -215,7 +232,7 @@ const unlockedFactionCounts = computed(() => {
       counts[sym] = (counts[sym] || 0) + 1;
     }
   }
-  return counts;  // e.g. { "!": 2, "@": 1 }
+  return counts;
 });
 
 const { byAllowedFactions } = useCardFilter();
@@ -224,6 +241,9 @@ const selectedType = ref('all');
 
 const typeOptions = [
   { name: "Talent" },
+  { name: "Configuration" },
+  { name: "Title" },
+  { name: "Illicit" },
   { name: "Astromech" },
   { name: "Crew" },
   { name: "Device" },
@@ -235,6 +255,9 @@ const typeOptions = [
   { name: "Sensor" },
   { name: "Tech" },
   { name: "Configuration" },
+  { name: "Force" },
+  { name: "Ace" },
+  { name: "Sensitive" },
 ];
 
 const activeTab = ref("hand");
@@ -375,5 +398,15 @@ function onPilotCreated(newPilot) {
   store.pilots.push(newPilot);
   store.currentPilotId = newPilot.id;
 }
+
+const forceCount = computed(() => {
+  const pilot = store.currentPilot;
+  if (!pilot || !pilot.slotCards) return 0;
+
+  return Object.values(pilot.slotCards)
+    .map(cardId => store.ownedCards.find(c => c.id === cardId))
+    .filter(card => card?.type?.toLowerCase() === 'force' || card?.type?.toLowerCase() === 'sensitive')
+    .length;
+});
 
 </script>
