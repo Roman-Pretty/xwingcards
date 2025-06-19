@@ -10,19 +10,20 @@
                 <input v-model="name" id="name" type="text" required placeholder="Enter pilot name"
                     class="input input-bordered w-full" />
             </div>
+
+            <!-- Pilot Class Selection -->
             <div class="flex-col flex gap-6">
                 <div v-for="(info, key) in classes" :key="key"
                     class="relative flex-1 flex rounded-lg bg-cover bg-center shadow-lg cursor-pointer transition-transform hover:scale-[1.01]"
                     :style="{
                         backgroundImage: `url(${info.image || '/fallback-image.png'})`,
-                        border: pilotClass === key ? `3px solid ${info.color}` : '2px solid transparent',
                         boxShadow: pilotClass === key ? `0 0 8px 2px ${info.color}80` : 'none'
                     }" @click="pilotClass = key">
                     <div v-if="pilotClass === key" :style="{
                         backgroundColor: info.color + '80'
                     }" class="absolute inset-0 rounded-lg pointer-events-none"></div>
 
-                    <div class="relative flex w-full ">
+                    <div class="relative flex w-full">
                         <!-- Left section: Icon & Info -->
                         <div class="bg-black/70 p-4 flex flex-col justify-center min-w-[200px] z-10 rounded-l-lg w-1/3">
                             <div class="flex items-center gap-3 mb-2">
@@ -33,7 +34,7 @@
                             <p class="text-sm opacity-80">{{ info.description || 'No description available.' }}</p>
                         </div>
 
-                        <div class="flex items-center gap-3 px-4 overflow-x-auto bg-black/50 grow z-10 rounded-r-lg">
+                        <div class="flex items-center gap-3 px-4 overflow-x-auto bg-black/20 grow z-10 rounded-r-lg">
                             <div v-for="ship in info.ships.filter(s => s.rank >= 3)" :key="ship.ship"
                                 class="p-2 rounded bg-neutral-800/80 text-center min-w-[120px]">
                                 <div class="font-[ships] text-xl mb-1">{{ ship.icon }}</div>
@@ -74,7 +75,7 @@
                             
                         </div>
                         <!-- Starting XP -->
-                            <span class="text-sm text-yellow-300 font-semibold"><span class="font-[xwing] text-xl font-light">Ì</span>{{ ship.xp }}</span>
+                            <span class="text-sm text-yellow-300 font-semibold">Start with<span class="font-[xwing] text-xl font-light">Ì</span>{{ ship.xp }}</span>
                     </div>
                 </div>
             </div>

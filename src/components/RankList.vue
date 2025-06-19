@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-row gap-4 flex-wrap max-w-full">
       <div v-for="rank in ranks" :key="rank.rank"
-        class="flex flex-col items-center gap-2 bg-neutral-800 p-3 rounded flex-1 transition-transform duration-300"
+        class="flex flex-col items-center gap-2 bg-neutral-800 p-3 rounded flex-1 transition-transform duration-300 group"
         :class="{
           'bg-yellow-700 hover:cursor-default border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)]': getRankStatus(pilotRank, rank.rank) === 'current',
           'bg-yellow-800 hover:cursor-default': getRankStatus(pilotRank, rank.rank) === 'unlocked',
@@ -56,13 +56,21 @@
           </span>
         </div>
 
+        <!-- Other -->
         <div v-if="rank.other?.length" class="flex items-center justify-center gap-2 flex-wrap">
           <template v-for="(other, index) in rank.other" :key="index">
-            <span :class="{
-              'text-red-400': index >= 1,
-              'font-[xwing] text-2xl font-extralight opacity-60 -mt-1': true
-            }">
-              {{ other }}
+            <span class="font-[xwing] text-2xl font-extralight opacity-60 -mt-1">
+              <template v-if="other.includes('<')">
+                {{ other.split('<')[0] }}<span :class="{
+                  'text-red-800 ': getRankStatus(pilotRank, rank.rank) === 'current',
+                  'text-red-800': getRankStatus(pilotRank, rank.rank) === 'unlocked',
+                  'text-red-400 group group-hover:text-red-300': getRankStatus(pilotRank, rank.rank) === 'next',
+                  'text-red-400': getRankStatus(pilotRank, rank.rank) === 'locked',
+                }">{{ other.split('<')[1] }}</span>
+              </template>
+              <template v-else>
+                {{ other }}
+              </template>
             </span>
           </template>
         </div>

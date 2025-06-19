@@ -3,7 +3,7 @@
     "icon": "!",
     "color": "#a8a8a8",
     "factions": [],
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/cavernangelszealot.png",
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/cavernangelszealot.jpg?raw=true",
     "description": "The default HotAC Experience. Use this class if you want to play without any special cards or ships.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -24,7 +24,7 @@
     "icon": "!",
     "color": "#ff9900",
     "factions": ["resistance"],
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/poedameron.png",
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/karekun.jpg?raw=true",
     "description": "A skilled pilot who has proven themselves in combat, earning the respect of their peers and superiors.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -49,7 +49,7 @@
     "icon": "@",
     "color": "#609bca",
     "factions": ["empire"],
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/soontirfel.png",
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/whisper.jpg?raw=true",
     "description": "A former member of the Empire who has defected to the Rebellion, bringing valuable knowledge and skills.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -71,9 +71,9 @@
   },
   "Veteran": {
     "icon": "/",
-    "color": "#ef4444",
+    "color": "#ff6048",
     "factions": ["republic"],
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/garvendreis.png",
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/squadsevenveteran.jpg?raw=true",
     "description": "A seasoned pilot with extensive combat experience, known for their tactical acumen and skill.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -97,7 +97,7 @@
     "icon": "#",
     "color": "#259c23",
     "factions": ["scum"],
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/blacksunassassin.png",
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/blacksunassassin.jpg?raw=true",
     "description": "A rogue pilot who operates outside the law, often taking on dangerous missions for profit.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -121,7 +121,7 @@
     "icon": "h",
     "color": "#f9a8d4",
     "factions": [],
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/obiwankenobi.png",
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/plokoon.jpg?raw=true",
     "description": "A pilot who has trained in the ways of the Force, using their abilities to enhance their piloting.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -132,7 +132,7 @@
       { "ship": "Delta-7", "icon": "\\", "slots": ["E","A","m"], "lockedSlots": [{ "slot": "n", "xp": 3 }, { "slot": "n", "xp": 7 }], "cost": 7, "rank": 4 }
     ],
     "ranks": [
-      { "rank": 1, "xp": "FREE", "initiative": 2, "other": "h" },
+      { "rank": 1, "xp": "FREE", "initiative": 2, "other": ["h"] },
       { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x", "Î", "F"], "ships": ["a", "h", "b"] },
       { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"] },
       { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["x", "E", "Î", "F"], "ships": ["\\"] },
@@ -144,7 +144,7 @@
     "icon": "o",
     "color": "#cc9900",
     "factions": [],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/cassianandor.jpg?raw=true",
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/bluesquadronscout.jpg?raw=true",
     "description": "A leader who commands a squadron, providing tactical support and coordination during missions.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -156,12 +156,83 @@
       { "ship": "U-Wing", "icon": "u", "slots": ["S","W","W","m","n"], "cost": 12, "rank": 4 }
     ],
     "ranks": [
-      { "rank": 1, "xp": "FREE", "initiative": 2, "other": "o" },
+      { "rank": 1, "xp": "FREE", "initiative": 2, "other": ["o"] },
       { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["E", "W"], "ships": ["a", "h", "b"] },
-      { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"], "other": ">o" },
+      { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"], "other": ["><o"] },
       { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["E", "W"], "ships": [">"] },
       { "rank": 5, "xp": "18", "initiative": 6, "optionalslots": ["E", "x", "W"], "slots": ["m"], "ships": ["u"] },
       { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
+    ]
+  },
+  "Technician": {
+    "icon": "H",
+    "color": "#be9f80",
+    "factions": [],
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/corranhorn.jpg?raw=true",
+    "description": "A skilled mechanic and engineer who specializes in experimental starships.",
+    "ships": [
+      { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "E-Wing", "icon": "e", "slots": ["X","S","P","A","m"], "cost": 15, "rank": 4 }
+    ],
+    "ranks": [
+      { "rank": 1, "xp": "FREE", "initiative": 2, "slots": ["m"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x","E"], "ships": ["a", "h", "b"], "other": ["a"] },
+      { "rank": 3, "xp": "12", "initiative": 3, "optionalslots": ["m","X"], "other": ["><a"] },
+      { "rank": 4, "xp": "15", "initiative": 4, "slots": ["I"], "ships": ["e"], "other": ["j"] },
+      { "rank": 5, "xp": "18", "initiative": 5, "slots": ["S"], "optionalslots": ["x", "E"], "other": [">a"] },
+      { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
+    ]
+  },
+  "Hunter": {
+    "icon": "z",
+    "color": "#bac1c7",
+    "factions": ["scum"],
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/bobafett.jpg?raw=true",
+    "description": "A pilot who specializes in hunting down and eliminating high-value targets.",
+    "ships": [
+      { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "Rogue", "icon": "6", "slots": ["C","C","I","m"], "cost": 8, "rank": 3 },
+      { "ship": "Firespray", "icon": "f", "slots": ["C","M","B","I","m"], "cost": 20, "rank": 4 }
+    ],
+    "ranks": [
+      { "rank": 1, "xp": "FREE", "initiative": 2, "slots": ["E"] },
+      { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x","E"], "ships": ["a", "h", "b"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "optionalslots": ["m","I"], "other": ["><r"], "ships": ["6"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "slots": ["Y"], "ships": ["f"], "faction": ["#"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "slots": ["m"], "optionalslots": ["x","E"] },
+      { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
+    ]
+  },
+  "Droid": {
+    "icon": "a",
+    "color": "#72b8f0",
+    "factions": ["separatist"],
+    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/geonosianprototype.jpg?raw=true",
+    "description": "Replaces focus with calculate, and has access to a unique set of upgrades.",
+    "ships": [
+      { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "Y-Wing", "icon": "y", "slots": ["A", "P", "U", "B", "Y", "m"], "cost": 5, "rank": 2 },
+      { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
+      { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
+      { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "Bellbalub-22", "icon": "[", "slots": ["Z","m"], "lockedSlots": [{ "slot": "t", "xp": 11 }],"cost": 6, "rank": 3 },
+      { "ship": "HMP-Gunship", "icon": ".", "slots": ["M","M","C","C","Z","m","n"], "cost": 12, "rank": 4 }
+    ],
+    "ranks": [
+      { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["."], "other": ["a"] },
+      { "rank": 2, "xp": "9", "initiative": 2, "optionalslots": ["x","Z"], "ships": ["a", "h", "b"], "other": ["><a"] },
+      { "rank": 3, "xp": "12", "initiative": 3, "optionalslots": ["m","X"], "other": ["j"], "ships": ["["] },
+      { "rank": 4, "xp": "15", "initiative": 4, "slots": ["x"], "ships": ["."], "faction": ["."], "other": [">a"] },
+      { "rank": 5, "xp": "18", "initiative": 5, "slots": ["m"], "optionalslots": ["S","X"], "other": ["><j"] },
+      { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
     ]
   }
 }

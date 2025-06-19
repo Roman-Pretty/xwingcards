@@ -402,7 +402,8 @@
     "ranged": "2-3",
     "energy": 2,
     "recurringEnergy": 1,
-    "requires": "{cannon} {cannon}"
+    "requires": "{cannon} {cannon}",
+    "double": true
   },
   {
     "id": "syncedlasercannons",
@@ -416,7 +417,8 @@
     "damage": 3,
     "arc": "{",
     "ranged": "2-3",
-    "requires": "{cannon} {cannon}"
+    "requires": "{cannon} {cannon}",
+    "double": true
   },
   {
     "id": "composure",
