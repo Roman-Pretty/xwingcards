@@ -63,7 +63,7 @@
         <span v-if="isMissile" class="font-[xwing] -mt-1">?</span>
         <span class="ml-3 font-semibold text-white/80">{{ ranged }}</span>
       </div>
-      <p class="text-sm text-neutral-content leading-snug" v-html="displayedDescription"></p>
+      <p class="text-sm text-neutral-content leading-snug" v-html="formatDescription(displayedDescription)"></p>
     </div>
 
     <!-- Energy/Force Display -->
@@ -125,7 +125,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-})
+});
 
 const emit = defineEmits(['card-click'])
 
@@ -139,6 +139,21 @@ function handleKeyDown(e) {
   if (e.key.toLowerCase() === 'f' && isHovered.value && props.flippable) {
     flipped.value = !flipped.value
   }
+}
+
+function formatDescription(text) {
+  let result = '';
+  let i = 0;
+  while (i < text.length) {
+    if (text[i] === '!' && i + 1 < text.length) {
+      result += `<span class="text-red-400">${text[i + 1]}</span>`;
+      i += 2;
+    } else {
+      result += text[i];
+      i += 1;
+    }
+  }
+  return result;
 }
 
 const factionClass = computed(() => (props.faction || '').toLowerCase() || 'neutral')
