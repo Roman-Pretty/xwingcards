@@ -353,7 +353,7 @@ function confirmAddXP() {
 // Card selection
 function select(card) {
   if (activeTab.value === "store") {
-    if (store.isCardTaken(card.id)) {
+    if (store.isCardOwnedByCurrentPilot(card.id)) {
       alert("You already own this card.");
       return;
     }

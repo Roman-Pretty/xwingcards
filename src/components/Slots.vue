@@ -16,7 +16,7 @@
   </dialog>
   <div class="flex flex-row gap-4 flex-wrap mb-4 min-h-[20vh]">
     <!-- Fixed slots -->
-    <Slot v-for="slot in fixedSlots" :key="slot.key" :slot-key="slot.key" :options="[slot.token]"
+    <Slot v-for="slot in allFixedSlots" :key="slot.key" :slot-key="slot.key" :options="[slot.token]"
       :unlocked="slot.unlocked" :xpCost="slot.xpCost" :isLocked="slot.isLocked"
       :card="currentPilot?.slotCards[slot.key] || null" @card-drop="handleCardDrop(slot.key, $event)"
       @slot-switch="handleSlotSwitch(slot.key, $event)" @purchase-slot="openPurchaseModal(slot.key, slot.xpCost)" />
@@ -36,6 +36,7 @@ import { usePilotStore } from "../stores/pilotStore";
 import Slot from "./Slot.vue";
 import { letterToTokenMap } from "../utils/mappings";
 import classData from "../data/classes.json";
+import cards from "../data/cards.json";
 
 const store = usePilotStore();
 
@@ -83,37 +84,6 @@ function closePurchaseModal() {
 
 const currentPilot = computed(() => store.currentPilot);
 
-const lockedSlots = computed(() => {
-  const ship = currentPilot.value?.selectedShip;
-  const shipData = pilotClassData.value.ships?.find((s) => s.ship === ship);
-  if (!shipData?.lockedSlots) return [];
-
-  return shipData.lockedSlots.map((entry, index) => ({
-    type: letterToTokenMap[entry.slot] ?? entry.slot,
-    xp: entry.xp,
-    unlocked: currentPilot.value?.lockedSlotUnlocks?.includes(index),
-    index,
-  }));
-});
-
-function handleLockedSlotClick(slot) {
-  console.log("Clicked locked slot:", slot);
-
-  if (slot.unlocked) return;
-
-  const confirmed = confirm(`Unlock this slot for ${slot.xp} XP?`);
-  if (!confirmed) return;
-
-  const pilot = store.currentPilot;
-  if (!pilot || pilot.xp < slot.xp) {
-    alert("Not enough XP!");
-    return;
-  }
-
-  pilot.xp -= slot.xp;
-  pilot.lockedSlotUnlocks.push(slot.index);
-}
-
 const pilotClassData = computed(() => {
   return classData?.[currentPilot.value?.class] ?? {};
 });
@@ -147,7 +117,6 @@ const rankSlots = computed(() => {
     optional,
   };
 });
-
 
 // Combine ship slots + rank fixed slots
 const fixedSlots = computed(() => {
@@ -228,4 +197,30 @@ function handleSlotSwitch(slotKey, newOption) {
   // Update the current pilot’s slot type selection in the store
   store.changeSlotOption(slotKey, newOption);
 }
+
+const freeSlots = computed(() => {
+  const pilot = currentPilot.value;
+  if (!pilot) return [];
+
+  const result = [];
+
+  Object.entries(pilot.slotCards).forEach(([slotKey, cardId]) => {
+    const card = cards.find((c) => c.id === cardId);
+    if (card?.freeSlots?.length) {
+      card.freeSlots.forEach((slot, index) => {
+        result.push({
+          token: capitalize(letterToTokenMap[slot] ?? slot),
+          unlocked: true,
+          key: `free-${cardId}-${index}`,
+        });
+      });
+    }
+  });
+
+  return result;
+});
+
+const allFixedSlots = computed(() => {
+  return [...fixedSlots.value, ...freeSlots.value];
+});
 </script>

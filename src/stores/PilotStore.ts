@@ -177,24 +177,60 @@ export const usePilotStore = defineStore("pilotStore", {
       const pilot = this.currentPilot;
       if (!pilot) return;
 
+      if (!cardId || cardId.trim() === '') {
+        this.removeCardFromSlot(slotKey);
+        return;
+      }
+
+      // Unselect the card from deck
       pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
+
+      // Assign to slot
       pilot.slotCards = {
         ...pilot.slotCards,
         [slotKey]: cardId,
       };
 
+      const card = cards.find((c) => c.id === cardId);
+      if (card?.freeSlots?.length) {
+        // Add free slots to pilot
+        card.freeSlots.forEach((slot, index) => {
+          const key = `free-${cardId}-${index}`;
+          pilot.slots.push(key); // Logical representation
+          // Ensure no preexisting assignment
+          if (!pilot.slotCards[key]) {
+            pilot.slotCards[key] = null;
+          }
+        });
+      }
+
       this.updateUsedFactionSlots();
     },
+
 
     removeCardFromSlot(slotKey: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
 
+      const cardId = pilot.slotCards[slotKey];
+      const card = cards.find((c) => c.id === cardId);
+
+      // Remove card from slot
       const { [slotKey]: removed, ...rest } = pilot.slotCards;
       pilot.slotCards = rest;
 
+      // Remove free slots and unequip their cards
+      if (card?.freeSlots?.length) {
+        card.freeSlots.forEach((slot, index) => {
+          const freeKey = `free-${cardId}-${index}`;
+          delete pilot.slotCards[freeKey];
+          pilot.slots = pilot.slots.filter((s) => s !== freeKey);
+        });
+      }
+
       this.updateUsedFactionSlots();
     },
+
 
     addCardToDeck(cardId: string) {
       const pilot = this.currentPilot;

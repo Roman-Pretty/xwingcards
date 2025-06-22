@@ -200,8 +200,8 @@
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "Rogue", "icon": "6", "slots": ["C","C","I","m"], "cost": 8, "rank": 3 },
-      { "ship": "ST-70", "icon": "7", "slots": ["W","Y","I","I","m"], "cost": 14, "rank": 4 },
-      { "ship": "Firespray", "icon": "f", "slots": ["C","M","B","I","m"], "cost": 14, "rank": 5 }
+      { "ship": "ST-70", "icon": "7", "slots": ["W","Y","I","I","m"], "lockedSlots": [{ "slot": "t", "xp": 12 }],  "cost": 14, "rank": 4 },
+      { "ship": "Firespray", "icon": "f", "slots": ["C","M","B","I","m"], "lockedSlots": [{ "slot": "t", "xp": 14 }], "cost": 16, "rank": 5 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "slots": ["E"] },

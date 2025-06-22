@@ -63,7 +63,7 @@
         <span v-if="isMissile" class="font-[xwing] -mt-1">?</span>
         <span class="ml-3 font-semibold text-white/80">{{ ranged }}</span>
       </div>
-      <p class="text-sm text-neutral-content leading-snug" v-html="formatDescription(displayedDescription)"></p>
+      <p class="text-sm text-neutral-content leading-snug" v-html="displayedDescription"></p>
     </div>
 
     <!-- Energy/Force Display -->
@@ -141,42 +141,47 @@ function handleKeyDown(e) {
   }
 }
 
-function formatDescription(text) {
-  let result = '';
-  let i = 0;
-  while (i < text.length) {
-    if (text[i] === '!' && i + 1 < text.length) {
-      result += `<span class="text-red-400">${text[i + 1]}</span>`;
-      i += 2;
-    } else {
-      result += text[i];
-      i += 1;
-    }
-  }
-  return result;
-}
+
 
 const factionClass = computed(() => (props.faction || '').toLowerCase() || 'neutral')
 const typeLetter = computed(() => tokenToLetterMap[(props.type || '').toLowerCase()] || '?')
 const energyLetter = 'g'
 const forceLetter = 'h'
-const recurringSymbols = ['', '`', '_', '']
+const recurringSymbols = ['', '`', '_', '', '']
 
 const recurringSymbol = (count) => {
-  const val = Number(count) || 0
-  return recurringSymbols[Math.min(val, 3)]
+  const val = Number(count)
+  if (val === -1) {
+    return recurringSymbols[4]
+  }
+  return recurringSymbols[Math.min(Math.max(val, 0), 3)]
 }
+
 
 const displayedName = computed(() => flipped.value && props.flippable ? props.flippedName || props.name : props.name)
 const displayedImage = computed(() => flipped.value && props.flippable ? props.flippedImage || props.image : props.image)
-
 const displayedDescription = computed(() => {
-  const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || ''
-  return raw.replace(/\{([^}]+)\}/g, (_, token) => {
-    const letter = tokenToLetterMap[token.toLowerCase()] || '?'
-    return `<span class="font-[xwing]">${letter}</span>`
-  })
-})
+  const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || '';
+
+  // First, replace tokens, handling ! prefix for red color
+  let replaced = raw.replace(/(!)?\{([^}]+)\}/g, (_, exclamation, token) => {
+    const letter = tokenToLetterMap[token.toLowerCase()] || '?';
+    const span = `<span class="font-[xwing]">${letter}</span>`;
+
+    if (exclamation) {
+      return `<span class="text-red-400">${span}</span>`;
+    }
+    return span;
+  });
+
+  // Then, bold full words directly before a colon (including the colon)
+  // \b(\w+):  matches a whole word before colon, capturing the word + colon
+  replaced = replaced.replace(/\b(\w+):/g, '<span class="font-semibold">$1:</span>');
+
+  return replaced;
+});
+
+
 
 const displayedRequires = computed(() => {
   const raw = props.requires || ''

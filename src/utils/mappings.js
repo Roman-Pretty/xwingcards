@@ -18,14 +18,22 @@ export const tokenToLetterMap = {
   sr: '6',
   af: '{',
   ab: '}',
+  ar: '|',
+  al: '£',
+  ar: '¢',
+  afr: '¡',
+  dodge: '^',
+  shield: '*',
   barrel: 'r',
   boost: 'b',
   crit: 'c',
   hit: 'd',
   focus: 'f',
   evade: 'e',
+  cloak: 'k',
   ace: 'x',
   talent: 'E',
+  ranged: '?',
   configuration: 'n',
   turret: 'U',
   gunner: 'Y',
@@ -41,6 +49,10 @@ export const tokenToLetterMap = {
   large: 'Ã',
   sensitive: 'Î',
   tactical: 'Z',
+  to: '>',
+  slam: 's',
+  stop: '5',
+  at: 'p'
 }
 
 export const letterToTokenMap = Object.fromEntries(
