@@ -21,9 +21,9 @@
 
     <!-- Cost badge -->
     <div v-if="showXP"
-      class="absolute top-2 right-2 pr-2 pl-1 pb-1 text-xs font-semibold rounded-full bg-black bg-opacity-70 text-white select-none z-20">
+      class="absolute top-2 right-2 flex items-center justify-center w-[2rem] h-[2rem] text-sm font-semibold rounded-full bg-neutral-950 bg-opacity-70 text-white select-none z-20">
       <span>
-        <span class="font-[xwing] text-lg font-light">Ì</span>{{ cost }}
+        {{ cost }}
       </span>
     </div>
 
@@ -259,8 +259,8 @@ function handleClick() {
 
 .faction-icon {
   font-family: 'xwing';
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 9999px;
   display: flex;
   align-items: center;

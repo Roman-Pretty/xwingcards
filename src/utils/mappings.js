@@ -52,7 +52,10 @@ export const tokenToLetterMap = {
   to: '>',
   slam: 's',
   stop: '5',
-  at: 'p'
+  at: 'p',
+  jam: 'j',
+  coordinate: 'o',
+  reinforce: 'i'
 }
 
 export const letterToTokenMap = Object.fromEntries(

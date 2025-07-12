@@ -41,18 +41,28 @@ export const usePilotStore = defineStore("pilotStore", {
 
     isCardTaken: (state) => (cardId) => {
       const card = cards.find((c) => c.id === cardId);
-      const isUnique = card?.unique;
+      if (!card) return false;
 
-      return state.pilots.some(
-        (p) =>
-          (isUnique &&
-            p.id !== state.currentPilotId &&
-            (p.selectedCards.includes(cardId) ||
-              Object.values(p.slotCards).includes(cardId))) ||
+      const isUnique = card.unique;
+      const cardName = card.name;
+
+      return state.pilots.some((p) => {
+        // Check if this pilot has any card with the same name (if unique)
+        const hasSameNamedCard = Object.values(p.slotCards).some(slotCardId => {
+          const slotCard = cards.find(c => c.id === slotCardId);
+          return slotCard?.name === cardName;
+        }) || p.selectedCards.some(selectedCardId => {
+          const selectedCard = cards.find(c => c.id === selectedCardId);
+          return selectedCard?.name === cardName;
+        });
+
+        // For unique cards, check if any pilot has a card with the same name
+        // For current pilot, check if they already have this card (by ID)
+        return (isUnique && hasSameNamedCard) ||
           (p.id === state.currentPilotId &&
             (p.selectedCards.includes(cardId) ||
-              Object.values(p.slotCards).includes(cardId)))
-      );
+              Object.values(p.slotCards).includes(cardId)));
+      });
     },
 
     getMappedFactionSlots: (state) => (factionIcon) => {
