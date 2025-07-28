@@ -87,24 +87,42 @@
         </div>
       </div>
 
-      <section class="flex-1 overflow-y-auto overflow-x-hidden p-4 flex flex-row flex-wrap gap-6 justify-between pb-16 pt-8 min-h-0">
+      <section class="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-16 pt-8 min-h-0" :class="{
+        'flex flex-row flex-wrap gap-6 justify-between': activeTab !== 'hand',
+        'flex flex-col': activeTab === 'hand'
+      }">
         <div class="btn btn-square absolute bottom-4 right-4 z-50 shadow shadow-black" @click="$router.push('/settings')">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
         </div>
-        <Card v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
-          :showXP="activeTab === 'store'" :owned="activeTab === 'store' && store.isCardOwnedByCurrentPilot(card.id)"
-          :canUpgrade="activeTab === 'store' && store.canUpgradeCard(card.id)"
-          :upgradeLevel="store.getCardUpgradeLevel(card.id)"
-          :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" 
-          @dragstart="onDragStart(card.id, $event)"
-          @dragend="onDragEnd"
-          @click="select(card)" :class="{
-            'pointer-events-none opacity-50': store.isCardOwnedByCurrentPilot(card.id) && activeTab === 'store' && !store.canUpgradeCard(card.id),
-            'opacity-50 cursor-not-allowed': activeTab === 'deck' && store.isCardTaken(card.id),
-            'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out': activeTab === 'deck' && !store.isCardTaken(card.id),
-            'cursor-default': activeTab !== 'deck',
-            'border-2 border-blue-400 shadow-lg': activeTab === 'store' && store.canUpgradeCard(card.id),
-          }" @contextmenu.prevent="onRightClickCard(card, $event)" />
+        <!-- Hand tab uses CardSummary for compact display -->
+        <template v-if="activeTab === 'hand'">
+          <div class="w-full space-y-3">
+            <CardSummary v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
+              :showXP="false"
+              :upgradeLevel="store.getCardUpgradeLevel(card.id)"
+              @click="select(card)"
+              class="w-full"
+            />
+          </div>
+        </template>
+
+        <!-- Deck and Store tabs use regular Card component -->
+        <template v-else>
+          <Card v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
+            :showXP="activeTab === 'store'" :owned="activeTab === 'store' && store.isCardOwnedByCurrentPilot(card.id)"
+            :canUpgrade="activeTab === 'store' && store.canUpgradeCard(card.id)"
+            :upgradeLevel="store.getCardUpgradeLevel(card.id)"
+            :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" 
+            @dragstart="onDragStart(card.id, $event)"
+            @dragend="onDragEnd"
+            @click="select(card)" :class="{
+              'pointer-events-none opacity-50': store.isCardOwnedByCurrentPilot(card.id) && activeTab === 'store' && !store.canUpgradeCard(card.id),
+              'opacity-50 cursor-not-allowed': activeTab === 'deck' && store.isCardTaken(card.id),
+              'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out': activeTab === 'deck' && !store.isCardTaken(card.id),
+              'cursor-default': activeTab !== 'deck',
+              'border-2 border-blue-400 shadow-lg': activeTab === 'store' && store.canUpgradeCard(card.id),
+            }" @contextmenu.prevent="onRightClickCard(card, $event)" />
+        </template>
 
         <div v-if="cardsToShow.length === 0 && activeTab === 'hand'" class="text-white  text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
           You have no equipped cards. You can equip cards from your deck or purchase new ones from the store.<br /><br />
@@ -159,6 +177,7 @@ import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import Card from "../components/Card.vue";
+import CardSummary from "../components/CardSummary.vue";
 import PilotTabs from "../components/PilotTabs.vue";
 import RankList from "../components/RankList.vue";
 import Ships from "../components/Ships.vue";
@@ -437,9 +456,25 @@ function select(card) {
 
     pendingCard.value = card;
     cardPurchaseModal.value?.open();
+  } else if (activeTab.value === "hand") {
+    // For hand tab, unequip the card
+    unequipCard(card.id);
   } else {
-    // For hand and deck tabs, cards are not selectable in this context
+    // For deck tab, cards are not selectable in this context
     // Cards are equipped via drag-and-drop to slots
+  }
+}
+
+// Unequip card from hand tab
+function unequipCard(cardId) {
+  const pilot = store.currentPilot;
+  if (!pilot?.slotCards) return;
+  
+  // Find which slot the card is in
+  const slotKey = Object.keys(pilot.slotCards).find(key => pilot.slotCards[key] === cardId);
+  
+  if (slotKey) {
+    store.removeCardFromSlot(slotKey);
   }
 }
 
