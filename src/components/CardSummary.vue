@@ -33,7 +33,7 @@
 
             <!-- Upgrade level indicator -->
             <div v-if="upgradeLevel > 0"
-                class="absolute top-1 right-1 flex items-center justify-center w-[1rem] h-[1rem] text-xs font-semibold rounded-full bg-slate-800 bg-opacity-90 text-white select-none z-20">
+                class="absolute top-1 right-1 flex items-center justify-center w-[1.2rem] h-[1.2rem] text-xs font-semibold rounded-full bg-slate-800 bg-opacity-90 text-white select-none z-20">
                 <span>+{{ upgradeLevel }}</span>
             </div>
 

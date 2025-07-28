@@ -129,7 +129,7 @@
 
                       <!-- Available Ships Preview -->
                       <div class="flex-1">
-                        <div class="text-sm text-gray-200 mb-3 font-medium drop-shadow">Available Ships:</div>
+                        <div class="text-sm text-gray-200 mb-3 font-medium drop-shadow">Additional Ships:</div>
                         <div class="flex gap-3 overflow-x-auto pb-2">
                           <div 
                             v-for="ship in getDisplayShips(info.ships)" 
