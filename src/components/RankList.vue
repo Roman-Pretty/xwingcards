@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-row gap-4 flex-wrap max-w-full">
       <div v-for="rank in ranks" :key="rank.rank"
-        class="flex flex-col items-center gap-2 bg-neutral-800 p-3 rounded flex-1 transition-transform duration-300 group"
+        class="flex flex-col items-center gap-2 bg-neutral-800 min-w-1/5 p-3 rounded flex-1 transition-transform duration-300 group"
         :class="{
           'bg-yellow-700 hover:cursor-default border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)]': getRankStatus(pilotRank, rank.rank) === 'current',
           'bg-yellow-800 hover:cursor-default': getRankStatus(pilotRank, rank.rank) === 'unlocked',

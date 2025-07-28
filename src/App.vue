@@ -32,9 +32,9 @@
         </div>
       </dialog>
 
-      <div class="flex-1 border-2 border-neutral-700 rounded-2xl p-4 flex flex-col justify-between text-white overflow-hidden">
-        <div class="flex flex-col justify-between h-full">
-          <div class="flex-1">
+      <div class="flex-1 border-2 border-neutral-700 rounded-2xl  flex flex-col justify-between text-white overflow-hidden">
+        <div class="flex flex-col justify-between h-full ">
+          <div class="flex-1 p-4">
             <div class="flex flex-row justify-between w-full items-center">
               <div class="flex flex-row gap-4">
                 <div class="text-xl flex flex-row gap-2 items-center cursor-default">
@@ -65,7 +65,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col w-full mt-auto">
+          <div class="flex flex-col w-full p-4 overflow-x-auto">
             <div>
               <div class="w-full flex flex-row items-center justify-between mb-4">
                 <h2 class="text-lg ">Loadout</h2>
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <section class="flex-1 overflow-y-auto p-4 flex flex-row flex-wrap gap-6 justify-center pb-16 pt-8 min-h-0">
+        <section class="flex-1 overflow-y-auto p-4 flex flex-row flex-wrap gap-6 justify-between pb-16 pt-8 min-h-0">
           <Card v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
             :showXP="activeTab === 'store'" :owned="activeTab === 'store' && store.isCardOwnedByCurrentPilot(card.id)"
             :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" @dragstart="onDragStart(card.id, $event)"

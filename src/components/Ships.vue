@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- Ships list -->
-    <div class="flex flex-row gap-4 flex-wrap mb-4 max-w-full overflow-x-clip">
+    <div class="flex flex-row gap-4 flex-wrap mb-4 max-w-full">
       <div v-for="ship in ships" :key="ship.ship"
-        class="flex flex-col items-center gap-2 p-3 rounded flex-1 cursor-pointer transition-transform duration-300"
+        class="flex flex-col items-center gap-2 p-3 rounded flex-1 min-w-1/5 cursor-pointer transition-transform duration-300"
         :class="{
           'bg-yellow-700 border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)] hover:cursor-auto': getShipStatus(ship) === 'selected',
           'bg-yellow-800 hover:scale-105 cursor-pointer': getShipStatus(ship) === 'owned',
