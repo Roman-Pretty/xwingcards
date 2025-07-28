@@ -4,13 +4,16 @@
     <!-- Fixed slots -->
     <Slot v-for="slot in allFixedSlots" :key="slot.key" :slot-key="slot.key" :options="[slot.token]"
       :unlocked="slot.unlocked" :xpCost="slot.xpCost" :isLocked="slot.isLocked"
-      :card="currentPilot?.slotCards[slot.key] || null" @card-drop="handleCardDrop(slot.key, $event)"
+      :card="currentPilot?.slotCards[slot.key] || null" 
+      :currently-dragged-card="props.currentlyDraggedCard"
+      @card-drop="handleCardDrop(slot.key, $event)"
       @slot-switch="handleSlotSwitch(slot.key, $event)" @purchase-slot="openPurchaseModal(slot.key, slot.xpCost)" />
 
 
     <!-- Optional slots -->
     <Slot v-for="(opts, index) in optionalSlots" :key="'optional-' + index" :slot-key="'optional-' + index"
       :options="opts" :unlocked="true" :card="currentPilot?.slotCards['optional-' + index] || null"
+      :currently-dragged-card="props.currentlyDraggedCard"
       @card-drop="handleCardDrop('optional-' + index, $event)"
       @slot-switch="handleSlotSwitch('optional-' + index, $event)" />
   </div>
@@ -32,6 +35,13 @@ import SlotPurchaseModal from "./ui/SlotPurchaseModal.vue";
 import { letterToTokenMap } from "../utils/mappings";
 import classData from "../data/classes.json";
 import cards from "../data/cards.json";
+
+const props = defineProps({
+  currentlyDraggedCard: {
+    type: Object,
+    default: null
+  }
+});
 
 const store = usePilotStore();
 

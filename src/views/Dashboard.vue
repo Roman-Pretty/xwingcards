@@ -42,7 +42,7 @@
                 <span class="font-bold">{{ getFactionSlots(symbol) }} / {{ count }}</span>
               </div>
             </div>
-            <Slots />
+                          <Slots class="w-full" :currently-dragged-card="currentlyDraggedCard" />
           </div>
           <div>
             <h2 class="text-lg mb-4">Ships</h2>
@@ -87,16 +87,17 @@
         </div>
       </div>
 
-      <section class="flex-1 overflow-y-auto p-4 flex flex-row flex-wrap gap-6 justify-between pb-16 pt-8 min-h-0">
+      <section class="flex-1 overflow-y-auto overflow-x-hidden p-4 flex flex-row flex-wrap gap-6 justify-between pb-16 pt-8 min-h-0">
         <div class="btn btn-square absolute bottom-4 right-4 z-50 shadow shadow-black" @click="$router.push('/create-pilot')">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-
         </div>
         <Card v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
           :showXP="activeTab === 'store'" :owned="activeTab === 'store' && store.isCardOwnedByCurrentPilot(card.id)"
           :canUpgrade="activeTab === 'store' && store.canUpgradeCard(card.id)"
           :upgradeLevel="store.getCardUpgradeLevel(card.id)"
-          :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" @dragstart="onDragStart(card.id, $event)"
+          :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" 
+          @dragstart="onDragStart(card.id, $event)"
+          @dragend="onDragEnd"
           @click="select(card)" :class="{
             'pointer-events-none opacity-50': store.isCardOwnedByCurrentPilot(card.id) && activeTab === 'store' && !store.canUpgradeCard(card.id),
             'opacity-50 cursor-not-allowed': activeTab === 'deck' && store.isCardTaken(card.id),
@@ -178,6 +179,7 @@ const contextCard = ref(null);
 const selectedType = ref("all");
 const activeTab = ref("hand");
 const pendingCard = ref(null);
+const currentlyDraggedCard = ref(null);
 
 // Computed
 const otherPilots = computed(() =>
@@ -331,8 +333,20 @@ function onDragStart(cardId, event) {
     event.preventDefault();
     return;
   }
+  
+  // Store the currently dragged card
+  const draggedCard = store.ownedCards.find(c => c.id === cardId);
+  currentlyDraggedCard.value = draggedCard;
+  
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.setData("text/plain", cardId);
+}
+
+function onDragEnd(event) {
+  // Clear the currently dragged card after a brief delay to allow drop events to process
+  setTimeout(() => {
+    currentlyDraggedCard.value = null;
+  }, 100);
 }
 
 // XP Modal
