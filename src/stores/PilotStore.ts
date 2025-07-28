@@ -49,7 +49,7 @@ export const usePilotStore = defineStore("pilotStore", {
       const card = cards.find((c) => c.id === cardId);
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       
-      if (!card || !pilot || !card.upgradable || !card.energy) return false;
+      if (!card || !pilot || !card.upgradeable || !card.energy) return false;
       
       const currentUpgradeLevel = pilot.cardUpgrades?.[cardId] || 0;
       const isOwned = pilot.ownedCards.includes(cardId);

@@ -141,6 +141,16 @@
       @confirm="confirmAddXP"
       @cancel="closeAddXpModal"
     />
+
+    <CardSwapModal
+      ref="cardSwapModal"
+      :card-name="pendingTransfer?.cardName"
+      :target-pilot-name="pendingTransfer?.targetPilotName"
+      :your-upgrade-level="pendingTransfer?.yourUpgradeLevel"
+      :target-upgrade-level="pendingTransfer?.targetUpgradeLevel"
+      @confirm="confirmCardSwap"
+      @cancel="cancelCardSwap"
+    />
   </main>
 </template>
 
@@ -155,6 +165,7 @@ import Ships from "../components/Ships.vue";
 import Slots from "../components/Slots.vue";
 import CardPurchaseModal from "../components/ui/CardPurchaseModal.vue";
 import AddXpModal from "../components/ui/AddXpModal.vue";
+import CardSwapModal from "../components/ui/CardSwapModal.vue";
 
 import classData from "../data/classes.json";
 
@@ -170,6 +181,7 @@ const store = usePilotStore();
 // Component refs
 const cardPurchaseModal = ref(null);
 const addXpModal = ref(null);
+const cardSwapModal = ref(null);
 
 // UI state
 const showContextMenu = ref(false);
@@ -180,6 +192,7 @@ const selectedType = ref("all");
 const activeTab = ref("hand");
 const pendingCard = ref(null);
 const currentlyDraggedCard = ref(null);
+const pendingTransfer = ref(null); // For card swap modal
 
 // Computed
 const otherPilots = computed(() =>
@@ -309,8 +322,55 @@ function giveCardToPilot(targetPilotId) {
   const cardId = contextCard.value?.id;
   if (!cardId || !currentPilot || !targetPilot) return;
 
+  // Check if target pilot already owns this card
+  if (targetPilot.ownedCards.includes(cardId)) {
+    const currentUpgradeLevel = currentPilot.cardUpgrades?.[cardId] || 0;
+    const targetUpgradeLevel = targetPilot.cardUpgrades?.[cardId] || 0;
+    
+    if (currentUpgradeLevel === targetUpgradeLevel) {
+      alert(`${targetPilot.name} already owns this card at the same upgrade level.`);
+      showContextMenu.value = false;
+      contextCard.value = null;
+      return;
+    }
+    
+    // Different upgrade levels - offer swap
+    pendingTransfer.value = {
+      cardId,
+      targetPilotId,
+      currentPilot,
+      targetPilot,
+      cardName: contextCard.value.name,
+      targetPilotName: targetPilot.name,
+      yourUpgradeLevel: currentUpgradeLevel,
+      targetUpgradeLevel: targetUpgradeLevel
+    };
+    
+    // Use setTimeout to ensure DOM is updated
+    setTimeout(() => {
+      cardSwapModal.value?.open();
+    }, 0);
+    
+    showContextMenu.value = false;
+    contextCard.value = null;
+    return;
+  }
+
+  // Normal transfer - remove from current pilot and add to target pilot
   const index = currentPilot.ownedCards.indexOf(cardId);
-  if (index !== -1) currentPilot.ownedCards.splice(index, 1);
+  if (index !== -1) {
+    currentPilot.ownedCards.splice(index, 1);
+    
+    // Transfer upgrade level
+    const upgradeLevel = currentPilot.cardUpgrades?.[cardId] || 0;
+    if (upgradeLevel > 0) {
+      if (!currentPilot.cardUpgrades) currentPilot.cardUpgrades = {};
+      delete currentPilot.cardUpgrades[cardId];
+      
+      if (!targetPilot.cardUpgrades) targetPilot.cardUpgrades = {};
+      targetPilot.cardUpgrades[cardId] = upgradeLevel;
+    }
+  }
 
   if (!targetPilot.ownedCards.includes(cardId)) {
     targetPilot.ownedCards.push(cardId);
@@ -412,5 +472,26 @@ function confirmCardPurchase() {
 
 function cancelCardPurchase() {
   pendingCard.value = null;
+}
+
+// Card swap functions
+function confirmCardSwap() {
+  if (!pendingTransfer.value) return;
+  
+  const { cardId, currentPilot, targetPilot, yourUpgradeLevel, targetUpgradeLevel } = pendingTransfer.value;
+  
+  // Initialize cardUpgrades if they don't exist
+  if (!currentPilot.cardUpgrades) currentPilot.cardUpgrades = {};
+  if (!targetPilot.cardUpgrades) targetPilot.cardUpgrades = {};
+  
+  // Swap upgrade levels
+  currentPilot.cardUpgrades[cardId] = targetUpgradeLevel;
+  targetPilot.cardUpgrades[cardId] = yourUpgradeLevel;
+  
+  pendingTransfer.value = null;
+}
+
+function cancelCardSwap() {
+  pendingTransfer.value = null;
 }
 </script>
