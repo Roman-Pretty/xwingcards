@@ -6,7 +6,8 @@ export interface Pilot {
   id: string;
   name: string;
   class: string;
-  rank: string;
+  rank: number;
+  xp: number;
   ships: string[];
   selectedShip: string;
   slots: string[];
@@ -306,6 +307,108 @@ export const usePilotStore = defineStore("pilotStore", {
       // Increment upgrade level
       pilot.cardUpgrades[cardId] = (pilot.cardUpgrades[cardId] || 0) + 1;
       
+      return true;
+    },
+
+    // Settings-related actions
+    deletePilot(pilotId: string) {
+      const pilotIndex = this.pilots.findIndex(p => p.id === pilotId);
+      if (pilotIndex === -1) return false;
+
+      this.pilots.splice(pilotIndex, 1);
+
+      // If we deleted the current pilot, switch to another one
+      if (this.currentPilotId === pilotId) {
+        if (this.pilots.length > 0) {
+          this.currentPilotId = this.pilots[0].id;
+        } else {
+          this.currentPilotId = "1";
+        }
+      }
+
+      return true;
+    },
+
+    updatePilot(pilotId: string, updates: Partial<Pilot>) {
+      const pilot = this.pilots.find(p => p.id === pilotId);
+      if (!pilot) return false;
+
+      Object.assign(pilot, updates);
+      
+      // If we updated the current pilot, refresh slots
+      if (pilotId === this.currentPilotId) {
+        this.updatePilotSlots();
+        this.updateUsedFactionSlots();
+      }
+
+      return true;
+    },
+
+    removeCardFromPilot(pilotId: string, cardId: string) {
+      const pilot = this.pilots.find(p => p.id === pilotId);
+      if (!pilot) return false;
+
+      // Remove from owned cards
+      pilot.ownedCards = pilot.ownedCards.filter(id => id !== cardId);
+      
+      // Remove upgrade data
+      if (pilot.cardUpgrades?.[cardId]) {
+        delete pilot.cardUpgrades[cardId];
+      }
+      
+      // Remove from slot cards if equipped
+      Object.keys(pilot.slotCards).forEach(slotKey => {
+        if (pilot.slotCards[slotKey] === cardId) {
+          delete pilot.slotCards[slotKey];
+        }
+      });
+      
+      // Remove from selected cards if present
+      pilot.selectedCards = pilot.selectedCards.filter(id => id !== cardId);
+
+      // If this is the current pilot, update faction slots
+      if (pilotId === this.currentPilotId) {
+        this.updateUsedFactionSlots();
+      }
+
+      return true;
+    },
+
+    removeShipFromPilot(pilotId: string, shipName: string) {
+      const pilot = this.pilots.find(p => p.id === pilotId);
+      if (!pilot || pilot.ships.length <= 1) return false; // Don't allow removing the last ship
+
+      pilot.ships = pilot.ships.filter(s => s !== shipName);
+      
+      // If the removed ship was the selected ship, select the first remaining ship
+      if (pilot.selectedShip === shipName) {
+        pilot.selectedShip = pilot.ships[0] || '';
+        
+        // If this is the current pilot, update slots and clear slot cards
+        if (pilotId === this.currentPilotId) {
+          this.updatePilotSlots();
+          pilot.slotCards = {};
+          this.updateUsedFactionSlots();
+        }
+      }
+
+      return true;
+    },
+
+    downgradeCard(pilotId: string, cardId: string) {
+      const pilot = this.pilots.find(p => p.id === pilotId);
+      if (!pilot || !pilot.cardUpgrades) return false;
+
+      const currentLevel = pilot.cardUpgrades[cardId] || 0;
+      if (currentLevel <= 0) return false;
+
+      pilot.cardUpgrades[cardId] = currentLevel - 1;
+      
+      // If downgraded to 0, remove the upgrade entry
+      if (pilot.cardUpgrades[cardId] === 0) {
+        delete pilot.cardUpgrades[cardId];
+      }
+
       return true;
     },
   },
