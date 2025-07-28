@@ -90,22 +90,13 @@
       </div>
     </div>
 
-    <!-- Confirm Rank Purchase Modal -->
-    <dialog id="confirm_rank_modal" class="modal">
-      <div class="modal-box bg-neutral-800 text-white">
-        <h3 class="text-lg font-bold mb-2">Confirm Rank Upgrade</h3>
-        <p class="mb-4">
-          Are you sure you want to upgrade to Rank <strong>{{ pendingRank?.rank }}</strong> for
-          <span class="font-[xwing] text-lg">Ì</span>{{ pendingRank?.xp }}?
-        </p>
-        <div class="modal-action">
-          <form method="dialog" class="flex gap-2">
-            <button type="button" class="btn" @click="confirmRankPurchase">Confirm</button>
-            <button class="btn btn-neutral" @click="cancelRankPurchase">Cancel</button>
-          </form>
-        </div>
-      </div>
-    </dialog>
+    <!-- Modal Component -->
+    <RankPurchaseModal
+      ref="rankPurchaseModal"
+      :rank="pendingRank"
+      @confirm="confirmRankPurchase"
+      @cancel="cancelRankPurchase"
+    />
   </div>
 </template>
 
@@ -113,8 +104,13 @@
 import { computed, ref } from 'vue'
 import { usePilotStore } from '../stores/pilotStore'
 import classData from '../data/classes.json'
+import RankPurchaseModal from './ui/RankPurchaseModal.vue'
 
 const store = usePilotStore()
+
+// Component refs
+const rankPurchaseModal = ref(null)
+
 const pilotRank = computed(() => store.currentPilot?.rank ?? 0)
 const currentPilot = computed(() => store.currentPilot)
 
@@ -144,10 +140,7 @@ const onRankClick = (rank) => {
   if (rank.rank !== pilotRank.value + 1) return
 
   pendingRank.value = rank
-  const modal = document.getElementById('confirm_rank_modal')
-  if (modal?.showModal) {
-    modal.showModal()
-  }
+  rankPurchaseModal.value?.open()
 }
 
 function confirmRankPurchase() {
@@ -161,18 +154,10 @@ function confirmRankPurchase() {
   } else {
     alert('Not enough XP to upgrade rank.')
   }
-  closeRankModal()
+  pendingRank.value = null
 }
 
 function cancelRankPurchase() {
-  closeRankModal()
-}
-
-function closeRankModal() {
-  const modal = document.getElementById('confirm_rank_modal')
-  if (modal?.close) {
-    modal.close()
-  }
   pendingRank.value = null
 }
 </script>

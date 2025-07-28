@@ -27,6 +27,29 @@
       </span>
     </div>
 
+    <!-- Upgrade level indicator -->
+    <div v-if="upgradeLevel > 0 && showXP"
+      class="absolute top-2 right-11 flex items-center justify-center w-[2rem] h-[2rem] text-xs font-semibold rounded-full bg-slate-800 bg-opacity-90 text-white select-none z-20">
+      <span>
+        +{{ upgradeLevel }}
+      </span>
+    </div>  
+
+    <div v-if="upgradeLevel > 0 && !showXP"
+      class="absolute top-2 right-2 flex items-center justify-center w-[2rem] h-[2rem] text-xs font-semibold rounded-full bg-slate-800 bg-opacity-90 text-white select-none z-20">
+      <span>
+        +{{ upgradeLevel }}
+      </span>
+    </div>  
+
+    <!-- Can upgrade indicator -->
+    <div v-if="canUpgrade && showXP"
+      class="absolute top-11 right-2 flex items-center justify-center px-2 py-1 text-xs font-semibold rounded bg-green-600 bg-opacity-90 text-white select-none z-20">
+      <span>
+        UPGRADE
+      </span>
+    </div>
+
     <!-- Flip indicator -->
     <div v-if="flippable" class="absolute bottom-2 left-2 transform text-white z-30 opacity-50 text-sm">
       <kbd class="kbd text-black kbd-sm bg-white">F</kbd> Flip
@@ -125,6 +148,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  canUpgrade: {
+    type: Boolean,
+    default: false,
+  },
+  upgradeLevel: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const emit = defineEmits(['card-click'])
@@ -158,7 +189,10 @@ const recurringSymbol = (count) => {
 }
 
 
-const displayedName = computed(() => flipped.value && props.flippable ? props.flippedName || props.name : props.name)
+const displayedName = computed(() => {
+  const baseName = flipped.value && props.flippable ? props.flippedName || props.name : props.name;
+  return props.upgradeLevel > 0 ? `${baseName} (Upgraded)` : baseName;
+});
 const displayedImage = computed(() => flipped.value && props.flippable ? props.flippedImage || props.image : props.image)
 const displayedDescription = computed(() => {
   const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || '';
@@ -193,7 +227,9 @@ const displayedRequires = computed(() => {
 
 const displayedEnergy = computed(() => {
   const val = flipped.value ? props.flippedEnergy : props.energy
-  return val != null ? Number(val) : null
+  if (val == null) return null;
+  const baseEnergy = Number(val);
+  return baseEnergy + (props.upgradeLevel || 0);
 })
 const displayedForce = computed(() => {
   const val = flipped.value ? props.flippedForce : props.force

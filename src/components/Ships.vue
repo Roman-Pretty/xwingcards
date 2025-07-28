@@ -41,24 +41,13 @@
       </div>
     </div>
 
-    <!-- Confirm Purchase Modal -->
-    <dialog id="confirm_purchase_modal" class="modal">
-      <div class="modal-box bg-neutral-800 text-white">
-        <h3 class="text-lg font-bold mb-2">
-          Confirm Purchase
-        </h3>
-        <p class="mb-4">
-          Are you sure you want to buy <strong>{{ pendingShip?.ship }}</strong> for
-          <span class="font-[xwing] text-lg">Ì</span>{{ pendingShip?.cost }}?
-        </p>
-        <div class="modal-action">
-          <form method="dialog" class="flex gap-2">
-            <button type="button" class="btn" @click="confirmPurchase">Confirm</button>
-            <button class="btn btn-neutral" @click="cancelPurchase">Cancel</button>
-          </form>
-        </div>
-      </div>
-    </dialog>
+    <!-- Modal Component -->
+    <ShipPurchaseModal
+      ref="shipPurchaseModal"
+      :ship="pendingShip"
+      @confirm="confirmPurchase"
+      @cancel="cancelPurchase"
+    />
   </div>
 </template>
 
@@ -67,9 +56,13 @@ import { computed, ref } from 'vue'
 import { usePilotStore } from '../stores/pilotStore'
 import { storeToRefs } from 'pinia'
 import classData from '../data/classes.json'
+import ShipPurchaseModal from './ui/ShipPurchaseModal.vue'
 
 const pilotStore = usePilotStore()
 const { currentPilot } = storeToRefs(pilotStore)
+
+// Component refs
+const shipPurchaseModal = ref(null)
 
 const ships = computed(() => {
   return classData[pilotStore.currentPilot?.class]?.ships || []
@@ -97,11 +90,7 @@ function onShipClick(ship) {
   if (status === 'available') {
     // Open confirmation modal before buying
     pendingShip.value = ship
-    const modal = document.getElementById('confirm_purchase_modal')
-    if (modal?.showModal) {
-      modal.showModal()
-      document.body.style.overflow = 'hidden'
-    }
+    shipPurchaseModal.value?.open()
     return
   }
 
@@ -125,21 +114,11 @@ function confirmPurchase() {
     alert('Not enough XP to buy this ship.')
   }
 
-  closeModal()
+  pendingShip.value = null
 }
 
 // Cancel purchase logic
 function cancelPurchase() {
-  closeModal()
-}
-
-// Helper to close modal and reset states
-function closeModal() {
-  const modal = document.getElementById('confirm_purchase_modal')
-  if (modal?.close) {
-    modal.close()
-    document.body.style.overflow = ''
-  }
   pendingShip.value = null
 }
 

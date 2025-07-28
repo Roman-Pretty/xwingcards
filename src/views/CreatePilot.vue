@@ -83,7 +83,7 @@
 
             <!-- Action Buttons -->
             <div class="flex-none flex justify-between gap-4 mt-4">
-                <button type="button" class="btn flex-1" @click="$emit('cancel')">Cancel</button>
+                <button type="button" class="btn flex-1" @click="goBack">Cancel</button>
                 <button type="submit" class="btn flex-1">Create</button>
             </div>
         </form>
@@ -92,9 +92,12 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { usePilotStore } from "../stores/pilotStore";
 import classData from "../data/classes.json";
 
-const emit = defineEmits(["created", "cancel"]);
+const router = useRouter();
+const store = usePilotStore();
 
 const classes = ref(classData);
 const name = ref("");
@@ -124,6 +127,12 @@ const availableShips = [
     }
 ];
 
+function goBack() {
+    if (store.pilots.length > 0) {
+        router.push('/');
+    }
+    // If no pilots exist, stay on create pilot page
+}
 
 function createPilot() {
     if (!name.value || !pilotClass.value || !startingShip.value) {
@@ -131,7 +140,7 @@ function createPilot() {
         return;
     }
     const xp = startingShip.value === "X-Wing" ? 10 : 16;
-    emit("created", {
+    const newPilot = {
         id: Date.now().toString(),
         name: name.value.trim(),
         class: pilotClass.value,
@@ -144,9 +153,18 @@ function createPilot() {
         selectedShip: startingShip.value,
         slots: [],
         usedFactionSlots: {},
-    });
+    };
+    
+    // Add pilot to store
+    store.pilots.push(newPilot);
+    store.currentPilotId = newPilot.id;
+    
+    // Reset form
     name.value = "";
     pilotClass.value = "";
     startingShip.value = "X-Wing";
+    
+    // Navigate to dashboard
+    router.push('/');
 }
 </script>

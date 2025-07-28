@@ -13,6 +13,7 @@ export interface Pilot {
   slotCards: Record<string, string>;
   selectedCards: string[];
   ownedCards: string[];
+  cardUpgrades?: Record<string, number>; // Track upgrade levels for each card
   unlockedSlots?: string[];
   usedFactionSlots?: Record<string, number>; // ✅ Moved into Pilot
 }
@@ -37,6 +38,41 @@ export const usePilotStore = defineStore("pilotStore", {
     isCardOwnedByCurrentPilot: (state) => (cardId) => {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       return pilot ? pilot.ownedCards.includes(cardId) : false;
+    },
+
+    getCardUpgradeLevel: (state) => (cardId) => {
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      return pilot?.cardUpgrades?.[cardId] || 0;
+    },
+
+    canUpgradeCard: (state) => (cardId) => {
+      const card = cards.find((c) => c.id === cardId);
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      
+      if (!card || !pilot || !card.upgradable || !card.energy) return false;
+      
+      const currentUpgradeLevel = pilot.cardUpgrades?.[cardId] || 0;
+      const isOwned = pilot.ownedCards.includes(cardId);
+      
+      return isOwned && currentUpgradeLevel < card.energy;
+    },
+
+    getCardDisplayInfo: (state) => (cardId) => {
+      const card = cards.find((c) => c.id === cardId);
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      
+      if (!card) return null;
+      
+      const upgradeLevel = pilot?.cardUpgrades?.[cardId] || 0;
+      const displayEnergy = card.energy ? (card.energy + upgradeLevel) : card.energy;
+      const displayName = upgradeLevel > 0 ? `${card.name} (Upgraded)` : card.name;
+      
+      return {
+        ...card,
+        displayName,
+        displayEnergy,
+        upgradeLevel
+      };
     },
 
     isCardTaken: (state) => (cardId) => {
@@ -249,6 +285,28 @@ export const usePilotStore = defineStore("pilotStore", {
       if (!pilot.ownedCards.includes(cardId)) {
         pilot.ownedCards.push(cardId);
       }
+
+      // Initialize cardUpgrades if it doesn't exist
+      if (!pilot.cardUpgrades) {
+        pilot.cardUpgrades = {};
+      }
+    },
+
+    upgradeCard(cardId: string) {
+      const pilot = this.currentPilot;
+      const card = cards.find((c) => c.id === cardId);
+      
+      if (!pilot || !card || !this.canUpgradeCard(cardId)) return false;
+
+      // Initialize cardUpgrades if it doesn't exist
+      if (!pilot.cardUpgrades) {
+        pilot.cardUpgrades = {};
+      }
+
+      // Increment upgrade level
+      pilot.cardUpgrades[cardId] = (pilot.cardUpgrades[cardId] || 0) + 1;
+      
+      return true;
     },
   },
 

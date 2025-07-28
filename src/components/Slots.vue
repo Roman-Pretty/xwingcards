@@ -1,19 +1,5 @@
 <!-- src/components/Slots.vue -->
 <template>
-  <dialog id="confirm_slot_modal" class="modal">
-    <div class="modal-box bg-neutral-800 text-white">
-      <h3 class="text-lg font-bold mb-2">Unlock Slot</h3>
-      <p class="mb-4">
-        Spend <span class="font-[xwing] text-lg">Ì</span>{{ selectedSlotXP }} to unlock this slot?
-      </p>
-      <div class="modal-action">
-        <form method="dialog" class="flex gap-2">
-          <button type="button" class="btn" @click="confirmSlotPurchase">Confirm</button>
-          <button class="btn btn-neutral" @click="cancelSlotPurchase">Cancel</button>
-        </form>
-      </div>
-    </div>
-  </dialog>
   <div class="flex flex-row gap-4 flex-wrap mb-4 min-h-[20vh]">
     <!-- Fixed slots -->
     <Slot v-for="slot in allFixedSlots" :key="slot.key" :slot-key="slot.key" :options="[slot.token]"
@@ -28,12 +14,21 @@
       @card-drop="handleCardDrop('optional-' + index, $event)"
       @slot-switch="handleSlotSwitch('optional-' + index, $event)" />
   </div>
+
+  <!-- Modal Component -->
+  <SlotPurchaseModal
+    ref="slotPurchaseModal"
+    :xp-cost="selectedSlotXP"
+    @confirm="confirmSlotPurchase"
+    @cancel="cancelSlotPurchase"
+  />
 </template>
 
 <script setup>
 import { computed, ref } from "vue";
 import { usePilotStore } from "../stores/pilotStore";
 import Slot from "./Slot.vue";
+import SlotPurchaseModal from "./ui/SlotPurchaseModal.vue";
 import { letterToTokenMap } from "../utils/mappings";
 import classData from "../data/classes.json";
 import cards from "../data/cards.json";
@@ -43,12 +38,13 @@ const store = usePilotStore();
 const selectedSlotKey = ref(null)
 const selectedSlotXP = ref(0)
 
+// Component refs
+const slotPurchaseModal = ref(null);
+
 function openPurchaseModal(slotKey, xp) {
   selectedSlotKey.value = slotKey
   selectedSlotXP.value = xp
-
-  const modal = document.getElementById('confirm_slot_modal')
-  if (modal?.showModal) modal.showModal()
+  slotPurchaseModal.value?.open()
 }
 
 function confirmSlotPurchase() {
@@ -68,18 +64,12 @@ function confirmSlotPurchase() {
 
   selectedSlotKey.value = null;
   selectedSlotXP.value = 0;
-
-  closePurchaseModal();
 }
 
 
 function cancelSlotPurchase() {
-  closePurchaseModal()
-}
-
-function closePurchaseModal() {
-  const modal = document.getElementById('confirm_slot_modal')
-  if (modal?.close) modal.close()
+  selectedSlotKey.value = null;
+  selectedSlotXP.value = 0;
 }
 
 const currentPilot = computed(() => store.currentPilot);
