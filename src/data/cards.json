@@ -2629,5 +2629,130 @@
     "unique": false,
     "description": "While you defend, if you are not in the attacker's {ab}, {crit} results are neutralized before {hit} results. After you suffer {crit} damage, you may perform a {calculate} or {focus} action on your action bar, even while stressed, treating that action as red.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/enduring.png"
+  },
+  {
+    "id": "heightenedperception",
+    "name": "Heightened Perception",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "At the start of the Engagement Phase, you may spend 1 {forcecharge}. If you do, engage at initiative 7 instead of your standard initiative value this phase.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/heightenedperception.png"
+  },
+  {
+    "id": "instinctiveaim",
+    "name": "Instinctive Aim",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 2,
+    "unique": false,
+    "description": "While you perform a special attack, you may spend 1 {forcecharge} to ignore the {focus} or {lock} requirement.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/instinctiveaim.png"
+  },
+  {
+    "id": "supernaturalreflexes",
+    "name": "Supernatural Reflexes",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 16,
+    "unique": false,
+    "description": "Before you activate, you may spend 1 {forcecharge} to perform a {barrel} or {boost} action. Then, if you performed an action you do not have on your action bar, suffer 1 {hit} damage.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/supernaturalreflexes.png"
+  },
+  {
+    "id": "brilliantevasion",
+    "name": "Brilliant Evasion",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 4,
+    "unique": false,
+    "description": "While you defend, if you are not in the attacker's {ab}, you may spend 1 {forcecharge} to change 2 of your {focus} results to {evade} results.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/brilliantevasion.png"
+  },
+  {
+    "id": "predictiveshot",
+    "name": "Predictive Shot",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 2,
+    "unique": false,
+    "description": "After you declare an attack, if the defender is in your {ab}, you may spend 1 {forcecharge}. If you do, during the Roll Defense Dice step, the defender cannot roll more defense dice than the number of your {hit}/{crit} results.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/predictiveshot.png"
+  },
+  {
+    "id": "battlemeditation",
+    "name": "Battle Meditation",
+    "type": "Force",
+    "faction": "Republic",
+    "cost": 6,
+    "unique": false,
+    "description": "Adds: purple {coordinate}.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/battlemeditation.png"
+  },
+  {
+    "id": "foresight",
+    "name": "Foresight",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 10,
+    "unique": false,
+    "description": "After an enemy ship executes a maneuver, you may spend 1 {forcecharge} to perform this attack against it as a bonus attack.<br/>Attack: You may change 1 {focus} result to a {hit} result; your dice cannot be modified otherwise.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/foresight.png",
+    "ranged": "1-3",
+    "damage": "2",
+    "arc": "}"
+  },
+  {
+    "id": "precognitivereflexes",
+    "name": "Precognitive Reflexes",
+    "type": "Force",
+    "faction": "Neutral",
+    "requires": "{small}",
+    "cost": 15,
+    "unique": false,
+    "description": "After you reveal your dial, you may spend 1 {forcecharge} to perform a {barrel} or {boost} action. Then, if you performed an action you do not have on your action bar, gain 1 strain token.<br/>If you do, you cannot perform another action during your activation.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/precognitivereflexes.png"
+  },
+  {
+    "id": "extrememaneuvers",
+    "name": "Extreme Maneuvers",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 10,
+    "requires": "{boost}, {small}",
+    "unique": false,
+    "description": "While you perform a {boost} action, you may spend 1 {forcecharge} to use the turn ({sl} or {sr}) template instead.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/extrememaneuvers.png"
+  },
+  {
+    "id": "compassion",
+    "name": "Compassion",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 2,
+    "unique": false,
+    "description": "Before another friendly ship at range 0-2 would be dealt a faceup Pilot or Crew damage card, you may spend 1 {forcecharge}. If you do, that damage card is discarded instead, and you are dealt 1 facedown damage card (gain 1 {xp}). Then, if you have 2 or more damage cards, recover 2 {forcecharge}.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/compassion.png"
+  },
+  {
+    "id": "shatteringshot",
+    "name": "Shattering Shot",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "While you perform an attack, if the attack is obstructed by an obstacle or the defender is at range 0 of an obstacle, you may spend 1 {forcecharge} to add 1 {focus} result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/shatteringshot.png"
+  },
+  {
+    "id": "patience",
+    "name": "Patience",
+    "type": "Force",
+    "faction": "Neutral",
+    "cost": 4,
+    "unique": false,
+    "description": "At the start of the Engagement Phase, if there is an enemy ship in your {af}, you may gain 1 deplete token to recover 1 {forcecharge}.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/patience.png"
   }
 ]

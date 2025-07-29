@@ -43,6 +43,7 @@ export const tokenToLetterMap = {
   force: 'F',
   sensor: 'S',
   cannon: 'C',
+  forcecharge: 'h',
   crew: 'W',
   xp: 'Ì',
   illicit: 'I',
