@@ -63,16 +63,23 @@
         <div class="join">
           <button class="btn join-item"
             :class="{ 'btn-active': activeTab === 'hand', 'btn-neutral': activeTab !== 'hand' }"
-            @click="activeTab = 'hand'">Hand</button>
+            @click="switchTab('hand')">Hand</button>
           <button class="btn join-item"
             :class="{ 'btn-active': activeTab === 'deck', 'btn-neutral': activeTab !== 'deck' }"
-            @click="activeTab = 'deck'">Deck</button>
+            @click="switchTab('deck')">Deck</button>
           <button class="btn join-item"
             :class="{ 'btn-active': activeTab === 'store', 'btn-neutral': activeTab !== 'store' }"
-            @click="activeTab = 'store'">Store</button>
+            @click="switchTab('store')">Store</button>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-4">
+          <!-- Search input -->
+          <div class="form-control">
+            <input type="text" v-model="searchQuery" placeholder="Search cards..." 
+              class="input input-bordered input-sm w-48 text-white bg-neutral-800 border-neutral-600 focus:border-neutral-400" />
+          </div>
+
+          <!-- Type filter dropdown -->
           <div class="dropdown dropdown-end">
             <div tabindex="0" role="button"
               class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity mb-1 flex flex-row items-center capitalize">
@@ -86,12 +93,12 @@
 
             <div tabindex="0"
               class="dropdown-content z-10 h-[50vh] overflow-auto p-4 rounded-box shadow-md text-sm text-white bg-neutral-800 flex flex-wrap gap-2">
-              <button @click="selectedType = 'all'"
+              <button @click="selectType('all')"
                 :class="['btn btn-ghost w-full flex flex-row justify-start items-center gap-2', selectedType === 'all' ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
                 <span class="font-[xwing] text-lg font-light -mt-1.5">)</span>
                 <span>All</span>
               </button>
-              <button v-for="type in typeOptions" :key="type.name" @click="selectedType = type.name.toLowerCase()"
+              <button v-for="type in typeOptions" :key="type.name" @click="selectType(type.name.toLowerCase())"
                 :class="['btn btn-ghost w-full flex flex-row justify-start items-center gap-2', selectedType === type.name.toLowerCase() ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
                 <span class="font-[xwing] text-lg font-light -mt-1.5">{{ type.symbol ||
                   tokenToLetterMap[type.name.toLowerCase()] || '?' }}</span>
@@ -142,13 +149,35 @@
 
         <div v-if="cardsToShow.length === 0 && activeTab === 'hand'"
           class="text-white h-full text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
-          You have no equipped cards. You can equip cards from your deck or purchase new ones from the
-          store.<br /><br />
-          Drag cards from your deck to their respective slots on the left side of the screen to equip them.
+          <div v-if="searchQuery || selectedType !== 'all'">
+            No equipped cards match your current filters.<br />
+            <button @click="clearFilters" class="btn btn-sm btn-outline mt-2">Clear Filters</button>
+          </div>
+          <div v-else>
+            You have no equipped cards. You can equip cards from your deck or purchase new ones from the
+            store.<br /><br />
+            Drag cards from your deck to their respective slots on the left side of the screen to equip them.
+          </div>
         </div>
         <div v-if="cardsToShow.length === 0 && activeTab === 'deck'"
           class="text-white text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
-          Purchase cards from the store to add them to your deck.
+          <div v-if="searchQuery || selectedType !== 'all'">
+            No cards in your deck match your current filters.<br />
+            <button @click="clearFilters" class="btn btn-sm btn-outline mt-2">Clear Filters</button>
+          </div>
+          <div v-else>
+            Purchase cards from the store to add them to your deck.
+          </div>
+        </div>
+        <div v-if="cardsToShow.length === 0 && activeTab === 'store'"
+          class="text-white text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
+          <div v-if="searchQuery || selectedType !== 'all'">
+            No cards in the store match your current filters.<br />
+            <button @click="clearFilters" class="btn btn-sm btn-outline mt-2">Clear Filters</button>
+          </div>
+          <div v-else>
+            No cards available in the store.
+          </div>
         </div>
       </section>
 
@@ -218,6 +247,7 @@ const activeTab = ref("hand");
 const pendingCard = ref(null);
 const currentlyDraggedCard = ref(null);
 const pendingTransfer = ref(null); // For card swap modal
+const searchQuery = ref("");
 
 // Computed
 const otherPilots = computed(() =>
@@ -291,36 +321,45 @@ const { byAllowedFactions } = useCardFilter();
 
 // Card filtering
 const cardsToShow = computed(() => {
+  let baseCards = [];
+
   if (activeTab.value === "hand") {
     const slotCardIds = Object.values(store.currentPilot?.slotCards || {});
-    const equippedCards = slotCardIds
+    baseCards = slotCardIds
       .map(id => {
         const cardInfo = store.getCardDisplayInfo(id);
         return cardInfo;
       })
       .filter(Boolean);
-
-    if (selectedType.value === 'all') return equippedCards;
-    return equippedCards.filter(card => card.type?.toLowerCase() === selectedType.value);
-  }
-
-  if (activeTab.value === "deck") {
-    let baseCards = store.ownedCards.map(card => {
+  } else if (activeTab.value === "deck") {
+    baseCards = store.ownedCards.map(card => {
       const cardInfo = store.getCardDisplayInfo(card.id);
       return cardInfo || card;
     });
-    if (selectedType.value === 'all') return baseCards;
-    return baseCards.filter(card => card.type?.toLowerCase() === selectedType.value);
+  } else if (activeTab.value === "store") {
+    // Store tab - show regular cards (not upgraded display)
+    const className = store.currentPilot?.class;
+    const classInfo = classData[className];
+    const allowedFactions = classInfo?.factions?.map(f => f.toLowerCase()) || [];
+    baseCards = byAllowedFactions(allowedFactions);
   }
 
-  // Store tab - show regular cards (not upgraded display)
-  const className = store.currentPilot?.class;
-  const classInfo = classData[className];
-  const allowedFactions = classInfo?.factions?.map(f => f.toLowerCase()) || [];
-  let baseCards = byAllowedFactions(allowedFactions);
+  // Apply type filter
+  if (selectedType.value !== 'all') {
+    baseCards = baseCards.filter(card => card.type?.toLowerCase() === selectedType.value);
+  }
 
-  if (selectedType.value === 'all') return baseCards;
-  return baseCards.filter(card => card.type?.toLowerCase() === selectedType.value);
+  // Apply search filter
+  if (searchQuery.value.trim()) {
+    const query = searchQuery.value.toLowerCase();
+    baseCards = baseCards.filter(card => 
+      card.name?.toLowerCase().includes(query) ||
+      card.description?.toLowerCase().includes(query) ||
+      card.type?.toLowerCase().includes(query)
+    );
+  }
+
+  return baseCards;
 });
 
 // Card types
@@ -346,6 +385,24 @@ const typeOptions = [
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 // Methods
+function switchTab(tab) {
+  activeTab.value = tab;
+  // Reset filters when switching tabs
+  searchQuery.value = "";
+  selectedType.value = "all";
+}
+
+function selectType(type) {
+  selectedType.value = type;
+  // Optional: clear search when changing type filter for better UX
+  // searchQuery.value = "";
+}
+
+function clearFilters() {
+  searchQuery.value = "";
+  selectedType.value = "all";
+}
+
 function onRightClickCard(card, event) {
   if (activeTab.value !== "deck") return;
   if (equippedCardIds.value.has(card.id)) return;
