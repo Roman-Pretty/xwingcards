@@ -1,0 +1,54 @@
+[
+  {
+    "id": "advancedsensors",
+    "name": "Advanced Sensors",
+    "type": "Sensor",
+    "faction": "Neutral",
+    "cost": 12,
+    "unique": false,
+    "description": "After you reveal your dial, you may perform 1 action. If you do, you cannot perform another action during your activation.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/advancedsensors.png"
+  },
+  {
+    "id": "collisiondetector",
+    "name": "Collision Detector",
+    "type": "Sensor",
+    "faction": "Neutral",
+    "cost": 7,
+    "unique": false,
+    "description": "While you boost or barrel roll, you can move through and overlap obstacles. After you move through or overlap an obstacle, you may spend 1 {charge} to ignore its effects until the end of the round.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/collisiondetector.png",
+    "energy": 2
+  },
+  {
+    "id": "firecontrolsystem",
+    "name": "Fire-Control System",
+    "type": "Sensor",
+    "faction": "Neutral",
+    "cost": 2,
+    "unique": false,
+    "description": "While you perform an attack, if you have a lock on the defender, you may reroll 1 attack die. If you do, you cannot spend your lock during this attack.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/firecontrolsystem.png"
+  },
+  {
+    "id": "trajectorysimulator",
+    "name": "Trajectory Simulator",
+    "type": "Sensor",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "During the System Phase, if you would drop or launch a bomb, you may launch it using the [5 {s}] template instead.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/trajectorysimulator.png"
+  },
+  {
+    "id": "passivesensors",
+    "name": "Passive Sensors",
+    "type": "Sensor",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": false,
+    "description": "Action: Spend 1 {charge}. You can only perform this action in your Perform Action step. While your {charge} is inactive, you cannot be coordinated. Before you engage, if your {charge} is inactive, you may perform a {calculate} or {lock} action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/passivesensors.png",
+    "recurringEnergy": 1
+  }
+]

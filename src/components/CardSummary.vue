@@ -42,6 +42,11 @@
                 <kbd class="kbd text-black kbd-xs bg-white">F</kbd>
             </div>
 
+            <!-- Initiative indicator -->
+            <div v-if="initiative && !flippable" class="absolute bottom-1 left-1 text-yellow-400 z-30 text-xs font-bold">
+                In {{ initiative }}
+            </div>
+
             <img :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
         </div>
 
@@ -151,6 +156,7 @@ const props = defineProps({
         type: Number,
         default: 0,
     },
+    initiative: [Number, String],
 });
 
 const emit = defineEmits(['card-click'])

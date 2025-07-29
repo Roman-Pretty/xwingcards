@@ -1,4 +1,4 @@
-import cards from '../data/cards.json';
+import cards from '../data/cards.js';
 
 export function useCardFilter() {
   const sortByCost = (arr) =>

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ezrabridger-ability",
+    "name": "One With The Force",
+    "type": "Sensitive",
+    "cost": 9,
+    "description": "While you defend or perform an attack, if you are stressed, you may spend 1 [Force] to change up to 2 of your [Focus] results to [Evade]/[Hit] results.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/ezrabridger-sheathipedeclassshuttle.png",
+    "unique": true,
+    "faction": "Neutral",
+    "initiative": 3
+  },
+  {
+    "id": "keovenzee-ability",
+    "name": "Uncanny Maneuvering",
+    "type": "Sensitive",
+    "cost": 9,
+    "description": "If you have no active [Force], after you reveal a bank [[Bank Left] or [Bank Right]] or turn [[Turn Left] or [Turn Right]] maneuver, you may increase the difficulty of the maneuver. If you do, perform that maneuver as a sideslip and recover 1 [Force].",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/keovenzee.png",
+    "unique": true,
+    "faction": "Neutral",
+    "initiative": 3
+  },
+   {
+    "id": "kananjarrus-ability",
+    "name": "Guardian Angel",
+    "type": "Sensitive",
+    "cost": 9,
+    "description": "While a friendly ship in your firing arc defends, you may spend 1 [Force]. If you do, the attacker rolls 1 fewer attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/kananjarrus.png",
+    "unique": true,
+    "faction": "Neutral",
+    "initiative": 3
+  },
+  {
+    "id": "ahsokatano-ability",
+    "name": "Force Synergy",
+    "type": "Sensitive",
+    "cost": 15,
+    "description": "After you fully execute a maneuver, you may choose a friendly ship at range 1-2 and spend 2 [Force]. That ship may perform an action, even while stressed.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/ahsokatano-rz1awing.png",
+    "unique": true,
+    "faction": "Neutral",
+    "initiative": 5
+  },
+  {
+    "id": "leiaorgana-ability",
+    "name": "Reassuring Presence",
+    "type": "Sensitive",
+    "cost": 15,
+    "description": "After a friendly ship fully executes a red maneuver, if it is at range 0-3, you may spend 1 [Force]. If you do, that ship gains 1 focus token or recovers 1 [Force].",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/leiaorgana.png",
+    "unique": true,
+    "faction": "Neutral",
+    "initiative": 5
+  },
+  {
+    "id": "lukeskywalker-ability",
+    "name": "Force Sensitive",
+    "type": "Sensitive",
+    "cost": 15,
+    "description": "After you become the defender (before dice are rolled), you may recover 1 [Force].",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lukeskywalker.png",
+    "unique": true,
+    "faction": "Neutral",
+    "initiative": 5
+  }
+]

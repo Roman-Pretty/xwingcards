@@ -1,0 +1,30 @@
+[
+  {
+    "id": "dorsalturret",
+    "name": "Dorsal Turret",
+    "type": "Turret",
+    "faction": "Neutral",
+    "cost": 2,
+    "unique": false,
+    "description": "",
+    "requires": "Adds {rotate}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/dorsalturret.png",
+    "damage": 2,
+    "arc": "p",
+    "ranged": "1-2"
+  },
+  {
+    "id": "ioncannonturret",
+    "name": "Ion Cannon Turret",
+    "type": "Turret",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": false,
+    "description": "Attack: If this attack hits, spend 1 {hit} or {crit} result to cause the defender to suffer 1 damage. All remaining {hit}/{crit} results infict ion tokens instead of damage.",
+    "requires": "Adds {rotate}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/ioncannonturret.png",
+    "damage": 3,
+    "arc": "p",
+    "ranged": "1-2"
+  }
+]

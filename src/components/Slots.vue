@@ -29,12 +29,12 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import { usePilotStore } from "../stores/pilotStore";
+import { usePilotStore } from "../stores/PilotStore";
 import Slot from "./Slot.vue";
 import SlotPurchaseModal from "./ui/SlotPurchaseModal.vue";
 import { letterToTokenMap } from "../utils/mappings";
 import classData from "../data/classes.json";
-import cards from "../data/cards.json";
+import cards from "../data/cards.js";
 
 const props = defineProps({
   currentlyDraggedCard: {

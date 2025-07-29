@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import classData from "../data/classes.json";
-import cards from "../data/cards.json";
+import cards from "../data/cards.js";
 
 export interface Pilot {
   id: string;

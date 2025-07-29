@@ -56,6 +56,11 @@
       <kbd class="kbd text-black kbd-sm bg-white">F</kbd> Flip
     </div>
 
+    <!-- Initiative indicator -->
+    <div v-if="initiative && !flippable" class="absolute bottom-2 left-4 transform text-yellow-400 z-30 2xl:text-md text-lg font-bold">
+      In {{ initiative }}
+    </div>
+
     <!-- Requires indicator -->
     <div v-if="requires"
       class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-white z-30 opacity-50 text-sm border-x-1 border-t-1 px-1 rounded-t">
@@ -157,6 +162,7 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  initiative: [Number, String],
 });
 
 const emit = defineEmits(['card-click'])

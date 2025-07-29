@@ -1,0 +1,139 @@
+[
+  {
+    "id": "cloakingdevice",
+    "name": "Cloaking Device",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 3,
+    "upgradeable": true,
+    "requires": "{small}, {medium}",
+    "unique": true,
+    "description": "Action: Spend 1 {charge} to perform a {cloak} action. At the start of the Planning Phase, roll 1 attack die. On a {focus} result, decloak or discard your cloak token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/cloakingdevice.png",
+    "energy": 2
+  },
+  {
+    "id": "contrabandcybernetics",
+    "name": "Contraband Cybernetics",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 3,
+    "unique": false,
+    "description": "Before you activate, you may spend 1 {charge}. If you do, until the end of the round, you can perform actions and execute red maneuvers, even while stressed. This card's {charge} cannot be recovered.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/contrabandcybernetics.png",
+    "energy": 1
+  },
+  {
+    "id": "deadmansswitch",
+    "name": "Deadman's Switch",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 2,
+    "unique": false,
+    "description": "After you are destroyed, each other ship at range 0-1 suffers 1 {hit} damage.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/deadmansswitch.png"
+  },
+  {
+    "id": "feedbackarray",
+    "name": "Feedback Array",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 2,
+    "unique": false,
+    "description": "Before you engage, you may gain 1 ion token and 1 disarm token. If you do, each ship at range 0 suffers 1 {hit} damage.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/feedbackarray.png"
+  },
+  {
+    "id": "inertialdampeners",
+    "name": "Inertial Dampeners",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "Before you would execute a maneuver, you may spend 1 shield. If you do, execute a white [0 {stationary}] instead of the maneuver you revealed, then gain 1 stress token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/inertialdampeners.png"
+  },
+  {
+    "id": "riggedcargochute",
+    "name": "Rigged Cargo Chute",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "requires": "{medium}, {large}",
+    "cost": 4,
+    "unique": false,
+    "description": "Action: Spend 1 {charge}. Drop 1 loose cargo using the [1 {s}] template.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/riggedcargochute.png",
+    "energy": 1
+  },
+  {
+    "id": "coaxiumhyperfuel",
+    "name": "Coaxium Hyperfuel",
+    "type": "Illicit",
+    "faction": "Resistance",
+    "cost": 4,
+    "unique": false,
+    "requires": "{slam}",
+    "description": "You can perform the {slam} action even while stressed. If you do, you suffer 1 {crit} damage unless you expose 1 of your damage cards. After you partially execute a maneuver, you may expose 1 of your damage cards or suffer 1 {crit} damage to perform a {slam} action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/coaxiumhyperfuel.png"
+  },
+  {
+    "id": "falsetranspondercodes",
+    "name": "False Transponder Codes",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 3,
+    "unique": false,
+    "description": "After you acquire a lock on an object or an object acquires a lock on you, if you have 1 active {charge}, lose 1 {charge} and jam that object, ignoring range restrictions.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/falsetranspondercodes.png",
+    "energy": 1
+  },
+  {
+    "id": "babufrik",
+    "name": "Babu Frik",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 7,
+    "unique": true,
+    "description": "Before you would gain a non-lock red or orange token, you may spend 1 {charge} to place it on this card instead. During the System Phase, if there are 1 or more tokens on this card, you must spend 1 {charge}. If you cannot, remove those tokens and gain matching tokens.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/babufrik.png",
+    "energy": 3
+  },
+  {
+    "id": "overtunedmodulators",
+    "name": "Overtuned Modulators",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 3,
+    "unique": false,
+    "description": "During the System Phase, if you are not stressed, you may spend 1 {charge} to gain 3 calculate tokens. During the End Phase, if your {charge} is inactive, for each green token you remove, gain 1 strain token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/overtunedmodulators.png",
+    "energy": 1
+  },
+  {
+    "id": "trackingfob",
+    "name": "Tracking Fob",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "requires": "Hunter",
+    "cost": 4,
+    "unique": true,
+    "description": "Setup: After placing forces, choose an enemy ship in play or on the mission Deployment Chart and assign it the Marked for Elimination Condition. You ignore range restrictions while acquiring locks on this ship. If you have this ship locked when you attack it, it may not spend green tokens on defense.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/trackingfob.png"
+  },
+  {
+    "id": "hotshottailblaster",
+    "name": "Hotshot Tail Blaster",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 2,
+    "damage": 2,
+    "ranged": "0-1",
+    "upgradeable": true,
+    "isMissile": true,
+    "arc": "|",
+    "unique": false,
+    "description": "This attack can be performed at range 0. Attack: Spend 1 {charge}.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hotshottailblaster.png",
+    "energy": 2
+  }
+]

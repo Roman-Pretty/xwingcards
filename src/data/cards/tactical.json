@@ -1,0 +1,54 @@
+[
+  {
+    "id": "kalani",
+    "name": "Kalani",
+    "type": "Tactical",
+    "faction": "Separatist",
+    "cost": 3,
+    "unique": true,
+    "description": "Adds: {calculate}<br/>After an enemy ship executes a maneuver, if it is in the {ab} of a friendly ship at range 0-3, you may spend 1 {charge}. If you do, that friendly ship may choose to acquire a lock on that enemy ship, and gain 1 stress token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/kalani.png",
+    "recurringEnergy": 3,
+    "energy": 3
+  },
+  {
+    "id": "kraken",
+    "name": "Kraken",
+    "type": "Tactical",
+    "faction": "Separatist",
+    "cost": 8,
+    "unique": true,
+    "description": "Adds: {calculate}<br/>During the End Phase, you may choose up to 3 friendly ships at range 0-3. If you do, each of these ships does not remove 1 calculate token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/kraken.png"
+  },
+  {
+    "id": "tv94",
+    "name": "TV-94",
+    "type": "Tactical",
+    "faction": "Separatist",
+    "cost": 3,
+    "unique": true,
+    "description": "While a friendly ship at range 0-3 performs a primary attack against a defender in its {ab}, if there are 2 or fewer attack dice, it may spend 1 calculate token to add 1 {hit} result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/tv94.png"
+  },
+  {
+    "id": "k2b4",
+    "name": "K2-B4",
+    "type": "Tactical",
+    "faction": "Separatist",
+    "cost": 4,
+    "unique": true,
+    "description": "While a friendly ship at range 0-3 defends, it may spend 1 calculate token. If it does, add 1 {evade} result unless the attacker chooses to gain 1 strain token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/k2b4.png"
+  },
+  {
+    "id": "ta175",
+    "name": "TA-175",
+    "type": "Tactical",
+    "faction": "Separatist",
+    "cost": 6,
+    "unique": true,
+    "description": "After a friendly ship at range 0-3 with {calculate} on its action bar is destroyed, each friendly ship at range 0-3 with {calculate} in its action bar gains 1 calculate token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/ta175.png"
+  }
+]

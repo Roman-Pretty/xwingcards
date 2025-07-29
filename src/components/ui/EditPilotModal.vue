@@ -129,7 +129,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import SettingsModal from './SettingsModal.vue'
-import cards from '../../data/cards.json'
+import cards from '../../data/cards.js'
 import classData from '../../data/classes.json'
 
 const props = defineProps({
