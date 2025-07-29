@@ -1,6 +1,7 @@
 <template>
   <main class="bg-neutral-900 w-full h-screen p-4 flex flex-row gap-4 inria-sans-regular overflow-hidden">
-    <div class="flex-1 border-2 border-neutral-700 rounded-2xl  flex flex-col justify-between text-white overflow-hidden">
+    <div
+      class="flex-1 border-2 border-neutral-700 rounded-2xl  flex flex-col justify-between text-white overflow-hidden">
       <div class="flex flex-col justify-between h-full ">
         <div class="flex-1 p-4">
           <div class="flex flex-row justify-between w-full items-center">
@@ -37,12 +38,13 @@
           <div>
             <div class="w-full flex flex-row items-center justify-between mb-4">
               <h2 class="text-lg ">Loadout</h2>
-              <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color }" class="text-xl flex flex-row items-center gap-1 cursor-default ">
+              <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color }"
+                class="text-xl flex flex-row items-center gap-1 cursor-default ">
                 <span class="font-[xwing] font-light text-2xl -mt-1.5">{{ symbol }}</span>
                 <span class="font-bold">{{ getFactionSlots(symbol) }} / {{ count }}</span>
               </div>
             </div>
-                          <Slots class="w-full" :currently-dragged-card="currentlyDraggedCard" />
+            <Slots class="w-full" :currently-dragged-card="currentlyDraggedCard" />
           </div>
           <div>
             <h2 class="text-lg mb-4">Ships</h2>
@@ -59,27 +61,40 @@
     <div class="flex-1 flex flex-col overflow-visible min-h-0">
       <div class="p-4 border-2 border-neutral-700 rounded-2xl flex justify-between items-center flex-row">
         <div class="join">
-          <button class="btn join-item" :class="{ 'btn-active': activeTab === 'hand', 'btn-neutral': activeTab !== 'hand' }" @click="activeTab = 'hand'">Hand</button>
-          <button class="btn join-item" :class="{ 'btn-active': activeTab === 'deck', 'btn-neutral': activeTab !== 'deck' }" @click="activeTab = 'deck'">Deck</button>
-          <button class="btn join-item" :class="{ 'btn-active': activeTab === 'store', 'btn-neutral': activeTab !== 'store' }" @click="activeTab = 'store'">Store</button>
+          <button class="btn join-item"
+            :class="{ 'btn-active': activeTab === 'hand', 'btn-neutral': activeTab !== 'hand' }"
+            @click="activeTab = 'hand'">Hand</button>
+          <button class="btn join-item"
+            :class="{ 'btn-active': activeTab === 'deck', 'btn-neutral': activeTab !== 'deck' }"
+            @click="activeTab = 'deck'">Deck</button>
+          <button class="btn join-item"
+            :class="{ 'btn-active': activeTab === 'store', 'btn-neutral': activeTab !== 'store' }"
+            @click="activeTab = 'store'">Store</button>
         </div>
 
         <div class="flex items-center gap-2">
           <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity mb-1 flex flex-row items-center capitalize">
+            <div tabindex="0" role="button"
+              class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity mb-1 flex flex-row items-center capitalize">
               {{ selectedType }}
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-chevron-down">
                 <path d="m6 9 6 6 6-6" />
               </svg>
             </div>
 
-            <div tabindex="0" class="dropdown-content z-10 h-[50vh] overflow-auto p-4 rounded-box shadow-md text-sm text-white bg-neutral-800 flex flex-wrap gap-2">
-              <button @click="selectedType = 'all'" :class="['btn btn-ghost w-full flex flex-row justify-start items-center gap-2', selectedType === 'all' ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
+            <div tabindex="0"
+              class="dropdown-content z-10 h-[50vh] overflow-auto p-4 rounded-box shadow-md text-sm text-white bg-neutral-800 flex flex-wrap gap-2">
+              <button @click="selectedType = 'all'"
+                :class="['btn btn-ghost w-full flex flex-row justify-start items-center gap-2', selectedType === 'all' ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
                 <span class="font-[xwing] text-lg font-light -mt-1.5">)</span>
                 <span>All</span>
               </button>
-              <button v-for="type in typeOptions" :key="type.name" @click="selectedType = type.name.toLowerCase()" :class="['btn btn-ghost w-full flex flex-row justify-start items-center gap-2', selectedType === type.name.toLowerCase() ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
-                <span class="font-[xwing] text-lg font-light -mt-1.5">{{ type.symbol || tokenToLetterMap[type.name.toLowerCase()] || '?' }}</span>
+              <button v-for="type in typeOptions" :key="type.name" @click="selectedType = type.name.toLowerCase()"
+                :class="['btn btn-ghost w-full flex flex-row justify-start items-center gap-2', selectedType === type.name.toLowerCase() ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
+                <span class="font-[xwing] text-lg font-light -mt-1.5">{{ type.symbol ||
+                  tokenToLetterMap[type.name.toLowerCase()] || '?' }}</span>
                 <span>{{ type.name }}</span>
               </button>
             </div>
@@ -91,18 +106,21 @@
         'flex flex-row flex-wrap gap-6 justify-between': activeTab !== 'hand',
         'flex flex-col': activeTab === 'hand'
       }">
-        <div class="btn btn-square absolute bottom-4 right-4 z-50 shadow shadow-black" @click="$router.push('/settings')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        <div class="btn btn-square absolute bottom-4 right-4 z-50 shadow shadow-black"
+          @click="$router.push('/settings')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-settings-icon lucide-settings">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
         </div>
         <!-- Hand tab uses CardSummary for compact display -->
         <template v-if="activeTab === 'hand'">
           <div class="w-full space-y-3">
             <CardSummary v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
-              :showXP="false"
-              :upgradeLevel="store.getCardUpgradeLevel(card.id)"
-              @click="select(card)"
-              class="w-full"
-            />
+              :showXP="false" :upgradeLevel="store.getCardUpgradeLevel(card.id)" @click="select(card)" class="w-full" />
           </div>
         </template>
 
@@ -112,10 +130,8 @@
             :showXP="activeTab === 'store'" :owned="activeTab === 'store' && store.isCardOwnedByCurrentPilot(card.id)"
             :canUpgrade="activeTab === 'store' && store.canUpgradeCard(card.id)"
             :upgradeLevel="store.getCardUpgradeLevel(card.id)"
-            :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" 
-            @dragstart="onDragStart(card.id, $event)"
-            @dragend="onDragEnd"
-            @click="select(card)" :class="{
+            :draggable="activeTab === 'deck' && !store.isCardTaken(card.id)" @dragstart="onDragStart(card.id, $event)"
+            @dragend="onDragEnd" @click="select(card)" :class="{
               'pointer-events-none opacity-50': store.isCardOwnedByCurrentPilot(card.id) && activeTab === 'store' && !store.canUpgradeCard(card.id),
               'opacity-50 cursor-not-allowed': activeTab === 'deck' && store.isCardTaken(card.id),
               'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out': activeTab === 'deck' && !store.isCardTaken(card.id),
@@ -124,19 +140,25 @@
             }" @contextmenu.prevent="onRightClickCard(card, $event)" />
         </template>
 
-        <div v-if="cardsToShow.length === 0 && activeTab === 'hand'" class="text-white h-full text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
-          You have no equipped cards. You can equip cards from your deck or purchase new ones from the store.<br /><br />
+        <div v-if="cardsToShow.length === 0 && activeTab === 'hand'"
+          class="text-white h-full text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
+          You have no equipped cards. You can equip cards from your deck or purchase new ones from the
+          store.<br /><br />
           Drag cards from your deck to their respective slots on the left side of the screen to equip them.
         </div>
-        <div v-if="cardsToShow.length === 0 && activeTab === 'deck'" class="text-white text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
+        <div v-if="cardsToShow.length === 0 && activeTab === 'deck'"
+          class="text-white text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
           Purchase cards from the store to add them to your deck.
         </div>
       </section>
 
-      <div v-if="showContextMenu && contextCard" :style="{ top: contextMenuY + 'px', left: contextMenuX + 'px' }" class="absolute z-50 bg-neutral-800 text-white border border-neutral-600 rounded shadow-lg p-2" @click.outside="showContextMenu = false">
+      <div v-if="showContextMenu && contextCard" :style="{ top: contextMenuY + 'px', left: contextMenuX + 'px' }"
+        class="absolute z-50 bg-neutral-800 text-white border border-neutral-600 rounded shadow-lg p-2"
+        @click.outside="showContextMenu = false">
         <div class="font-semibold cursor-default mb-2 pr-10">Give card to:</div>
         <div v-for="pilot in otherPilots" :key="pilot.id">
-          <button class="p-1 px-2 rounded cursor-pointer text-left w-full flex flex-start hover:bg-neutral-700" @click="giveCardToPilot(pilot.id)">
+          <button class="p-1 px-2 rounded cursor-pointer text-left w-full flex flex-start hover:bg-neutral-700"
+            @click="giveCardToPilot(pilot.id)">
             {{ pilot.name }}
           </button>
         </div>
@@ -144,31 +166,15 @@
     </div>
 
     <!-- Modal Components -->
-    <CardPurchaseModal
-      ref="cardPurchaseModal"
-      :card="pendingCard"
-      :is-upgrade="isPendingCardUpgrade"
-      :upgrade-level="pendingCardUpgradeLevel"
-      @confirm="confirmCardPurchase"
-      @cancel="cancelCardPurchase"
-    />
+    <CardPurchaseModal ref="cardPurchaseModal" :card="pendingCard" :is-upgrade="isPendingCardUpgrade"
+      :upgrade-level="pendingCardUpgradeLevel" @confirm="confirmCardPurchase" @cancel="cancelCardPurchase" />
 
-    <AddXpModal
-      ref="addXpModal"
-      :pilot-name="store.currentPilot?.name || 'Unknown Pilot'"
-      @confirm="confirmAddXP"
-      @cancel="closeAddXpModal"
-    />
+    <AddXpModal ref="addXpModal" :pilot-name="store.currentPilot?.name || 'Unknown Pilot'" @confirm="confirmAddXP"
+      @cancel="closeAddXpModal" />
 
-    <CardSwapModal
-      ref="cardSwapModal"
-      :card-name="pendingTransfer?.cardName"
-      :target-pilot-name="pendingTransfer?.targetPilotName"
-      :your-upgrade-level="pendingTransfer?.yourUpgradeLevel"
-      :target-upgrade-level="pendingTransfer?.targetUpgradeLevel"
-      @confirm="confirmCardSwap"
-      @cancel="cancelCardSwap"
-    />
+    <CardSwapModal ref="cardSwapModal" :card-name="pendingTransfer?.cardName"
+      :target-pilot-name="pendingTransfer?.targetPilotName" :your-upgrade-level="pendingTransfer?.yourUpgradeLevel"
+      :target-upgrade-level="pendingTransfer?.targetUpgradeLevel" @confirm="confirmCardSwap" @cancel="cancelCardSwap" />
   </main>
 </template>
 
@@ -317,6 +323,7 @@ const typeOptions = [
   { name: "Payload" },
   { name: "Sensor" },
   { name: "Sensitive" },
+    { name: "Tactical" },
   { name: "Talent" },
   { name: "Tech" },
   { name: "Title" },
@@ -345,14 +352,14 @@ function giveCardToPilot(targetPilotId) {
   if (targetPilot.ownedCards.includes(cardId)) {
     const currentUpgradeLevel = currentPilot.cardUpgrades?.[cardId] || 0;
     const targetUpgradeLevel = targetPilot.cardUpgrades?.[cardId] || 0;
-    
+
     if (currentUpgradeLevel === targetUpgradeLevel) {
       alert(`${targetPilot.name} already owns this card at the same upgrade level.`);
       showContextMenu.value = false;
       contextCard.value = null;
       return;
     }
-    
+
     // Different upgrade levels - offer swap
     pendingTransfer.value = {
       cardId,
@@ -364,12 +371,12 @@ function giveCardToPilot(targetPilotId) {
       yourUpgradeLevel: currentUpgradeLevel,
       targetUpgradeLevel: targetUpgradeLevel
     };
-    
+
     // Use setTimeout to ensure DOM is updated
     setTimeout(() => {
       cardSwapModal.value?.open();
     }, 0);
-    
+
     showContextMenu.value = false;
     contextCard.value = null;
     return;
@@ -379,13 +386,13 @@ function giveCardToPilot(targetPilotId) {
   const index = currentPilot.ownedCards.indexOf(cardId);
   if (index !== -1) {
     currentPilot.ownedCards.splice(index, 1);
-    
+
     // Transfer upgrade level
     const upgradeLevel = currentPilot.cardUpgrades?.[cardId] || 0;
     if (upgradeLevel > 0) {
       if (!currentPilot.cardUpgrades) currentPilot.cardUpgrades = {};
       delete currentPilot.cardUpgrades[cardId];
-      
+
       if (!targetPilot.cardUpgrades) targetPilot.cardUpgrades = {};
       targetPilot.cardUpgrades[cardId] = upgradeLevel;
     }
@@ -412,11 +419,11 @@ function onDragStart(cardId, event) {
     event.preventDefault();
     return;
   }
-  
+
   // Store the currently dragged card
   const draggedCard = store.ownedCards.find(c => c.id === cardId);
   currentlyDraggedCard.value = draggedCard;
-  
+
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.setData("text/plain", cardId);
 }
@@ -448,7 +455,7 @@ function select(card) {
   if (activeTab.value === "store") {
     const isOwned = store.isCardOwnedByCurrentPilot(card.id);
     const canUpgrade = store.canUpgradeCard(card.id);
-    
+
     if (isOwned && !canUpgrade) {
       alert("You already own this card and cannot upgrade it further.");
       return;
@@ -469,10 +476,10 @@ function select(card) {
 function unequipCard(cardId) {
   const pilot = store.currentPilot;
   if (!pilot?.slotCards) return;
-  
+
   // Find which slot the card is in
   const slotKey = Object.keys(pilot.slotCards).find(key => pilot.slotCards[key] === cardId);
-  
+
   if (slotKey) {
     store.removeCardFromSlot(slotKey);
   }
@@ -488,7 +495,7 @@ function confirmCardPurchase() {
   }
 
   const isOwned = store.isCardOwnedByCurrentPilot(pendingCard.value.id);
-  
+
   if (isOwned) {
     // This is an upgrade
     const success = store.upgradeCard(pendingCard.value.id);
@@ -512,17 +519,17 @@ function cancelCardPurchase() {
 // Card swap functions
 function confirmCardSwap() {
   if (!pendingTransfer.value) return;
-  
+
   const { cardId, currentPilot, targetPilot, yourUpgradeLevel, targetUpgradeLevel } = pendingTransfer.value;
-  
+
   // Initialize cardUpgrades if they don't exist
   if (!currentPilot.cardUpgrades) currentPilot.cardUpgrades = {};
   if (!targetPilot.cardUpgrades) targetPilot.cardUpgrades = {};
-  
+
   // Swap upgrade levels
   currentPilot.cardUpgrades[cardId] = targetUpgradeLevel;
   targetPilot.cardUpgrades[cardId] = yourUpgradeLevel;
-  
+
   pendingTransfer.value = null;
 }
 
