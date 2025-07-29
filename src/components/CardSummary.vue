@@ -64,7 +64,7 @@
                                 <span class="font-[xwing] text-base">{{ arc }}</span>
                                 <span class="font-semibold">{{ damage }}</span>
                                 <span v-if="isMissile" class="font-[xwing] text-base">?</span>
-                                <span class="ml-2 text-white/80">{{ ranged }}</span>
+                                <span class="ml-2 text-white/80">Range {{ ranged }}</span>
                             </div>
                         </div>
                     </div>

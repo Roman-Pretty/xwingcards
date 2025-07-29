@@ -1,6 +1,7 @@
 <template>
   <div @click="handleClick" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
-    'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer w-[48%] 2xl:w-[31%] aspect-[2/3] rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative',
+    'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer w-[48%] 2xl:w-[31%] aspect-[2/3] rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative self-start',
+,
   ]">
 
     <div

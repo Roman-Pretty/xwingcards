@@ -1,10 +1,10 @@
 <template>
   <!-- Main Slot Container -->
 <div
-  class="relative group transition-all duration-150 rounded flex-1 cursor-default flex border-2 border-transparent"
+  class="relative group transition-all duration-150 rounded flex-1 cursor-default flex border border-neutral-600"
   :class="{
     'opacity-50 hover:scale-105 transition-transform duration-300 bg-neutral-800': !unlocked,
-    'bg-yellow-700 shadow-[0_0_8px_2px_rgba(204,153,0,0.5)] border-yellow-500': props.card,
+    'bg-yellow-700 shadow-[0_0_8px_2px_rgba(204,153,0,0.5)] border-yellow-500 hover:border-transparent': props.card,
     'bg-neutral-800': !props.card && unlocked,
     'border-dashed !border-blue-400 bg-blue-900/10 shadow-[0_0_4px_1px_rgba(59,130,246,0.2)]': isDraggedOver && canAcceptDrop
   }"
@@ -34,7 +34,7 @@
     <!-- Remove button -->
     <div
       v-if="props.card"
-      class="absolute inset-0 bg-red-700/80 cursor-pointer text-white text-center flex items-center justify-center text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded z-10"
+      class="absolute inset-0 bg-red-700/80  cursor-pointer text-white text-center flex items-center justify-center text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded z-10"
       @click.stop="clearCard"
     >
       Unequip Card
@@ -53,7 +53,7 @@
       </div>
       <div class="flex flex-col">
         <h2 class="text-white truncate">{{ displayName }}</h2>
-        <span class="text-sm text-white/80 select-none">
+        <span class="text-sm text-white/80 select-none truncate">
           {{ cardName || "Empty" }}
         </span>
       </div>

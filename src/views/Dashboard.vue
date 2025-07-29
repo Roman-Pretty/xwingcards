@@ -124,7 +124,7 @@
             }" @contextmenu.prevent="onRightClickCard(card, $event)" />
         </template>
 
-        <div v-if="cardsToShow.length === 0 && activeTab === 'hand'" class="text-white  text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
+        <div v-if="cardsToShow.length === 0 && activeTab === 'hand'" class="text-white h-full text-center text-lg opacity-70 font-medium flex items-center justify-center w-full">
           You have no equipped cards. You can equip cards from your deck or purchase new ones from the store.<br /><br />
           Drag cards from your deck to their respective slots on the left side of the screen to equip them.
         </div>
