@@ -38,7 +38,7 @@
           <div>
             <div class="w-full flex flex-row items-center justify-between mb-4">
               <h2 class="text-lg ">Loadout</h2>
-              <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color }"
+              <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color: getFactionColor(symbol) }"
                 class="text-xl flex flex-row items-center gap-1 cursor-default ">
                 <span class="font-[xwing] font-light text-2xl -mt-1.5">{{ symbol }}</span>
                 <span class="font-bold">{{ getFactionSlots(symbol) }} / {{ count }}</span>
@@ -103,7 +103,7 @@
       </div>
 
       <section class="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-16 pt-8 min-h-0" :class="{
-        'flex flex-row flex-wrap gap-6 justify-between': activeTab !== 'hand',
+        'flex flex-row flex-wrap gap-6 justify-evenly': activeTab !== 'hand',
         'flex flex-col': activeTab === 'hand'
       }">
         <div class="btn btn-square absolute bottom-4 right-4 z-50 shadow shadow-black"
@@ -235,6 +235,20 @@ const icon = computed(() => {
 const color = computed(() => {
   return classData[store.currentPilot?.class]?.color || "amber";
 });
+
+// Function to get faction color based on symbol
+function getFactionColor(symbol) {
+  const factionColors = {
+    "@": "#609bca", // empire
+    "h": "#f9a8d4", // force
+    "!": "#ff9900", // resistance
+    "+": "#870000", // firstorder
+    "#": "#2ec22b", // scum
+    "/": "#ff6048", // republic  
+    ".": "#72b8f0"  // separatists 
+  };
+  return factionColors[symbol] || "#6b7280";
+}
 
 const unlockedFactionCounts = computed(() => {
   const pilot = store.currentPilot;

@@ -6,7 +6,8 @@
     'opacity-50 hover:scale-105 transition-transform duration-300 bg-neutral-800': !unlocked,
     'bg-yellow-700 shadow-[0_0_8px_2px_rgba(204,153,0,0.5)] border-yellow-500 hover:border-transparent': props.card,
     'bg-neutral-800': !props.card && unlocked,
-    'border-dashed !border-blue-400 bg-blue-900/10 shadow-[0_0_4px_1px_rgba(59,130,246,0.2)]': isDraggedOver && canAcceptDrop
+    'border-dashed !border-blue-400 bg-blue-900/10 shadow-[0_0_4px_1px_rgba(59,130,246,0.2)]': isDraggedOver && canAcceptDrop,
+    'border-dashed !border-red-500 bg-red-900/20 shadow-[0_0_4px_1px_rgba(239,68,68,0.4)]': isDraggedOver && isBlockedByFactionLimit
   }"
   tabindex="0"
   ref="slotRef"
@@ -31,6 +32,17 @@
 
   <!-- Content Wrapper (disabled when locked) -->
   <div :class="{ 'pointer-events-none': !unlocked }">
+    <!-- Faction limit blocked overlay -->
+    <div
+      v-if="isDraggedOver && isBlockedByFactionLimit"
+      class="absolute inset-0 bg-red-900/90 cursor-not-allowed text-white text-center flex items-center justify-center text-sm font-semibold rounded z-30"
+    >
+      <div class="text-center">
+        <div class="text-xs">FACTION LIMIT</div>
+        <div class="text-xs">REACHED</div>
+      </div>
+    </div>
+
     <!-- Remove button -->
     <div
       v-if="props.card"
@@ -68,6 +80,7 @@
 import { computed, ref } from "vue";
 import cards from "../data/cards.json";
 import { tokenToLetterMap } from "../utils/mappings";
+import { usePilotStore } from "../stores/pilotStore";
 
 const props = defineProps({
   options: Array,
@@ -85,12 +98,37 @@ const emit = defineEmits(["card-drop"]);
 
 // Drag state
 const isDraggedOver = ref(false);
+const store = usePilotStore();
+
 const canAcceptDrop = computed(() => {
   if (!props.currentlyDraggedCard || !props.unlocked) return false;
   
-  return props.options.some(opt =>
-    opt.toLowerCase() === props.currentlyDraggedCard.type.toLowerCase()
-  );
+  // Check if this is an "Any" slot - it can accept any card type
+  const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
+    props.options.some(opt =>
+      opt.toLowerCase() === props.currentlyDraggedCard.type.toLowerCase()
+    );
+  
+  if (!typeMatches) return false;
+
+  // Check faction limits
+  return store.canEquipFactionCard(props.currentlyDraggedCard.id);
+});
+
+// Computed property to check if drop is being prevented due to faction limits
+const isBlockedByFactionLimit = computed(() => {
+  if (!props.currentlyDraggedCard || !props.unlocked) return false;
+  
+  // Check if type matches but faction limit prevents drop
+  const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
+    props.options.some(opt =>
+      opt.toLowerCase() === props.currentlyDraggedCard.type.toLowerCase()
+    );
+  
+  if (!typeMatches) return false;
+
+  // If type matches but can't equip, it's due to faction limits
+  return !store.canEquipFactionCard(props.currentlyDraggedCard.id);
 });
 
 const cardName = computed(() => {
@@ -106,8 +144,8 @@ const displayName = computed(() => {
 function onDragEnter(event) {
   if (!props.unlocked || !props.currentlyDraggedCard) return;
   
-  // Only show visual feedback if the card can be accepted
-  if (canAcceptDrop.value) {
+  // Show visual feedback if the card can be accepted OR if it's blocked by faction limits
+  if (canAcceptDrop.value || isBlockedByFactionLimit.value) {
     isDraggedOver.value = true;
   }
 }

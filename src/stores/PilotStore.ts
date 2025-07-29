@@ -27,7 +27,13 @@ export const usePilotStore = defineStore("pilotStore", {
 
   getters: {
     currentPilot(state) {
-      return state.pilots.find((p) => p.id === state.currentPilotId);
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      // Initialize faction slots if they don't exist
+      if (pilot && !pilot.usedFactionSlots) {
+        const store = this as any; // Access store methods
+        pilot.usedFactionSlots = store.calculateUsedFactionSlots(pilot);
+      }
+      return pilot;
     },
 
     ownedCards(state) {
@@ -119,6 +125,53 @@ export const usePilotStore = defineStore("pilotStore", {
 
       return usedFactionSlots[mappings[factionIcon]] || 0;
     },
+
+    canEquipFactionCard: (state) => (cardId) => {
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!pilot) return false;
+
+      const card = cards.find((c) => c.id === cardId);
+      if (!card || !card.faction || card.faction.toLowerCase() === "neutral") return true;
+
+      // Get faction limits from class data
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return false;
+
+      const ranks = classInfo.ranks.filter(r => r.rank <= pilot.rank);
+      const factionLimits: Record<string, number> = {};
+      
+      for (const r of ranks) {
+        if (!r.faction) continue;
+        for (const sym of r.faction) {
+          const mappings = {
+            "@": "empire",
+            "h": "force",
+            "!": "resistance",
+            "+": "firstorder",
+            "#": "scum",
+            "/": "republic",
+            ".": "separatists"
+          };
+          const factionName = mappings[sym];
+          if (factionName) {
+            factionLimits[factionName] = (factionLimits[factionName] || 0) + 1;
+          }
+        }
+      }
+
+      // Normalize card faction name to match our mapping system
+      let cardFaction = card.faction.toLowerCase();
+      if (cardFaction === "first order") {
+        cardFaction = "firstorder";
+      } else if (cardFaction === "separatist") {
+        cardFaction = "separatists";
+      }
+
+      const currentCount = pilot.usedFactionSlots?.[cardFaction] || 0;
+      const maxCount = factionLimits[cardFaction] || 0;
+
+      return currentCount < maxCount;
+    },
   },
 
   actions: {
@@ -131,7 +184,17 @@ export const usePilotStore = defineStore("pilotStore", {
         const card = cards.find((c) => c.id === cardId);
         const faction = card?.faction;
         if (faction && faction.toLowerCase() !== "neutral") {
-          factionCount[faction] = (factionCount[faction] || 0) + 1;
+          // Normalize faction names to match our mapping system
+          let normalizedFaction = faction.toLowerCase();
+          
+          // Handle variations in faction names
+          if (normalizedFaction === "first order") {
+            normalizedFaction = "firstorder";
+          } else if (normalizedFaction === "separatist") {
+            normalizedFaction = "separatists";
+          }
+          
+          factionCount[normalizedFaction] = (factionCount[normalizedFaction] || 0) + 1;
         }
       });
 
@@ -148,7 +211,14 @@ export const usePilotStore = defineStore("pilotStore", {
       if (this.currentPilotId === id) return;
       this.currentPilotId = id;
       this.updatePilotSlots();
-      this.updateUsedFactionSlots();
+      
+      // Ensure faction slots are initialized for the current pilot
+      const pilot = this.currentPilot;
+      if (pilot && !pilot.usedFactionSlots) {
+        pilot.usedFactionSlots = this.calculateUsedFactionSlots(pilot);
+      } else {
+        this.updateUsedFactionSlots();
+      }
     },
 
     unselectCard(cardId: string) {
@@ -227,6 +297,11 @@ export const usePilotStore = defineStore("pilotStore", {
       if (!cardId || cardId.trim() === '') {
         this.removeCardFromSlot(slotKey);
         return;
+      }
+
+      // Check faction limits before assigning
+      if (!this.canEquipFactionCard(cardId)) {
+        return false; // Cannot equip due to faction limits
       }
 
       // Unselect the card from deck
@@ -410,6 +485,15 @@ export const usePilotStore = defineStore("pilotStore", {
       }
 
       return true;
+    },
+
+    initializeFactionSlots() {
+      // Initialize faction slots for all pilots that don't have them
+      this.pilots.forEach(pilot => {
+        if (!pilot.usedFactionSlots) {
+          pilot.usedFactionSlots = this.calculateUsedFactionSlots(pilot);
+        }
+      });
     },
   },
 
