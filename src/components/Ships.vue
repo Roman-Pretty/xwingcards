@@ -32,6 +32,16 @@
           </div>
         </div>
 
+        <div v-if="ship.lockedSlots?.length" class="flex flex-col items-center">
+          <div class="flex items-center justify-center gap-1 flex-wrap">
+            <span v-for="(lockedSlot, index) in ship.lockedSlots" :key="lockedSlot.slot + '-locked-' + index"
+              class="font-[xwing] text-md font-extralight -mt-1"
+              :class="{ 'opacity-40': !isLockedSlotPurchased(ship.ship, index) }">
+              {{ lockedSlot.slot }}
+            </span>
+          </div>
+        </div>
+
         <div class="mt-auto text-sm text-white/80">
           <span v-if="getShipStatus(ship) === 'locked'">Locked</span>
           <span v-else-if="getShipStatus(ship) === 'owned'">Owned</span>
@@ -78,6 +88,13 @@ function getShipStatus(ship) {
   if (pilot.rank < ship.rank) return 'locked'
   if (pilot.ships.includes(ship.ship)) return 'owned'
   return 'available'
+}
+
+function isLockedSlotPurchased(shipName, slotIndex) {
+  const pilot = currentPilot.value
+  if (!pilot || !pilot.unlockedSlots) return false
+  const key = `${shipName}-${slotIndex}`
+  return pilot.unlockedSlots.includes(key)
 }
 
 function onShipClick(ship) {
