@@ -43,14 +43,6 @@
       </span>
     </div>  
 
-    <!-- Can upgrade indicator -->
-    <div v-if="canUpgrade && showXP"
-      class="absolute top-11 right-2 flex items-center justify-center px-2 py-1 text-xs font-semibold rounded bg-green-600 bg-opacity-90 text-white select-none z-20">
-      <span>
-        UPGRADE
-      </span>
-    </div>
-
     <!-- Flip indicator -->
     <div v-if="flippable" class="absolute bottom-2 left-2 transform text-white z-30 opacity-50 text-sm">
       <kbd class="kbd text-black kbd-sm bg-white">F</kbd> Flip
@@ -69,10 +61,17 @@
 
 
     <figure class="relative rounded-t-lg overflow-hidden h-1/2">
-      <!-- Owned badge -->
+      <!-- Owned badge with upgrade status -->
       <div v-if="owned"
-        class="absolute bg-neutral-900 bottom-0 left-0 transform text-white/80 z-20 text-sm w-full text-center">
-        Owned
+        class="absolute bottom-0 left-0 transform z-20 text-sm w-full text-center"
+        :class="{
+          'bg-yellow-600 text-white': canUpgrade,
+          'bg-yellow-900 text-white/80': !canUpgrade && upgradeLevel > 0,
+          'bg-neutral-900 text-white/80': !canUpgrade && upgradeLevel === 0
+        }">
+        <span v-if="canUpgrade">Owned (Upgradeable)</span>
+        <span v-else-if="upgradeLevel > 0">Fully Upgraded</span>
+        <span v-else>Owned</span>
       </div>
       <img :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
     </figure>
@@ -209,7 +208,7 @@ const recurringSymbol = (count) => {
 
 const displayedName = computed(() => {
   const baseName = flipped.value && props.flippable ? props.flippedName || props.name : props.name;
-  return props.upgradeLevel > 0 ? `${baseName} (Upgraded)` : baseName;
+  return baseName;
 });
 const displayedImage = computed(() => flipped.value && props.flippable ? props.flippedImage || props.image : props.image)
 const displayedDescription = computed(() => {

@@ -25,6 +25,7 @@
     "type": "Astromech",
     "faction": "Neutral",
     "cost": 2,
+    "upgradeable": true,
     "unique": true,
     "energy": 1,
     "description": "When attempting to jump to hyperspace, you may spend 1 {charge} to roll 1 additional attack die.",
