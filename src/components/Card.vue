@@ -64,7 +64,7 @@
     <!-- Requires indicator -->
     <div v-if="requires"
       class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-white z-30 opacity-50 text-sm border-x-1 border-t-1 px-1 rounded-t">
-      <p class="text-sm text-neutral-content leading-snug" v-html="displayedRequires"></p>
+      <p class="text-sm 2xl:text-xs text-neutral-content leading-snug" v-html="displayedRequires"></p>
     </div>
 
 
@@ -115,13 +115,23 @@
         </span>
       </template>
     </div>
+
+    <!-- Assist indicator -->
+    <div v-if="assist" :class="{
+      'absolute bottom-2': !hasAnyToken,
+      'absolute bottom-8': hasAnyToken
+    }" class="right-2 transform text-gray-400 z-30 2xl:text-md text-lg font-bold">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-icon lucide-chevrons-up">
+        <path d="m17 11-5-5-5 5"/>
+        <path d="m17 18-5-5-5 5"/>
+      </svg>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, defineEmits } from 'vue'
 import { tokenToLetterMap } from '../utils/mappings'
-import range from 'daisyui/components/range'
 
 const props = defineProps({
   id: String,
@@ -163,6 +173,7 @@ const props = defineProps({
     default: 0,
   },
   initiative: [Number, String],
+  assist: Boolean,
 });
 
 const emit = defineEmits(['card-click'])

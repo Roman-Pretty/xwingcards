@@ -47,6 +47,14 @@
                 In {{ initiative }}
             </div>
 
+            <!-- Assist indicator -->
+            <div v-if="assist" class="absolute bottom-1 right-1 text-gray-400 z-30 text-xs font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-up-icon lucide-chevrons-up">
+                    <path d="m17 11-5-5-5 5"/>
+                    <path d="m17 18-5-5-5 5"/>
+                </svg>
+            </div>
+
             <img :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
         </div>
 
@@ -157,6 +165,7 @@ const props = defineProps({
         default: 0,
     },
     initiative: [Number, String],
+    assist: Boolean,
 });
 
 const emit = defineEmits(['card-click'])
