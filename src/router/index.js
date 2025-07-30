@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { usePilotStore } from '../stores/pilotStore'
+import Landing from '../views/Landing.vue'
 import CreatePilot from '../views/CreatePilot.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Settings from '../views/Settings.vue'
@@ -7,6 +8,11 @@ import Settings from '../views/Settings.vue'
 const routes = [
   {
     path: '/',
+    name: 'Landing',
+    component: Landing
+  },
+  {
+    path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
     beforeEnter: (to, from, next) => {

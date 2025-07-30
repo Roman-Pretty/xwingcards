@@ -420,7 +420,7 @@ function getRemainingShipsCount(ships) {
 // Navigation
 function goBack() {
   if (store.pilots.length > 0) {
-    router.push('/');
+    router.push('/dashboard');
   }
   // If no pilots exist, stay on create pilot page
 }
@@ -471,7 +471,7 @@ function createPilot() {
     store.currentPilotId = newPilot.id;
     
     // Navigate to dashboard
-    router.push('/');
+    router.push('/dashboard');
   } catch (error) {
     console.error('Error creating pilot:', error);
     
