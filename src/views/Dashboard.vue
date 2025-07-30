@@ -352,11 +352,18 @@ const cardsToShow = computed(() => {
   // Apply search filter
   if (searchQuery.value.trim()) {
     const query = searchQuery.value.toLowerCase();
-    baseCards = baseCards.filter(card => 
-      card.name?.toLowerCase().includes(query) ||
-      card.description?.toLowerCase().includes(query) ||
-      card.type?.toLowerCase().includes(query)
-    );
+    baseCards = baseCards.filter(card => {
+      const cardFaction = card.faction?.toLowerCase() || '';
+      
+      return (
+        card.name?.toLowerCase().includes(query) ||
+        card.description?.toLowerCase().includes(query) ||
+        card.type?.toLowerCase().includes(query) ||
+        cardFaction.includes(query) ||
+        // Treat "rebel" as equivalent to "neutral"
+        (query === 'rebel' && cardFaction === 'neutral')
+      );
+    });
   }
 
   return baseCards;
