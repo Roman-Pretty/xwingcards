@@ -44,12 +44,18 @@ def format_pilot(pilot, faction):
     has_force = "force" in pilot
     pilot_type = "Sensitive" if has_force else "Ace"
     
+    # Calculate cost based on pilot type
+    if pilot_type == "Sensitive":
+        cost = pilot["initiative"] * 3
+    else:
+        cost = pilot["initiative"] * 2
+    
     # Build the pilot object
     pilot_obj = {
         "id": id_str,
         "name": name,
         "type": pilot_type,
-        "cost": pilot["initiative"] * 2,
+        "cost": cost,
         "description": pilot.get("ability", pilot.get("text", "")),
         "image": pilot.get("artwork", pilot.get("image", "")),
         "unique": True,
@@ -61,7 +67,7 @@ def format_pilot(pilot, faction):
     if energy is not None:
         pilot_obj["energy"] = energy
     if energy_recurring is not None:
-        pilot_obj["energyRecurring"] = energy_recurring
+        pilot_obj["recurringEnergy"] = energy_recurring
     
     return pilot_obj
 
@@ -100,9 +106,6 @@ for file_path in json_files:
     except Exception as e:
         print(f"  Error processing {os.path.basename(file_path)}: {e}")
 
-# Sort by cost first, then alphabetically by id
-all_converted.sort(key=lambda pilot: (pilot["cost"], pilot["id"]))
-
 # Remove duplicates where both id and description are the same
 seen = set()
 unique_pilots = []
@@ -116,6 +119,12 @@ for pilot in all_converted:
 ace_pilots = [pilot for pilot in unique_pilots if pilot.get("type") == "Ace"]
 sensitive_pilots = [pilot for pilot in unique_pilots if pilot.get("type") == "Sensitive"]
 
+# Sort ace pilots by cost first, then alphabetically by id
+ace_pilots.sort(key=lambda pilot: (pilot["cost"], pilot["id"]))
+
+# Sort sensitive pilots by description
+sensitive_pilots.sort(key=lambda pilot: pilot["description"])
+
 # Output ace pilots to output-ace.json
 with open("output-ace.json", "w", encoding="utf-8") as f:
     json.dump(ace_pilots, f, indent=2)
@@ -128,6 +137,5 @@ print(f"\nTotal: {len(all_converted)} pilots processed")
 print(f"Unique: {len(unique_pilots)} pilots after removing duplicates")
 print(f"Removed: {len(all_converted) - len(unique_pilots)} duplicate pilots")
 print(f"\nOutput files created:")
-print(f"  output-ace.json: {len(ace_pilots)} Ace pilots")
-print(f"  output-sensitive.json: {len(sensitive_pilots)} Sensitive pilots")
-print("Pilots sorted by cost (ascending), then alphabetically by id")
+print(f"  output-ace.json: {len(ace_pilots)} Ace pilots (sorted by cost, then alphabetically by id)")
+print(f"  output-sensitive.json: {len(sensitive_pilots)} Sensitive pilots (sorted by description)")

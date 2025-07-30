@@ -1,6 +1,6 @@
 [
   {
-    "id": "adonfox-ability",
+    "id": "adonfox-dauntless",
     "name": "Dauntless",
     "type": "Ace",
     "cost": 2,
@@ -11,7 +11,7 @@
     "initiative": 1
   },
   {
-    "id": "ap5-ability",
+    "id": "ap5-steady-leadership",
     "name": "Steady Leadership",
     "assist": true,
     "type": "Ace",
@@ -23,7 +23,7 @@
     "initiative": 1
   },
   {
-    "id": "benthictwotubes-ability",
+    "id": "benthictwotubes-formation-expert",
     "name": "Formation Expert",
     "type": "Ace",
     "assist": true,
@@ -35,7 +35,7 @@
     "initiative": 2
   },
   {
-    "id": "captainrex-ability",
+    "id": "captainrex-suppressive-fire",
     "name": "Suppressive Fire",
     "type": "Ace",
     "cost": 4,
@@ -46,7 +46,7 @@
     "initiative": 2
   },
   {
-    "id": "chopper-ability",
+    "id": "chopper-daring-fly-by",
     "name": "Daring Fly By",
     "type": "Ace",
     "cost": 4,
@@ -57,7 +57,7 @@
     "initiative": 2
   },
   {
-    "id": "dextiree-ability",
+    "id": "dextiree-defensive-formation",
     "name": "Defensive Formation",
     "type": "Ace",
     "cost": 4,
@@ -68,7 +68,7 @@
     "initiative": 2
   },
   {
-    "id": "edriotwotubes-ability",
+    "id": "edriotwotubes-readiness",
     "name": "Readiness",
     "type": "Ace",
     "cost": 4,
@@ -79,7 +79,7 @@
     "initiative": 2
   },
   {
-    "id": "gemmersojan-ability",
+    "id": "gemmersojan-elusive-spin",
     "name": "Elusive Spin",
     "type": "Ace",
     "cost": 4,
@@ -90,7 +90,7 @@
     "initiative": 2
   },
   {
-    "id": "hefftobber-ability",
+    "id": "hefftobber-lure-them-in",
     "name": "Lure Them In",
     "type": "Ace",
     "cost": 4,
@@ -101,7 +101,7 @@
     "initiative": 2
   },
   {
-    "id": "zeborrelios-ability",
+    "id": "zeborrelios-hardened",
     "name": "Hardened",
     "type": "Ace",
     "cost": 4,
@@ -112,7 +112,7 @@
     "initiative": 2
   },
   {
-    "id": "arvelcrynyd-knife-fighter-ability",
+    "id": "arvelcrynyd-knife-fighter",
     "name": "Knife Fighter",
     "type": "Ace",
     "cost": 6,
@@ -123,7 +123,7 @@
     "initiative": 3
   },
   {
-    "id": "arvelcrynyd-close-call-ability",
+    "id": "arvelcrynyd-close-call",
     "name": "Close Call",
     "type": "Ace",
     "cost": 6,
@@ -134,7 +134,7 @@
     "initiative": 3
   },
   {
-    "id": "biggsdarklighter-draw-their-fire-ability",
+    "id": "biggsdarklighter-draw-their-fire",
     "name": "Draw Their Fire",
     "type": "Ace",
     "cost": 6,
@@ -145,7 +145,7 @@
     "initiative": 3
   },
   {
-    "id": "biggsdarklighter-follow-their-lead-ability",
+    "id": "biggsdarklighter-follow-their-lead",
     "name": "Follow Their Lead",
     "type": "Ace",
     "cost": 6,
@@ -156,7 +156,7 @@
     "initiative": 3
   },
   {
-    "id": "cassianandor-ability",
+    "id": "cassianandor-rallying-cry",
     "name": "Rallying Cry",
     "type": "Ace",
     "cost": 6,
@@ -167,7 +167,7 @@
     "initiative": 3
   },
   {
-    "id": "clanwrenvolunteer-ability",
+    "id": "clanwrenvolunteer-synchronized-strike",
     "name": "Synchronized Strike",
     "type": "Ace",
     "cost": 6,
@@ -178,7 +178,7 @@
     "initiative": 3
   },
   {
-    "id": "derekklivian-ability",
+    "id": "derekklivian-targeting-expert",
     "name": "Targeting Expert",
     "type": "Ace",
     "cost": 6,
@@ -189,7 +189,7 @@
     "initiative": 3
   },
   {
-    "id": "dirkullodin-ability",
+    "id": "dirkullodin-relentless-pursuit",
     "name": "Relentless Pursuit",
     "type": "Ace",
     "cost": 6,
@@ -200,7 +200,7 @@
     "initiative": 3
   },
   {
-    "id": "esegetuketu-ability",
+    "id": "esegetuketu-insight",
     "name": "Insight",
     "assist": true,
     "type": "Ace",
@@ -212,7 +212,7 @@
     "initiative": 3
   },
   {
-    "id": "evaanverlaine-ability",
+    "id": "evaanverlaine-protector",
     "name": "Protector",
     "assist": true,
     "type": "Ace",
@@ -224,7 +224,7 @@
     "initiative": 3
   },
   {
-    "id": "ibtisam-ability",
+    "id": "ibtisam-cool-headed",
     "name": "Cool Headed",
     "type": "Ace",
     "cost": 6,
@@ -235,7 +235,7 @@
     "initiative": 3
   },
   {
-    "id": "k2so-ability",
+    "id": "k2so-stay-on-target",
     "name": "Stay On Target",
     "type": "Ace",
     "cost": 6,
@@ -246,7 +246,7 @@
     "initiative": 3
   },
   {
-    "id": "kylekatarn-ability",
+    "id": "kylekatarn-inspire",
     "name": "Inspire",
     "assist": true,
     "type": "Ace",
@@ -258,7 +258,7 @@
     "initiative": 3
   },
   {
-    "id": "leebo-cyborg-enhancements-ability",
+    "id": "leebo-cyborg-enhancements",
     "name": "Cyborg Enhancements",
     "type": "Ace",
     "cost": 6,
@@ -269,7 +269,7 @@
     "initiative": 3
   },
   {
-    "id": "leebo-engagement-analytics-ability",
+    "id": "leebo-engagement-analytics",
     "name": "Engagement Analytics",
     "type": "Ace",
     "cost": 6,
@@ -280,7 +280,7 @@
     "initiative": 3
   },
   {
-    "id": "leevantenza-ability",
+    "id": "leevantenza-quick-reflexes",
     "name": "Quick Reflexes",
     "type": "Ace",
     "cost": 6,
@@ -291,7 +291,7 @@
     "initiative": 3
   },
   {
-    "id": "lowhhrick-ability",
+    "id": "lowhhrick-watchdog",
     "name": "Watchdog",
     "assist": true,
     "type": "Ace",
@@ -303,7 +303,7 @@
     "initiative": 3
   },
   {
-    "id": "magvayarro-ability",
+    "id": "magvayarro-defensive-instincts",
     "name": "Defensive Instincts",
     "type": "Ace",
     "cost": 6,
@@ -314,7 +314,7 @@
     "initiative": 3
   },
   {
-    "id": "netrempollard-ability",
+    "id": "netrempollard-slingshot-maneuver",
     "name": "Slingshot Maneuver",
     "type": "Ace",
     "cost": 6,
@@ -325,7 +325,7 @@
     "initiative": 3
   },
   {
-    "id": "popskrail-dogfighter-ability",
+    "id": "popskrail-dogfighter",
     "name": "Dogfighter",
     "assist": true,
     "type": "Ace",
@@ -337,7 +337,7 @@
     "initiative": 3
   },
   {
-    "id": "sabinewren-uncanny-reflexes-ability",
+    "id": "sabinewren-uncanny-reflexes",
     "name": "Uncanny Reflexes",
     "type": "Ace",
     "cost": 6,
@@ -348,7 +348,7 @@
     "initiative": 3
   },
   {
-    "id": "sabinewren-daring-faceoff-ability",
+    "id": "sabinewren-daring-faceoff",
     "name": "Daring Faceoff",
     "type": "Ace",
     "cost": 6,
@@ -359,7 +359,7 @@
     "initiative": 3
   },
   {
-    "id": "alexsandrkallus-ability",
+    "id": "alexsandrkallus-evasive-maneuvers",
     "name": "Evasive Maneuvers",
     "type": "Ace",
     "cost": 8,
@@ -370,7 +370,7 @@
     "initiative": 4
   },
   {
-    "id": "bodhirook-ability",
+    "id": "bodhirook-sensor-expert",
     "name": "Sensor Expert",
     "assist": true,
     "type": "Ace",
@@ -382,7 +382,7 @@
     "initiative": 4
   },
   {
-    "id": "bodicavenj-ability",
+    "id": "bodicavenj-avenger",
     "name": "Avenger",
     "type": "Ace",
     "cost": 8,
@@ -393,7 +393,7 @@
     "initiative": 4
   },
   {
-    "id": "braylenstramm-nerves-of-steel-ability",
+    "id": "braylenstramm-nerves-of-steel",
     "name": "Nerves of Steel",
     "type": "Ace",
     "cost": 8,
@@ -404,7 +404,7 @@
     "initiative": 4
   },
   {
-    "id": "braylenstramm-bloodbrother-ability",
+    "id": "braylenstramm-bloodbrother",
     "name": "Bloodbrother",
     "type": "Ace",
     "cost": 8,
@@ -415,7 +415,7 @@
     "initiative": 4
   },
   {
-    "id": "chewbacca-ability",
+    "id": "chewbacca-gear-head",
     "name": "Gear Head",
     "type": "Ace",
     "cost": 8,
@@ -425,11 +425,11 @@
     "faction": "Neutral",
     "initiative": 4,
     "energy": 1,
-    "energyRecurring": 1
+    "recurringEnergy": 1
   },
   {
-    "id": "dutchvander-call-the-shot-ability",
-    "name": "Call The Shot",
+    "id": "dutchvander-call-the-shot",
+    "name": "Call the Shot",
     "assist": true,
     "type": "Ace",
     "cost": 8,
@@ -440,7 +440,7 @@
     "initiative": 4
   },
   {
-    "id": "dutchvander-synchronized-attack-ability",
+    "id": "dutchvander-synchronized-attack",
     "name": "Synchronized Attack",
     "assist": true,
     "type": "Ace",
@@ -452,7 +452,7 @@
     "initiative": 4
   },
   {
-    "id": "garvendreis-ability",
+    "id": "garvendreis-guidance",
     "name": "Guidance",
     "assist": true,
     "type": "Ace",
@@ -464,7 +464,7 @@
     "initiative": 4
   },
   {
-    "id": "gavindarklighter-ability",
+    "id": "gavindarklighter-weak-spot",
     "name": "Weak Spot",
     "assist": true,
     "type": "Ace",
@@ -476,7 +476,7 @@
     "initiative": 4
   },
   {
-    "id": "holokand-ability",
+    "id": "holokand-regroup",
     "name": "Regroup",
     "type": "Ace",
     "cost": 8,
@@ -487,7 +487,7 @@
     "initiative": 4
   },
   {
-    "id": "hortonsalm-ability",
+    "id": "hortonsalm-overhwelm",
     "name": "Overhwelm",
     "type": "Ace",
     "cost": 8,
@@ -498,7 +498,7 @@
     "initiative": 4
   },
   {
-    "id": "jakefarrell-ability",
+    "id": "jakefarrell-wingman",
     "name": "Wingman",
     "assist": true,
     "type": "Ace",
@@ -510,7 +510,7 @@
     "initiative": 4
   },
   {
-    "id": "jekporkins-ability",
+    "id": "jekporkins-reckless-maneuver",
     "name": "Reckless Maneuver",
     "type": "Ace",
     "cost": 8,
@@ -521,7 +521,7 @@
     "initiative": 4
   },
   {
-    "id": "kendyidele-ability",
+    "id": "kendyidele-esprit-de-corps",
     "name": "Esprit De Corps",
     "assist": true,
     "type": "Ace",
@@ -533,7 +533,7 @@
     "initiative": 4
   },
   {
-    "id": "kullbeesperado-ability",
+    "id": "kullbeesperado-t-65-expert",
     "name": "T-65 Expert",
     "type": "Ace",
     "cost": 8,
@@ -545,7 +545,7 @@
     "initiative": 4
   },
   {
-    "id": "lieutenantblount-ability",
+    "id": "lieutenantblount-pack-tactics",
     "name": "Pack Tactics",
     "type": "Ace",
     "cost": 8,
@@ -556,7 +556,7 @@
     "initiative": 4
   },
   {
-    "id": "mirandadoni-ability",
+    "id": "mirandadoni-jury-rigger",
     "name": "Jury-Rigger",
     "type": "Ace",
     "cost": 8,
@@ -567,7 +567,7 @@
     "initiative": 4
   },
   {
-    "id": "popskrail-barrage-ability",
+    "id": "popskrail-barrage",
     "name": "Barrage",
     "type": "Ace",
     "cost": 8,
@@ -578,7 +578,7 @@
     "initiative": 4
   },
   {
-    "id": "roarkgarnet-ability",
+    "id": "roarkgarnet-spotter",
     "name": "Spotter",
     "assist": true,
     "type": "Ace",
@@ -590,7 +590,7 @@
     "initiative": 4
   },
   {
-    "id": "sawgerrera-ability",
+    "id": "sawgerrera-never-surrender",
     "name": "Never Surrender",
     "assist": true,
     "type": "Ace",
@@ -602,7 +602,7 @@
     "initiative": 4
   },
   {
-    "id": "sharabey-ability",
+    "id": "sharabey-laser-focus",
     "name": "Laser Focus",
     "type": "Ace",
     "cost": 8,
@@ -613,7 +613,7 @@
     "initiative": 4
   },
   {
-    "id": "tennumb-ability",
+    "id": "tennumb-battle-focus",
     "name": "Battle Focus",
     "type": "Ace",
     "cost": 8,
@@ -624,7 +624,7 @@
     "initiative": 4
   },
   {
-    "id": "wedgeantilles-hunter-ability",
+    "id": "wedgeantilles-hunter",
     "name": "Hunter",
     "type": "Ace",
     "cost": 8,
@@ -635,7 +635,7 @@
     "initiative": 4
   },
   {
-    "id": "wullffwarro-ability",
+    "id": "wullffwarro-under-pressure",
     "name": "Under Pressure",
     "type": "Ace",
     "cost": 8,
@@ -646,7 +646,7 @@
     "initiative": 4
   },
   {
-    "id": "airencracken-ability",
+    "id": "airencracken-snap-tactics",
     "name": "Snap Tactics",
     "assist": true,
     "type": "Ace",
@@ -658,7 +658,7 @@
     "initiative": 5
   },
   {
-    "id": "corranhorn-double-tap-ability",
+    "id": "corranhorn-double-tap",
     "name": "Double Tap",
     "type": "Ace",
     "cost": 10,
@@ -669,7 +669,7 @@
     "initiative": 5
   },
   {
-    "id": "corranhorn-lock-and-load-ability",
+    "id": "corranhorn-lock-and-load",
     "name": "Lock and Load",
     "type": "Ace",
     "cost": 10,
@@ -680,7 +680,7 @@
     "initiative": 5
   },
   {
-    "id": "dashrendar-rock-jockey-ability",
+    "id": "dashrendar-rock-jockey",
     "name": "Rock Jockey",
     "type": "Ace",
     "cost": 10,
@@ -691,8 +691,8 @@
     "initiative": 5
   },
   {
-    "id": "dashrendar-into-the-breach-ability",
-    "name": "Into The Breach",
+    "id": "dashrendar-into-the-breach",
+    "name": "Into the Breach",
     "type": "Ace",
     "cost": 10,
     "description": "During the Engagement Phase, you ignore the effects of obstacles that you are overlapping.",
@@ -702,7 +702,7 @@
     "initiative": 5
   },
   {
-    "id": "dashrendar-reckless-flight-pattern-ability",
+    "id": "dashrendar-reckless-flight-pattern",
     "name": "Reckless Flight Pattern",
     "type": "Ace",
     "cost": 10,
@@ -713,7 +713,7 @@
     "initiative": 5
   },
   {
-    "id": "ginamoonsong-run-and-gun-ability",
+    "id": "ginamoonsong-run-and-gun",
     "name": "Run And Gun",
     "type": "Ace",
     "cost": 10,
@@ -724,7 +724,7 @@
     "initiative": 5
   },
   {
-    "id": "ginamoonsong-bloodsister-ability",
+    "id": "ginamoonsong-bloodsister",
     "name": "Bloodsister",
     "type": "Ace",
     "cost": 10,
@@ -734,11 +734,11 @@
     "faction": "Neutral",
     "initiative": 5,
     "energy": 2,
-    "energyRecurring": 1
+    "recurringEnergy": 1
   },
   {
-    "id": "herasyndulla-on-the-fly-ability",
-    "name": "On The Fly",
+    "id": "herasyndulla-on-the-fly",
+    "name": "On the Fly",
     "type": "Ace",
     "cost": 10,
     "description": "After you reveal a red or blue maneuver, you may set your dial to another maneuver of the same difficulty.",
@@ -748,7 +748,7 @@
     "initiative": 5
   },
   {
-    "id": "janors-ability",
+    "id": "janors-encourage",
     "name": "Encourage",
     "assist": true,
     "type": "Ace",
@@ -760,8 +760,8 @@
     "initiative": 5
   },
   {
-    "id": "landocalrissian-voice-of-authority-ability",
-    "name": "Voice Of Authority",
+    "id": "landocalrissian-voice-of-authority",
+    "name": "Voice of Authority",
     "type": "Ace",
     "cost": 10,
     "description": "After you fully execute a blue maneuver, you may choose a friendly ship at range 0-3. That ship may perform an action.",
@@ -771,7 +771,7 @@
     "initiative": 5
   },
   {
-    "id": "landocalrissian-clutch-maneuvering-ability",
+    "id": "landocalrissian-clutch-maneuvering",
     "name": "Clutch Maneuvering",
     "assist": true,
     "type": "Ace",
@@ -784,7 +784,7 @@
     "energy": 2
   },
   {
-    "id": "norrawexley-ability",
+    "id": "norrawexley-slippery",
     "name": "Slippery",
     "type": "Ace",
     "cost": 10,
@@ -795,7 +795,7 @@
     "initiative": 5
   },
   {
-    "id": "thanekyrell-ability",
+    "id": "thanekyrell-pot-shot",
     "name": "Pot Shot",
     "type": "Ace",
     "cost": 10,
@@ -806,7 +806,7 @@
     "initiative": 5
   },
   {
-    "id": "tychocelchu-flyboy-ability",
+    "id": "tychocelchu-flyboy",
     "name": "Flyboy",
     "type": "Ace",
     "cost": 10,
@@ -817,7 +817,7 @@
     "initiative": 5
   },
   {
-    "id": "tychocelchu-rapid-reload-ability",
+    "id": "tychocelchu-rapid-reload",
     "name": "Rapid Reload",
     "type": "Ace",
     "cost": 10,
@@ -828,7 +828,7 @@
     "initiative": 5
   },
   {
-    "id": "wedgeantilles-attack-pattern-delta-ability",
+    "id": "wedgeantilles-attack-pattern-delta",
     "name": "Attack Pattern Delta",
     "type": "Ace",
     "cost": 10,
@@ -839,7 +839,7 @@
     "initiative": 5
   },
   {
-    "id": "wesjanson-ability",
+    "id": "wesjanson-shock-and-awe",
     "name": "Shock And Awe",
     "type": "Ace",
     "cost": 10,
@@ -849,10 +849,10 @@
     "faction": "Neutral",
     "initiative": 5,
     "energy": 1,
-    "energyRecurring": 1
+    "recurringEnergy": 1
   },
   {
-    "id": "yendor-ability",
+    "id": "yendor-full-tilt",
     "name": "Full Tilt",
     "type": "Ace",
     "cost": 10,
@@ -863,7 +863,7 @@
     "initiative": 5
   },
   {
-    "id": "fennrau-fear-tactics-ability",
+    "id": "fennrau-fear-tactics",
     "name": "Fear Tactics",
     "type": "Ace",
     "cost": 12,
@@ -874,7 +874,7 @@
     "initiative": 6
   },
   {
-    "id": "fennrau-scare-tactics-ability",
+    "id": "fennrau-scare-tactics",
     "name": "Scare Tactics",
     "type": "Ace",
     "cost": 12,
@@ -885,7 +885,7 @@
     "initiative": 6
   },
   {
-    "id": "hansolo-ability",
+    "id": "hansolo-scoundrel-s-luck",
     "name": "Scoundrel's Luck",
     "type": "Ace",
     "cost": 12,
@@ -896,7 +896,7 @@
     "initiative": 6
   },
   {
-    "id": "herasyndulla-veteran-commander-ability",
+    "id": "herasyndulla-veteran-commander",
     "name": "Veteran Commander",
     "type": "Ace",
     "assist": true,
@@ -908,7 +908,7 @@
     "initiative": 6
   },
   {
-    "id": "wedgeantilles-sharpshooter-ability",
+    "id": "wedgeantilles-sharpshooter",
     "name": "Sharpshooter",
     "type": "Ace",
     "cost": 12,
@@ -919,7 +919,7 @@
     "initiative": 6
   },
   {
-    "id": "wedgeantilles-deadeye-ability",
+    "id": "wedgeantilles-deadeye",
     "name": "Deadeye",
     "type": "Ace",
     "cost": 12,
@@ -928,5 +928,896 @@
     "unique": true,
     "faction": "Neutral",
     "initiative": 6
+  },
+  {
+    "id": "sapphire2-master-of-the-dance",
+    "name": "Master of the Dance",
+    "type": "Ace",
+    "cost": 10,
+    "description": "While you defend, if you are focused, roll 1 additional defense die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/sapphire2-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "wampa-headhunter",
+    "name": "Headhunter",
+    "type": "Ace",
+    "cost": 2,
+    "description": "While you perform an attack against an enemy ship whose initiative is higher than yours, you may spend 1 [Charge] to roll 1 additional attack die. After defending, lose 1 [Charge].",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/wampa.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 1,
+    "energy": 1,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "deathfire-blaze-of-glory",
+    "name": "Blaze of Glory",
+    "type": "Ace",
+    "cost": 4,
+    "description": "After you are destroyed, before you are removed, you may perform an attack and drop or launch 1 device.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/deathfire.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 2
+  },
+  {
+    "id": "deathfire-rain-of-fire",
+    "name": "Rain of Fire",
+    "type": "Ace",
+    "cost": 4,
+    "description": "After you fully execute a speed 3-5 maneuver, if you have not dropped or launched a device this round, you may spend 2 [Charge] to drop or launch a bomb using the (3 [Straight]) template.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/deathfire.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 2,
+    "energy": 2,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "doubleedge-versatile",
+    "name": "Versatile",
+    "type": "Ace",
+    "cost": 4,
+    "description": "After you perform a [Turret] or [Missile] attack that misses, you may perform a bonus attack using a different weapon.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/doubleedge.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 2
+  },
+  {
+    "id": "nashwindrider-last-stand",
+    "name": "Last Stand",
+    "type": "Ace",
+    "cost": 4,
+    "description": "During the Engagement Phase, after a friendly small ship at range 0-3 is destroyed, if that ship has not engaged this phase, you may spend 1 [Charge]. If you do, that ship engages at the current initiative.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/nashwindrider.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 2,
+    "energy": 1,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "nightbeast-focussed",
+    "name": "Focussed",
+    "type": "Ace",
+    "cost": 4,
+    "description": "After you fully execute a blue maneuver, you may perform a [Focus] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/nightbeast.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 2
+  },
+  {
+    "id": "scythe6-tactical-strike",
+    "name": "Tactical Strike",
+    "type": "Ace",
+    "cost": 4,
+    "description": "While you perform an attack at attack range 1-2, roll 1 additional attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/scythe6-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 2
+  },
+  {
+    "id": "captaindobbs-take-the-hit",
+    "name": "Take the Hit",
+    "type": "Ace",
+    "cost": 6,
+    "description": "While another friendly ship at range 0-1 defends, before the Neutralize Results step, if you are in the attack arc and are not ionized, you may gain 1 ion token to cancel 1 [Hit] result. If you do, gain 1 {xp}.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captaindobbs.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "captainferoph-instinctive-maneuvering",
+    "name": "Instinctive Maneuvering",
+    "type": "Ace",
+    "cost": 6,
+    "description": "While you defend, if the attacker does not have any green tokens, you may change 1 of your blank or [Focus] results to an [Evade] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captainferoph.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "captainoicunn-point-blank-shot",
+    "name": "Point Blank Shot",
+    "type": "Ace",
+    "cost": 6,
+    "description": "While you perform an attack at attack range 0, treat it as an attack at attack range 1.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captainoicunn.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "coloneljendon-long-range-scan",
+    "name": "Long Range Scan",
+    "type": "Ace",
+    "cost": 6,
+    "description": "At the start of the Activation Phase, you may spend 1 [Charge]. If you do, while friendly ships acquire locks this round, they must acquire locks beyond range 3 instead of at range 0-3.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/coloneljendon.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3,
+    "energy": 2
+  },
+  {
+    "id": "garsaxon-give-chase",
+    "name": "Give Chase",
+    "type": "Ace",
+    "cost": 6,
+    "description": "When a friendly unit at range 0-2 performs a primary attack, if the attacker is in the defender's [Rear Arc], you may spend 1 [Charge]. If you do, the attacker rolls 1 additional die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/garsaxon.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3,
+    "energy": 2,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "lieutenanthebsly-cut-and-run",
+    "name": "Cut and Run",
+    "type": "Ace",
+    "cost": 6,
+    "description": "After you defend, you may perform a red [Boost] action, even while stressed.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lieutenanthebsly-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "lieutenantkarsabi-multi-tasking",
+    "name": "Multi-tasking",
+    "type": "Ace",
+    "cost": 6,
+    "description": "After you gain a disarm token, if you are not stressed, you may gain 1 stress token to remove 1 disarm token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lieutenantkarsabi.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "lieutenantlorrir-ace-acrobatics",
+    "name": "Ace Acrobatics",
+    "type": "Ace",
+    "cost": 6,
+    "description": "While you barrel roll, you must use the [[Bank Left] or [Bank Right]] template instead of the [[Straight]] template.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lieutenantlorrir.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "lieutenantsai-coordinated-action",
+    "name": "Coordinated Action",
+    "type": "Ace",
+    "cost": 6,
+    "description": "After you a perform a [Coordinate] action, if the ship you chose performed an action on your action bar, you may perform that action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lieutenantsai.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "lyttandree-disruptive-flight-path",
+    "name": "Disruptive Flight Path",
+    "type": "Ace",
+    "cost": 6,
+    "description": "While a friendly ship at range 0-2 performs an attack, if you are in the defender's [Left Arc] or [Right Arc], the attacker may reroll 1 attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lyttandree.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "magnatolvan-undeterred",
+    "name": "Undeterred",
+    "type": "Ace",
+    "cost": 6,
+    "description": "While you have 2 or fewer stress tokens, you can perform white actions, even while stressed. After you gain a stress token, you may perform a white action, if able.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/magnatolvan.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "mausmonare-hard-target",
+    "name": "Hard Target",
+    "type": "Ace",
+    "cost": 6,
+    "description": "After you perform an [Evade] action, gain a calculate token",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/mausmonare-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "scimitar1-coordinated-assault",
+    "name": "Coordinated Assault",
+    "type": "Ace",
+    "cost": 6,
+    "description": "After a friendly ship at range 0-3 performs an attack, you may spend 1 [Charge] to acquire a lock on the defender.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lieutenantkarsabi.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3,
+    "energy": 2
+  },
+  {
+    "id": "valenrudor-wingmate",
+    "name": "Wingmate",
+    "type": "Ace",
+    "cost": 6,
+    "description": "After a friendly ship at range 0-1 defends (after damage is resolved, if any), you may perform an action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/valenrudor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "yricaquell-dive-in",
+    "name": "Dive In",
+    "type": "Ace",
+    "cost": 6,
+    "description": "After you fully execute a maneuver, you may acquire a lock on an enemy ship in your [Bullseye Arc].",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/yricaquell.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "zertikstrom-slicer",
+    "name": "Slicer",
+    "type": "Ace",
+    "cost": 6,
+    "description": "During the End Phase, you may spend a lock you have on an enemy ship to expose 1 of that ship's damage cards.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/zertikstrom.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 3
+  },
+  {
+    "id": "captainjonus-ordinance-expert",
+    "name": "Ordinance Expert",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While a friendly ship at range 0-1 performs a [Torpedo] or [Missile] attack, that ship may reroll up to 2 attack dice.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captainjonus.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "captainjonus-drop-and-roll",
+    "name": "Drop and Roll",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you drop or launch a device, gain an evade token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captainjonus.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "captainkagi-take-the-heat",
+    "name": "Take the Heat",
+    "type": "Ace",
+    "cost": 8,
+    "description": "At the start of the Engagement Phase, you may choose 1 or more friendly ships at range 0-3. If you do, transfer all enemy lock tokens from the chosen ships to you.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captainkagi.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "captainyorr-trigger-finger",
+    "name": "Trigger Finger",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you perform a primary attack that hits, you may spend 1 [Charge] to perform a bonus [Cannon] attack.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captainyorr-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2
+  },
+  {
+    "id": "colonelvessery-relentless",
+    "name": "Relentless",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform an attack against a locked ship, after you roll attack dice, you may acquire a lock on the defender.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/colonelvessery.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "commandantgoran-keep-them-in-the-fight",
+    "name": "Keep them in the Fight",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After a friendly ship at range 0-3 with a lower initiative than yours partially executes a maneuver, it may perform a red [Focus] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/commandantgoran.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "countdown-glancing-blow",
+    "name": "Glancing Blow",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you defend, after the Neutralize Results step, if you are not stressed, you may suffer 1 [Hit] damage and gain 1 stress token. If you do, cancel all dice results.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/countdown.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "countessryad-hairpin-turn",
+    "name": "Hairpin Turn",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you would execute a [Straight] maneuver, you may increase the difficulty of the maneuver. If you do, execute it as a [Koiogran Turn] maneuver instead.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/countessryad.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "deathrain-bombardier",
+    "name": "Bombardier",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you drop or launch a device, you may perform an action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/deathrain.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "delmeeko-outlast",
+    "name": "Outlast",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While a friendly ship at range 0-2 defends against a damaged attacker, the defender may reroll 1 defense die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/delmeeko.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "echo-phantom-killer",
+    "name": "Phantom Killer",
+    "type": "Ace",
+    "cost": 8,
+    "requires": "TIE Phantom",
+    "description": "While you decloak, you must use the [2 [Bank Left]] or [2 [Bank Right]] template instead of the [2 [Straight]] template.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/echo.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "echo-copycat",
+    "name": "Copycat",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After an enemy ship at range 0-1 performs an action on its action bar, you may spend 1 [Charge] to perform the same action, treating it as white.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/echo.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 1,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "gideonhask-prey-on-the-weak",
+    "name": "Prey on the Weak",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform an attack against a damaged defender, roll 1 additional attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/cienaree.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "idenversio-hard-to-kill",
+    "name": "Hard to Kill",
+    "type": "Ace",
+    "cost": 8,
+    "description": "Before a friendly small ship at range 0-1 would suffer damage, you may spend 2 [Charge]. If you do, prevent 1 damage. If you do, gain 1 {xp}.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/idenversio-battleofyavin.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "idenversio-near-miss",
+    "name": "Near Miss",
+    "type": "Ace",
+    "cost": 8,
+    "description": "Before a friendly small ship at range 0-1 would suffer 1 or more damage, you may spend 1 [Charge]. If you do, prevent that damage. Gain 1 {xp} for each damage prevented this way. This cards {charge} may not be recovered.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/idenversio.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 1
+  },
+  {
+    "id": "isbjingoist-jingoist",
+    "name": "Jingoist",
+    "type": "Ace",
+    "cost": 8,
+    "description": "Before you engage, you may choose 1 enemy ship in your [Front Arc] at range 0-1. If you do, that ship gains 1 deplete or strain token of your choice unless it chooses to remove 1 green token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/isbjingoist.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "lieutenantkestal-pin-them-down",
+    "name": "Pin them Down",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform an attack, after the defender rolls defense dice, you may spend 1 focus token to cancel all of the defender's blank/[Focus] results.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lieutenantkestal.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "majorrhymer-ordinance-specialist",
+    "name": "Ordinance Specialist",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform a [Torpedo] or [Missile] attack, you may increase or decrease the range requirement by 1, to a limit of 0-3.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/majorrhymer.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "majorrhymer-crtical-strike",
+    "name": "Crtical Strike",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform a [Torpedo] attack, if the defender is in your [Bullseye Arc], change 1 [Focus] result to a [Critical Hit] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/majorrhymer.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "majorvermeil-catch-them-off-guard",
+    "name": "Catch them Off Guard",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform an attack, if the defender does not have any green tokens, you may change 1 of your blank or [Focus] results to a [Hit] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/majorvermeil.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "majorvynder-evasive-action",
+    "name": "Evasive Action",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you defend, if you are disarmed, roll 1 additional defense die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/majorvynder.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "majorvynder-starbird-s-folly",
+    "name": "Starbird's Folly",
+    "type": "Ace",
+    "cost": 10,
+    "description": "After you perform a [Missile] attack, you may perform a bonus [Cannon] attack. While you perform this bonus attack, you may change 1 [Focus] result to a [Hit] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/majorvynder.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "moffgideon-ruthless-commander",
+    "name": "Ruthless Commander",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While an enemy ship at range 1-3 defends, before attack dice are rolled, you may spend 1 [Charge] and choose a friendly ship at range 0-1 of the defender. If you do, defense dice cannot be modified during this attack and the chosen friendly ship gains 1 strain token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/moffgideon.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "mornakee-shields-up",
+    "name": "Shields Up",
+    "type": "Ace",
+    "cost": 8,
+    "description": "During the End Phase, you may spend 1 [Charge] to flip 1 of your reinforce tokens to your other full arc instead of removing it.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/mornakee.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 3
+  },
+  {
+    "id": "puresabacc-alpha-strike",
+    "name": "Alpha Strike",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform a primary attack, if you have 1 or fewer damage cards, you may roll 1 additional attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/puresabacc.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "rampage-in-your-sights",
+    "name": "In your Sights",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you execute a speed 3-4 maneuver, you may choose a ship in your [Single Turret Arc] at range 0-1. That ship gains 1 strain token, or 2 strain tokens if you are damaged.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/rampage.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "scimitar3-fire-in-the-hole",
+    "name": "Fire in the Hole",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you drop a bomb, you may spend 1 [Charge] to perform a [Boost] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/duchess.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2
+  },
+  {
+    "id": "seynmarana-wear-them-down",
+    "name": "Wear them Down",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you perform an attack, you may spend 1 [Critical Hit] result. If you do, deal 1 facedown damage card to the defender, then cancel your remaining results.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/seynmarana.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "sigma4-ace-maneuvering",
+    "name": "Ace Maneuvering",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you perform a [Barrel Roll] action, you may spend 1 [Charge] to perform a [Boost] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/sigma4.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2
+  },
+  {
+    "id": "sigma5-sly-flourish",
+    "name": "Sly Flourish",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you perform an attack that hits, you may spend 1 [Charge] to perform an [Evade] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/sigma5.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2
+  },
+  {
+    "id": "sigma6-overdrive",
+    "name": "Overdrive",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you fully execute a speed 3-5 maneuver, you may spend 1 [Charge] to perform a [SLAM] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/sigma6.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2
+  },
+  {
+    "id": "sigma7-mark-for-elimination",
+    "name": "Mark for Elimination",
+    "type": "Ace",
+    "cost": 8,
+    "description": "During the System Phase, you may spend 1 [Charge] to acquire a lock on an enemy ship at range 0-1.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/sigma7.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4,
+    "energy": 2
+  },
+  {
+    "id": "turrphennir-nimble-assualt",
+    "name": "Nimble Assualt",
+    "type": "Ace",
+    "cost": 8,
+    "description": "After you perform an attack, you may perform a [Barrel Roll] or [Boost] action, even if you are stressed.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/turrphennir.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "vedfoslo-reflexive-maneuvering",
+    "name": "Reflexive Maneuvering",
+    "type": "Ace",
+    "cost": 8,
+    "description": "While you execute a maneuver, you may execute a maneuver of the same bearing and difficulty of a speed 1 higher or lower instead.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/vedfoslo.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "backstabber-stay-in-formation",
+    "name": "Stay in Formation",
+    "type": "Ace",
+    "cost": 10,
+    "description": "While you perform a primary attack, if your squad leader is in your [Left Arc] or [Right Arc] at range 0-1, roll 1 additional attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/backstabber.png",
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "flightleaderubbel-counter-strike",
+    "name": "Counter Strike",
+    "type": "Ace",
+    "cost": 10,
+    "description": "After a friendly ship at range 0-2 defends, if it was dealt a damage card, you may perform a bonus attack against the attacker.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/flightleaderubbel.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "howlrunner-concentrated-fire",
+    "name": "Concentrated Fire",
+    "type": "Ace",
+    "cost": 10,
+    "description": "While a friendly ship at range 0-1 performs a primary attack, that ship may reroll 1 attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/howlrunner.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "junoeclipse-rash-maneuvering",
+    "name": "Rash Maneuvering",
+    "type": "Ace",
+    "cost": 10,
+    "description": "After you perform an action, you may perform a red [Boost] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/junoeclipse.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "maarekstele-crippling-blow",
+    "name": "Crippling Blow",
+    "type": "Ace",
+    "cost": 10,
+    "description": "While you perform an attack, if the defender would be dealt a faceup damage card, instead draw 3 damage cards, choose 1, and discard the rest.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/maarekstele.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "majormianda-formation-flying",
+    "name": "Formation Flying",
+    "type": "Ace",
+    "cost": 10,
+    "description": "During the End Phase, you may choose up to 2 friendly small ships at range 0-2. You and the chosen ships may perform a red [Barrel Roll] or red [Boost] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/majormianda-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "maulermithel-point-blank",
+    "name": "Point Blank",
+    "type": "Ace",
+    "cost": 10,
+    "description": "While you perform an attack at attack range 1, spend 2 {charge} to roll 1 additional attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/maulermithel.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5,
+    "energy": 2,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "rearadmiralchiraneau-maximum-firepower",
+    "name": "Maximum Firepower",
+    "type": "Ace",
+    "cost": 10,
+    "description": "While you perform an attack, if you are reinforced and the defender is in the [Full Front Arc] or [Full Rear Arc] matching your reinforce token, you may change 1 of your [Focus] results to a [Critical Hit] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/rearadmiralchiraneau.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "redline-target-acquired",
+    "name": "Target Acquired",
+    "type": "Ace",
+    "cost": 10,
+    "description": "You can maintain up to 2 locks. After you perform an action, you may acquire a lock.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/redline.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "rexlerbrath-pick-them-apart",
+    "name": "Pick them Apart",
+    "type": "Ace",
+    "cost": 10,
+    "description": "After you perform an attack that hits, if you are evading, expose 1 of the defender's damage cards.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/rexlerbrath.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "scourgeskutu-bullseye-shot",
+    "name": "Bullseye Shot",
+    "type": "Ace",
+    "cost": 10,
+    "description": "While you perform an attack against a defender in your [Bullseye Arc], roll 1 additional attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/scourgeskutu.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "tomaxbren-recoup",
+    "name": "Recoup",
+    "type": "Ace",
+    "cost": 10,
+    "description": "After you perform a [Reload] action, you may recover 1 [Charge] token on 1 of your equipped [Talent] upgrade cards.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/tomaxbren.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "tomaxbren-precise-repositioning",
+    "name": "Precise Repositioning",
+    "type": "Ace",
+    "cost": 10,
+    "description": "After you perform a [Barrel Roll] action, you may spend 2 [Charge]. If you do, gain a focus token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/tomaxbren.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5,
+    "energy": 2,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "vultskerris-no-risk-no-reward",
+    "name": "No Risk No Reward",
+    "type": "Ace",
+    "cost": 10,
+    "description": "Action: Gain 1 strain token to recover 1 [Charge]. Before you engage, you may spend 1 [Charge] to perform an action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/vultskerris.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5,
+    "energy": 1,
+    "recurringEnergy": -1
+  },
+  {
+    "id": "whisper-viper-strike",
+    "name": "Viper Strike",
+    "type": "Ace",
+    "cost": 10,
+    "description": "After you perform an attack that hits, gain 1 evade token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/whisper.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5
+  },
+  {
+    "id": "whisper-whispering-phantom",
+    "name": "Whispering Phantom",
+    "type": "Ace",
+    "cost": 10,
+    "requires": "TIE Phantom",
+    "description": "After you perform an attack, you may spend 1 [Charge] to perform a [Cloak] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/whisper.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 5,
+    "energy": 2
+  },
+  {
+    "id": "coloneljendon-survival-instinct",
+    "name": "Survival Instinct",
+    "type": "Ace",
+    "cost": 12,
+    "description": "While you defend, if you are not shielded, you may change 1 of your blank results to a [Focus] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/coloneljendon-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 6
+  },
+  {
+    "id": "darkcurse-elusive-defender",
+    "name": "Elusive Defender",
+    "type": "Ace",
+    "cost": 12,
+    "description": "While you defend, the attacker's dice cannot be modified.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/darkcurse.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 6
+  },
+  {
+    "id": "soontirfel-all-too-easy",
+    "name": "All Too Easy",
+    "type": "Ace",
+    "cost": 12,
+    "description": "At the start of the Engagement Phase, if there is an enemy ship in your [Bullseye Arc], gain 1 focus token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/soontirfel.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 6
+  },
+  {
+    "id": "soontirfel-hit-and-run",
+    "name": "Hit and Run",
+    "type": "Ace",
+    "cost": 12,
+    "description": "After you perform an attack, you may spend 1 [Charge] and gain 1 deplete token to boost or barrel roll.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/soontirfel-battleoverendor.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 6,
+    "energy": 2
   }
 ]
