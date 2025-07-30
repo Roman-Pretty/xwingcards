@@ -29,7 +29,7 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import { usePilotStore } from "../stores/PilotStore";
+import { usePilotStore } from "../stores/pilotStore";
 import Slot from "./Slot.vue";
 import SlotPurchaseModal from "./ui/SlotPurchaseModal.vue";
 import { letterToTokenMap } from "../utils/mappings";
@@ -40,6 +40,10 @@ const props = defineProps({
   currentlyDraggedCard: {
     type: Object,
     default: null
+  },
+  mobileMode: {
+    type: Boolean,
+    default: false
   }
 });
 

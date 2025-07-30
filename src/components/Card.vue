@@ -1,7 +1,10 @@
 <template>
   <div @click="handleClick" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
-    'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer w-[48%] 2xl:w-[31%] aspect-[2/3] rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative self-start',
-,
+    'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative self-start',
+    {
+      'w-[48%] 2xl:w-[31%] aspect-[2/3]': !mobileMode,
+      'w-[70%] aspect-[2/3]': mobileMode
+    }
   ]">
 
     <div
@@ -56,18 +59,19 @@
     <!-- Requires indicator -->
     <div v-if="requires"
       class="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-white z-30 opacity-50 text-sm border-x-1 border-t-1 px-1 rounded-t">
-      <p class="text-sm 2xl:text-xs text-neutral-content leading-snug" v-html="displayedRequires"></p>
+      <p class="text-sm 2xl:text-xs text-neutral-content leading-snug" :class="{ 'text-sm 2xl:text-xs': !mobileMode, 'text-[0.5rem]': mobileMode }" v-html="displayedRequires"></p>
     </div>
 
 
-    <figure class="relative rounded-t-lg overflow-hidden h-1/2">
+    <figure class="relative rounded-t-lg overflow-hidden" :class="{ 'h-1/2': !mobileMode, 'h-1/3': mobileMode }">
       <!-- Owned badge with upgrade status -->
       <div v-if="owned"
-        class="absolute bottom-0 left-0 transform z-20 text-sm w-full text-center"
+        class="absolute bottom-0 left-0 transform z-20 w-full text-center"
         :class="{
-          'bg-yellow-600 text-white': canUpgrade,
-          'bg-yellow-900 text-white/80': !canUpgrade && upgradeLevel > 0,
-          'bg-neutral-900 text-white/80': !canUpgrade && upgradeLevel === 0
+          'bg-yellow-600 text-white text-sm': canUpgrade,
+          'bg-yellow-900 text-white/80 text-sm': !canUpgrade && upgradeLevel > 0,
+          'bg-neutral-900 text-white/80 text-sm': !canUpgrade && upgradeLevel === 0,
+          'text-xs': mobileMode
         }">
         <span v-if="canUpgrade">Owned (Upgradeable)</span>
         <span v-else-if="upgradeLevel > 0">Fully Upgraded</span>
@@ -77,21 +81,27 @@
     </figure>
 
     <!-- Card content -->
-    <div class="relative p-2 text-center h-1/2 flex flex-col justify-start">
+    <div class="relative text-center flex flex-col justify-start" :class="{ 
+      'h-1/2 p-2': !mobileMode, 
+      'h-2/3 p-1': mobileMode 
+    }">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="font-[xwing] text-[18rem] text-white/2 -mt-[6rem] leading-none">{{ typeLetter }}</span>
+        <span class="font-[xwing] text-white/2 leading-none" :class="{ 
+          'text-[18rem] -mt-[6rem]': !mobileMode, 
+          'text-[12rem] -mt-[4rem]': mobileMode 
+        }">{{ typeLetter }}</span>
       </div>
 
-      <h2 class="text-md font-bold text-white mb-1">
+      <h2 class="font-bold text-white mb-1" :class="{ 'text-md': !mobileMode, 'text-xs': mobileMode }">
         <span v-if="unique" class="font-[xwing] mr-1">u</span>{{ displayedName }}
       </h2>
-      <div v-if="damage" class="text-md text-red-400 mb-1 flex flex-row items-center justify-center gap-1">
+      <div v-if="damage" class="text-red-400 mb-1 flex flex-row items-center justify-center gap-1" :class="{ 'text-md': !mobileMode, 'text-xs': mobileMode }">
         <span class="font-[xwing] -mt-1">{{ arc }}</span>
         <span class="font-semibold">{{ damage }}</span>
         <span v-if="isMissile" class="font-[xwing] -mt-1">?</span>
         <span class="ml-3 font-semibold text-white/80">{{ ranged }}</span>
       </div>
-      <p class="2xl:text-xs text-sm text-neutral-content leading-snug" v-html="displayedDescription"></p>
+      <p class="text-neutral-content leading-snug" :class="{ '2xl:text-xs text-sm': !mobileMode, 'text-sm leading-tight': mobileMode }" v-html="displayedDescription"></p>
     </div>
 
     <!-- Energy/Force Display -->
@@ -173,6 +183,10 @@ const props = defineProps({
   },
   initiative: [Number, String],
   assist: Boolean,
+  mobileMode: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['card-click'])

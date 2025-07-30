@@ -3,13 +3,16 @@
     <!-- Ships list -->
     <div class="flex flex-row gap-4 flex-wrap mb-4 max-w-full">
       <div v-for="ship in ships" :key="ship.ship"
-        class="flex flex-col items-center gap-2 p-3 rounded flex-1 min-w-1/5 cursor-pointer transition-transform duration-300"
-        :class="{
-          'bg-yellow-700 border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)] hover:cursor-auto': getShipStatus(ship) === 'selected',
-          'bg-yellow-800 hover:scale-105 cursor-pointer': getShipStatus(ship) === 'owned',
-          'hover:bg-yellow-700 hover:scale-105 bg-neutral-800 cursor-pointer': getShipStatus(ship) === 'available',
-          'bg-neutral-800 opacity-40 pointer-events-none cursor-default': getShipStatus(ship) === 'locked',
-        }" @click="onShipClick(ship)">
+        :class="[
+          'flex flex-col items-center gap-2 p-3 rounded min-w-1/5 cursor-pointer transition-transform duration-300',
+          isMobile ? 'w-[calc(50%-0.5rem)]' : 'flex-1',
+          {
+            'bg-yellow-700 border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)] hover:cursor-auto': getShipStatus(ship) === 'selected',
+            'bg-yellow-800 hover:scale-105 cursor-pointer': getShipStatus(ship) === 'owned',
+            'hover:bg-yellow-700 hover:scale-105 bg-neutral-800 cursor-pointer': getShipStatus(ship) === 'available',
+            'bg-neutral-800 opacity-40 pointer-events-none cursor-default': getShipStatus(ship) === 'locked',
+          }
+        ]" @click="onShipClick(ship)">
         <span class="font-[ships] text-3xl">{{ ship.icon }}</span>
         <span class="text-sm -mt-2 border-b-2 w-full text-center pb-2 mb-1 border-b-white/20">
           {{ ship.ship }}
@@ -62,7 +65,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { usePilotStore } from '../stores/pilotStore'
 import { storeToRefs } from 'pinia'
 import classData from '../data/classes.json'
@@ -70,6 +73,22 @@ import ShipPurchaseModal from './ui/ShipPurchaseModal.vue'
 
 const pilotStore = usePilotStore()
 const { currentPilot } = storeToRefs(pilotStore)
+
+// Mobile detection
+const isMobile = ref(false)
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 768 // md breakpoint
+}
+
+onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile)
+})
 
 // Component refs
 const shipPurchaseModal = ref(null)

@@ -80,7 +80,7 @@
 import { computed, ref } from "vue";
 import cards from "../data/cards.js";
 import { tokenToLetterMap } from "../utils/mappings";
-import { usePilotStore } from "../stores/PilotStore";
+import { usePilotStore } from "../stores/pilotStore";
 
 const props = defineProps({
   options: Array,

@@ -2,13 +2,16 @@
   <div>
     <div class="flex flex-row gap-4 flex-wrap max-w-full">
       <div v-for="rank in ranks" :key="rank.rank"
-        class="flex flex-col items-center gap-2 bg-neutral-800 min-w-1/5 p-3 rounded flex-1 transition-transform duration-300 group"
-        :class="{
-          'bg-yellow-700 hover:cursor-default border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)]': getRankStatus(pilotRank, rank.rank) === 'current',
-          'bg-yellow-800 hover:cursor-default': getRankStatus(pilotRank, rank.rank) === 'unlocked',
-          'hover:bg-yellow-700 hover:scale-105 cursor-pointer': getRankStatus(pilotRank, rank.rank) === 'next',
-          'opacity-40 pointer-events-none cursor-default': getRankStatus(pilotRank, rank.rank) === 'locked',
-        }" @click="getRankStatus(pilotRank, rank.rank) === 'next' && onRankClick(rank)">
+        :class="[
+          'flex flex-col items-center gap-2 bg-neutral-800 min-w-1/5 p-3 rounded transition-transform duration-300 group',
+          isMobile ? 'w-[calc(50%-0.5rem)]' : 'flex-1',
+          {
+            'bg-yellow-700 hover:cursor-default border-2 border-yellow-500 shadow-[0_0_4px_1px_rgba(204,153,0,0.25)]': getRankStatus(pilotRank, rank.rank) === 'current',
+            'bg-yellow-800 hover:cursor-default': getRankStatus(pilotRank, rank.rank) === 'unlocked',
+            'hover:bg-yellow-700 hover:scale-105 cursor-pointer': getRankStatus(pilotRank, rank.rank) === 'next',
+            'opacity-40 pointer-events-none cursor-default': getRankStatus(pilotRank, rank.rank) === 'locked',
+          }
+        ]" @click="getRankStatus(pilotRank, rank.rank) === 'next' && onRankClick(rank)">
         <div class="flex items-center justify-between w-full p-1 border-b-2 border-b-white/10">
           <span>Rank {{ rank.rank }}</span>
           <span class="text-amber-500">In {{ rank.initiative }}</span>
@@ -101,12 +104,28 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { usePilotStore } from '../stores/pilotStore'
 import classData from '../data/classes.json'
 import RankPurchaseModal from './ui/RankPurchaseModal.vue'
 
 const store = usePilotStore()
+
+// Mobile detection
+const isMobile = ref(false)
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 768 // md breakpoint
+}
+
+onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile)
+})
 
 // Component refs
 const rankPurchaseModal = ref(null)

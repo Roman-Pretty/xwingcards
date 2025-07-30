@@ -1,6 +1,12 @@
 <template>
-  <main class="bg-neutral-900 w-full h-screen p-4 flex flex-row gap-4 inria-sans-regular overflow-hidden">
-    <div
+  <main class="bg-neutral-900 w-full h-screen inria-sans-regular overflow-hidden"
+    :class="{ 
+      'p-4 flex flex-row gap-4': !isMobile, 
+      'flex flex-col': isMobile
+    }">
+    
+    <!-- Desktop layout -->
+    <div v-if="!isMobile"
       class="flex-1 border-2 border-neutral-700 rounded-2xl  flex flex-col justify-between text-white overflow-hidden">
       <div class="flex flex-col justify-between h-full ">
         <div class="flex-1 p-4">
@@ -58,7 +64,179 @@
       </div>
     </div>
 
-    <div class="flex-1 flex flex-col overflow-visible min-h-0">
+    <!-- Mobile layout - Loadout tab content -->
+    <div v-if="isMobile && mobileActiveTab === 'loadout'" class="flex-1 p-4 text-white overflow-y-auto pb-20">
+      <div class="flex flex-row justify-between w-full items-center mb-4">
+        <div class="flex flex-row gap-4">
+          <div class="text-lg flex flex-row gap-2 items-center cursor-default">
+            <span class="font-[xwing] text-2xl -mt-2" :style="{ color: color }">{{ icon }}</span>
+            <span class="font-bold" :style="{ color: color }">The {{ store.currentPilot?.class }}</span>
+          </div>
+
+          <div class="text-lg flex flex-row items-center cursor-default text-yellow-300">
+            <span class="font-[xwing] text-2xl -mt-2">Ì</span>
+            <span class="font-bold">{{ store.currentPilot?.xp }}</span>
+          </div>
+        </div>
+        <div class="flex flex-row-reverse gap-2 items-center">
+          <button class="btn btn-sm" @click="openModal">Add XP</button>
+          <PilotTabs @add-pilot="$router.push('/create-pilot')" />
+        </div>
+      </div>
+
+      <div>
+        <div class="w-full flex flex-row items-center justify-between mb-4">
+          <h2 class="text-lg ">Loadout</h2>
+          <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color: getFactionColor(symbol) }"
+            class="text-lg flex flex-row items-center gap-1 cursor-default ">
+            <span class="font-[xwing] font-light text-xl -mt-1.5">{{ symbol }}</span>
+            <span class="font-bold">{{ getFactionSlots(symbol) }} / {{ count }}</span>
+          </div>
+        </div>
+        <Slots class="w-full" :currently-dragged-card="currentlyDraggedCard" :mobile-mode="true" />
+      </div>
+      <div class="mt-6">
+        <h2 class="text-lg mb-4">Ships</h2>
+        <Ships />
+      </div>
+      <div class="mt-6">
+        <h2 class="text-lg mb-4">Rank</h2>
+        <RankList />
+      </div>
+    </div>
+
+    <!-- Mobile layout - Cards tab content -->
+    <div v-if="isMobile && mobileActiveTab === 'cards'" class="flex-1 flex flex-col overflow-visible min-h-0 pb-20">
+      <div class="p-4 border-b-2 border-neutral-700 flex justify-between items-center flex-row">
+        <div class="join">
+          <button class="btn join-item btn-sm"
+            :class="{ 'btn-active': activeTab === 'hand', 'btn-neutral': activeTab !== 'hand' }"
+            @click="switchTab('hand')">Hand</button>
+          <button class="btn join-item btn-sm"
+            :class="{ 'btn-active': activeTab === 'deck', 'btn-neutral': activeTab !== 'deck' }"
+            @click="switchTab('deck')">Deck</button>
+          <button class="btn join-item btn-sm"
+            :class="{ 'btn-active': activeTab === 'store', 'btn-neutral': activeTab !== 'store' }"
+            @click="switchTab('store')">Store</button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Search input -->
+          <div class="form-control">
+            <input type="text" v-model="searchQuery" placeholder="Search..." 
+              class="input input-bordered input-xs w-32 text-white bg-neutral-800 border-neutral-600 focus:border-neutral-400" />
+          </div>
+
+          <!-- Type filter dropdown -->
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button"
+              class="text-white gap-1 hover:opacity-70 cursor-pointer duration-200 transition-opacity mb-1 flex flex-row items-center capitalize text-sm">
+              {{ selectedType === 'all' ? 'All' : selectedType }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-chevron-down">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </div>
+
+            <div tabindex="0"
+              class="dropdown-content z-10 h-[40vh] overflow-auto p-2 rounded-box shadow-md text-xs text-white bg-neutral-800 flex flex-wrap gap-1">
+              <button @click="selectType('all')"
+                :class="['btn btn-ghost btn-xs w-full flex flex-row justify-start items-center gap-1', selectedType === 'all' ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
+                <span class="font-[xwing] text-sm font-light -mt-1">)</span>
+                <span>All</span>
+              </button>
+              <button v-for="type in typeOptions" :key="type.name" @click="selectType(type.name.toLowerCase())"
+                :class="['btn btn-ghost btn-xs w-full flex flex-row justify-start items-center gap-1', selectedType === type.name.toLowerCase() ? 'bg-yellow-600 border-yellow-400 text-white' : 'text-white']">
+                <span class="font-[xwing] text-sm font-light -mt-1">{{ type.symbol ||
+                  tokenToLetterMap[type.name.toLowerCase()] || '?' }}</span>
+                <span>{{ type.name }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="flex-1 overflow-y-auto overflow-x-hidden p-4 min-h-0" :class="{
+        'flex flex-row flex-wrap gap-4 justify-evenly': activeTab !== 'hand',
+        'flex flex-col': activeTab === 'hand'
+      }">
+        <!-- Settings button -->
+        <div class="btn btn-square btn-sm absolute bottom-20 right-4 z-50 shadow shadow-black"
+          @click="$router.push('/settings')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-settings-icon lucide-settings">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </div>
+        
+        <!-- Hand tab uses CardSummary for compact display -->
+        <template v-if="activeTab === 'hand'">
+          <div class="w-full space-y-3">
+            <CardSummary v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
+              :showXP="false" :upgradeLevel="store.getCardUpgradeLevel(card.id)" @click="select(card)" class="w-full" />
+          </div>
+        </template>
+
+        <!-- Deck and Store tabs use regular Card component -->
+        <template v-else>
+          <Card v-for="(card, index) in cardsToShow" :key="card?.id || card?.name || index" v-bind="card"
+            :showXP="activeTab === 'store'" :owned="activeTab === 'store' && store.isCardOwnedByCurrentPilot(card.id)"
+            :canUpgrade="activeTab === 'store' && store.canUpgradeCard(card.id)"
+            :upgradeLevel="store.getCardUpgradeLevel(card.id)"
+            :draggable="!isMobile && activeTab === 'deck' && !store.isCardTaken(card.id)" 
+            :mobile-mode="isMobile"
+            @dragstart="!isMobile && onDragStart(card.id, $event)"
+            @dragend="!isMobile && onDragEnd" @click="select(card)" :class="{
+              'pointer-events-none opacity-50': store.isCardOwnedByCurrentPilot(card.id) && activeTab === 'store' && !store.canUpgradeCard(card.id),
+              'opacity-50 cursor-not-allowed': activeTab === 'deck' && store.isCardTaken(card.id),
+              'cursor-grab hover:scale-105 transition-transform duration-150 ease-in-out': !isMobile && activeTab === 'deck' && !store.isCardTaken(card.id),
+              'cursor-pointer': isMobile && activeTab === 'deck' && !store.isCardTaken(card.id),
+              'cursor-default': activeTab !== 'deck',
+              'border-2 border-blue-400 shadow-lg': activeTab === 'store' && store.canUpgradeCard(card.id),
+            }" @contextmenu.prevent="!isMobile && onRightClickCard(card, $event)" />
+        </template>
+
+        <div v-if="cardsToShow.length === 0 && activeTab === 'hand'"
+          class="text-white h-full text-center text-sm opacity-70 font-medium flex items-center justify-center w-full">
+          <div v-if="searchQuery || selectedType !== 'all'">
+            No equipped cards match your current filters.<br />
+            <button @click="clearFilters" class="btn btn-sm btn-outline mt-2">Clear Filters</button>
+          </div>
+          <div v-else>
+            You have no equipped cards. You can equip cards from your deck or purchase new ones from the store.<br /><br />
+            <span v-if="!isMobile">Drag cards from your deck to their respective slots on the left side of the screen to equip them.</span>
+            <span v-else>Tap cards in your deck to equip them.</span>
+          </div>
+        </div>
+        <div v-if="cardsToShow.length === 0 && activeTab === 'deck'"
+          class="text-white text-center text-sm opacity-70 font-medium flex items-center justify-center w-full">
+          <div v-if="searchQuery || selectedType !== 'all'">
+            No cards in your deck match your current filters.<br />
+            <button @click="clearFilters" class="btn btn-sm btn-outline mt-2">Clear Filters</button>
+          </div>
+          <div v-else>
+            Purchase cards from the store to add them to your deck.
+          </div>
+        </div>
+        <div v-if="cardsToShow.length === 0 && activeTab === 'store'"
+          class="text-white text-center text-sm opacity-70 font-medium flex items-center justify-center w-full">
+          <div v-if="searchQuery || selectedType !== 'all'">
+            No cards in the store match your current filters.<br />
+            <button @click="clearFilters" class="btn btn-sm btn-outline mt-2">Clear Filters</button>
+          </div>
+          <div v-else>
+            No cards available in the store.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Desktop cards section -->
+    <div v-if="!isMobile" class="flex-1 flex flex-col overflow-visible min-h-0">
       <div class="p-4 border-2 border-neutral-700 rounded-2xl flex justify-between items-center flex-row">
         <div class="join">
           <button class="btn join-item"
@@ -194,6 +372,38 @@
       </div>
     </div>
 
+    <!-- Mobile bottom tabs -->
+    <div v-if="isMobile" class="fixed bottom-0 left-0 right-0  z-40">
+      <div role="tablist" class="tabs tabs-box w-full justify-center">
+        <a 
+          role="tab"
+          @click="mobileActiveTab = 'loadout'"
+          :class="[
+            'tab flex-1',
+            mobileActiveTab === 'loadout' ? 'tab-active' : ''
+          ]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield mr-2">
+            <path d="M20 13c0 5-3.5 7.5-8 10-4.5-2.5-8-5-8-10V6l8-3 8 3v7Z"/>
+          </svg>
+          Loadout
+        </a>
+        <a 
+          role="tab"
+          @click="mobileActiveTab = 'cards'"
+          :class="[
+            'tab flex-1',
+            mobileActiveTab === 'cards' ? 'tab-active' : ''
+          ]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers mr-2">
+            <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>
+            <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/>
+            <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>
+          </svg>
+          Cards
+        </a>
+      </div>
+    </div>
+
     <!-- Modal Components -->
     <CardPurchaseModal ref="cardPurchaseModal" :card="pendingCard" :is-upgrade="isPendingCardUpgrade"
       :upgrade-level="pendingCardUpgradeLevel" @confirm="confirmCardPurchase" @cancel="cancelCardPurchase" />
@@ -204,11 +414,14 @@
     <CardSwapModal ref="cardSwapModal" :card-name="pendingTransfer?.cardName"
       :target-pilot-name="pendingTransfer?.targetPilotName" :your-upgrade-level="pendingTransfer?.yourUpgradeLevel"
       :target-upgrade-level="pendingTransfer?.targetUpgradeLevel" @confirm="confirmCardSwap" @cancel="cancelCardSwap" />
+
+    <CardEquipModal ref="cardEquipModal" :card="pendingMobileCard" :available-slots="availableSlots" 
+      @equip="equipCardToSlot" @cancel="cancelMobileCardSelection" />
   </main>
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 
 import Card from "../components/Card.vue";
@@ -220,6 +433,7 @@ import Slots from "../components/Slots.vue";
 import CardPurchaseModal from "../components/ui/CardPurchaseModal.vue";
 import AddXpModal from "../components/ui/AddXpModal.vue";
 import CardSwapModal from "../components/ui/CardSwapModal.vue";
+import CardEquipModal from "../components/ui/CardEquipModal.vue";
 
 import classData from "../data/classes.json";
 
@@ -236,6 +450,7 @@ const store = usePilotStore();
 const cardPurchaseModal = ref(null);
 const addXpModal = ref(null);
 const cardSwapModal = ref(null);
+const cardEquipModal = ref(null);
 
 // UI state
 const showContextMenu = ref(false);
@@ -248,6 +463,25 @@ const pendingCard = ref(null);
 const currentlyDraggedCard = ref(null);
 const pendingTransfer = ref(null); // For card swap modal
 const searchQuery = ref("");
+
+// Mobile state
+const isMobile = ref(false);
+const mobileActiveTab = ref('loadout');
+const pendingMobileCard = ref(null);
+
+// Mobile detection
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 768; // md breakpoint
+};
+
+onMounted(() => {
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile);
+});
 
 // Computed
 const otherPilots = computed(() =>
@@ -264,6 +498,163 @@ const icon = computed(() => {
 
 const color = computed(() => {
   return classData[store.currentPilot?.class]?.color || "amber";
+});
+
+// Available slots for mobile card equipping
+const availableSlots = computed(() => {
+  const pilot = store.currentPilot;
+  if (!pilot || !pendingMobileCard.value) return [];
+  
+  console.log('Pending mobile card:', pendingMobileCard.value);
+  
+  const cardType = pendingMobileCard.value.type?.toLowerCase();
+  console.log('Card type:', cardType);
+  
+  const slots = [];
+  
+  // Get class data for the pilot
+  const classInfo = classData[pilot.class];
+  if (!classInfo) {
+    console.log('No class info found for:', pilot.class);
+    return [];
+  }
+  
+  // Get current ship data
+  const shipEntry = classInfo.ships.find(s => s.ship === pilot.selectedShip);
+  const shipSlots = shipEntry?.slots || [];
+  const lockedSlots = shipEntry?.lockedSlots || [];
+  
+  console.log('Ship slots:', shipSlots);
+  console.log('Selected ship:', pilot.selectedShip);
+  
+  // Get rank data
+  const rankData = classInfo.ranks.find(r => r.rank === pilot.rank);
+  const rankSlots = rankData?.slots || [];
+  const optionalSlots = rankData?.optionalslots || [];
+  
+  console.log('Rank slots:', rankSlots);
+  console.log('Optional slots:', optionalSlots);
+  
+  // Combine all fixed slots (ship + rank)
+  const allFixedSlots = [...shipSlots, ...rankSlots];
+  
+  console.log('All fixed slots:', allFixedSlots);
+  
+  // Create a mapping of card types to slot letters
+  const cardTypeToSlotMap = {
+    'ace': 'x',
+    'talent': 'E', 
+    'astromech': 'A',
+    'modification': 'm',
+    'missile': 'M',
+    'title': 't',
+    'torpedo': 'P',
+    'cannon': 'C',
+    'crew': 'W',
+    'force': 'F',
+    'illicit': 'I',
+    'tech': 'X',
+    'sensitive': 'Î',
+    'tactical': 'Z',
+    'turret': 'U',
+    'payload': 'B',
+    'sensor': 'S',
+    'configuration': 'n'
+  };
+  
+  // Create a mapping of slot letters to readable names
+  const slotLetterToNameMap = {
+    'x': 'Ace',
+    'E': 'Talent', 
+    'A': 'Astromech',
+    'm': 'Modification',
+    'M': 'Missile',
+    't': 'Title',
+    'P': 'Torpedo',
+    'C': 'Cannon',
+    'W': 'Crew',
+    'F': 'Force',
+    'I': 'Illicit',
+    'X': 'Tech',
+    'Î': 'Sensitive',
+    'Z': 'Tactical',
+    'U': 'Turret',
+    'B': 'Payload',
+    'S': 'Sensor',
+    'n': 'Configuration'
+  };
+  
+  const expectedSlotLetter = cardTypeToSlotMap[cardType];
+  console.log('Expected slot letter for', cardType, ':', expectedSlotLetter);
+  
+  // Check fixed slots
+  allFixedSlots.forEach((slot, index) => {
+    const slotKey = `fixed-${index}`;
+    console.log('Checking slot:', slot, 'against expected:', expectedSlotLetter);
+    
+    // Check if this slot type can accept the card type
+    if (slot === expectedSlotLetter) {
+      const currentCard = pilot.slotCards?.[slotKey];
+      const currentCardInfo = currentCard ? store.getCardDisplayInfo(currentCard) : null;
+      
+      console.log('Found matching slot:', slotKey, 'occupied by:', currentCardInfo?.name);
+      
+      slots.push({
+        key: slotKey,
+        name: slotLetterToNameMap[slot] || slot,
+        icon: slot,
+        occupied: !!currentCard,
+        occupiedCard: currentCardInfo?.name
+      });
+    }
+  });
+  
+  // Check optional slots
+  if (Array.isArray(optionalSlots)) {
+    optionalSlots.forEach((slotGroup, groupIndex) => {
+      if (Array.isArray(slotGroup)) {
+        slotGroup.forEach((slot, slotIndex) => {
+          const slotKey = `optional-${groupIndex}`;
+          
+          if (slot === expectedSlotLetter) {
+            const currentCard = pilot.slotCards?.[slotKey];
+            const currentCardInfo = currentCard ? store.getCardDisplayInfo(currentCard) : null;
+            
+            console.log('Found matching optional slot:', slotKey);
+            
+            slots.push({
+              key: slotKey,
+              name: slotLetterToNameMap[slot] || slot,
+              icon: slot,
+              occupied: !!currentCard,
+              occupiedCard: currentCardInfo?.name
+            });
+          }
+        });
+      } else {
+        // Single optional slot
+        const slotKey = `optional-${groupIndex}`;
+        
+        if (slotGroup === expectedSlotLetter) {
+          const currentCard = pilot.slotCards?.[slotKey];
+          const currentCardInfo = currentCard ? store.getCardDisplayInfo(currentCard) : null;
+          
+          console.log('Found matching single optional slot:', slotKey);
+          
+          slots.push({
+            key: slotKey,
+            name: slotLetterToNameMap[slotGroup] || slotGroup,
+            icon: slotGroup,
+            occupied: !!currentCard,
+            occupiedCard: currentCardInfo?.name
+          });
+        }
+      }
+    });
+  }
+  
+  console.log('Available slots found:', slots);
+  return slots;
 });
 
 // Function to get faction color based on symbol
@@ -544,9 +935,35 @@ function select(card) {
   } else if (activeTab.value === "hand") {
     // For hand tab, unequip the card
     unequipCard(card.id);
+  } else if (activeTab.value === "deck") {
+    // For deck tab on mobile, show card selector modal
+    if (isMobile.value && !store.isCardTaken(card.id)) {
+      showMobileCardSelection(card);
+    }
+    // On desktop, cards are equipped via drag-and-drop to slots
+  }
+}
+
+// Mobile card equipping
+function showMobileCardSelection(card) {
+  pendingMobileCard.value = card;
+  cardEquipModal.value?.open();
+}
+
+function cancelMobileCardSelection() {
+  pendingMobileCard.value = null;
+}
+
+function equipCardToSlot(slotKey) {
+  if (!pendingMobileCard.value) return;
+  
+  const success = store.assignCardToSlot(slotKey, pendingMobileCard.value.id);
+  if (success !== false) {
+    pendingMobileCard.value = null;
+    // Switch to loadout tab to show the equipped card
+    mobileActiveTab.value = 'loadout';
   } else {
-    // For deck tab, cards are not selectable in this context
-    // Cards are equipped via drag-and-drop to slots
+    alert("Could not equip this card to the selected slot.");
   }
 }
 
