@@ -1,6 +1,6 @@
 [
   {
-    "id": "ezrabridger-ability",
+    "id": "ezrabridger-one-with-the-force",
     "name": "One With The Force",
     "type": "Sensitive",
     "cost": 9,
@@ -11,7 +11,7 @@
     "initiative": 3
   },
   {
-    "id": "keovenzee-ability",
+    "id": "keovenzee-uncanny-maneuvering",
     "name": "Uncanny Maneuvering",
     "type": "Sensitive",
     "cost": 9,
@@ -21,8 +21,8 @@
     "faction": "Neutral",
     "initiative": 3
   },
-   {
-    "id": "kananjarrus-ability",
+  {
+    "id": "kananjarrus-guardian-angel",
     "name": "Guardian Angel",
     "type": "Sensitive",
     "cost": 9,
@@ -33,7 +33,7 @@
     "initiative": 3
   },
   {
-    "id": "ahsokatano-ability",
+    "id": "ahsokatano-force-synergy",
     "name": "Force Synergy",
     "type": "Sensitive",
     "cost": 15,
@@ -44,7 +44,7 @@
     "initiative": 5
   },
   {
-    "id": "leiaorgana-ability",
+    "id": "leiaorgana-reassuring-presence",
     "name": "Reassuring Presence",
     "type": "Sensitive",
     "cost": 15,
@@ -55,7 +55,7 @@
     "initiative": 5
   },
   {
-    "id": "lukeskywalker-ability",
+    "id": "lukeskywalker-force-sensitive",
     "name": "Force Sensitive",
     "type": "Sensitive",
     "cost": 15,
@@ -66,7 +66,7 @@
     "initiative": 5
   },
   {
-    "id": "grandinquisitor-ability",
+    "id": "grandinquisitor-battle-mind",
     "name": "Battle Mind",
     "type": "Sensitive",
     "cost": 15,
@@ -77,7 +77,7 @@
     "initiative": 5
   },
   {
-    "id": "seventhsister-ability",
+    "id": "seventhsister-uncanny-aim",
     "name": "Uncanny Aim",
     "type": "Sensitive",
     "cost": 12,
@@ -86,5 +86,200 @@
     "unique": true,
     "faction": "Empire",
     "initiative": 4
+  },
+  {
+    "id": "saeseetiin-course-correction",
+    "name": "Course Correction",
+    "type": "Sensitive",
+    "assist": true,
+    "cost": 12,
+    "description": "After a friendly ship at range 0-2 reveals its dial, you may spend 1 [Force]. If you do, set its dial to another maneuver of the same speed and difficulty.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/saeseetiin.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 4
+  },
+  {
+    "id": "obiwankenobi-stay-focused",
+    "name": "Stay Focused",
+    "type": "Sensitive",
+    "cost": 15,
+    "assist": true,
+    "description": "After a friendly ship at range 0-2 spends a focus token, you may spend 1 [Force]. If you do, that ship gains 1 focus token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/obiwankenobi.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 5
+  },
+  {
+    "id": "yoda-trust-your-feelings",
+    "name": "Trust your Feelings",
+    "assist": true,
+    "type": "Sensitive",
+    "cost": 9,
+    "description": "After another friendly ship at range 0-3 spends 1 or more [Force], you may spend 1 [Force]. If you do, that ship recovers 1 [Force].",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/yoda.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 3
+  },
+  {
+    "id": "anakinskywalker-dead-to-rights",
+    "name": "Dead to Rights",
+    "type": "Sensitive",
+    "cost": 18,
+    "description": "After you fully execute a maneuver, if there is an enemy ship in your [Front Arc] at range 0-1 or in your [Bullseye Arc], you may spend 1 [Force] to remove 1 stress token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/anakinskywalker-btlbywing.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 6
+  },
+  {
+    "id": "ahsokatano-force-precognition",
+    "name": "Force Precognition",
+    "type": "Sensitive",
+    "assist": true,
+    "cost": 9,
+    "description": "After you fully execute a maneuver, you may choose a friendly ship at range 0-1 and spend 1 [Force]. That ship may perform an action, even if it is stressed.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/ahsokatano.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 3
+  },
+  {
+    "id": "macewindu-jedi-training",
+    "name": "Jedi Training",
+    "type": "Sensitive",
+    "cost": 12,
+    "description": "After you fully execute a red maneuver, recover 1 [Force].",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/macewindu.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 4
+  },
+  {
+    "id": "obiwankenobi-trust-in-the-force",
+    "name": "Trust in the Force",
+    "type": "Sensitive",
+    "cost": 15,
+    "description": "After you execute a maneuver, if there are more enemy ships than other friendly ships at range 0-1, you may spend 1 [Force]. If you do, gain 1 focus token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/obiwankenobi-eta2actis.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 5
+  },
+  {
+    "id": "anakinskywalker-against-all-odds",
+    "name": "Against all Odds",
+    "type": "Sensitive",
+    "cost": 18,
+    "description": "After you execute a maneuver, if there are more enemy ships than other friendly ships at range 0-1, you may spend 1 [Force]. If you do, remove 1 red token of your choice.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/anakinskywalker-eta2actis.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 6
+  },
+  {
+    "id": "anakinskywalker-into-the-storm",
+    "name": "Into the Storm",
+    "type": "Sensitive",
+    "cost": 18,
+    "description": "After you fully execute a maneuver, if there are more enemy ships than other friendly ships at range, you may spend 1 [Force]. If you do, you may perform a [Barrel Roll] or [Boost] action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/anakinskywalker.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 6
+  },
+  {
+    "id": "shaakti-rally",
+    "name": "Rally",
+    "type": "Sensitive",
+    "cost": 12,
+    "description": "At the start of the End Phase, you may perfrom a purple [Coordinate] action, even while stressed.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/fifthbrother.png",
+    "unique": true,
+    "faction": "Empire",
+    "initiative": 4
+  },
+  {
+    "id": "shaakti-force-momentum",
+    "name": "Force Momentum",
+    "assist": true,
+    "type": "Sensitive",
+    "cost": 12,
+    "description": "At the start of the End Phase, you may spend any number of [Force] to choose that many friendly ships at range 0-2. Each chosen ship does not remove 1 focus or evade token during this End Phase.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/shaakti.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 4
+  },
+  {
+    "id": "plokoon-force-equilibrium",
+    "name": "Force Equilibrium",
+    "type": "Sensitive",
+    "cost": 15,
+    "assist": true,
+    "description": "At the start of the Engagement Phase, you may spend 1 [Force] and choose another friendly ship at range 0-2. If you do, you may transfer 1 green token to it or transfer one orange token from it to yourself.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/plokoon.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 5
+  },
+  {
+    "id": "luminaraunduli-may-the-force-be-with-you",
+    "name": "May the Force be with You",
+    "assist": true,
+    "type": "Sensitive",
+    "cost": 12,
+    "description": "While a friendly ship at range 0-2 defends, if it is not in the attacker's [Bullseye Arc], you may spend 1 [Force]. If you do, change 1 [Critical Hit] result to a [Hit] result or 1 [Hit] result to a [Focus] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/luminaraunduli.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 4
+  },
+  {
+    "id": "barrissoffee-combat-awareness",
+    "name": "Combat Awareness",
+    "type": "Sensitive",
+    "assist": true,
+    "cost": 12,
+    "description": "While a friendly ship at range 0-2 performs an attack, if the defender is in its [Bullseye Arc], you may spend 1 [Force] to change 1 [Focus] result to a [Hit] result or 1 [Hit] result to a [Critical Hit] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/barrissoffee.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 4
+  },
+  {
+    "id": "aaylasecura-force-projection",
+    "name": "Force Projection",
+    "type": "Sensitive",
+    "cost": 15,
+    "description": "While an enemy ship in your [Front Arc] at range 0-1 performs an attack, the defender may change 1 blank result to a [Focus] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/aaylasecura.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 5
+  },
+  {
+    "id": "kitfisto-force-defender",
+    "name": "Force Defender",
+    "type": "Sensitive",
+    "cost": 12,
+    "description": "While another friendly ship defends, if the attacker is in its [Bullseye Arc], you may spend 1 [Force] to change 1 of the defender's blank results to a [Focus] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/kitfisto.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 4
+  },
+  {
+    "id": "adigallia-tricked-mind",
+    "name": "Tricked Mind",
+    "type": "Sensitive",
+    "cost": 18,
+    "description": "While you defend at attack range 1, you may spend 1 [Force]. If you do, the attacker cannot apply the range bonus. While you perform an attack against a defender at attack range 3, you may spend 1 [Force]. If you do, the defender cannot apply the range bonus.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/adigallia.png",
+    "unique": true,
+    "faction": "Republic",
+    "initiative": 6
   }
 ]
