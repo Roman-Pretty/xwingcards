@@ -1,14 +1,46 @@
 [
- 
   {
-    "id": "maul-ability",
-    "name": "Maul",
+    "id": "countdooku-ability",
+    "name": "Count Dooku",
+    "type": "Sensitive",
+    "cost": 9,
+    "description": "After you defend, if the attacker is in your firing arc, you may spend 1 [Force] to remove 1 of your blue or red tokens. After you perform an attack that hits, you may spend 1 [Force] to perform an action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/countdooku.png",
+    "unique": true,
+    "faction": "Separatist",
+    "initiative": 3
+  },
+  {
+    "id": "aurrasing-ability",
+    "name": "Aurra Sing",
+    "type": "Sensitive",
+    "cost": 12,
+    "description": "Before you engage, you may spend 1 [Force] to choose 2 enemy ships at range 0-1. Transfer any number of orange and red tokens between those two ships.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/aurrasing.png",
+    "unique": true,
+    "faction": "Separatist",
+    "initiative": 4
+  },
+  {
+    "id": "countdooku-ability",
+    "name": "Count Dooku",
     "type": "Sensitive",
     "cost": 15,
-    "description": "While you perform a [Coordinate] action, if you choose a ship with an initiative lower than yours, you may spend 1 [Force]. If you do, treat the action as white and you may coordinate 1 additional friendly ship with an initiative lower than yours; each friendly ship you coordinate this way gains 1 strain token.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/maul.png",
+    "description": "During an attack, before a ship at range 0-2 rolls attack or defense dice, if all of your [Force] are active, you may spend 1 [Force] and name a result. If the roll does not contain the named result, the ship must change 1 die to that result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/countdooku.png",
     "unique": true,
-    "faction": "Scum",
+    "faction": "Separatist",
+    "initiative": 5
+  },
+  {
+    "id": "darthmaul-ability",
+    "name": "Darth Maul",
+    "type": "Sensitive",
+    "cost": 15,
+    "description": "After you perform an attack, you may spend 2 [Force] to perform a bonus primary attack against a different target. If your attack missed, you may perform that bonus primary attack against the same target instead.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/darthmaul.png",
+    "unique": true,
+    "faction": "Separatist",
     "initiative": 5
   }
 ]
