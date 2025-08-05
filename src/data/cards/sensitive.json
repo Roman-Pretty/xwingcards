@@ -292,5 +292,27 @@
     "unique": true,
     "faction": "Resistance",
     "initiative": 5
+  },
+  {
+    "id": "kananjarrus-force-interference",
+    "name": "Force Interference",
+    "type": "Sensitive",
+    "cost": 9,
+    "description": "While you or a ship in your [Single Turret Arc] defends, you may spend 1 [Force]. If you do, the attacker rolls 1 fewer attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/kananjarrus-hwk290lightfreighter.png",
+    "unique": true,
+    "faction": "Scum",
+    "initiative": 3
+  },
+  {
+    "id": "asajjventress-force-push",
+    "name": "Force Push",
+    "type": "Sensitive",
+    "cost": 12,
+    "description": "At the start of the Engagement Phase, you may choose 1 enemy ship in your [Single Turret Arc] at range 0-2 and spend 1 [Force]. If you do, that ship gains 1 stress token unless it removes 1 green token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/asajjventress.png",
+    "unique": true,
+    "faction": "Scum",
+    "initiative": 4
   }
 ]

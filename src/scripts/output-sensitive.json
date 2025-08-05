@@ -1,13 +1,14 @@
 [
+ 
   {
-    "id": "rey-ability",
-    "name": "Rey",
+    "id": "maul-ability",
+    "name": "Maul",
     "type": "Sensitive",
     "cost": 15,
-    "description": "While you defend or perform an attack, if the enemy ship is in your [Front Arc], you may spend 1 [Force] to change 1 of your blank results to an [Evade] or [Hit] result.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/rey.png",
+    "description": "While you perform a [Coordinate] action, if you choose a ship with an initiative lower than yours, you may spend 1 [Force]. If you do, treat the action as white and you may coordinate 1 additional friendly ship with an initiative lower than yours; each friendly ship you coordinate this way gains 1 strain token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/maul.png",
     "unique": true,
-    "faction": "Resistance",
+    "faction": "Scum",
     "initiative": 5
   }
 ]
