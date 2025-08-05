@@ -24,7 +24,7 @@ def fix_ace_ids():
     """Fix duplicate IDs in ace.json by replacing 'ability' with normalized card names."""
 
     # Path to the sensitive.json file
-    ace_file_path = os.path.join(os.path.dirname(__file__), 'sensitive.json')
+    ace_file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'cards', 'sensitive.json')
     
     try:
         # Read the JSON file
@@ -67,9 +67,9 @@ def fix_ace_ids():
             print("No changes needed - no cards with 'ability' in their IDs found.")
             
     except FileNotFoundError:
-        print(f"Error: Could not find ace.json file at {ace_file_path}")
+        print(f"Error: Could not find sensitive.json file at {ace_file_path}")
     except json.JSONDecodeError as e:
-        print(f"Error: Invalid JSON format in ace.json - {e}")
+        print(f"Error: Invalid JSON format in sensitive.json - {e}")
     except Exception as e:
         print(f"Error: {e}")
 

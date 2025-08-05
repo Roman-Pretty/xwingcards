@@ -15,7 +15,7 @@
     "name": "Uncanny Maneuvering",
     "type": "Sensitive",
     "cost": 9,
-    "description": "If you have no active {forcecharge}, after you reveal a bank [{bl} or {br}] or turn [{sl} or {sr}] maneuver, you may increase the difficulty of the maneuver. If you do, perform that maneuver as a sideslip and recover 1 {forcecharge}.",
+    "description": "If you have no active {forcecharge}, after you reveal a bank [{bl} or {br}] or turn [{sl} or {sr}] maneuver, you may increase the difficulty of the maneuver. If you do, perform that maneuver as a sideslip and recover 1 {forcecharge}.You may choose not to recover force in the end phase.",
     "image": "https://infinitearenas.com/xw2/images/artwork/pilots/keovenzee.png",
     "unique": true,
     "faction": "Neutral",
@@ -281,5 +281,16 @@
     "unique": true,
     "faction": "Republic",
     "initiative": 6
+  },
+  {
+    "id": "rey-force-adept",
+    "name": "Force Adept",
+    "type": "Sensitive",
+    "cost": 15,
+    "description": "While you defend or perform an attack, if the enemy ship is in your [Front Arc], you may spend 1 [Force] to change 1 of your blank results to an [Evade] or [Hit] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/rey.png",
+    "unique": true,
+    "faction": "Resistance",
+    "initiative": 5
   }
 ]

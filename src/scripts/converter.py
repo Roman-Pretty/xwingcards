@@ -8,7 +8,7 @@ def convert_faction(faction):
     faction_map = {
         "rebelalliance": "Neutral",
         "galacticempire": "Empire", 
-        "resistance": "theresistance",
+        "resistance": "Resistance",
         "firstorder": "FirstOrder",
         "scumandvillainy": "Scum",
         "galacticrepublic": "Republic",
@@ -122,8 +122,8 @@ sensitive_pilots = [pilot for pilot in unique_pilots if pilot.get("type") == "Se
 # Sort ace pilots by cost first, then alphabetically by id
 ace_pilots.sort(key=lambda pilot: (pilot["cost"], pilot["id"]))
 
-# Sort sensitive pilots by description
-sensitive_pilots.sort(key=lambda pilot: pilot["description"])
+# Sort sensitive pilots by cost first, then alphabetically by id
+sensitive_pilots.sort(key=lambda pilot: (pilot["cost"], pilot["id"]))
 
 # Output ace pilots to output-ace.json
 with open("output-ace.json", "w", encoding="utf-8") as f:
@@ -138,4 +138,4 @@ print(f"Unique: {len(unique_pilots)} pilots after removing duplicates")
 print(f"Removed: {len(all_converted) - len(unique_pilots)} duplicate pilots")
 print(f"\nOutput files created:")
 print(f"  output-ace.json: {len(ace_pilots)} Ace pilots (sorted by cost, then alphabetically by id)")
-print(f"  output-sensitive.json: {len(sensitive_pilots)} Sensitive pilots (sorted by description)")
+print(f"  output-sensitive.json: {len(sensitive_pilots)} Sensitive pilots (sorted by cost, then alphabetically by id)")

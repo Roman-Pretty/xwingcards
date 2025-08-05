@@ -24,7 +24,7 @@ def fix_ace_ids():
     """Fix duplicate IDs in ace.json by replacing 'ability' with normalized card names."""
     
     # Path to the ace.json file
-    ace_file_path = os.path.join(os.path.dirname(__file__), 'ace.json')
+    ace_file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'cards', 'ace.json')
     
     try:
         # Read the JSON file

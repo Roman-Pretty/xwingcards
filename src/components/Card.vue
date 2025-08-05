@@ -139,7 +139,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, defineEmits } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { tokenToLetterMap } from '../utils/mappings'
 
 const props = defineProps({

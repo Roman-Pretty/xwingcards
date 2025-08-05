@@ -1,79 +1,13 @@
 [
   {
-    "id": "darthvader-ability",
-    "name": "Darth Vader",
-    "type": "Sensitive",
-    "cost": 18,
-    "description": "After you perform an action, you may spend 1 [Force] to perform an action.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/darthvader.png",
-    "unique": true,
-    "faction": "Empire",
-    "initiative": 6
-  },
-  {
-    "id": "grandinquisitor-ability",
-    "name": "Grand Inquisitor",
+    "id": "rey-ability",
+    "name": "Rey",
     "type": "Sensitive",
     "cost": 15,
-    "description": "While you defend at attack range 1, you may spend 1 [Force] to prevent the range 1 bonus. While you perform an attack against a defender at attack range 2-3, you may spend 1 [Force] to apply the range 1 bonus.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/grandinquisitor.png",
+    "description": "While you defend or perform an attack, if the enemy ship is in your [Front Arc], you may spend 1 [Force] to change 1 of your blank results to an [Evade] or [Hit] result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/rey.png",
     "unique": true,
-    "faction": "Empire",
+    "faction": "Resistance",
     "initiative": 5
-  },
-  {
-    "id": "seventhsister-ability",
-    "name": "Seventh Sister",
-    "type": "Sensitive",
-    "cost": 12,
-    "description": "While you perform a primary attack, before the Neutralize Results step, you may spend 2 [Force] to cancel 1 [Evade] result.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/seventhsister.png",
-    "unique": true,
-    "faction": "Empire",
-    "initiative": 4
-  },
-  {
-    "id": "fifthbrother-ability",
-    "name": "Fifth Brother",
-    "type": "Sensitive",
-    "cost": 12,
-    "description": "While you perform an attack, after the Neutralize Results step, if the attack hit, you may spend 2 [Force] to add 1 [Critical Hit] result.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/fifthbrother.png",
-    "unique": true,
-    "faction": "Empire",
-    "initiative": 4
-  },
-  {
-    "id": "secondsister-ability",
-    "name": "Second Sister",
-    "type": "Sensitive",
-    "cost": 12,
-    "description": "While you perform an attack, after the Neutralize Results step, if the attack hit, you may spend 2 [Force]. If you do, change all of your [Hit] results to [Critical Hit] results.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/secondsister.png",
-    "unique": true,
-    "faction": "Empire",
-    "initiative": 4
-  },
-  {
-    "id": "darthvader-ability",
-    "name": "Darth Vader",
-    "type": "Sensitive",
-    "cost": 18,
-    "description": "While you perform an attack, you may spend 1 [Force] to change 1 blank result to a [Hit] result.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/darthvader.png",
-    "unique": true,
-    "faction": "Empire",
-    "initiative": 6
-  },
-  {
-    "id": "darthvader-ability",
-    "name": "Darth Vader",
-    "type": "Sensitive",
-    "cost": 18,
-    "description": "You cannot spend [Force] except while attacking. While you perform an attack, you may spend 1 [Force] to change 1 blank result to a [Hit] result.",
-    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/darthvader-tieddefender.png",
-    "unique": true,
-    "faction": "Empire",
-    "initiative": 6
   }
 ]
