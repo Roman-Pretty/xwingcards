@@ -14,48 +14,104 @@ export interface Pilot {
   slotCards: Record<string, string>;
   selectedCards: string[];
   ownedCards: string[];
-  cardUpgrades?: Record<string, number>; // Track upgrade levels for each card
+  cardUpgrades?: Record<string, number>;
   unlockedSlots?: string[];
-  usedFactionSlots?: Record<string, number>; // ✅ Moved into Pilot
+  usedFactionSlots?: Record<string, number>;
 }
+
+/**
+ * Faction icon to faction name mapping
+ */
+const FACTION_MAPPINGS = {
+  "@": "empire",
+  "h": "force",
+  "!": "resistance",
+  "+": "firstorder",
+  "#": "scum",
+  "/": "republic",
+  ".": "separatist"
+} as const;
+
+/**
+ * Helper function to normalize faction names
+ */
+const normalizeFactionName = (faction: string): string => {
+  const lower = faction.toLowerCase();
+  if (lower === "first order") return "firstorder";
+  if (lower === "separatists") return "separatist";
+  return lower;
+};
+
+/**
+ * Helper function to get faction limits from class data for all ranks up to current rank
+ */
+const getFactionLimits = (classInfo: any, maxRank: number): Record<string, number> => {
+  const ranks = classInfo.ranks.filter(r => r.rank <= maxRank);
+  const factionLimits: Record<string, number> = {};
+  
+  for (const r of ranks) {
+    if (!r.faction) continue;
+    for (const sym of r.faction) {
+      const factionName = FACTION_MAPPINGS[sym];
+      if (factionName) {
+        factionLimits[factionName] = (factionLimits[factionName] || 0) + 1;
+      }
+    }
+  }
+  
+  return factionLimits;
+};
 
 export const usePilotStore = defineStore("pilotStore", {
   state: () => ({
     pilots: [] as Pilot[],
     currentPilotId: "1",
-    // Settings - make sure they're reactive at top level
     enableCustomCards: true,
     enableFactionFiltering: false,
     enableUniqueCardRestriction: true,
   }),
 
   getters: {
+    /**
+     * Gets the current active pilot and initializes faction slots if needed
+     */
     currentPilot(state) {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
-      // Initialize faction slots if they don't exist
       if (pilot && !pilot.usedFactionSlots) {
-        const store = this as any; // Access store methods
+        const store = this as any;
         pilot.usedFactionSlots = store.calculateUsedFactionSlots(pilot);
       }
       return pilot;
     },
 
+    /**
+     * Gets all cards owned by the current pilot
+     */
     ownedCards(state) {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       if (!pilot) return [];
       return cards.filter((card) => pilot.ownedCards.includes(card.id));
     },
 
+    /**
+     * Checks if a card is owned by the current pilot
+     */
     isCardOwnedByCurrentPilot: (state) => (cardId) => {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       return pilot ? pilot.ownedCards.includes(cardId) : false;
     },
 
+    /**
+     * Gets the upgrade level for a specific card
+     */
     getCardUpgradeLevel: (state) => (cardId) => {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       return pilot?.cardUpgrades?.[cardId] || 0;
     },
 
+    /**
+     * Checks if a card can be upgraded further
+     */
     canUpgradeCard: (state) => (cardId) => {
       const card = cards.find((c) => c.id === cardId) as any;
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
@@ -68,6 +124,9 @@ export const usePilotStore = defineStore("pilotStore", {
       return isOwned && currentUpgradeLevel < card.energy;
     },
 
+    /**
+     * Gets display information for a card including upgrade modifications
+     */
     getCardDisplayInfo: (state) => (cardId) => {
       const card = cards.find((c) => c.id === cardId) as any;
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
@@ -86,6 +145,9 @@ export const usePilotStore = defineStore("pilotStore", {
       };
     },
 
+    /**
+     * Checks if a card is currently taken/equipped by any pilot
+     */
     isCardTaken: (state) => (cardId) => {
       const card = cards.find((c) => c.id === cardId);
       if (!card) return false;
@@ -94,7 +156,6 @@ export const usePilotStore = defineStore("pilotStore", {
       const cardName = card.name;
 
       return state.pilots.some((p) => {
-        // Check if this pilot has any card with the same name (if unique)
         const hasSameNamedCard = Object.values(p.slotCards).some(slotCardId => {
           const slotCard = cards.find(c => c.id === slotCardId);
           return slotCard?.name === cardName;
@@ -103,8 +164,6 @@ export const usePilotStore = defineStore("pilotStore", {
           return selectedCard?.name === cardName;
         });
 
-        // For unique cards, check if any pilot has a card with the same name (only if restriction is enabled)
-        // For current pilot, check if they already have this card (by ID)
         return ((isUnique && state.enableUniqueCardRestriction && hasSameNamedCard) ||
           (p.id === state.currentPilotId &&
             (p.selectedCards.includes(cardId) ||
@@ -112,24 +171,20 @@ export const usePilotStore = defineStore("pilotStore", {
       });
     },
 
+    /**
+     * Gets the count of used faction slots for a specific faction icon
+     */
     getMappedFactionSlots: (state) => (factionIcon) => {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       if (!pilot) return {};
       const usedFactionSlots = pilot.usedFactionSlots || {};
 
-      const mappings = {
-        "@": "empire",
-        "h": "force",
-        "!": "resistance",
-        "+": "firstorder",
-        "#": "scum",
-        "/": "republic",
-        ".": "separatists"
-      };
-
-      return usedFactionSlots[mappings[factionIcon]] || 0;
+      return usedFactionSlots[FACTION_MAPPINGS[factionIcon]] || 0;
     },
 
+    /**
+     * Checks if a faction card can be equipped based on faction limits
+     */
     canEquipFactionCard: (state) => (cardId) => {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       if (!pilot) return false;
@@ -137,46 +192,20 @@ export const usePilotStore = defineStore("pilotStore", {
       const card = cards.find((c) => c.id === cardId);
       if (!card || !card.faction || card.faction.toLowerCase() === "neutral") return true;
 
-      // Get faction limits from class data
       const classInfo = classData[pilot.class];
       if (!classInfo) return false;
 
-      const ranks = classInfo.ranks.filter(r => r.rank <= pilot.rank);
-      const factionLimits: Record<string, number> = {};
-      
-      for (const r of ranks) {
-        if (!r.faction) continue;
-        for (const sym of r.faction) {
-          const mappings = {
-            "@": "empire",
-            "h": "force",
-            "!": "resistance",
-            "+": "firstorder",
-            "#": "scum",
-            "/": "republic",
-            ".": "separatists"
-          };
-          const factionName = mappings[sym];
-          if (factionName) {
-            factionLimits[factionName] = (factionLimits[factionName] || 0) + 1;
-          }
-        }
-      }
-
-      // Normalize card faction name to match our mapping system
-      let cardFaction = card.faction.toLowerCase();
-      if (cardFaction === "first order") {
-        cardFaction = "firstorder";
-      } else if (cardFaction === "separatist") {
-        cardFaction = "separatists";
-      }
-
+      const factionLimits = getFactionLimits(classInfo, pilot.rank);
+      const cardFaction = normalizeFactionName(card.faction);
       const currentCount = pilot.usedFactionSlots?.[cardFaction] || 0;
       const maxCount = factionLimits[cardFaction] || 0;
 
       return currentCount < maxCount;
     },
 
+    /**
+     * Gets descriptive text for faction requirements and restrictions
+     */
     getFactionRequirementText: (state) => (cardId) => {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       if (!pilot) return null;
@@ -184,95 +213,27 @@ export const usePilotStore = defineStore("pilotStore", {
       const card = cards.find((c) => c.id === cardId);
       if (!card || !card.faction || card.faction.toLowerCase() === "neutral") return null;
 
-      // Get faction limits from class data
       const classInfo = classData[pilot.class];
       if (!classInfo) return null;
 
-      // Check all ranks up to current rank
-      const currentRanks = classInfo.ranks.filter(r => r.rank <= pilot.rank);
-      const currentFactionLimits: Record<string, number> = {};
-      
-      for (const r of currentRanks) {
-        if (!r.faction) continue;
-        for (const sym of r.faction) {
-          const mappings = {
-            "@": "empire",
-            "h": "force",
-            "!": "resistance",
-            "+": "firstorder",
-            "#": "scum",
-            "/": "republic",
-            ".": "separatists"
-          };
-          const factionName = mappings[sym];
-          if (factionName) {
-            currentFactionLimits[factionName] = (currentFactionLimits[factionName] || 0) + 1;
-          }
-        }
-      }
-
-      // Check all ranks to see if faction becomes available later
-      const allRanks = classInfo.ranks;
-      const futureFactionLimits: Record<string, number> = {};
-      let factionUnlockRank = null;
-      
-      for (const r of allRanks) {
-        if (!r.faction) continue;
-        for (const sym of r.faction) {
-          const mappings = {
-            "@": "empire",
-            "h": "force",
-            "!": "resistance",
-            "+": "firstorder",
-            "#": "scum",
-            "/": "republic",
-            ".": "separatists"
-          };
-          const factionName = mappings[sym];
-          if (factionName) {
-            futureFactionLimits[factionName] = (futureFactionLimits[factionName] || 0) + 1;
-            // Track the first rank where this faction becomes available
-            if (factionUnlockRank === null || r.rank < factionUnlockRank) {
-              factionUnlockRank = r.rank;
-            }
-          }
-        }
-      }
-
-      // Normalize card faction name to match our mapping system
-      let cardFaction = card.faction.toLowerCase();
-      if (cardFaction === "first order") {
-        cardFaction = "firstorder";
-      } else if (cardFaction === "separatist") {
-        cardFaction = "separatists";
-      }
+      const currentFactionLimits = getFactionLimits(classInfo, pilot.rank);
+      const futureFactionLimits = getFactionLimits(classInfo, Math.max(...classInfo.ranks.map(r => r.rank)));
+      const cardFaction = normalizeFactionName(card.faction);
 
       const currentCount = pilot.usedFactionSlots?.[cardFaction] || 0;
       const currentMaxCount = currentFactionLimits[cardFaction] || 0;
       const futureMaxCount = futureFactionLimits[cardFaction] || 0;
 
-      // If faction is never available for this class
       if (futureMaxCount === 0) {
         return `Faction "${card.faction}" not available for this class`;
       }
 
-      // If faction is not available at current rank but will be available later
       if (currentMaxCount === 0 && futureMaxCount > 0) {
-        // Find the earliest rank where this faction becomes available
         let earliestRank = null;
-        for (const r of allRanks) {
+        for (const r of classInfo.ranks) {
           if (!r.faction) continue;
           for (const sym of r.faction) {
-            const mappings = {
-              "@": "empire",
-              "h": "force", 
-              "!": "resistance",
-              "+": "firstorder",
-              "#": "scum",
-              "/": "republic",
-              ".": "separatists"
-            };
-            if (mappings[sym] === cardFaction) {
+            if (FACTION_MAPPINGS[sym] === cardFaction) {
               if (earliestRank === null || r.rank < earliestRank) {
                 earliestRank = r.rank;
               }
@@ -285,14 +246,16 @@ export const usePilotStore = defineStore("pilotStore", {
         }
       }
 
-      // If current limit is reached
       if (currentCount >= currentMaxCount) {
         return `Faction limit reached: ${currentCount}/${currentMaxCount} ${card.faction} cards equipped`;
       }
 
-      return null; // Can equip, no warning needed
+      return null;
     },
 
+    /**
+     * Gets the current pilot's initiative value
+     */
     currentPilotInitiative(state) {
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       if (!pilot) return 0;
@@ -304,9 +267,12 @@ export const usePilotStore = defineStore("pilotStore", {
       return rankData?.initiative || 0;
     },
 
+    /**
+     * Checks if a card can be equipped based on initiative requirements
+     */
     canEquipInitiativeCard: (state) => (cardId) => {
       const card = cards.find((c) => c.id === cardId) as any;
-      if (!card || !card.initiative) return true; // No initiative requirement
+      if (!card || !card.initiative) return true;
 
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       if (!pilot) return false;
@@ -320,6 +286,9 @@ export const usePilotStore = defineStore("pilotStore", {
       return pilotInitiative >= card.initiative;
     },
 
+    /**
+     * Gets descriptive text for initiative requirements
+     */
     getInitiativeRequirementText: (state) => (cardId) => {
       const card = cards.find((c) => c.id === cardId) as any;
       if (!card || !card.initiative) return null;
@@ -334,12 +303,15 @@ export const usePilotStore = defineStore("pilotStore", {
       const pilotInitiative = rankData?.initiative || 0;
 
       if (pilotInitiative >= card.initiative) {
-        return null; // Can equip, no warning needed
+        return null;
       }
 
       return `Requires Initiative ${card.initiative} (you have ${pilotInitiative})`;
     },
 
+    /**
+     * Gets warning text for unique card restrictions
+     */
     getUniqueCardWarningText: (state) => (cardId) => {
       const card = cards.find((c) => c.id === cardId);
       if (!card || !card.unique || !state.enableUniqueCardRestriction) return null;
@@ -347,7 +319,6 @@ export const usePilotStore = defineStore("pilotStore", {
       const currentPilot = state.pilots.find((p) => p.id === state.currentPilotId);
       if (!currentPilot) return null;
 
-      // Check if any other pilot owns a card with the same name
       const otherPilotsWithSameCard = state.pilots
         .filter(p => p.id !== state.currentPilotId)
         .filter(p => {
@@ -367,6 +338,9 @@ export const usePilotStore = defineStore("pilotStore", {
   },
 
   actions: {
+    /**
+     * Calculates how many faction slots are currently used by a pilot
+     */
     calculateUsedFactionSlots(pilot: Pilot) {
       if (!pilot) return {};
 
@@ -376,16 +350,7 @@ export const usePilotStore = defineStore("pilotStore", {
         const card = cards.find((c) => c.id === cardId);
         const faction = card?.faction;
         if (faction && faction.toLowerCase() !== "neutral") {
-          // Normalize faction names to match our mapping system
-          let normalizedFaction = faction.toLowerCase();
-          
-          // Handle variations in faction names
-          if (normalizedFaction === "first order") {
-            normalizedFaction = "firstorder";
-          } else if (normalizedFaction === "separatist") {
-            normalizedFaction = "separatists";
-          }
-          
+          const normalizedFaction = normalizeFactionName(faction);
           factionCount[normalizedFaction] = (factionCount[normalizedFaction] || 0) + 1;
         }
       });
@@ -393,18 +358,23 @@ export const usePilotStore = defineStore("pilotStore", {
       return factionCount;
     },
 
+    /**
+     * Updates the used faction slots for the current pilot
+     */
     updateUsedFactionSlots() {
       const pilot = this.currentPilot;
       if (!pilot) return;
       pilot.usedFactionSlots = this.calculateUsedFactionSlots(pilot);
     },
 
+    /**
+     * Switches to a different pilot and updates their slots
+     */
     switchPilot(id: string) {
       if (this.currentPilotId === id) return;
       this.currentPilotId = id;
       this.updatePilotSlots();
       
-      // Ensure faction slots are initialized for the current pilot
       const pilot = this.currentPilot;
       if (pilot && !pilot.usedFactionSlots) {
         pilot.usedFactionSlots = this.calculateUsedFactionSlots(pilot);
@@ -413,6 +383,9 @@ export const usePilotStore = defineStore("pilotStore", {
       }
     },
 
+    /**
+     * Unselects a card from the current pilot's selected cards
+     */
     unselectCard(cardId: string) {
       const pilot = this.currentPilot;
       if (pilot) {
@@ -421,6 +394,9 @@ export const usePilotStore = defineStore("pilotStore", {
       }
     },
 
+    /**
+     * Updates the current pilot's available slots based on class, rank, and ship
+     */
     updatePilotSlots() {
       const pilot = this.currentPilot;
       if (!pilot) return;
@@ -433,8 +409,6 @@ export const usePilotStore = defineStore("pilotStore", {
       );
 
       const shipSlots = shipEntry?.slots ?? [];
-      const lockedSlots = shipEntry?.lockedSlots ?? [];
-
       const rankData = pilotClass.ranks.find((r) => r.rank === pilot.rank);
       const rankSlots = rankData?.slots ?? [];
       const optionalSlots = rankData?.optionalslots ?? [];
@@ -447,12 +421,14 @@ export const usePilotStore = defineStore("pilotStore", {
         pilot.unlockedSlots = [];
       }
 
-      // Initialize usedFactionSlots if missing
       if (!pilot.usedFactionSlots) {
         pilot.usedFactionSlots = {};
       }
     },
 
+    /**
+     * Changes the current pilot's selected ship and updates slots
+     */
     changeSelectedShip(shipName: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
@@ -464,6 +440,9 @@ export const usePilotStore = defineStore("pilotStore", {
       this.updateUsedFactionSlots();
     },
 
+    /**
+     * Changes the option for a specific slot
+     */
     changeSlotOption(slotKey: string, option: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
@@ -476,12 +455,18 @@ export const usePilotStore = defineStore("pilotStore", {
       this.updateUsedFactionSlots();
     },
 
+    /**
+     * Resets the current pilot's selected cards array
+     */
     resetSelectedCards() {
       const pilot = this.currentPilot;
       if (!pilot) return;
       pilot.selectedCards = [];
     },
 
+    /**
+     * Assigns a card to a specific slot with validation checks
+     */
     assignCardToSlot(slotKey: string, cardId: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
@@ -491,20 +476,16 @@ export const usePilotStore = defineStore("pilotStore", {
         return;
       }
 
-      // Check faction limits before assigning
       if (!this.canEquipFactionCard(cardId)) {
-        return false; // Cannot equip due to faction limits
+        return false;
       }
 
-      // Check initiative requirements before assigning
       if (!this.canEquipInitiativeCard(cardId)) {
-        return false; // Cannot equip due to initiative requirements
+        return false;
       }
 
-      // Unselect the card from deck
       pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
 
-      // Assign to slot
       pilot.slotCards = {
         ...pilot.slotCards,
         [slotKey]: cardId,
@@ -512,11 +493,9 @@ export const usePilotStore = defineStore("pilotStore", {
 
       const card = cards.find((c) => c.id === cardId) as any;
       if (card?.freeSlots?.length) {
-        // Add free slots to pilot
         card.freeSlots.forEach((slot, index) => {
           const key = `free-${cardId}-${index}`;
-          pilot.slots.push(key); // Logical representation
-          // Ensure no preexisting assignment
+          pilot.slots.push(key);
           if (!pilot.slotCards[key]) {
             pilot.slotCards[key] = null;
           }
@@ -526,7 +505,9 @@ export const usePilotStore = defineStore("pilotStore", {
       this.updateUsedFactionSlots();
     },
 
-
+    /**
+     * Removes a card from a specific slot and cleans up free slots
+     */
     removeCardFromSlot(slotKey: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
@@ -534,11 +515,9 @@ export const usePilotStore = defineStore("pilotStore", {
       const cardId = pilot.slotCards[slotKey];
       const card = cards.find((c) => c.id === cardId) as any;
 
-      // Remove card from slot
       const { [slotKey]: removed, ...rest } = pilot.slotCards;
       pilot.slotCards = rest;
 
-      // Remove free slots and unequip their cards
       if (card?.freeSlots?.length) {
         card.freeSlots.forEach((slot, index) => {
           const freeKey = `free-${cardId}-${index}`;
@@ -550,7 +529,9 @@ export const usePilotStore = defineStore("pilotStore", {
       this.updateUsedFactionSlots();
     },
 
-
+    /**
+     * Adds a card to the current pilot's deck
+     */
     addCardToDeck(cardId: string) {
       const pilot = this.currentPilot;
       if (!pilot) return;
@@ -559,37 +540,38 @@ export const usePilotStore = defineStore("pilotStore", {
         pilot.ownedCards.push(cardId);
       }
 
-      // Initialize cardUpgrades if it doesn't exist
       if (!pilot.cardUpgrades) {
         pilot.cardUpgrades = {};
       }
     },
 
+    /**
+     * Upgrades a card to the next level if possible
+     */
     upgradeCard(cardId: string) {
       const pilot = this.currentPilot;
       const card = cards.find((c) => c.id === cardId);
       
       if (!pilot || !card || !this.canUpgradeCard(cardId)) return false;
 
-      // Initialize cardUpgrades if it doesn't exist
       if (!pilot.cardUpgrades) {
         pilot.cardUpgrades = {};
       }
 
-      // Increment upgrade level
       pilot.cardUpgrades[cardId] = (pilot.cardUpgrades[cardId] || 0) + 1;
       
       return true;
     },
 
-    // Settings-related actions
+    /**
+     * Deletes a pilot from the store
+     */
     deletePilot(pilotId: string) {
       const pilotIndex = this.pilots.findIndex(p => p.id === pilotId);
       if (pilotIndex === -1) return false;
 
       this.pilots.splice(pilotIndex, 1);
 
-      // If we deleted the current pilot, switch to another one
       if (this.currentPilotId === pilotId) {
         if (this.pilots.length > 0) {
           this.currentPilotId = this.pilots[0].id;
@@ -601,13 +583,15 @@ export const usePilotStore = defineStore("pilotStore", {
       return true;
     },
 
+    /**
+     * Updates a pilot's properties
+     */
     updatePilot(pilotId: string, updates: Partial<Pilot>) {
       const pilot = this.pilots.find(p => p.id === pilotId);
       if (!pilot) return false;
 
       Object.assign(pilot, updates);
       
-      // If we updated the current pilot, refresh slots
       if (pilotId === this.currentPilotId) {
         this.updatePilotSlots();
         this.updateUsedFactionSlots();
@@ -616,29 +600,27 @@ export const usePilotStore = defineStore("pilotStore", {
       return true;
     },
 
+    /**
+     * Removes a card from a specific pilot
+     */
     removeCardFromPilot(pilotId: string, cardId: string) {
       const pilot = this.pilots.find(p => p.id === pilotId);
       if (!pilot) return false;
 
-      // Remove from owned cards
       pilot.ownedCards = pilot.ownedCards.filter(id => id !== cardId);
       
-      // Remove upgrade data
       if (pilot.cardUpgrades?.[cardId]) {
         delete pilot.cardUpgrades[cardId];
       }
       
-      // Remove from slot cards if equipped
       Object.keys(pilot.slotCards).forEach(slotKey => {
         if (pilot.slotCards[slotKey] === cardId) {
           delete pilot.slotCards[slotKey];
         }
       });
       
-      // Remove from selected cards if present
       pilot.selectedCards = pilot.selectedCards.filter(id => id !== cardId);
 
-      // If this is the current pilot, update faction slots
       if (pilotId === this.currentPilotId) {
         this.updateUsedFactionSlots();
       }
@@ -646,17 +628,18 @@ export const usePilotStore = defineStore("pilotStore", {
       return true;
     },
 
+    /**
+     * Removes a ship from a specific pilot
+     */
     removeShipFromPilot(pilotId: string, shipName: string) {
       const pilot = this.pilots.find(p => p.id === pilotId);
-      if (!pilot || pilot.ships.length <= 1) return false; // Don't allow removing the last ship
+      if (!pilot || pilot.ships.length <= 1) return false;
 
       pilot.ships = pilot.ships.filter(s => s !== shipName);
       
-      // If the removed ship was the selected ship, select the first remaining ship
       if (pilot.selectedShip === shipName) {
         pilot.selectedShip = pilot.ships[0] || '';
         
-        // If this is the current pilot, update slots and clear slot cards
         if (pilotId === this.currentPilotId) {
           this.updatePilotSlots();
           pilot.slotCards = {};
@@ -667,6 +650,9 @@ export const usePilotStore = defineStore("pilotStore", {
       return true;
     },
 
+    /**
+     * Downgrades a card by one level
+     */
     downgradeCard(pilotId: string, cardId: string) {
       const pilot = this.pilots.find(p => p.id === pilotId);
       if (!pilot || !pilot.cardUpgrades) return false;
@@ -676,7 +662,6 @@ export const usePilotStore = defineStore("pilotStore", {
 
       pilot.cardUpgrades[cardId] = currentLevel - 1;
       
-      // If downgraded to 0, remove the upgrade entry
       if (pilot.cardUpgrades[cardId] === 0) {
         delete pilot.cardUpgrades[cardId];
       }
@@ -684,8 +669,10 @@ export const usePilotStore = defineStore("pilotStore", {
       return true;
     },
 
+    /**
+     * Initializes faction slots for all pilots that don't have them
+     */
     initializeFactionSlots() {
-      // Initialize faction slots for all pilots that don't have them
       this.pilots.forEach(pilot => {
         if (!pilot.usedFactionSlots) {
           pilot.usedFactionSlots = this.calculateUsedFactionSlots(pilot);
@@ -693,7 +680,9 @@ export const usePilotStore = defineStore("pilotStore", {
       });
     },
 
-    // Settings actions
+    /**
+     * Updates a specific setting value
+     */
     updateSetting(key: 'enableCustomCards' | 'enableFactionFiltering' | 'enableUniqueCardRestriction', value: boolean) {
       this[key] = value;
     },
