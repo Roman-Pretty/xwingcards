@@ -323,5 +323,77 @@
     "description": "During the System Phase, you may spend 1 {charge} to perform a {barrel} or {boost} action.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/bb8.png",
     "energy": 2
+  },
+  {
+    "id": "targeting-astromech",
+    "name": "Targeting Astromech",
+    "type": "Astromech",
+    "faction": "Neutral",
+    "cost": 3,
+    "unique": false,
+    "custom": true,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/goldsquadronveteran.png",
+    "description": "After you perform a {lock} action, you may perform a red {rotate} action."
+  },
+  {
+    "id": "modified-r4-p-unit",
+    "name": "Modified R4-P Unit",
+    "type": "Astromech",
+    "faction": "Neutral",
+    "cost": 4,
+    "unique": false,
+    "custom": true,
+    "energy": 1,
+    "upgradeable": true,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/cavernangelszealot.png",
+    "description": "Before you execute a red maneuver, you may spend 1 {charge}. If you do, while you execute that maneuver, reduce its difficulty."
+  },
+  {
+    "id": "r2-a3",
+    "name": "R2-A3",
+    "type": "Astromech",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": true,
+    "custom": true,
+    "energy": 1,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/redsquadronveteran.png",
+    "description": "After you perform an action, you may spend 1 {charge} to acquire a lock."
+  },
+  {
+    "id": "stabilizing-astromech",
+    "name": "Stabilizing Astromech",
+    "type": "Astromech",
+    "faction": "Neutral",
+    "cost": 7,
+    "unique": false,
+    "custom": true,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronescort.png",
+    "energy": 1,
+    "description": "After you fully execute a maneuver, you may spend 1 {charge} to perform a white action, even while stressed."
+  },
+  {
+    "id": "precise-astromech",
+    "name": "Precise Astromech",
+    "type": "Astromech",
+    "faction": "Neutral",
+    "cost": 10,
+    "unique": false,
+    "custom": true,
+    "energy": 2,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/redsquadronbomber.png",
+    "description": "After you perform an action, you may spend 1 {charge} to perform a red {lock} action."
+  },
+  {
+    "id": "r4-p18",
+    "name": "R4-P18",
+    "type": "Astromech",
+    "faction": "Republic",
+    "cost": 4,
+    "unique": true,
+    "custom": true,
+    "energy": 2,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/shadowsquadronveteran.png",
+    "description": "When you would be dealt a damage card, if you are not defending, you may spend 1 {charge} and gain 1 strain to discard it instead."
   }
 ]

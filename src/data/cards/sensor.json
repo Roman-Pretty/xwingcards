@@ -49,6 +49,31 @@
     "unique": false,
     "description": "Action: Spend 1 {charge}. You can only perform this action in your Perform Action step. While your {charge} is inactive, you cannot be coordinated. Before you engage, if your {charge} is inactive, you may perform a {calculate} or {lock} action.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/passivesensors.png",
+    "energy": 1,
+    "recurringEnergy": 1
+  },
+  {
+    "id": "sensor-scrambler",
+    "name": "Sensor Scrambler",
+    "custom": true,
+    "type": "Sensor",
+    "faction": "Neutral",
+    "cost": 7,
+    "unique": false,
+    "description": "While defending, if there is a friendly lock on the attacker, you may change 1 of the attacker's {hit} results to a {focus} result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/logisticsdivisionpilot.png"
+  },
+  {
+    "id": "blank-signature",
+    "name": "Blank Signature",
+    "custom": true,
+    "type": "Sensor",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "While defending, if you are not locked by the attacker, you may spend 1 {charge} to change 1 {focus} to an {evade} result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/gandfindsman.png",
+    "energy": 1,
     "recurringEnergy": 1
   }
 ]

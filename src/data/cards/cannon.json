@@ -110,5 +110,18 @@
     "ranged": "1",
     "isMissile": true,
     "requires": "X-Wing; Adds {rotate}"
+  },
+  {
+    "id": "ancillaryionweapons",
+    "name": "Ancillary Ion Weapons",
+    "type": "Cannon",
+    "faction": "Neutral",
+    "cost": 4,
+    "energy": 2,
+    "recurringEnergy": 1,
+    "custom": true,
+    "unique": false,
+    "description": "While you perform a primary {af} attack, before rolling attack dice, you may spend 2{charge}. If you do, your {crit} results deal ion tokens instead of damage.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/deltasquadronpilot.png"
   }
 ]

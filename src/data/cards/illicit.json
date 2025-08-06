@@ -135,5 +135,16 @@
     "description": "This attack can be performed at range 0. Attack: Spend 1 {charge}.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hotshottailblaster.png",
     "energy": 2
+  },
+  {
+    "id": "feedback-emitter",
+    "name": "Feedback Emitter",
+    "type": "Illicit",
+    "faction": "Neutral",
+    "cost": 4,
+    "unique": true,
+    "energy": 1,
+    "description": "After an object acquires a lock on you, you may spend 1 {charge} to jam that object, ignoring range restrictions. This upgrade's {charge} cannot be recovered.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/gammasquadronace.png"
   }
 ]

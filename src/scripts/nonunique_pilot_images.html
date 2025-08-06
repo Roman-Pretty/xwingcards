@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non-Unique Pilot Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .pilot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .pilot-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .pilot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .pilot-card.grayed-out {
+            background: #e0e0e0;
+            opacity: 0.6;
+            transform: none;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .pilot-card.grayed-out:hover {
+            transform: none;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .pilot-card.grayed-out .pilot-image {
+            filter: grayscale(100%);
+        }
+        .pilot-card.grayed-out .pilot-name,
+        .pilot-card.grayed-out .pilot-ship {
+            color: #999;
+        }
+        .pilot-image {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .pilot-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .pilot-ship {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+        .stats {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+    <script>
+        function toggleCard(card) {
+            card.classList.toggle('grayed-out');
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Non-Unique Pilot Images</h1>
+        <div class="stats">Total Non-Unique Pilots: 123</div>
+    </div>
+    
+    <div class="pilot-grid">
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/212thbattalionpilot.png" alt="212th Battalion Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">212th Battalion Pilot</div>
+            <div class="pilot-ship">212thbattalionpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/709thlegionace.png" alt="709th Legion Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">709th Legion Ace</div>
+            <div class="pilot-ship">709thlegionace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/7thskycorpspilot.png" alt="7th Sky Corps Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">7th Sky Corps Pilot</div>
+            <div class="pilot-ship">7thskycorpspilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/alderaanianguard.png" alt="Alderaanian Guard" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Alderaanian Guard</div>
+            <div class="pilot-ship">alderaanianguard</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/alphasquadronpilot.png" alt="Alpha Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Alpha Squadron Pilot</div>
+            <div class="pilot-ship">alphasquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/baktoiddrone.png" alt="Baktoid Drone" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Baktoid Drone</div>
+            <div class="pilot-ship">baktoiddrone</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/banditsquadronpilot.png" alt="Bandit Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Bandit Squadron Pilot</div>
+            <div class="pilot-ship">banditsquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/baronoftheempire.png" alt="Baron of the Empire" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Baron of the Empire</div>
+            <div class="pilot-ship">baronoftheempire</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/blacksquadronace-t70xwing.png" alt="Black Squadron Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Black Squadron Ace</div>
+            <div class="pilot-ship">blacksquadronace-t70xwing</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/blacksquadronscout.png" alt="Black Squadron Scout" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Black Squadron Scout</div>
+            <div class="pilot-ship">blacksquadronscout</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/blacksunace.png" alt="Black Sun Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Black Sun Ace</div>
+            <div class="pilot-ship">blacksunace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/blacksunassassin.png" alt="Black Sun Assassin" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Black Sun Assassin</div>
+            <div class="pilot-ship">blacksunassassin</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/blacksunenforcer.png" alt="Black Sun Enforcer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Black Sun Enforcer</div>
+            <div class="pilot-ship">blacksunenforcer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bladesquadronveteran.png" alt="Blade Squadron Veteran" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Blade Squadron Veteran</div>
+            <div class="pilot-ship">bladesquadronveteran</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronescort.png" alt="Blue Squadron Escort" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Blue Squadron Escort</div>
+            <div class="pilot-ship">bluesquadronescort</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronpilot.png" alt="Blue Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Blue Squadron Pilot</div>
+            <div class="pilot-ship">bluesquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronprotector.png" alt="Blue Squadron Protector" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Blue Squadron Protector</div>
+            <div class="pilot-ship">bluesquadronprotector</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronrecruit.png" alt="Blue Squadron Recruit" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Blue Squadron Recruit</div>
+            <div class="pilot-ship">bluesquadronrecruit</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronrookie.png" alt="Blue Squadron Rookie" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Blue Squadron Rookie</div>
+            <div class="pilot-ship">bluesquadronrookie</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronscout.png" alt="Blue Squadron Scout" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Blue Squadron Scout</div>
+            <div class="pilot-ship">bluesquadronscout</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/bravoflightofficer.png" alt="Bravo Flight Officer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Bravo Flight Officer</div>
+            <div class="pilot-ship">bravoflightofficer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/caridaacademycadet.png" alt="Carida Academy Cadet" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Carida Academy Cadet</div>
+            <div class="pilot-ship">caridaacademycadet</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/cartelexecutioner.png" alt="Cartel Executioner" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Cartel Executioner</div>
+            <div class="pilot-ship">cartelexecutioner</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/cartelmarauder.png" alt="Cartel Marauder" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Cartel Marauder</div>
+            <div class="pilot-ship">cartelmarauder</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/cartelspacer.png" alt="Cartel Spacer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Cartel Spacer</div>
+            <div class="pilot-ship">cartelspacer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/cavernangelszealot.png" alt="Cavern Angels Zealot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Cavern Angels Zealot</div>
+            <div class="pilot-ship">cavernangelszealot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/cobaltsquadronbomber.png" alt="Cobalt Squadron Bomber" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Cobalt Squadron Bomber</div>
+            <div class="pilot-ship">cobaltsquadronbomber</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/colicoiddestroyer.png" alt="Colicoid Destroyer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Colicoid Destroyer</div>
+            <div class="pilot-ship">colicoiddestroyer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/colicoidinterceptor.png" alt="Colicoid Interceptor" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Colicoid Interceptor</div>
+            <div class="pilot-ship">colicoidinterceptor</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/colossusstationmechanic.png" alt="Colossus Station Mechanic" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Colossus Station Mechanic</div>
+            <div class="pilot-ship">colossusstationmechanic</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/contractedscout.png" alt="Contracted Scout" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Contracted Scout</div>
+            <div class="pilot-ship">contractedscout</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/cutlasssquadronpilot.png" alt="Cutlass Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Cutlass Squadron Pilot</div>
+            <div class="pilot-ship">cutlasssquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/darkcourier.png" alt="Dark Courier" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Dark Courier</div>
+            <div class="pilot-ship">darkcourier</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/deltasquadronpilot.png" alt="Delta Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Delta Squadron Pilot</div>
+            <div class="pilot-ship">deltasquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/epsilonsquadroncadet.png" alt="Epsilon Squadron Cadet" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Epsilon Squadron Cadet</div>
+            <div class="pilot-ship">epsilonsquadroncadet</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/feethanottrawautopilot.png" alt="Feethan Ottraw Autopilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Feethan Ottraw Autopilot</div>
+            <div class="pilot-ship">feethanottrawautopilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/firstordercadet.png" alt="First Order Cadet" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">First Order Cadet</div>
+            <div class="pilot-ship">firstordercadet</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/firstordercollaborators.png" alt="First Order Collaborators" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">First Order Collaborators</div>
+            <div class="pilot-ship">firstordercollaborators</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/firstordercourier.png" alt="First Order Courier" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">First Order Courier</div>
+            <div class="pilot-ship">firstordercourier</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/firstorderprovocateur.png" alt="First Order Provocateur" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">First Order Provocateur</div>
+            <div class="pilot-ship">firstorderprovocateur</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/firstordersympathizers.png" alt="First Order Sympathizers" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">First Order Sympathizers</div>
+            <div class="pilot-ship">firstordersympathizers</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/firstordertestpilot.png" alt="First Order Test Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">First Order Test Pilot</div>
+            <div class="pilot-ship">firstordertestpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/freightercaptain.png" alt="Freighter Captain" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Freighter Captain</div>
+            <div class="pilot-ship">freightercaptain</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/gammasquadronace.png" alt="Gamma Squadron Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Gamma Squadron Ace</div>
+            <div class="pilot-ship">gammasquadronace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/gandfindsman.png" alt="Gand Findsman" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Gand Findsman</div>
+            <div class="pilot-ship">gandfindsman</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/goldsquadrontrooper.png" alt="Gold Squadron Trooper" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Gold Squadron Trooper</div>
+            <div class="pilot-ship">goldsquadrontrooper</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/goldsquadronveteran.png" alt="Gold Squadron Veteran" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Gold Squadron Veteran</div>
+            <div class="pilot-ship">goldsquadronveteran</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/graysquadronbomber.png" alt="Gray Squadron Bomber" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Gray Squadron Bomber</div>
+            <div class="pilot-ship">graysquadronbomber</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/greensquadronexpert.png" alt="Green Squadron Expert" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Green Squadron Expert</div>
+            <div class="pilot-ship">greensquadronexpert</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/greensquadronpilot.png" alt="Green Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Green Squadron Pilot</div>
+            <div class="pilot-ship">greensquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/imdaartestpilot.png" alt="Imdaar Test Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Imdaar Test Pilot</div>
+            <div class="pilot-ship">imdaartestpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/inquisitor.png" alt="Inquisitor" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Inquisitor</div>
+            <div class="pilot-ship">inquisitor</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/jakkugunrunner.png" alt="Jakku Gunrunner" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Jakku Gunrunner</div>
+            <div class="pilot-ship">jakkugunrunner</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/jedigeneral.png" alt="Jedi General" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Jedi General</div>
+            <div class="pilot-ship">jedigeneral</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/jediknight.png" alt="Jedi Knight" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Jedi Knight</div>
+            <div class="pilot-ship">jediknight</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/jediknight-delta7baethersprite.png" alt="Jedi Knight" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Jedi Knight</div>
+            <div class="pilot-ship">jediknight-delta7baethersprite</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/kashyyykdefender.png" alt="Kashyyyk Defender" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Kashyyyk Defender</div>
+            <div class="pilot-ship">kashyyykdefender</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/kijimispicerunner.png" alt="Kijimi Spice Runner" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Kijimi Spice Runner</div>
+            <div class="pilot-ship">kijimispicerunner</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/knavesquadronescort.png" alt="Knave Squadron Escort" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Knave Squadron Escort</div>
+            <div class="pilot-ship">knavesquadronescort</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/logisticsdivisionpilot.png" alt="Logistics Division Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Logistics Division Pilot</div>
+            <div class="pilot-ship">logisticsdivisionpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/lokrevenant.png" alt="Lok Revenant" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Lok Revenant</div>
+            <div class="pilot-ship">lokrevenant</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/lothalrebel.png" alt="Lothal Rebel" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Lothal Rebel</div>
+            <div class="pilot-ship">lothalrebel</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/loyalistvolunteer.png" alt="Loyalist Volunteer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Loyalist Volunteer</div>
+            <div class="pilot-ship">loyalistvolunteer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/magnaguardexecutioner.png" alt="MagnaGuard Executioner" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">MagnaGuard Executioner</div>
+            <div class="pilot-ship">magnaguardexecutioner</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/mandalorianresistancepilot.png" alt="Mandalorian Resistance Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Mandalorian Resistance Pilot</div>
+            <div class="pilot-ship">mandalorianresistancepilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/miningguildsentry.png" alt="Mining Guild Sentry" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Mining Guild Sentry</div>
+            <div class="pilot-ship">miningguildsentry</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/miningguildsurveyor.png" alt="Mining Guild Surveyor" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Mining Guild Surveyor</div>
+            <div class="pilot-ship">miningguildsurveyor</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/newrepublicpatrol.png" alt="New Republic Patrol" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">New Republic Patrol</div>
+            <div class="pilot-ship">newrepublicpatrol</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/newrepublicvolunteers.png" alt="New Republic Volunteers" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">New Republic Volunteers</div>
+            <div class="pilot-ship">newrepublicvolunteers</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/nusquadronpilot.png" alt="Nu Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Nu Squadron Pilot</div>
+            <div class="pilot-ship">nusquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/omegasquadronace.png" alt="Omega Squadron Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Omega Squadron Ace</div>
+            <div class="pilot-ship">omegasquadronace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/omegasquadronexpert.png" alt="Omega Squadron Expert" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Omega Squadron Expert</div>
+            <div class="pilot-ship">omegasquadronexpert</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/omicrongrouppilot.png" alt="Omicron Group Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Omicron Group Pilot</div>
+            <div class="pilot-ship">omicrongrouppilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/onyxsquadronace.png" alt="Onyx Squadron Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Onyx Squadron Ace</div>
+            <div class="pilot-ship">onyxsquadronace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/onyxsquadronscout.png" alt="Onyx Squadron Scout" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Onyx Squadron Scout</div>
+            <div class="pilot-ship">onyxsquadronscout</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/onyxsquadronsentry.png" alt="Onyx Squadron Sentry" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Onyx Squadron Sentry</div>
+            <div class="pilot-ship">onyxsquadronsentry</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/outerrimenforcer.png" alt="Outer Rim Enforcer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Outer Rim Enforcer</div>
+            <div class="pilot-ship">outerrimenforcer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/outerrimsmuggler.png" alt="Outer Rim Smuggler" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Outer Rim Smuggler</div>
+            <div class="pilot-ship">outerrimsmuggler</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/partisanrenegade.png" alt="Partisan Renegade" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Partisan Renegade</div>
+            <div class="pilot-ship">partisanrenegade</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/patrolleader.png" alt="Patrol Leader" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Patrol Leader</div>
+            <div class="pilot-ship">patrolleader</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/petranakiarenaace.png" alt="Petranaki Arena Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Petranaki Arena Ace</div>
+            <div class="pilot-ship">petranakiarenaace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/phoenixsquadronpilot.png" alt="Phoenix Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Phoenix Squadron Pilot</div>
+            <div class="pilot-ship">phoenixsquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/planetarysentinel.png" alt="Planetary Sentinel" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Planetary Sentinel</div>
+            <div class="pilot-ship">planetarysentinel</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/reapersquadronscout.png" alt="Reaper Squadron Scout" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Reaper Squadron Scout</div>
+            <div class="pilot-ship">reapersquadronscout</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/rebelscout.png" alt="Rebel Scout" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Rebel Scout</div>
+            <div class="pilot-ship">rebelscout</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/redfuryzealot.png" alt="Red Fury Zealot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Red Fury Zealot</div>
+            <div class="pilot-ship">redfuryzealot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/redsquadronbomber.png" alt="Red Squadron Bomber" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Red Squadron Bomber</div>
+            <div class="pilot-ship">redsquadronbomber</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/redsquadronexpert.png" alt="Red Squadron Expert" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Red Squadron Expert</div>
+            <div class="pilot-ship">redsquadronexpert</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/redsquadronveteran.png" alt="Red Squadron Veteran" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Red Squadron Veteran</div>
+            <div class="pilot-ship">redsquadronveteran</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/resistancesympathizer.png" alt="Resistance Sympathizer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Resistance Sympathizer</div>
+            <div class="pilot-ship">resistancesympathizer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/rhosquadronpilot.png" alt="Rho Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Rho Squadron Pilot</div>
+            <div class="pilot-ship">rhosquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/roguesquadronescort.png" alt="Rogue Squadron Escort" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Rogue Squadron Escort</div>
+            <div class="pilot-ship">roguesquadronescort</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/sabersquadronace.png" alt="Saber Squadron Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Saber Squadron Ace</div>
+            <div class="pilot-ship">sabersquadronace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/scarifbasepilot.png" alt="Scarif Base Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Scarif Base Pilot</div>
+            <div class="pilot-ship">scarifbasepilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/scimitarsquadronpilot.png" alt="Scimitar Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Scimitar Squadron Pilot</div>
+            <div class="pilot-ship">scimitarsquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/separatistbomber.png" alt="Separatist Bomber" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Separatist Bomber</div>
+            <div class="pilot-ship">separatistbomber</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/separatistdrone.png" alt="Separatist Drone" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Separatist Drone</div>
+            <div class="pilot-ship">separatistdrone</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/separatistinterceptor.png" alt="Separatist Interceptor" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Separatist Interceptor</div>
+            <div class="pilot-ship">separatistinterceptor</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/separatistpredator.png" alt="Separatist Predator" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Separatist Predator</div>
+            <div class="pilot-ship">separatistpredator</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/separatistprivateers.png" alt="Separatist Privateers" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Separatist Privateers</div>
+            <div class="pilot-ship">separatistprivateers</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/separatistracketeer.png" alt="Separatist Racketeer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Separatist Racketeer</div>
+            <div class="pilot-ship">separatistracketeer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/shadowsquadronescort.png" alt="Shadow Squadron Escort" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Shadow Squadron Escort</div>
+            <div class="pilot-ship">shadowsquadronescort</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/shadowsquadronveteran.png" alt="Shadow Squadron Veteran" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Shadow Squadron Veteran</div>
+            <div class="pilot-ship">shadowsquadronveteran</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/shadowporthunter.png" alt="Shadowport Hunter" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Shadowport Hunter</div>
+            <div class="pilot-ship">shadowporthunter</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/sienarspecialist.png" alt="Sienar Specialist" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Sienar Specialist</div>
+            <div class="pilot-ship">sienarspecialist</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/sienarjaemusengineer.png" alt="Sienar-Jaemus Engineer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Sienar-Jaemus Engineer</div>
+            <div class="pilot-ship">sienarjaemusengineer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/sienarjaemustestpilot.png" alt="Sienar-Jaemus Test Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Sienar-Jaemus Test Pilot</div>
+            <div class="pilot-ship">sienarjaemustestpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/sigmasquadronace.png" alt="Sigma Squadron Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Sigma Squadron Ace</div>
+            <div class="pilot-ship">sigmasquadronace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/skakoanace.png" alt="Skakoan Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Skakoan Ace</div>
+            <div class="pilot-ship">skakoanace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/stalgasinhiveguard.png" alt="Stalgasin Hive Guard" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Stalgasin Hive Guard</div>
+            <div class="pilot-ship">stalgasinhiveguard</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/starkillerbasepilot.png" alt="Starkiller Base Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Starkiller Base Pilot</div>
+            <div class="pilot-ship">starkillerbasepilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/stormsquadronace.png" alt="Storm Squadron Ace" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Storm Squadron Ace</div>
+            <div class="pilot-ship">stormsquadronace</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/talasquadronpilot.png" alt="Tala Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Tala Squadron Pilot</div>
+            <div class="pilot-ship">talasquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/tansariipointveteran.png" alt="Tansarii Point Veteran" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Tansarii Point Veteran</div>
+            <div class="pilot-ship">tansariipointveteran</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/technounionbomber.png" alt="Techno Union Bomber" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Techno Union Bomber</div>
+            <div class="pilot-ship">technounionbomber</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/tempestsquadronpilot.png" alt="Tempest Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Tempest Squadron Pilot</div>
+            <div class="pilot-ship">tempestsquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/tradefederationdrone.png" alt="Trade Federation Drone" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Trade Federation Drone</div>
+            <div class="pilot-ship">tradefederationdrone</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/trandoshanslaver.png" alt="Trandoshan Slaver" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Trandoshan Slaver</div>
+            <div class="pilot-ship">trandoshanslaver</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/transgalmegcontrollink.png" alt="TransGalMeg Control Link" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">TransGalMeg Control Link</div>
+            <div class="pilot-ship">transgalmegcontrollink</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/wardensquadronpilot.png" alt="Warden Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Warden Squadron Pilot</div>
+            <div class="pilot-ship">wardensquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/wildspacefringer.png" alt="Wild Space Fringer" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Wild Space Fringer</div>
+            <div class="pilot-ship">wildspacefringer</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/zetasquadronpilot.png" alt="Zeta Squadron Pilot" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Zeta Squadron Pilot</div>
+            <div class="pilot-ship">zetasquadronpilot</div>
+        </div>
+        <div class="pilot-card" onclick="toggleCard(this)">
+            <img src="https://infinitearenas.com/xw2/images/artwork/pilots/zetasquadronsurvivor.png" alt="Zeta Squadron Survivor" class="pilot-image" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; color:#999; font-style:italic;">Image not available</div>
+            <div class="pilot-name">Zeta Squadron Survivor</div>
+            <div class="pilot-ship">zetasquadronsurvivor</div>
+        </div>
+    </div>
+</body>
+</html>

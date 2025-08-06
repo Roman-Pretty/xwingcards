@@ -3,7 +3,8 @@
     'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative self-start',
     {
       'w-[48%] 2xl:w-[31%] aspect-[2/3]': !mobileMode,
-      'w-[70%] aspect-[2/3]': mobileMode
+      'w-[70%] aspect-[2/3]': mobileMode,
+      'custom-card': !displayedImage
     }
   ]">
 
@@ -64,6 +65,21 @@
 
 
     <figure class="relative rounded-t-lg overflow-hidden" :class="{ 'h-1/2': !mobileMode, 'h-1/3': mobileMode }">
+      <!-- Custom procedural background when no image is provided -->
+      <div v-if="!displayedImage" class="custom-space-background">
+        <div class="stars-field"></div>
+        <div class="nebula-glow"></div>
+        <div class="card-type-symbol" :style="{ '--card-hash': cardHash }">{{ typeLetter }}</div>
+        <div class="hyperspace-lines"></div>
+        <!-- Background overlay to cover the faction icon like regular images -->
+        <div class="image-background-overlay"></div>
+        <!-- Top half background to match card background and prevent lower content overlap -->
+        <div class="top-half-background"></div>
+      </div>
+      
+      <!-- Custom holographic overlay when no image is provided -->
+      <div v-if="!displayedImage" class="custom-holographic-overlay pointer-events-none absolute inset-0 z-20" />
+      
       <!-- Owned badge with upgrade status -->
       <div v-if="owned"
         class="absolute bottom-0 left-0 transform z-20 w-full text-center"
@@ -77,7 +93,9 @@
         <span v-else-if="upgradeLevel > 0">Fully Upgraded</span>
         <span v-else>Owned</span>
       </div>
-      <img :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
+      
+      <!-- Regular image when image is provided -->
+      <img v-if="displayedImage" :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
     </figure>
 
     <!-- Card content -->
@@ -92,7 +110,12 @@
         }">{{ typeLetter }}</span>
       </div>
 
-      <h2 class="font-bold text-white mb-1" :class="{ 'text-md': !mobileMode, 'text-xs': mobileMode }">
+      <h2 class="font-bold mb-1" :class="{ 
+        'text-md': !mobileMode, 
+        'text-xs': mobileMode,
+        'text-purple-200': custom,
+        'text-white': !custom
+      }">
         <span v-if="unique" class="font-[xwing] mr-1">u</span>{{ displayedName }}
       </h2>
       <div v-if="damage" class="text-red-400 mb-1 flex flex-row items-center justify-center gap-1" :class="{ 'text-md': !mobileMode, 'text-xs': mobileMode }">
@@ -101,7 +124,12 @@
         <span v-if="isMissile" class="font-[xwing] -mt-1">?</span>
         <span class="ml-3 font-semibold text-white/80">{{ ranged }}</span>
       </div>
-      <p class="text-neutral-content leading-snug" :class="{ '2xl:text-xs text-sm': !mobileMode, 'text-sm leading-tight': mobileMode }" v-html="displayedDescription"></p>
+      <p class="leading-snug" :class="{ 
+        '2xl:text-xs text-sm': !mobileMode, 
+        'text-sm leading-tight': mobileMode,
+        'text-purple-200': custom,
+        'text-neutral-content': !custom
+      }" v-html="displayedDescription"></p>
     </div>
 
     <!-- Energy/Force Display -->
@@ -184,6 +212,10 @@ const props = defineProps({
   initiative: [Number, String],
   assist: Boolean,
   mobileMode: {
+    type: Boolean,
+    default: false,
+  },
+  custom: {
     type: Boolean,
     default: false,
   },
@@ -273,6 +305,18 @@ const hasAnyToken = computed(() =>
   displayedEnergy.value != null || displayedForce.value != null
 )
 
+const cardHash = computed(() => {
+  // Create a simple hash from the card ID for unique visual variations
+  let hash = 0;
+  const str = props.id || props.name || 'default';
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return Math.abs(hash) % 1000;
+})
+
 function handleClick() {
   emit('card-click', {
     id: props.id,
@@ -305,6 +349,38 @@ function handleClick() {
   mix-blend-mode: screen;
   animation: holoMove 12s linear infinite;
   opacity: 0.7;
+}
+
+.custom-holographic-overlay {
+  background: linear-gradient(45deg,
+      rgba(128, 0, 255, 0.2),
+      rgba(255, 0, 128, 0.2),
+      rgba(0, 255, 255, 0.2),
+      rgba(255, 128, 0, 0.2),
+      rgba(128, 0, 255, 0.2));
+  background-size: 600% 600%;
+  mix-blend-mode: color-dodge;
+  animation: customHolo 20s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes customHolo {
+  0%, 100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) saturate(150%);
+  }
+  25% {
+    background-position: 100% 0%;
+    filter: hue-rotate(90deg) saturate(200%);
+  }
+  50% {
+    background-position: 100% 100%;
+    filter: hue-rotate(180deg) saturate(150%);
+  }
+  75% {
+    background-position: 0% 100%;
+    filter: hue-rotate(270deg) saturate(200%);
+  }
 }
 
 .balatro-card {
@@ -341,5 +417,166 @@ function handleClick() {
   font-size: 1.75rem;
   margin-top: -0.5rem;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+
+.custom-space-background {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  overflow: hidden;
+}
+
+.stars-field {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: starsTwinkle 8s ease-in-out infinite;
+  z-index: 2;
+}
+
+.nebula-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--card-hash, 300) * 0.1% calc(var(--card-hash, 300) * 0.08%), 
+    rgba(147, 51, 234, 0.3) 0%, 
+    rgba(59, 7, 100, 0.2) 30%, 
+    transparent 70%);
+  animation: nebulaShift 15s ease-in-out infinite;
+  z-index: 3;
+}
+
+.card-type-symbol {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  opacity: 0.25;
+  font-family: 'xwing';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  color: rgb(233, 213, 255); /* purple-200 equivalent */
+  text-shadow: 
+    0 0 15px rgba(233, 213, 255, 0.8),
+    0 0 30px rgba(233, 213, 255, 0.4),
+    0 0 45px rgba(233, 213, 255, 0.2);
+  animation: symbolGlow 10s ease-in-out infinite, symbolPulse 8s ease-in-out infinite;
+  z-index: 5;
+}
+
+.top-half-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(23, 23, 23); /* bg-neutral-900 equivalent */
+  z-index: 1;
+}
+
+.image-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, 
+    rgba(15, 15, 35, 0.8) 0%,
+    rgba(26, 26, 46, 0.6) 50%,
+    transparent 100%);
+  z-index: 10;
+}
+
+.hyperspace-lines {
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(
+      calc(var(--card-hash) * 0.18deg),
+      transparent 0px,
+      rgba(255,255,255,0.15) 1px,
+      transparent 2px,
+      transparent 30px
+    ),
+    repeating-linear-gradient(
+      calc(var(--card-hash) * -0.12deg + 45deg),
+      transparent 0px,
+      rgba(64, 224, 255, 0.1) 1px,
+      transparent 2px,
+      transparent 25px
+    ),
+    repeating-linear-gradient(
+      calc(var(--card-hash) * 0.24deg + 90deg),
+      transparent 0px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 3px,
+      transparent 40px
+    );
+  animation: hyperspaceMove 8s linear infinite, hyperspaceShimmer 12s ease-in-out infinite;
+  z-index: 4;
+}
+
+@keyframes starsTwinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes nebulaShift {
+  0%, 100% { 
+    filter: hue-rotate(0deg) brightness(1);
+    transform: scale(1) rotate(0deg);
+  }
+  33% { 
+    filter: hue-rotate(60deg) brightness(1.2);
+    transform: scale(1.1) rotate(2deg);
+  }
+  66% { 
+    filter: hue-rotate(-60deg) brightness(0.8);
+    transform: scale(0.9) rotate(-2deg);
+  }
+}
+
+@keyframes hyperspaceMove {
+  0% { transform: translateX(-150px) translateY(-30px); }
+  100% { transform: translateX(150px) translateY(30px); }
+}
+
+@keyframes hyperspaceShimmer {
+  0%, 100% { 
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% { 
+    opacity: 0.6;
+    filter: brightness(1.4);
+  }
+}
+
+@keyframes symbolGlow {
+  0%, 100% { 
+    text-shadow: 
+      0 0 15px rgba(233, 213, 255, 0.8),
+      0 0 30px rgba(233, 213, 255, 0.4),
+      0 0 45px rgba(233, 213, 255, 0.2);
+  }
+  50% { 
+    text-shadow: 
+      0 0 20px rgba(233, 213, 255, 1),
+      0 0 40px rgba(233, 213, 255, 0.6),
+      0 0 60px rgba(233, 213, 255, 0.3);
+  }
+}
+
+@keyframes symbolPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 </style>

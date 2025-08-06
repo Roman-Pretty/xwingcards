@@ -169,7 +169,7 @@
     "faction": "Neutral",
     "cost": 3,
     "unique": false,
-    "requires": "{small}, {medium}",
+    "requires": "{small}, {medium}, 1+ {shield}",
     "description": "Adds: {reinforce}<br/>Removes: {shield}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/angleddeflectors.png"
   },
@@ -251,5 +251,112 @@
     "description": "Adds: {slam}<br/>After you perform a {slam} action, lose 1 {charge}. Then you may gain 1 deplete token to remove 1 disarm token. If your {charge} is inactive, you cannot perform the {slam} action.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/burnoutthrusters.png",
     "energy": 1
+  },
+  {
+    "id": "unstable-sublight-engines",
+    "name": "Unstable Sublight Engines",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 0,
+    "unique": false,
+    "description": "After you are destroyed, if you roll a {crit}{crit} on your eject roll, you must execute a [1{s}] maneuver, then each other ship at range 0-1 suffers 1 {hit} damage.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/talasquadronpilot.png",
+    "custom": true
+  },
+  {
+    "id": "chaff-particles",
+    "name": "Chaff Particles",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 3,
+    "unique": false,
+    "description": "While defending, you may spend 1 {focus} result at the end of the Neutralize Results step to remove 1 red or orange token",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/omegasquadronexpert.png",
+    "custom": true
+  },
+  {
+    "id": "targeting-matrix",
+    "name": "Targeting Matrix",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": false,
+    "description": "While attacking, you may spend 1 {focus} result at the end of the Neutralize Results step. If you do, after the attack is resolved, the defender gains a strain token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/onyxsquadronsentry.png",
+    "custom": true
+  },
+  {
+    "id": "targeting-assist-algorithm",
+    "name": "Targeting Assist Algorithm",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "Before you engage, if you have no green tokens and there are 1 or more enemy objects in your {af}, gain a calculate token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/separatistpredator.png",
+    "custom": true
+  },
+  {
+    "id": "computer-assisted-handling",
+    "name": "Computer-Assisted Handling",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": false,
+    "energy": 1,
+    "description": "After you fully execute a maneuver, you may spend 1 {charge} to perform a {barrel} or {boost} action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/colicoidinterceptor.png",
+    "custom": true
+  },
+  {
+    "id": "fuel-injection-override",
+    "name": "Fuel Injection Override",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": false,
+    "energy": 2,
+    "description": "While you perform a {barrel} or {boost} action, you may spend 1 {charge} to use a template with a speed 1 higher instead.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/firstordertestpilot.png",
+    "custom": true
+  },
+  {
+    "id": "automated-loaders",
+    "name": "Automated Loaders",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": false,
+    "energy": 1,
+    "requires": "{reload}",
+    "description": "After you perform a primary attack you may spend 1 {charge} to perform a {reload} action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/graysquadronbomber.png",
+    "custom": true
+  },
+  {
+    "id": "ion-maneuvering-jets",
+    "name": "Ion Maneuvering Jets",
+    "type": "Modification",
+    "faction": "Empire",
+    "cost": 6,
+    "unique": false,
+    "energy": 2,
+    "requires": "TIE",
+    "description": "After you fully execute a Koiogran Turn [{k}] maneuver, you may spend 1 {charge} to perform an action, even while stressed.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/onyxsquadronscout.png",
+    "custom": true
+  },
+  {
+    "id": "evasion-sequence-seven",
+    "name": "Evasion Sequence 7",
+    "type": "Modification",
+    "faction": "Separatist",
+    "cost": 3,
+    "unique": false,
+    "energy": 2,
+    "requires": "TIE",
+    "description": "While you perform a red !{evade} action, if there is an obstacle or object that obstructs at range 1, treat the action as white, instead.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/skakoanace.png",
+    "custom": true
   }
 ]

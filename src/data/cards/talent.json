@@ -394,5 +394,131 @@
     "unique": false,
     "description": "While you defend, if you are not in the attacker's {ab}, {crit} results are neutralized before {hit} results. After you suffer {crit} damage, you may perform a {calculate} or {focus} action on your action bar, even while stressed, treating that action as red.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/enduring.png"
+  },
+  {
+    "id": "ace-in-the-hole",
+    "name": "Ace in the Hole",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 3,
+    "unique": false,
+    "custom": true,
+    "energy": 2,
+    "description": "At the start of the engagement phase, you may spend 1 {charge} and gain 1 jam token to perform a {barrel} action.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/reapersquadronscout.png"
+  },
+  {
+    "id": "true-grit",
+    "name": "True Grit",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": false,
+    "custom": true,
+    "energy": 2,
+    "description": "At the end of the Activation Phase, if you are not strained, you may gain 1 strain token to remove 1 non-lock red or orange token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/starkillerbasepilot.png"
+  },
+  {
+    "id": "collected",
+    "name": "Collected",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,  
+    "custom": true,
+    "description": "After you perform a primary attack, you may spend 1 focus token to gain 2 evade tokens.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/greensquadronpilot.png"
+  },
+  {
+    "id": "push-the-limit",
+    "name": "Push the Limit",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,  
+    "custom": true,
+    "description": "After you fully execute a red maneuver or perform a red action, if you are not strained, you may gain 1 strain token to remove 1 stress token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/greensquadronexpert.png"
+  },
+  {
+    "id": "apex-predator",
+    "name": "Apex Predator",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 14,
+    "unique": false,  
+    "custom": true,
+    "description": "While you perform a primary attack, if the defender's initiative is lower than yours, you may reroll 1 attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/onyxsquadronace.png"
+  },
+  {
+    "id": "reckless",
+    "name": "Reckless",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 4,
+    "unique": false,  
+    "custom": true,
+    "description": "While you perform a red !{boost} or red !{barrel} action, you may use the [1{sl}] or [1{sr}] template instead. If you do, roll an attack die. On a {hit} / {crit} result, gain a stress token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/zetasquadronsurvivor.png"
+  },
+  {
+    "id": "daring-charge",
+    "name": "Daring Charge",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 4,
+    "unique": false,  
+    "custom": true,
+    "description": "After you fully execute a [3{s}] or [4{s}] maneuver, you may perform a boost using the [1{s}] template. (This is not an action).",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/blacksquadronscout.png"
+  },
+  {
+    "id": "parting-gift",
+    "name": "Parting Gift",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 2,
+    "requires": "{payload}",
+    "unique": false,  
+    "custom": true,
+    "description": "When you are destroyed, before you are removed, you may spend 1{charge} on an equipped {payload} upgrade to drop or launch a bomb using the speed 1 straight or bank [{bl},{s},{br}] template.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lokrevenant.png"
+  },
+  {
+    "id": "top-cover",
+    "name": "Top Cover",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 4,
+    "requires": "{payload}",
+    "unique": false,  
+    "custom": true,
+    "description": "During the System Phase, after you drop or launch a device, you may perform a white {boost} or {barrel} action. Even while stressed.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/212thbattalionpilot.png"
+  },
+  {
+    "id": "swift-approach",
+    "name": "Swift Approach",
+    "type": "Talent",
+    "faction": "Neutral",
+    "cost": 13,
+    "requires": "{payload}",
+    "unique": false,  
+    "custom": true,
+    "description": "After a friendly ship at range 0-1 defends, if you have not dropped a device this round, you may launch a device using the [3{bl}],[3{s}], or [3{br}] template.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/petranakiarenaace.png"
+  },
+  {
+    "id": "efficient-processing",
+    "name": "Efficient Processing",
+    "type": "Talent",
+    "faction": "Separatist",
+    "cost": 6,
+    "unique": false,  
+    "custom": true,
+    "description": "After you perform a {calculate} action, gain 1 calculate token.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/separatistinterceptor.png"
   }
 ]
