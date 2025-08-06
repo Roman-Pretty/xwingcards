@@ -42,8 +42,8 @@
 
         <div class="flex flex-col w-full p-4 overflow-x-auto">
           <div>
-            <div class="w-full flex flex-row items-center justify-between mb-4">
-              <h2 class="text-lg ">Loadout</h2>
+            <div class="w-full flex flex-row items-center justify-start gap-4 mb-4">
+              <h2 class="text-lg mr-auto">Loadout</h2>
               <div v-for="(count, symbol) in unlockedFactionCounts" :key="symbol" :style="{ color: getFactionColor(symbol) }"
                 class="text-xl flex flex-row items-center gap-1 cursor-default ">
                 <span class="font-[xwing] font-light text-2xl -mt-1.5">{{ symbol }}</span>
