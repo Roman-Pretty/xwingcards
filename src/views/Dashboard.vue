@@ -946,6 +946,14 @@ function select(card) {
         alert(`Cannot equip this card: ${warning}`);
         return;
       }
+      
+      // Check faction requirement before showing the selection modal  
+      if (!store.canEquipFactionCard(card.id)) {
+        const warning = store.getFactionRequirementText(card.id);
+        alert(`Cannot equip this card: ${warning}`);
+        return;
+      }
+      
       showMobileCardSelection(card);
     }
     // On desktop, cards are equipped via drag-and-drop to slots
@@ -968,6 +976,14 @@ function equipCardToSlot(slotKey) {
   // Check initiative requirement before equipping
   if (!store.canEquipInitiativeCard(pendingMobileCard.value.id)) {
     const warning = store.getInitiativeRequirementText(pendingMobileCard.value.id);
+    alert(`Cannot equip this card: ${warning}`);
+    pendingMobileCard.value = null;
+    return;
+  }
+  
+  // Check faction requirement before equipping
+  if (!store.canEquipFactionCard(pendingMobileCard.value.id)) {
+    const warning = store.getFactionRequirementText(pendingMobileCard.value.id);
     alert(`Cannot equip this card: ${warning}`);
     pendingMobileCard.value = null;
     return;

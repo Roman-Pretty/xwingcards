@@ -3,7 +3,7 @@
     "icon": "!",
     "color": "#a8a8a8",
     "factions": [],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/cavernangelszealot.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/cavernangelszealot.png",
     "description": "The basic HotAC Experience. Use this class if you want to play without any special cards or ships.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -24,7 +24,7 @@
     "icon": "!",
     "color": "#ff9900",
     "factions": ["resistance"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/karekun.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/karekun.png",
     "description": "A skilled pilot who has proven themselves in combat, earning the respect of their peers and superiors.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -49,7 +49,7 @@
     "icon": "@",
     "color": "#609bca",
     "factions": ["empire"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/whisper.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/whisper.png",
     "description": "A former member of the Empire who has defected to the Rebellion, bringing valuable knowledge and skills.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -73,7 +73,7 @@
     "icon": "/",
     "color": "#ff6048",
     "factions": ["republic"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/squadsevenveteran.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/squadsevenveteran.png",
     "description": "A seasoned pilot with extensive combat experience, known for their tactical acumen and skill.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -97,7 +97,7 @@
     "icon": "#",
     "color": "#259c23",
     "factions": ["scum"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/blacksunassassin.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/blacksunassassin.png",
     "description": "A rogue pilot who operates outside the law, often taking on dangerous missions for profit.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -121,7 +121,7 @@
     "icon": "h",
     "color": "#f9a8d4",
     "factions": [],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/plokoon.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/plokoon.png",
     "description": "A pilot who has trained in the ways of the Force, using their abilities to enhance their piloting.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -144,7 +144,7 @@
     "icon": "o",
     "color": "#cc9900",
     "factions": [],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/bluesquadronscout.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/bluesquadronscout.png",
     "description": "A leader who commands a squadron, providing tactical support and coordination during missions.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -168,7 +168,7 @@
     "icon": "H",
     "color": "#be9f80",
     "factions": [],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/corranhorn.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/corranhorn.png",
     "description": "A skilled mechanic and engineer who specializes in experimental starships.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -191,7 +191,7 @@
     "icon": "z",
     "color": "#bac1c7",
     "factions": ["scum"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/bobafett.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/bobafett.png",
     "description": "A pilot who specializes in hunting down and eliminating high-value targets.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -216,7 +216,7 @@
     "icon": "a",
     "color": "#72b8f0",
     "factions": ["separatist"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/geonosianprototype.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/geonosianprototype.png",
     "description": "Replaces focus with calculate, and has access to a unique set of upgrades.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -241,7 +241,7 @@
     "icon": "x",
     "color": "#009999",
     "factions": ["scum", "republic", "separatist", "resistance", "empire"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/colossusstationmechanic.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/colossusstationmechanic.png",
     "description": "A highly versatile pilot with access to many factions and ships, allowing for a unique playstyle.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -265,7 +265,7 @@
     "icon": "k",
     "color": "#3fbf7f",
     "factions": [],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/4lom.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/4lom.png",
     "description": "A pilot who excels at reconnaissance and gathering intelligence, often operating behind enemy lines.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },
@@ -289,7 +289,7 @@
     "icon": "+",
     "color": "#ff4e32",
     "factions": ["firstorder"],
-    "image": "https://github.com/CrazyVulcan/x-wing2.0-project-goldenrod/blob/main/src/images/Art/pilots/lokrevenant.jpg?raw=true",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/lokrevenant.png",
     "description": "A fervent believer in the Rebellion's cause, willing to sacrifice everything for their ideals.",
     "ships": [
       { "ship": "X-Wing", "icon": "x", "slots": ["A", "P", "m", "n"], "cost": 5, "rank": 2 },

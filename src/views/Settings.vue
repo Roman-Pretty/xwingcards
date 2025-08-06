@@ -11,13 +11,13 @@
       </button>
     </div>
 
-    <div class="flex-1 overflow-y-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Pilot Management -->
-        <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+    <div class="flex-1 overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+        <!-- Left Column: Pilot Management -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex flex-col overflow-hidden">
           <h2 class="text-xl font-semibold text-white mb-4">Pilot Management</h2>
           
-          <div class="space-y-4">
+          <div class="space-y-4 overflow-y-auto flex-1 pr-2 pb-6">
             <div v-for="pilot in store.pilots" :key="pilot.id" class="bg-neutral-900 border border-neutral-600 rounded-lg p-4">
               <div class="flex justify-between items-start mb-3">
                 <div class="flex items-center gap-3">
@@ -55,48 +55,86 @@
           </div>
         </div>
 
-        <!-- Quick Actions -->
-        <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-          <h2 class="text-xl font-semibold text-white mb-4">Quick Actions</h2>
-          
-          <div class="space-y-3">
-            <button class="btn btn-primary w-full justify-start" @click="$router.push('/create-pilot')">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <line x1="19" y1="8" x2="19" y2="14"/>
-                <line x1="22" y1="11" x2="16" y2="11"/>
-              </svg>
-              Create New Pilot
-            </button>
+        <!-- Right Column: Settings and Actions -->
+        <div class="space-y-6 flex flex-col h-full">
+          <!-- General Settings -->
+          <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex-1">
+            <h2 class="text-xl font-semibold text-white mb-4">General Settings</h2>
             
-            <button class="btn btn-secondary w-full justify-start" @click="exportData">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-              Export Data
-            </button>
+            <div class="space-y-4">
+              <!-- Enable Custom Cards -->
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-white font-medium">Enable Custom Cards</h3>
+                  <p class="text-sm text-gray-400">Show custom cards in the shop (owned custom cards will always be visible)</p>
+                </div>
+                <input 
+                  type="checkbox" 
+                  class="toggle toggle-primary" 
+                  :checked="store.enableCustomCards"
+                  @change="updateCustomCardsEnabled"
+                />
+              </div>
+
+              <!-- Enable Faction Filtering -->
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-white font-medium">Enable Faction Filtering</h3>
+                  <p class="text-sm text-gray-400">Only show cards from your class's allowed factions in the shop</p>
+                </div>
+                <input 
+                  type="checkbox" 
+                  class="toggle toggle-primary" 
+                  :checked="store.enableFactionFiltering"
+                  @change="updateFactionFilteringEnabled"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex-1">
+            <h2 class="text-xl font-semibold text-white mb-4">Quick Actions</h2>
             
-            <button class="btn btn-secondary w-full justify-start" @click="importData">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="17,8 12,3 7,8"/>
-                <line x1="12" y1="3" x2="12" y2="15"/>
-              </svg>
-              Import Data
-            </button>
-            
-            <button class="btn btn-error w-full justify-start" @click="openResetAll">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2">
-                <polyline points="3,6 5,6 21,6"/>
-                <path d="m19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
-                <line x1="10" y1="11" x2="10" y2="17"/>
-                <line x1="14" y1="11" x2="14" y2="17"/>
-              </svg>
-              Reset All Data
-            </button>
+            <div class="space-y-3">
+              <button class="btn btn-primary w-full justify-start" @click="$router.push('/create-pilot')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <line x1="19" y1="8" x2="19" y2="14"/>
+                  <line x1="22" y1="11" x2="16" y2="11"/>
+                </svg>
+                Create New Pilot
+              </button>
+              
+              <button class="btn btn-secondary w-full justify-start" @click="exportData">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7,10 12,15 17,10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export Data
+              </button>
+              
+              <button class="btn btn-secondary w-full justify-start" @click="importData">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17,8 12,3 7,8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                Import Data
+              </button>
+              
+              <button class="btn btn-error w-full justify-start" @click="openResetAll">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2">
+                  <polyline points="3,6 5,6 21,6"/>
+                  <path d="m19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
+                  <line x1="10" y1="11" x2="10" y2="17"/>
+                  <line x1="14" y1="11" x2="14" y2="17"/>
+                </svg>
+                Reset All Data
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -294,5 +332,14 @@ function confirmAction() {
 
 function cancelAction() {
   pendingAction.value = null
+}
+
+// Settings methods
+function updateCustomCardsEnabled(event) {
+  store.updateSetting('enableCustomCards', event.target.checked)
+}
+
+function updateFactionFilteringEnabled(event) {
+  store.updateSetting('enableFactionFiltering', event.target.checked)
 }
 </script>

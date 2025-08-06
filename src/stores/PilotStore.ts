@@ -23,6 +23,9 @@ export const usePilotStore = defineStore("pilotStore", {
   state: () => ({
     pilots: [] as Pilot[],
     currentPilotId: "1",
+    // Settings - make sure they're reactive at top level
+    enableCustomCards: true,
+    enableFactionFiltering: false,
   }),
 
   getters: {
@@ -171,6 +174,122 @@ export const usePilotStore = defineStore("pilotStore", {
       const maxCount = factionLimits[cardFaction] || 0;
 
       return currentCount < maxCount;
+    },
+
+    getFactionRequirementText: (state) => (cardId) => {
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!pilot) return null;
+
+      const card = cards.find((c) => c.id === cardId);
+      if (!card || !card.faction || card.faction.toLowerCase() === "neutral") return null;
+
+      // Get faction limits from class data
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return null;
+
+      // Check all ranks up to current rank
+      const currentRanks = classInfo.ranks.filter(r => r.rank <= pilot.rank);
+      const currentFactionLimits: Record<string, number> = {};
+      
+      for (const r of currentRanks) {
+        if (!r.faction) continue;
+        for (const sym of r.faction) {
+          const mappings = {
+            "@": "empire",
+            "h": "force",
+            "!": "resistance",
+            "+": "firstorder",
+            "#": "scum",
+            "/": "republic",
+            ".": "separatists"
+          };
+          const factionName = mappings[sym];
+          if (factionName) {
+            currentFactionLimits[factionName] = (currentFactionLimits[factionName] || 0) + 1;
+          }
+        }
+      }
+
+      // Check all ranks to see if faction becomes available later
+      const allRanks = classInfo.ranks;
+      const futureFactionLimits: Record<string, number> = {};
+      let factionUnlockRank = null;
+      
+      for (const r of allRanks) {
+        if (!r.faction) continue;
+        for (const sym of r.faction) {
+          const mappings = {
+            "@": "empire",
+            "h": "force",
+            "!": "resistance",
+            "+": "firstorder",
+            "#": "scum",
+            "/": "republic",
+            ".": "separatists"
+          };
+          const factionName = mappings[sym];
+          if (factionName) {
+            futureFactionLimits[factionName] = (futureFactionLimits[factionName] || 0) + 1;
+            // Track the first rank where this faction becomes available
+            if (factionUnlockRank === null || r.rank < factionUnlockRank) {
+              factionUnlockRank = r.rank;
+            }
+          }
+        }
+      }
+
+      // Normalize card faction name to match our mapping system
+      let cardFaction = card.faction.toLowerCase();
+      if (cardFaction === "first order") {
+        cardFaction = "firstorder";
+      } else if (cardFaction === "separatist") {
+        cardFaction = "separatists";
+      }
+
+      const currentCount = pilot.usedFactionSlots?.[cardFaction] || 0;
+      const currentMaxCount = currentFactionLimits[cardFaction] || 0;
+      const futureMaxCount = futureFactionLimits[cardFaction] || 0;
+
+      // If faction is never available for this class
+      if (futureMaxCount === 0) {
+        return `Faction "${card.faction}" not available for this class`;
+      }
+
+      // If faction is not available at current rank but will be available later
+      if (currentMaxCount === 0 && futureMaxCount > 0) {
+        // Find the earliest rank where this faction becomes available
+        let earliestRank = null;
+        for (const r of allRanks) {
+          if (!r.faction) continue;
+          for (const sym of r.faction) {
+            const mappings = {
+              "@": "empire",
+              "h": "force", 
+              "!": "resistance",
+              "+": "firstorder",
+              "#": "scum",
+              "/": "republic",
+              ".": "separatists"
+            };
+            if (mappings[sym] === cardFaction) {
+              if (earliestRank === null || r.rank < earliestRank) {
+                earliestRank = r.rank;
+              }
+            }
+          }
+        }
+        
+        if (earliestRank !== null) {
+          return `Faction "${card.faction}" unlocks at rank ${earliestRank} (currently rank ${pilot.rank})`;
+        }
+      }
+
+      // If current limit is reached
+      if (currentCount >= currentMaxCount) {
+        return `Faction limit reached: ${currentCount}/${currentMaxCount} ${card.faction} cards equipped`;
+      }
+
+      return null; // Can equip, no warning needed
     },
 
     currentPilotInitiative(state) {
@@ -546,6 +665,11 @@ export const usePilotStore = defineStore("pilotStore", {
           pilot.usedFactionSlots = this.calculateUsedFactionSlots(pilot);
         }
       });
+    },
+
+    // Settings actions
+    updateSetting(key: 'enableCustomCards' | 'enableFactionFiltering', value: boolean) {
+      this[key] = value;
     },
   },
 

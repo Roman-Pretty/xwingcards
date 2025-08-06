@@ -40,6 +40,7 @@
       <div class="text-center">
         <div class="text-xs">FACTION LIMIT</div>
         <div class="text-xs">REACHED</div>
+        <div class="text-xs" v-if="props.currentlyDraggedCard">{{ props.currentlyDraggedCard.faction }}</div>
       </div>
     </div>
 
