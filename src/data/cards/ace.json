@@ -2543,8 +2543,8 @@
     "initiative": 2
   },
   {
-    "id": "finn-qrygg-maneuver",
-    "name": "Qrygg Maneuver",
+    "id": "finn-casino",
+    "name": "Casino",
     "type": "Ace",
     "cost": 12,
     "description": "While you defend or perform an attack, you may add 1 blank result, or you may gain 1 strain token to add 1 focus result instead.",
