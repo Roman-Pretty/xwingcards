@@ -89,6 +89,20 @@
                   @change="updateFactionFilteringEnabled"
                 />
               </div>
+
+              <!-- Enable Unique Card Restriction -->
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-white font-medium">Enable Unique Card Restriction</h3>
+                  <p class="text-sm text-gray-400">Prevent multiple pilots from equipping unique cards with the same name</p>
+                </div>
+                <input 
+                  type="checkbox" 
+                  class="toggle toggle-primary" 
+                  :checked="store.enableUniqueCardRestriction"
+                  @change="updateUniqueCardRestrictionEnabled"
+                />
+              </div>
             </div>
           </div>
 
@@ -341,5 +355,9 @@ function updateCustomCardsEnabled(event) {
 
 function updateFactionFilteringEnabled(event) {
   store.updateSetting('enableFactionFiltering', event.target.checked)
+}
+
+function updateUniqueCardRestrictionEnabled(event) {
+  store.updateSetting('enableUniqueCardRestriction', event.target.checked)
 }
 </script>

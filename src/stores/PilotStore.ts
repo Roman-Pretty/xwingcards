@@ -26,6 +26,7 @@ export const usePilotStore = defineStore("pilotStore", {
     // Settings - make sure they're reactive at top level
     enableCustomCards: true,
     enableFactionFiltering: false,
+    enableUniqueCardRestriction: true,
   }),
 
   getters: {
@@ -102,12 +103,12 @@ export const usePilotStore = defineStore("pilotStore", {
           return selectedCard?.name === cardName;
         });
 
-        // For unique cards, check if any pilot has a card with the same name
+        // For unique cards, check if any pilot has a card with the same name (only if restriction is enabled)
         // For current pilot, check if they already have this card (by ID)
-        return (isUnique && hasSameNamedCard) ||
+        return ((isUnique && state.enableUniqueCardRestriction && hasSameNamedCard) ||
           (p.id === state.currentPilotId &&
             (p.selectedCards.includes(cardId) ||
-              Object.values(p.slotCards).includes(cardId)));
+              Object.values(p.slotCards).includes(cardId))));
       });
     },
 
@@ -337,6 +338,31 @@ export const usePilotStore = defineStore("pilotStore", {
       }
 
       return `Requires Initiative ${card.initiative} (you have ${pilotInitiative})`;
+    },
+
+    getUniqueCardWarningText: (state) => (cardId) => {
+      const card = cards.find((c) => c.id === cardId);
+      if (!card || !card.unique || !state.enableUniqueCardRestriction) return null;
+
+      const currentPilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!currentPilot) return null;
+
+      // Check if any other pilot owns a card with the same name
+      const otherPilotsWithSameCard = state.pilots
+        .filter(p => p.id !== state.currentPilotId)
+        .filter(p => {
+          return p.ownedCards.some(ownedCardId => {
+            const ownedCard = cards.find(c => c.id === ownedCardId);
+            return ownedCard?.name === card.name;
+          });
+        });
+
+      if (otherPilotsWithSameCard.length > 0) {
+        const pilotNames = otherPilotsWithSameCard.map(p => p.name).join(', ');
+        return `${pilotNames} already owns a unique card with this name. Only one of you will be able to equip it at a time.`;
+      }
+
+      return null;
     },
   },
 
@@ -668,7 +694,7 @@ export const usePilotStore = defineStore("pilotStore", {
     },
 
     // Settings actions
-    updateSetting(key: 'enableCustomCards' | 'enableFactionFiltering', value: boolean) {
+    updateSetting(key: 'enableCustomCards' | 'enableFactionFiltering' | 'enableUniqueCardRestriction', value: boolean) {
       this[key] = value;
     },
   },
