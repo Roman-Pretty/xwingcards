@@ -940,6 +940,12 @@ function select(card) {
   } else if (activeTab.value === "deck") {
     // For deck tab on mobile, show card selector modal
     if (isMobile.value && !store.isCardTaken(card.id)) {
+      // Check initiative requirement before showing the selection modal
+      if (!store.canEquipInitiativeCard(card.id)) {
+        const warning = store.getInitiativeRequirementText(card.id);
+        alert(`Cannot equip this card: ${warning}`);
+        return;
+      }
       showMobileCardSelection(card);
     }
     // On desktop, cards are equipped via drag-and-drop to slots
@@ -958,6 +964,14 @@ function cancelMobileCardSelection() {
 
 function equipCardToSlot(slotKey) {
   if (!pendingMobileCard.value) return;
+  
+  // Check initiative requirement before equipping
+  if (!store.canEquipInitiativeCard(pendingMobileCard.value.id)) {
+    const warning = store.getInitiativeRequirementText(pendingMobileCard.value.id);
+    alert(`Cannot equip this card: ${warning}`);
+    pendingMobileCard.value = null;
+    return;
+  }
   
   const success = store.assignCardToSlot(slotKey, pendingMobileCard.value.id);
   if (success !== false) {

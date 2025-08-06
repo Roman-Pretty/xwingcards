@@ -7,7 +7,7 @@
     'bg-yellow-700 shadow-[0_0_8px_2px_rgba(204,153,0,0.5)] border-yellow-500 hover:border-transparent': props.card,
     'bg-neutral-800': !props.card && unlocked,
     'border-dashed !border-blue-400 bg-blue-900/10 shadow-[0_0_4px_1px_rgba(59,130,246,0.2)]': isDraggedOver && canAcceptDrop,
-    'border-dashed !border-red-500 bg-red-900/20 shadow-[0_0_4px_1px_rgba(239,68,68,0.4)]': isDraggedOver && isBlockedByFactionLimit
+    'border-dashed !border-red-500 bg-red-900/20 shadow-[0_0_4px_1px_rgba(239,68,68,0.4)]': isDraggedOver && (isBlockedByFactionLimit || isBlockedByInitiativeRequirement)
   }"
   tabindex="0"
   ref="slotRef"
@@ -40,6 +40,18 @@
       <div class="text-center">
         <div class="text-xs">FACTION LIMIT</div>
         <div class="text-xs">REACHED</div>
+      </div>
+    </div>
+
+    <!-- Initiative requirement blocked overlay -->
+    <div
+      v-if="isDraggedOver && isBlockedByInitiativeRequirement"
+      class="absolute inset-0 bg-red-900/90 cursor-not-allowed text-white text-center flex items-center justify-center text-sm font-semibold rounded z-30"
+    >
+      <div class="text-center">
+        <div class="text-xs">INITIATIVE</div>
+        <div class="text-xs">REQUIRED</div>
+        <div class="text-xs">{{ store.getInitiativeRequirementText(props.currentlyDraggedCard?.id)?.split(' ')[2] || '' }}</div>
       </div>
     </div>
 
@@ -112,7 +124,10 @@ const canAcceptDrop = computed(() => {
   if (!typeMatches) return false;
 
   // Check faction limits
-  return store.canEquipFactionCard(props.currentlyDraggedCard.id);
+  if (!store.canEquipFactionCard(props.currentlyDraggedCard.id)) return false;
+
+  // Check initiative requirements
+  return store.canEquipInitiativeCard(props.currentlyDraggedCard.id);
 });
 
 // Computed property to check if drop is being prevented due to faction limits
@@ -127,8 +142,30 @@ const isBlockedByFactionLimit = computed(() => {
   
   if (!typeMatches) return false;
 
-  // If type matches but can't equip, it's due to faction limits
-  return !store.canEquipFactionCard(props.currentlyDraggedCard.id);
+  // If type matches but can't equip due to faction limits, it's a faction issue
+  if (!store.canEquipFactionCard(props.currentlyDraggedCard.id)) return true;
+
+  // Return false for initiative issues (we'll handle those separately)
+  return false;
+});
+
+// Computed property to check if drop is being prevented due to initiative requirements
+const isBlockedByInitiativeRequirement = computed(() => {
+  if (!props.currentlyDraggedCard || !props.unlocked) return false;
+  
+  // Check if type matches but initiative requirement prevents drop
+  const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
+    props.options.some(opt =>
+      opt.toLowerCase() === props.currentlyDraggedCard.type.toLowerCase()
+    );
+  
+  if (!typeMatches) return false;
+
+  // Check if faction requirements are met (don't show initiative error if faction fails)
+  if (!store.canEquipFactionCard(props.currentlyDraggedCard.id)) return false;
+
+  // If type and faction match but can't equip due to initiative, it's an initiative issue
+  return !store.canEquipInitiativeCard(props.currentlyDraggedCard.id);
 });
 
 const cardName = computed(() => {
@@ -144,8 +181,8 @@ const displayName = computed(() => {
 function onDragEnter(event) {
   if (!props.unlocked || !props.currentlyDraggedCard) return;
   
-  // Show visual feedback if the card can be accepted OR if it's blocked by faction limits
-  if (canAcceptDrop.value || isBlockedByFactionLimit.value) {
+  // Show visual feedback if the card can be accepted OR if it's blocked by faction/initiative limits
+  if (canAcceptDrop.value || isBlockedByFactionLimit.value || isBlockedByInitiativeRequirement.value) {
     isDraggedOver.value = true;
   }
 }

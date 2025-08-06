@@ -53,7 +53,7 @@ export const usePilotStore = defineStore("pilotStore", {
     },
 
     canUpgradeCard: (state) => (cardId) => {
-      const card = cards.find((c) => c.id === cardId);
+      const card = cards.find((c) => c.id === cardId) as any;
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       
       if (!card || !pilot || !card.upgradeable || !card.energy) return false;
@@ -65,7 +65,7 @@ export const usePilotStore = defineStore("pilotStore", {
     },
 
     getCardDisplayInfo: (state) => (cardId) => {
-      const card = cards.find((c) => c.id === cardId);
+      const card = cards.find((c) => c.id === cardId) as any;
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       
       if (!card) return null;
@@ -171,6 +171,53 @@ export const usePilotStore = defineStore("pilotStore", {
       const maxCount = factionLimits[cardFaction] || 0;
 
       return currentCount < maxCount;
+    },
+
+    currentPilotInitiative(state) {
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!pilot) return 0;
+
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return 0;
+
+      const rankData = classInfo.ranks.find(r => r.rank === pilot.rank);
+      return rankData?.initiative || 0;
+    },
+
+    canEquipInitiativeCard: (state) => (cardId) => {
+      const card = cards.find((c) => c.id === cardId) as any;
+      if (!card || !card.initiative) return true; // No initiative requirement
+
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!pilot) return false;
+
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return false;
+
+      const rankData = classInfo.ranks.find(r => r.rank === pilot.rank);
+      const pilotInitiative = rankData?.initiative || 0;
+
+      return pilotInitiative >= card.initiative;
+    },
+
+    getInitiativeRequirementText: (state) => (cardId) => {
+      const card = cards.find((c) => c.id === cardId) as any;
+      if (!card || !card.initiative) return null;
+
+      const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
+      if (!pilot) return null;
+
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return null;
+
+      const rankData = classInfo.ranks.find(r => r.rank === pilot.rank);
+      const pilotInitiative = rankData?.initiative || 0;
+
+      if (pilotInitiative >= card.initiative) {
+        return null; // Can equip, no warning needed
+      }
+
+      return `Requires Initiative ${card.initiative} (you have ${pilotInitiative})`;
     },
   },
 
@@ -304,6 +351,11 @@ export const usePilotStore = defineStore("pilotStore", {
         return false; // Cannot equip due to faction limits
       }
 
+      // Check initiative requirements before assigning
+      if (!this.canEquipInitiativeCard(cardId)) {
+        return false; // Cannot equip due to initiative requirements
+      }
+
       // Unselect the card from deck
       pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
 
@@ -313,7 +365,7 @@ export const usePilotStore = defineStore("pilotStore", {
         [slotKey]: cardId,
       };
 
-      const card = cards.find((c) => c.id === cardId);
+      const card = cards.find((c) => c.id === cardId) as any;
       if (card?.freeSlots?.length) {
         // Add free slots to pilot
         card.freeSlots.forEach((slot, index) => {
@@ -335,7 +387,7 @@ export const usePilotStore = defineStore("pilotStore", {
       if (!pilot) return;
 
       const cardId = pilot.slotCards[slotKey];
-      const card = cards.find((c) => c.id === cardId);
+      const card = cards.find((c) => c.id === cardId) as any;
 
       // Remove card from slot
       const { [slotKey]: removed, ...rest } = pilot.slotCards;
