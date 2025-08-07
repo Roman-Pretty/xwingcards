@@ -63,6 +63,7 @@
   --color-firstorder: #870000;
   --color-scum: #177e43;
   --color-republic: #ef4444;
+  --color-separatist: #1e40af;
   --color-separatists: #1e40af;
   --color-neutral: #9ca3af;
 }
@@ -106,9 +107,23 @@
   border-color: var(--color-separatists) !important;
 }
 
+.border-separatist {
+  border-color: var(--color-separatist) !important;
+}
+
 .border-neutral {
   border-color: var(--color-neutral) !important;
 }
+
+.bg-empire { background-color: var(--color-empire) !important; }
+.bg-force { background-color: var(--color-force) !important; }
+.bg-resistance { background-color: var(--color-resistance) !important; }
+.bg-firstorder { background-color: var(--color-firstorder) !important; }
+.bg-scum { background-color: var(--color-scum) !important; }
+.bg-republic { background-color: var(--color-republic) !important; }
+.bg-separatist { background-color: var(--color-separatist) !important; }
+.bg-separatists { background-color: var(--color-separatists) !important; }
+.bg-neutral { background-color: var(--color-neutral) !important; }
 }
 
 html {

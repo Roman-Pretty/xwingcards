@@ -66,7 +66,7 @@
 
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
-import { usePilotStore } from '../stores/pilotStore'
+import { usePilotStore } from '../stores/PilotStore'
 import { storeToRefs } from 'pinia'
 import classData from '../data/classes.json'
 import ShipPurchaseModal from './ui/ShipPurchaseModal.vue'

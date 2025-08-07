@@ -28,22 +28,15 @@
             <!-- Custom holographic overlay when no image is provided -->
             <div v-if="!displayedImage" class="custom-holographic-overlay pointer-events-none absolute inset-0 z-20" />
             
-            <!-- Faction icon -->
-            <div class="corner absolute top-1 left-1 z-20 flex items-center justify-cente">
-                <div v-if="factionClass === 'empire'" class="faction-icon font-[xwing] bg-empire text-xs"><span>@</span>
+            <!-- Faction icon(s) - bookmark style -->
+            <div class="absolute top-0 left-0 z-20 flex flex-row">
+                <div v-for="(factionName, index) in displayedNonNeutralFactions" :key="factionName" 
+                     :class="getFactionBookmarkClass(factionName)"
+                     class="faction-bookmark-small">
+                    <div class="faction-icon-content-small">
+                        <span>{{ getFactionIcon(factionName) }}</span>
+                    </div>
                 </div>
-                <div v-else-if="factionClass === 'force'" class="faction-icon font-[xwing] bg-force text-xs">
-                    <span>h</span></div>
-                <div v-else-if="factionClass === 'resistance'" class="faction-icon font-[xwing] bg-resistance text-xs">
-                    <span>!</span></div>
-                <div v-else-if="factionClass === 'firstorder'" class="faction-icon font-[xwing] bg-firstorder text-xs">
-                    <span>+</span></div>
-                <div v-else-if="factionClass === 'scum'" class="faction-icon font-[xwing] bg-scum text-xs">
-                    <span>#</span></div>
-                <div v-else-if="factionClass === 'republic'" class="faction-icon font-[xwing] bg-republic text-xs">
-                    <span>/</span></div>
-                <div v-else-if="factionClass === 'separatist'" class="faction-icon font-[xwing] bg-separatist text-xs">
-                    <span>.</span></div>
             </div>
 
             <!-- Upgrade level indicator -->
@@ -151,7 +144,7 @@ const props = defineProps({
     id: String,
     name: String,
     type: String,
-    faction: String,
+    faction: [String, Array],
     cost: [Number, String],
     description: String,
     flippedName: String,
@@ -208,7 +201,43 @@ function handleKeyDown(e) {
     }
 }
 
-const factionClass = computed(() => (props.faction || '').toLowerCase() || 'neutral')
+const factionClass = computed(() => {
+    if (Array.isArray(props.faction)) {
+        return props.faction[0]?.toLowerCase() || 'neutral'
+    }
+    return (props.faction || '').toLowerCase() || 'neutral'
+})
+
+const displayedFactions = computed(() => {
+    if (Array.isArray(props.faction)) {
+        return props.faction.map(f => f.toLowerCase())
+    }
+    return props.faction ? [props.faction.toLowerCase()] : ['neutral']
+})
+
+const displayedNonNeutralFactions = computed(() => {
+    return displayedFactions.value.filter(f => f !== 'neutral')
+})
+
+// Faction icon mappings
+const factionIcons = {
+    'empire': '@',
+    'force': 'h', 
+    'resistance': '!',
+    'firstorder': '+',
+    'scum': '#',
+    'republic': '/',
+    'separatist': '.',
+    'neutral': ''
+}
+
+function getFactionIcon(faction) {
+    return factionIcons[faction] || ''
+}
+
+function getFactionBookmarkClass(faction) {
+    return `faction-bookmark-${faction}`
+}
 const typeLetter = computed(() => tokenToLetterMap[(props.type || '').toLowerCase()] || '?')
 const energyLetter = 'g'
 const forceLetter = 'h'
@@ -527,5 +556,69 @@ function handleClick() {
 @keyframes symbolPulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
+}
+
+.faction-bookmark-small {
+    position: relative;
+    width: 1.5rem;
+    height: 2rem;
+    margin-right: 0.125rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.faction-bookmark-small::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+}
+
+/* All factions use the same shape, just different colors */
+.faction-bookmark-empire.faction-bookmark-small::before {
+    background-color: var(--color-empire);
+}
+
+.faction-bookmark-force.faction-bookmark-small::before {
+    background-color: var(--color-force);
+}
+
+.faction-bookmark-resistance.faction-bookmark-small::before {
+    background-color: var(--color-resistance);
+}
+
+.faction-bookmark-firstorder.faction-bookmark-small::before {
+    background-color: var(--color-firstorder);
+}
+
+.faction-bookmark-scum.faction-bookmark-small::before {
+    background-color: var(--color-scum);
+}
+
+.faction-bookmark-republic.faction-bookmark-small::before {
+    background-color: var(--color-republic);
+}
+
+.faction-bookmark-separatist.faction-bookmark-small::before {
+    background-color: var(--color-separatist);
+}
+
+.faction-icon-content-small {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    font-family: 'xwing';
+    font-size: 0.9rem;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 </style>

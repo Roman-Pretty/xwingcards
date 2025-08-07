@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { usePilotStore } from '../stores/pilotStore'
+import { usePilotStore } from '../stores/PilotStore'
 import Landing from '../views/Landing.vue'
 import CreatePilot from '../views/CreatePilot.vue'
 import Dashboard from '../views/Dashboard.vue'

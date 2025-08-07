@@ -33,7 +33,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
-import { usePilotStore } from '../stores/pilotStore'
+import { usePilotStore } from '../stores/PilotStore'
 
 const pilotStore = usePilotStore()
 

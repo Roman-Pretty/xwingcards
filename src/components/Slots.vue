@@ -25,13 +25,24 @@
     @confirm="confirmSlotPurchase"
     @cancel="cancelSlotPurchase"
   />
+
+  <!-- Faction Selection Modal -->
+  <FactionSelectionModal
+    ref="factionSelectionModal"
+    :card-name="pendingFactionCard?.name || ''"
+    :card-id="pendingFactionCard?.cardId || ''"
+    :factions="pendingFactionCard?.factions || []"
+    @confirm="confirmFactionSelection"
+    @cancel="cancelFactionSelection"
+  />
 </template>
 
 <script setup>
 import { computed, ref } from "vue";
-import { usePilotStore } from "../stores/pilotStore";
+import { usePilotStore } from "../stores/PilotStore";
 import Slot from "./Slot.vue";
 import SlotPurchaseModal from "./ui/SlotPurchaseModal.vue";
+import FactionSelectionModal from "./ui/FactionSelectionModal.vue";
 import { letterToTokenMap } from "../utils/mappings";
 import classData from "../data/classes.json";
 import cards from "../data/cards.js";
@@ -51,9 +62,11 @@ const store = usePilotStore();
 
 const selectedSlotKey = ref(null)
 const selectedSlotXP = ref(0)
+const pendingFactionCard = ref(null)
 
 // Component refs
 const slotPurchaseModal = ref(null);
+const factionSelectionModal = ref(null);
 
 function openPurchaseModal(slotKey, xp) {
   selectedSlotKey.value = slotKey
@@ -84,6 +97,22 @@ function confirmSlotPurchase() {
 function cancelSlotPurchase() {
   selectedSlotKey.value = null;
   selectedSlotXP.value = 0;
+}
+
+function confirmFactionSelection(faction) {
+  if (!pendingFactionCard.value) return;
+  
+  const { slotKey, cardId } = pendingFactionCard.value;
+  const success = store.assignCardToSlot(slotKey, cardId);
+  if (success !== false) {
+    store.equipCardWithFaction(cardId, faction);
+  }
+  
+  pendingFactionCard.value = null;
+}
+
+function cancelFactionSelection() {
+  pendingFactionCard.value = null;
 }
 
 const currentPilot = computed(() => store.currentPilot);
@@ -193,6 +222,47 @@ function capitalize(s) {
 
 // Handle card drop event emitted from Slot component
 function handleCardDrop(slotKey, cardId) {
+  // If removing a card
+  if (!cardId || cardId.trim() === '') {
+    store.assignCardToSlot(slotKey, cardId);
+    return;
+  }
+
+  // Check if card requires faction selection
+  if (store.requiresFactionSelection(cardId)) {
+    const availableFactions = store.getAvailableFactionsForCard(cardId);
+    console.log('Slots - availableFactions for', cardId, ':', availableFactions);
+    
+    if (availableFactions.length === 0) {
+      alert("Cannot equip this card: No available faction slots.");
+      return;
+    } else if (availableFactions.length === 1) {
+      // Only one faction available, equip directly
+      const success = store.assignCardToSlot(slotKey, cardId);
+      if (success !== false) {
+        store.equipCardWithFaction(cardId, availableFactions[0]);
+      }
+      return;
+    } else {
+      // Multiple factions available, show selection modal
+      const card = cards.find(c => c.id === cardId);
+      console.log('Setting up pendingFactionCard:', {
+        name: card?.name,
+        cardId: cardId,
+        factions: availableFactions
+      });
+      pendingFactionCard.value = {
+        name: card?.name || 'Unknown Card',
+        factions: availableFactions,
+        slotKey: slotKey,
+        cardId: cardId
+      };
+      factionSelectionModal.value?.open();
+      return;
+    }
+  }
+
+  // Regular card equipping (no faction selection needed)
   store.assignCardToSlot(slotKey, cardId);
 }
 

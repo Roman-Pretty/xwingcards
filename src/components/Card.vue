@@ -13,15 +13,15 @@
 
     <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30" />
 
-    <!-- Faction icon -->
-    <div class="corner absolute top-2 left-2 z-20 flex items-center justify-center">
-      <div v-if="factionClass === 'empire'" class="faction-icon bg-empire"><span>@</span></div>
-      <div v-else-if="factionClass === 'force'" class="faction-icon bg-force"><span>h</span></div>
-      <div v-else-if="factionClass === 'resistance'" class="faction-icon bg-resistance"><span>!</span></div>
-      <div v-else-if="factionClass === 'firstorder'" class="faction-icon bg-firstorder"><span>+</span></div>
-      <div v-else-if="factionClass === 'scum'" class="faction-icon bg-scum"><span>#</span></div>
-      <div v-else-if="factionClass === 'republic'" class="faction-icon bg-republic"><span>/</span></div>
-      <div v-else-if="factionClass === 'separatist'" class="faction-icon bg-separatists"><span>.</span></div>
+    <!-- Faction icon(s) - bookmark style -->
+    <div class="absolute top-0 left-2 z-20 flex flex-row gap-1">
+      <div v-for="(factionName, index) in displayedNonNeutralFactions" :key="factionName" 
+           :class="getFactionBookmarkClass(factionName)"
+           class="faction-bookmark">
+        <div class="faction-icon-content">
+          <span>{{ getFactionIcon(factionName) }}</span>
+        </div>
+      </div>
     </div>
 
     <!-- Cost badge -->
@@ -176,7 +176,7 @@ const props = defineProps({
   flippedName: String,
   type: String,
   cost: [Number, String],
-  faction: String,
+  faction: [String, Array],
   description: String,
   flippedDescription: String,
   image: String,
@@ -237,7 +237,43 @@ function handleKeyDown(e) {
 
 
 
-const factionClass = computed(() => (props.faction || '').toLowerCase() || 'neutral')
+const factionClass = computed(() => {
+  if (Array.isArray(props.faction)) {
+    return props.faction[0]?.toLowerCase() || 'neutral'
+  }
+  return (props.faction || '').toLowerCase() || 'neutral'
+})
+
+const displayedFactions = computed(() => {
+  if (Array.isArray(props.faction)) {
+    return props.faction.map(f => f.toLowerCase())
+  }
+  return props.faction ? [props.faction.toLowerCase()] : ['neutral']
+})
+
+const displayedNonNeutralFactions = computed(() => {
+  return displayedFactions.value.filter(f => f !== 'neutral')
+})
+
+// Faction icon mappings
+const factionIcons = {
+  'empire': '@',
+  'force': 'h', 
+  'resistance': '!',
+  'firstorder': '+',
+  'scum': '#',
+  'republic': '/',
+  'separatist': '.',
+  'neutral': ''
+}
+
+function getFactionIcon(faction) {
+  return factionIcons[faction] || ''
+}
+
+function getFactionBookmarkClass(faction) {
+  return `faction-bookmark-${faction}`
+}
 const typeLetter = computed(() => tokenToLetterMap[(props.type || '').toLowerCase()] || '?')
 const energyLetter = 'g'
 const forceLetter = 'h'
@@ -398,6 +434,70 @@ function handleClick() {
 
 .balatro-card:hover .gloss {
   left: 90%;
+}
+
+.faction-bookmark {
+  position: relative;
+  width: 2.5rem;
+  height: 3rem;
+  margin-right: 0.25rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.faction-bookmark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+}
+
+/* All factions use the same shape now, just different colors */
+.faction-bookmark-empire::before {
+  background-color: var(--color-empire);
+}
+
+.faction-bookmark-force::before {
+  background-color: var(--color-force);
+}
+
+.faction-bookmark-resistance::before {
+  background-color: var(--color-resistance);
+}
+
+.faction-bookmark-firstorder::before {
+  background-color: var(--color-firstorder);
+}
+
+.faction-bookmark-scum::before {
+  background-color: var(--color-scum);
+}
+
+.faction-bookmark-republic::before {
+  background-color: var(--color-republic);
+}
+
+.faction-bookmark-separatist::before {
+  background-color: var(--color-separatist);
+}
+
+.faction-icon-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-family: 'xwing';
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .faction-icon {

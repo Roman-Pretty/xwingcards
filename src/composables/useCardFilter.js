@@ -1,5 +1,5 @@
 import cards from '../data/cards.js';
-import { usePilotStore } from '../stores/pilotStore.ts';
+import { usePilotStore } from '../stores/PilotStore';
 
 export function useCardFilter() {
   const store = usePilotStore();
@@ -57,9 +57,13 @@ export function useCardFilter() {
     }
     
     const filtered = cards.filter(
-      (c) =>
-        factions.includes(c.faction.toLowerCase()) ||
-        c.faction.toLowerCase() === 'neutral'
+      (c) => {
+        // Handle both string and array factions
+        const cardFactions = Array.isArray(c.faction) ? c.faction : [c.faction];
+        return cardFactions.some(faction => 
+          factions.includes(faction.toLowerCase()) || faction.toLowerCase() === 'neutral'
+        );
+      }
     );
     return sortByCost(applySettingsFilter(filtered));
   };

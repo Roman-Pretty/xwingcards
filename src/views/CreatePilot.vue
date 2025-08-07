@@ -299,7 +299,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import { usePilotStore } from "../stores/pilotStore";
+import { usePilotStore } from "../stores/PilotStore";
 import classData from "../data/classes.json";
 
 const router = useRouter();

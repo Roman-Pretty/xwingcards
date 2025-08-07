@@ -417,6 +417,10 @@
 
     <CardEquipModal ref="cardEquipModal" :card="pendingMobileCard" :available-slots="availableSlots" 
       @equip="equipCardToSlot" @cancel="cancelMobileCardSelection" />
+
+    <FactionSelectionModal ref="factionSelectionModal" :card-name="pendingFactionCard?.name" 
+      :card-id="pendingFactionCard?.cardId"
+      :factions="pendingFactionCard?.factions" @confirm="confirmFactionSelection" @cancel="cancelFactionSelection" />
   </main>
 </template>
 
@@ -434,11 +438,12 @@ import CardPurchaseModal from "../components/ui/CardPurchaseModal.vue";
 import AddXpModal from "../components/ui/AddXpModal.vue";
 import CardSwapModal from "../components/ui/CardSwapModal.vue";
 import CardEquipModal from "../components/ui/CardEquipModal.vue";
+import FactionSelectionModal from "../components/ui/FactionSelectionModal.vue";
 
 import classData from "../data/classes.json";
 
 import { useCardFilter } from "../composables/useCardFilter";
-import { usePilotStore } from "../stores/pilotStore";
+import { usePilotStore } from "../stores/PilotStore";
 
 import { tokenToLetterMap } from "../utils/mappings";
 
@@ -451,6 +456,7 @@ const cardPurchaseModal = ref(null);
 const addXpModal = ref(null);
 const cardSwapModal = ref(null);
 const cardEquipModal = ref(null);
+const factionSelectionModal = ref(null);
 
 // UI state
 const showContextMenu = ref(false);
@@ -462,6 +468,7 @@ const activeTab = ref("hand");
 const pendingCard = ref(null);
 const currentlyDraggedCard = ref(null);
 const pendingTransfer = ref(null); // For card swap modal
+const pendingFactionCard = ref(null); // For faction selection modal
 const searchQuery = ref("");
 
 // Mobile state
@@ -745,15 +752,19 @@ const cardsToShow = computed(() => {
   if (searchQuery.value.trim()) {
     const query = searchQuery.value.toLowerCase();
     baseCards = baseCards.filter(card => {
-      const cardFaction = card.faction?.toLowerCase() || '';
+      // Handle both string and array factions
+      const cardFactions = Array.isArray(card.faction) ? card.faction : [card.faction];
+      const factionMatch = cardFactions.some(faction => 
+        faction?.toLowerCase().includes(query) ||
+        // Treat "rebel" as equivalent to "neutral"
+        (query === 'rebel' && faction?.toLowerCase() === 'neutral')
+      );
       
       return (
         card.name?.toLowerCase().includes(query) ||
         card.description?.toLowerCase().includes(query) ||
         card.type?.toLowerCase().includes(query) ||
-        cardFaction.includes(query) ||
-        // Treat "rebel" as equivalent to "neutral"
-        (query === 'rebel' && cardFaction === 'neutral')
+        factionMatch
       );
     });
   }
@@ -981,7 +992,31 @@ function equipCardToSlot(slotKey) {
     return;
   }
   
-  // Check faction requirement before equipping
+  // Check if card requires faction selection
+  if (store.requiresFactionSelection(pendingMobileCard.value.id)) {
+    const availableFactions = store.getAvailableFactionsForCard(pendingMobileCard.value.id);
+    if (availableFactions.length === 0) {
+      alert("Cannot equip this card: No available faction slots.");
+      pendingMobileCard.value = null;
+      return;
+    } else if (availableFactions.length === 1) {
+      // Only one faction available, equip directly
+      equipCardWithSpecificFaction(slotKey, availableFactions[0]);
+      return;
+    } else {
+      // Multiple factions available, show selection modal
+      pendingFactionCard.value = {
+        name: pendingMobileCard.value.name,
+        cardId: pendingMobileCard.value.id,
+        factions: availableFactions,
+        slotKey: slotKey
+      };
+      factionSelectionModal.value?.open();
+      return;
+    }
+  }
+  
+  // Check faction requirement before equipping (for legacy single-faction cards)
   if (!store.canEquipFactionCard(pendingMobileCard.value.id)) {
     const warning = store.getFactionRequirementText(pendingMobileCard.value.id);
     alert(`Cannot equip this card: ${warning}`);
@@ -997,6 +1032,33 @@ function equipCardToSlot(slotKey) {
   } else {
     alert("Could not equip this card to the selected slot.");
   }
+}
+
+function equipCardWithSpecificFaction(slotKey, faction) {
+  if (!pendingMobileCard.value) return;
+  
+  const success = store.assignCardToSlot(slotKey, pendingMobileCard.value.id);
+  if (success !== false) {
+    // Store the faction choice
+    store.equipCardWithFaction(pendingMobileCard.value.id, faction);
+    pendingMobileCard.value = null;
+    // Switch to loadout tab to show the equipped card
+    mobileActiveTab.value = 'loadout';
+  } else {
+    alert("Could not equip this card to the selected slot.");
+  }
+}
+
+function confirmFactionSelection(faction) {
+  if (!pendingFactionCard.value) return;
+  
+  equipCardWithSpecificFaction(pendingFactionCard.value.slotKey, faction);
+  pendingFactionCard.value = null;
+}
+
+function cancelFactionSelection() {
+  pendingMobileCard.value = null;
+  pendingFactionCard.value = null;
 }
 
 // Unequip card from hand tab

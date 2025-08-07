@@ -89,7 +89,7 @@
 <script setup>
 import BaseModal from './BaseModal.vue'
 import { computed } from 'vue'
-import { usePilotStore } from '../../stores/pilotStore'
+import { usePilotStore } from '../../stores/PilotStore'
 
 const store = usePilotStore()
 
