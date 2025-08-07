@@ -5,6 +5,7 @@ import cannon from "./cards/cannon.json";
 import configuration from "./cards/configuration.json";
 import crew from "./cards/crew.json";
 import force from "./cards/force.json";
+import gunner from "./cards/gunner.json";
 import illicit from "./cards/illicit.json";
 import missile from "./cards/missile.json";
 import modification from "./cards/modification.json";
@@ -27,6 +28,7 @@ const cards = [
   ...crew,
   ...force,
   ...illicit,
+  ...gunner,
   ...missile,
   ...modification,
   ...payload,
@@ -51,6 +53,7 @@ export {
   crew,
   force,
   illicit,
+  gunner,
   missile,
   modification,
   payload,

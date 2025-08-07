@@ -67,7 +67,7 @@ export const usePilotStore = defineStore("pilotStore", {
     pilots: [] as Pilot[],
     currentPilotId: "1",
     enableCustomCards: true,
-    enableFactionFiltering: false,
+    enableFactionFiltering: true,
     enableUniqueCardRestriction: true,
   }),
 
