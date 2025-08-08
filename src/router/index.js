@@ -4,6 +4,7 @@ import Landing from '../views/Landing.vue'
 import CreatePilot from '../views/CreatePilot.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Settings from '../views/Settings.vue'
+import GroupOverview from '../views/GroupOverview.vue'
 
 const routes = [
   {
@@ -33,6 +34,19 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings
+  },
+  {
+    path: '/group-overview',
+    name: 'GroupOverview',
+    component: GroupOverview,
+    beforeEnter: (to, from, next) => {
+      const store = usePilotStore()
+      if (store.pilots.length === 0) {
+        next('/create-pilot')
+      } else {
+        next()
+      }
+    }
   }
 ]
 

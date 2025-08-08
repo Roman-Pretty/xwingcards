@@ -161,7 +161,11 @@
         'flex flex-row flex-wrap gap-4 justify-evenly': activeTab !== 'hand',
         'flex flex-col': activeTab === 'hand'
       }">
-        <!-- Settings button -->
+        <!-- Group Overview and Settings buttons -->
+        <div class="btn btn-square btn-sm absolute bottom-20 right-16 z-50 shadow shadow-black"
+          @click="$router.push('/group-overview')">
+          <span class="font-[xwing] text-2xl font-light pb-1.5">!</span>
+        </div>
         <div class="btn btn-square btn-sm absolute bottom-20 right-4 z-50 shadow shadow-black"
           @click="$router.push('/settings')">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -291,6 +295,10 @@
         'flex flex-row flex-wrap gap-6 justify-evenly': activeTab !== 'hand',
         'flex flex-col': activeTab === 'hand'
       }">
+        <div class="btn btn-square absolute bottom-4 right-16 z-50 shadow shadow-black"
+          @click="$router.push('/group-overview')">
+          <span class="font-[xwing] text-2xl font-light pb-1.5">!</span>
+        </div>
         <div class="btn btn-square absolute bottom-4 right-4 z-50 shadow shadow-black"
           @click="$router.push('/settings')">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
