@@ -37,7 +37,7 @@
     "cost": 7,
     "unique": false,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/veteranturretgunner.png",
-    "description": "After you perform a primary attack, you may perform a bonus [Single Turret Arc] attack using a [Single Turret Arc] you did not already attack from this round.",
+    "description": "After you perform a primary attack, you may perform a bonus {at} attack using a {at} you did not already attack from this round.",
     "requires": "Rotate Arc action"
   },
   {
@@ -48,7 +48,7 @@
     "cost": 2,
     "unique": false,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/veterantailgunner.png",
-    "description": "After you perform a primary [Front Arc] attack, you may perform a bonus primary [Rear Arc] attack.",
+    "description": "After you perform a primary {af} attack, you may perform a bonus primary {arear} attack.",
     "requires": "Rear Arc"
   },
   {
@@ -69,7 +69,7 @@
     "cost": 6,
     "unique": false,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hotshotgunner.png",
-    "description": "While you perform a [Single Turret Arc] attack, after the Modify Defense Dice step, the defender removes 1 focus or calculate token."
+    "description": "While you perform a {at} attack, after the Modify Defense Dice step, the defender removes 1 focus or calculate token."
   },
   {
     "id": "airencracken",
@@ -90,7 +90,7 @@
     "cost": 8,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/bistan.png",
-    "description": "After you perform a primary attack, if you are focused, you may perform a bonus [Single Turret Arc] attack against a ship you have not already attacked this round."
+    "description": "After you perform a primary attack, if you are focused, you may perform a bonus {at} attack against a ship you have not already attacked this round."
   },
    {
     "id": "suppressivegunner",
@@ -101,7 +101,7 @@
     "unique": false,
     "energy": 2,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/suppressivegunner.png",
-    "description": "While you perform an attack, you may spend 2 [Charge]. If you do, the defender gains 1 suppression token. After you perform an attack that misses, recover 1 [Charge]."
+    "description": "While you perform an attack, you may spend 2 {charge}. If you do, the defender gains 1 suppression token. After you perform an attack that misses, recover 1 {charge}."
   },
   {
     "id": "ezrabridger",
@@ -113,7 +113,7 @@
     "force": 1,
     "recurringForce": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/ezrabridger.png",
-    "description": "After you perform a primary attack, you may spend 1 [Force] to perform a bonus [Single Turret Arc] attack from a [Single Turret Arc] you have not attacked from this round. If you do and you are stressed, you may reroll 1 attack die."
+    "description": "After you perform a primary attack, you may spend 1 {forcecharge} to perform a bonus {at} attack from a {at} you have not attacked from this round. If you do and you are stressed, you may reroll 1 attack die."
   },
   {
     "id": "hansolo",
@@ -123,7 +123,7 @@
     "cost": 10,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hansolo.png",
-    "description": "During the Engagement Phase, at initiative 7, you may perform a [Single Turret Arc] attack. You cannot attack from that [Single Turret Arc] again this round."
+    "description": "During the Engagement Phase, at initiative 7, you may perform a {at} attack. You cannot attack from that {at} again this round."
   },
   {
     "id": "lukeskywalker",
@@ -135,17 +135,7 @@
     "force": 1,
     "recurringForce": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/lukeskywalker.png",
-    "description": "At the start of the Engagement Phase, you may spend 1 [Force] and gain 1 deplete token to rotate your [Single Turret Arc] indicator."
-  },
-  {
-    "id": "bt1-empire",
-    "name": "BT-1",
-    "type": "Gunner",
-    "faction": "Empire",
-    "cost": 3,
-    "unique": true,
-    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/bt1.png",
-    "description": "While you perform an attack, you may change 1 [Hit] result to a [Critical Hit] result for each stress token the defender has."
+    "description": "At the start of the Engagement Phase, you may spend 1 {forcecharge} and gain 1 deplete token to rotate your {at} indicator."
   },
   {
     "id": "migsmayfeld",
@@ -155,7 +145,7 @@
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/migsmayfeld.png",
-    "description": "After you perform a [Front Arc] attack, you may perform a [Rear Arc] or [Single Turret Arc] attack as a bonus attack against a different target with 1 or more red or orange tokens."
+    "description": "After you perform a {af} attack, you may perform a {arear} or {at} attack as a bonus attack against a different target with 1 or more red or orange tokens."
   },
   {
     "id": "tibersaxon",
@@ -167,7 +157,7 @@
     "energy": 2,
     "recurringEnergy": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/tibersaxon.png",
-    "description": "After you perform an attack at attack range 1-2 that hits, if the defender has no faceup damage cards, you may spend 1 or more [Charge]. For each [Charge] you spend, the defender gains 1 strain token."
+    "description": "After you perform an attack at attack range 1-2 that hits, if the defender has no faceup damage cards, you may spend 1 or more {charge}. For each {charge} you spend, the defender gains 1 strain token."
   },
   {
     "id": "fifthbrother",
@@ -179,7 +169,7 @@
     "force": 1,
     "recurringForce": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/fifthbrother.png",
-    "description": "While you perform an attack, you may spend 1 [Force] to change 1 of your [Focus] results to a [Critical Hit] result."
+    "description": "While you perform an attack, you may spend 1 {forcecharge} to change 1 of your {focus} results to a {crit} result."
   },
   {
     "id": "greedo",
@@ -191,7 +181,7 @@
     "energy": 1,
     "recurringEnergy": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/greedo.png",
-    "description": "While you perform an attack, you may spend 1 [Charge] to change 1 [Hit] result to a [Critical Hit] result. While you defend, if your [Charge] is active, the attacker may change 1 [Hit] result to a [Critical Hit] result."
+    "description": "While you perform an attack, you may spend 1 {charge} to change 1 {hit} result to a {crit} result. While you defend, if your {charge} is active, the attacker may change 1 {hit} result to a {crit} result."
   },
   {
     "id": "bobafettgunner",
@@ -201,7 +191,7 @@
     "cost": 4,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/bobafett-gunner.png",
-    "description": "While you perform an attack, if there are no other ships in the attack arc, you may change 1 of your [Focus] results to a [Hit] result."
+    "description": "While you perform an attack, if there are no other ships in the attack arc, you may change 1 of your {focus} results to a {hit} result."
   },
   {
     "id": "bt1",
@@ -211,7 +201,7 @@
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/bt1.png",
-    "description": "While you perform an attack, you may change 1 [Hit] result to a [Critical Hit] result for each stress token the defender has."
+    "description": "While you perform an attack, you may change 1 {hit} result to a {crit} result for each stress token the defender has."
   },
   {
     "id": "dengar",
@@ -223,7 +213,7 @@
     "energy": 1,
     "recurringEnergy": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/dengar.png",
-    "description": "After you defend, if the attacker is in your firing arc, you may spend 1 [Charge]. If you do, roll 1 attack die unless the attacker chooses to remove 1 green token. On a [Hit] or [Critical Hit] result, the attacker suffers 1 [Hit] damage."
+    "description": "After you defend, if the attacker is in your firing arc, you may spend 1 {charge}. If you do, roll 1 attack die unless the attacker chooses to remove 1 green token. On a {hit} or {crit} result, the attacker suffers 1 {hit} damage."
   },
   {
     "id": "bossk",
@@ -243,7 +233,7 @@
     "cost": 9,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hansolo-gunner.png",
-    "description": "Before you engage, you may perform a red [Focus] action."
+    "description": "Before you engage, you may perform a red {focus} action."
   },
   {
     "id": "clonecaptainrex",
@@ -264,7 +254,7 @@
     "unique": true,
     "energy": 3,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/clonecommandercody.png",
-    "description": "While another friendly unit at range 1-3 performs a primary attack, you may spend 1 [Charge]. If you do, the attacker may reroll 1 attack die."
+    "description": "While another friendly unit at range 1-3 performs a primary attack, you may spend 1 {charge}. If you do, the attacker may reroll 1 attack die."
   },
   {
     "id": "ursawrengunner",
@@ -297,7 +287,7 @@
     "unique": false,
     "energy": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/seventhfleetgunner.png",
-    "description": "While another friendly ship performs a primary attack, if the defender is in your firing arc, you may spend 1 [Charge]. If you do, the attacker rolls 1 additional die, to a maximum of 4. During the System Phase, you may gain 1 disarm token to recover 1 [Charge]."
+    "description": "While another friendly ship performs a primary attack, if the defender is in your firing arc, you may spend 1 {charge}. If you do, the attacker rolls 1 additional die, to a maximum of 4. During the System Phase, you may gain 1 disarm token to recover 1 {charge}."
   },
   {
     "id": "paigetico",
@@ -307,7 +297,7 @@
     "cost": 6,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/paigetico.png",
-    "description": "After you perform a primary attack, you may drop 1 bomb or rotate your [Single Turret Arc]. After you are destroyed, you may drop 1 bomb."
+    "description": "After you perform a primary attack, you may drop 1 bomb or rotate your {at}. After you are destroyed, you may drop 1 bomb."
   },
   {
     "id": "finn",
@@ -317,7 +307,7 @@
     "cost": 8,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/finn.png",
-    "description": "While you defend or perform a primary attack, if the enemy ship is in your [Front Arc], you may add 1 blank result to your roll (this die can be rerolled or otherwise modified)."
+    "description": "While you defend or perform a primary attack, if the enemy ship is in your {af}, you may add 1 blank result to your roll (this die can be rerolled or otherwise modified)."
   },
   {
     "id": "reygunner",
@@ -329,7 +319,7 @@
     "force": 1,
     "recurringForce": 1,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/rey-gunner.png",
-    "description": "While you defend or perform an attack, if the enemy ship is in your [Single Turret Arc], you may spend 1 [Force] to change 1 of your blank results to a [Evade] or [Hit] result."
+    "description": "While you defend or perform an attack, if the enemy ship is in your {at}, you may spend 1 {forcecharge} to change 1 of your blank results to a {evade} or {hit} result."
   },
   {
     "id": "dt798",

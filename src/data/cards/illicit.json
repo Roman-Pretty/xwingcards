@@ -91,7 +91,7 @@
     "id": "babufrik",
     "name": "Babu Frik",
     "type": "Illicit",
-    "faction": "Neutral",
+    "faction": ["Resistance", "Scum"],
     "cost": 7,
     "unique": true,
     "description": "Before you would gain a non-lock red or orange token, you may spend 1 {charge} to place it on this card instead. During the System Phase, if there are 1 or more tokens on this card, you must spend 1 {charge}. If you cannot, remove those tokens and gain matching tokens.",
