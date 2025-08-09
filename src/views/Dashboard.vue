@@ -916,6 +916,12 @@ function onDragStart(cardId, event) {
 
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.setData("text/plain", cardId);
+  
+  // Use the entire card element as the drag image instead of just the image
+  const cardElement = event.target.closest('.card') || event.currentTarget;
+  if (cardElement) {
+    event.dataTransfer.setDragImage(cardElement, cardElement.offsetWidth / 2, cardElement.offsetHeight / 2);
+  }
 }
 
 function onDragEnd(event) {

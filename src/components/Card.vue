@@ -10,7 +10,6 @@
 
     <div
       class="gloss absolute top-0 left-[-100%] w-[200%] h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 pointer-events-none transition-all duration-400 ease-in-out" />
-
     <div v-if="unique" class="holographic-overlay pointer-events-none absolute inset-0 z-30" />
 
     <!-- Faction icon(s) - bookmark style -->
