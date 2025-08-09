@@ -161,7 +161,11 @@
         'flex flex-row flex-wrap gap-4 justify-evenly': activeTab !== 'hand',
         'flex flex-col': activeTab === 'hand'
       }">
-        <!-- Group Overview and Settings buttons -->
+        <!-- Pilot Overview, Group Overview and Settings buttons -->
+        <div class="btn btn-square btn-sm absolute bottom-20 right-28 z-50 shadow shadow-black"
+          @click="$router.push('/pilot-overview')">
+          <span class="font-[xwing] text-2xl font-light pb-1.5">x</span>
+        </div>
         <div class="btn btn-square btn-sm absolute bottom-20 right-16 z-50 shadow shadow-black"
           @click="$router.push('/group-overview')">
           <span class="font-[xwing] text-2xl font-light pb-1.5">!</span>
@@ -295,6 +299,10 @@
         'flex flex-row flex-wrap gap-6 justify-evenly': activeTab !== 'hand',
         'flex flex-col': activeTab === 'hand'
       }">
+        <div class="btn btn-square absolute bottom-4 right-28 z-50 shadow shadow-black"
+          @click="$router.push('/pilot-overview')">
+          <span class="font-[xwing] text-2xl font-light pb-1.5">x</span>
+        </div>
         <div class="btn btn-square absolute bottom-4 right-16 z-50 shadow shadow-black"
           @click="$router.push('/group-overview')">
           <span class="font-[xwing] text-2xl font-light pb-1.5">!</span>

@@ -1,6 +1,6 @@
 <template>
   <main class="bg-neutral-900 w-full h-screen p-4 flex flex-col gap-4 inria-sans-regular overflow-hidden">
-    <div class="flex justify-between items-center mb-4">
+    <div class="flex justify-between items-center mb-2">
       <h1 class="text-2xl font-bold text-white">Group Overview</h1>
       <button class="btn btn-ghost text-white" @click="$router.push('/dashboard')">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
@@ -21,9 +21,6 @@
           <div class="dropdown dropdown-end">
             <div tabindex="0" role="button"
               class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity mb-1 flex flex-row items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-filter">
-                <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
-              </svg>
               {{ selectedPilots.length }} of {{ store.pilots.length }} pilots
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -85,102 +82,98 @@
           <!-- Enhanced AI (Rank 3+) -->
           <div class="rounded-lg p-4 border flex flex-col"
                :class="averageRank >= 3 ? 
-                 'bg-red-900/30 border-red-700' : 
+                 'bg-green-900/30 border-green-700' : 
                  'bg-gray-900/30 border-gray-700 opacity-60'">
             <div class="flex justify-between items-center mb-2">
-              <h3 class="font-semibold" :class="averageRank >= 3 ? 'text-red-400' : 'text-gray-400'">
+              <h3 class="font-semibold" :class="averageRank >= 3 ? 'text-green-400' : 'text-gray-400'">
                 Enhanced AI
               </h3>
               <span class="text-xs px-2 py-1 rounded" 
-                    :class="averageRank >= 3 ? 'bg-red-600 text-red-100' : 'bg-gray-600 text-gray-300'">
+                    :class="averageRank >= 3 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
                 {{ averageRank >= 3 ? 'UNLOCKED' : 'LOCKED' }}
               </span>
             </div>
-            <div class="text-xs text-gray-400 mb-2">Rank 3+</div>
-            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 3 ? 'text-red-200' : 'text-gray-400'">
+            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 3 ? 'text-green-200' : 'text-gray-400'">
               <li class="flex items-center gap-1">
-                • <span class="font-[xwing]">F</span> when <span class="font-[xwing]">2</span>, may <span class="font-[xwing]">1</span> or <span class="font-[xwing]">3</span> to swerve to get a shot
+                <span class="font-[ships] text-3xl pt-1">F</span> when <span class="font-[xwing]">2</span>, may <span class="font-[xwing]">1</span> or <span class="font-[xwing]">3</span> to swerve to get a shot
               </li>
             </ul>
-            <div v-if="averageRank < 3" class="text-xs text-gray-500 mt-2 italic">
-              Need {{ (3 - averageRank).toFixed(1) }} more avg rank
+            <div v-if="averageRank < 3" class="text-xs text-gray-500 mt-2 italic w-full text-center">
+              Unlocks at Average Rank 3
             </div>
           </div>
           
           <!-- Veteran AI (Rank 4+) -->
           <div class="rounded-lg p-4 border flex flex-col"
                :class="averageRank >= 4 ? 
-                 'bg-orange-900/30 border-orange-700' : 
+                 'bg-green-900/30 border-green-700' : 
                  'bg-gray-900/30 border-gray-700 opacity-60'">
             <div class="flex justify-between items-center mb-2">
-              <h3 class="font-semibold" :class="averageRank >= 4 ? 'text-orange-400' : 'text-gray-400'">
+              <h3 class="font-semibold" :class="averageRank >= 4 ? 'text-green-400' : 'text-gray-400'">
                 Veteran AI
               </h3>
               <span class="text-xs px-2 py-1 rounded" 
-                    :class="averageRank >= 4 ? 'bg-orange-600 text-orange-100' : 'bg-gray-600 text-gray-300'">
+                    :class="averageRank >= 4 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
                 {{ averageRank >= 4 ? 'UNLOCKED' : 'LOCKED' }}
               </span>
             </div>
-            <div class="text-xs text-gray-400 mb-2">Rank 4+</div>
-            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 4 ? 'text-orange-200' : 'text-gray-400'">
+            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 4 ? 'text-green-200' : 'text-gray-400'">
               <li class="flex items-center gap-1">
-                • <span class="font-[xwing]">F</span> gain 1 Hull & Predator
+                <span class="font-[ships] text-3xl pt-1">F</span> gain 1 Hull & Predator
               </li>
             </ul>
-            <div v-if="averageRank < 4" class="text-xs text-gray-500 mt-2 italic">
-              Need {{ (4 - averageRank).toFixed(1) }} more avg rank
+            <div v-if="averageRank < 4" class="text-xs text-gray-500 mt-2 italic w-full text-center">
+              Unlocks at Average Rank 4
             </div>
           </div>
           
           <!-- Ace AI (Rank 5+) -->
           <div class="rounded-lg p-4 border flex flex-col"
                :class="averageRank >= 5 ? 
-                 'bg-purple-900/30 border-purple-700' : 
+                 'bg-green-900/30 border-green-700' : 
                  'bg-gray-900/30 border-gray-700 opacity-60'">
             <div class="flex justify-between items-center mb-2">
-              <h3 class="font-semibold" :class="averageRank >= 5 ? 'text-purple-400' : 'text-gray-400'">
+              <h3 class="font-semibold" :class="averageRank >= 5 ? 'text-green-400' : 'text-gray-400'">
                 Ace AI
               </h3>
               <span class="text-xs px-2 py-1 rounded" 
-                    :class="averageRank >= 5 ? 'bg-purple-600 text-purple-100' : 'bg-gray-600 text-gray-300'">
+                    :class="averageRank >= 5 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
                 {{ averageRank >= 5 ? 'UNLOCKED' : 'LOCKED' }}
               </span>
             </div>
-            <div class="text-xs text-gray-400 mb-2">Rank 5+</div>
-            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 5 ? 'text-purple-200' : 'text-gray-400'">
-              <li>• All Non-Elites gain 1 shield and predator</li>
+            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 5 ? 'text-green-200' : 'text-gray-400'">
+              <li>All Non-Elites gain 1 shield and predator</li>
             </ul>
-            <div v-if="averageRank < 5" class="text-xs text-gray-500 mt-2 italic">
-              Need {{ (5 - averageRank).toFixed(1) }} more avg rank
+            <div v-if="averageRank < 5" class="text-xs text-gray-500 mt-2 italic w-full text-center">
+              Unlocks at Average Rank 5
             </div>
           </div>
 
           <!-- Legendary AI (Rank 6+) -->
           <div class="rounded-lg p-4 border flex flex-col"
                :class="averageRank >= 6 ? 
-                 'bg-yellow-900/30 border-yellow-700' : 
+                 'bg-green-900/30 border-green-700' : 
                  'bg-gray-900/30 border-gray-700 opacity-60'">
             <div class="flex justify-between items-center mb-2">
-              <h3 class="font-semibold" :class="averageRank >= 6 ? 'text-yellow-400' : 'text-gray-400'">
+              <h3 class="font-semibold" :class="averageRank >= 6 ? 'text-green-400' : 'text-gray-400'">
                 Legendary AI
               </h3>
               <span class="text-xs px-2 py-1 rounded" 
-                    :class="averageRank >= 6 ? 'bg-yellow-600 text-yellow-100' : 'bg-gray-600 text-gray-300'">
+                    :class="averageRank >= 6 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
                 {{ averageRank >= 6 ? 'UNLOCKED' : 'LOCKED' }}
               </span>
             </div>
-            <div class="text-xs text-gray-400 mb-2">Rank 6+</div>
-            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 6 ? 'text-yellow-200' : 'text-gray-400'">
-              <li>• Elites gain 1 shield and predator</li>
+            <ul class="text-sm space-y-1 flex-1" :class="averageRank >= 6 ? 'text-green-200' : 'text-gray-400'">
+              <li>Elites gain 1 shield and predator</li>
             </ul>
-            <div v-if="averageRank < 6" class="text-xs text-gray-500 mt-2 italic">
-              Need {{ (6 - averageRank).toFixed(1) }} more avg rank
+            <div v-if="averageRank < 6" class="text-xs text-gray-500 mt-2 italic w-full text-center">
+              Unlocks at Average Rank 6
             </div>
           </div>
         </div>
 
         <!-- Current Group Status -->
-        <div class="mt-6 pt-4 border-t border-neutral-600">
+        <div class="mt-6 pt-4 border-t border-neutral-600 flex-1">
           <div class="flex justify-center items-center gap-6 text-center">
             <div>
               <div class="text-2xl font-bold text-yellow-400">{{ averageRank }}</div>
@@ -224,7 +217,7 @@ const selectedPilots = computed(() => {
 const averageRank = computed(() => {
   if (selectedPilots.value.length === 0) return 0
   const total = selectedPilots.value.reduce((sum, pilot) => sum + pilot.rank, 0)
-  return Math.round((total / selectedPilots.value.length) * 10) / 10
+  return Math.ceil(total / selectedPilots.value.length)
 })
 
 const totalXP = computed(() => {

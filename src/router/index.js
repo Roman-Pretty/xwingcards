@@ -5,6 +5,7 @@ import CreatePilot from '../views/CreatePilot.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Settings from '../views/Settings.vue'
 import GroupOverview from '../views/GroupOverview.vue'
+import PilotOverview from '../views/PilotOverview.vue'
 
 const routes = [
   {
@@ -39,6 +40,19 @@ const routes = [
     path: '/group-overview',
     name: 'GroupOverview',
     component: GroupOverview,
+    beforeEnter: (to, from, next) => {
+      const store = usePilotStore()
+      if (store.pilots.length === 0) {
+        next('/create-pilot')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/pilot-overview',
+    name: 'PilotOverview',
+    component: PilotOverview,
     beforeEnter: (to, from, next) => {
       const store = usePilotStore()
       if (store.pilots.length === 0) {

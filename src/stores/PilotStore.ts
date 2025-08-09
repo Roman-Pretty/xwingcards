@@ -18,6 +18,7 @@ export interface Pilot {
   unlockedSlots?: string[];
   usedFactionSlots?: Record<string, number>;
   cardFactionMappings?: Record<string, string>; // maps cardId to faction it was equipped as
+  shipKills?: Record<string, number>; // tracks kills per ship type (by ship icon)
 }
 
 /**
@@ -803,6 +804,52 @@ export const usePilotStore = defineStore("pilotStore", {
      */
     updateSetting(key: 'enableCustomCards' | 'enableFactionFiltering' | 'enableUniqueCardRestriction', value: boolean) {
       this[key] = value;
+    },
+
+    /**
+     * Increments the kill count for a specific ship type for the current pilot
+     */
+    incrementShipKills(shipIcon: string) {
+      const pilot = this.currentPilot;
+      if (!pilot) return;
+
+      if (!pilot.shipKills) {
+        pilot.shipKills = {};
+      }
+
+      pilot.shipKills[shipIcon] = (pilot.shipKills[shipIcon] || 0) + 1;
+    },
+
+    /**
+     * Decrements the kill count for a specific ship type for the current pilot
+     */
+    decrementShipKills(shipIcon: string) {
+      const pilot = this.currentPilot;
+      if (!pilot) return;
+
+      if (!pilot.shipKills) {
+        pilot.shipKills = {};
+      }
+
+      const currentKills = pilot.shipKills[shipIcon] || 0;
+      if (currentKills > 0) {
+        pilot.shipKills[shipIcon] = currentKills - 1;
+        
+        // Clean up zero values
+        if (pilot.shipKills[shipIcon] === 0) {
+          delete pilot.shipKills[shipIcon];
+        }
+      }
+    },
+
+    /**
+     * Resets all kill counts for the current pilot
+     */
+    resetShipKills() {
+      const pilot = this.currentPilot;
+      if (!pilot) return;
+
+      pilot.shipKills = {};
     },
   },
 
