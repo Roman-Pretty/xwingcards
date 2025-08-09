@@ -195,7 +195,7 @@
     "name": "Rally",
     "type": "Sensitive",
     "cost": 12,
-    "description": "At the start of the End Phase, you may perfrom a purple {coordinate} action, even while stressed.",
+    "description": "At the start of the End Phase, you may perfrom a @{coordinate} action, even while stressed.",
     "image": "https://infinitearenas.com/xw2/images/artwork/pilots/fifthbrother.png",
     "unique": true,
     "faction": "Empire",

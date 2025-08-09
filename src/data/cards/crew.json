@@ -34,7 +34,10 @@
     "id": "bokatankryze-republic",
     "name": "Bo-Katan Kryze",
     "type": "Crew",
-    "faction": ["Republic", "Separatist"],
+    "faction": [
+      "Republic",
+      "Separatist"
+    ],
     "cost": 5,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/bokatankryze.png",
@@ -113,17 +116,20 @@
     "cost": 3,
     "unique": false,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/freelanceslicer.png",
-    "description": "While you defend, before attack dice are rolled, you may spend a lock you have on the attacker to roll 1 attack die. If you do, the attacker gains 1 jam token. Then, on a [Hit] or [Critical Hit] result, gain 1 jam token."
+    "description": "While you defend, before attack dice are rolled, you may spend a lock you have on the attacker to roll 1 attack die. If you do, the attacker gains 1 jam token. Then, on a {hit} or {crit} result, gain 1 jam token."
   },
   {
     "id": "jangofett",
     "name": "Jango Fett",
     "type": "Crew",
-    "faction": ["Scum", "Separatist"],
+    "faction": [
+      "Scum",
+      "Separatist"
+    ],
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/jangofett.png",
-    "description": "While you defend or perform an attack, you may spend your lock on the enemy ship to change 1 of the enemy ship's [Focus] results to a blank result."
+    "description": "While you defend or perform an attack, you may spend your lock on the enemy ship to change 1 of the enemy ship's {focus} results to a blank result."
   },
   {
     "id": "sabinewren",
@@ -177,6 +183,19 @@
     "description": "If a friendly ship at range 0-3 would gain a focus token, it may gain 1 evade token instead."
   },
   {
+    "id": "supercommandos",
+    "name": "Super Commandos",
+    "type": "Crew",
+    "faction": "Neutral",
+    "cost": 10,
+    "image": "https://infinitearenas.com/xw2/images/artwork/remotes/deathwatchcommandos.png",
+    "description": "During the System Phase, you may spend 1 {charge} to drop a Commando Team remote using the [1{s}] template. You can place that device using its front or rear guides. This card's {charge} cannot be recovered.",
+    "energy": 1,
+    "upgradeable": true,
+    "requires": "{crew} {crew}",
+    "double": "true"
+  },
+  {
     "id": "torynfarr",
     "name": "Toryn Farr",
     "type": "Crew",
@@ -214,7 +233,7 @@
     "cost": 5,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/ghostcompany.png",
-    "description": "After you perform a primary attack, if you are focused, you may perform a [Single Turret Arc] attack against a ship you have not attacked this round as a bonus attack."
+    "description": "Adds {rotate}{to}!{focus}<br/>After you perform a primary attack, if you are focused, you may perform a {at} attack against a ship you have not attacked this round as a bonus attack."
   },
   {
     "id": "gnkgonkdroid",
@@ -265,6 +284,7 @@
     "faction": "Neutral",
     "cost": 6,
     "unique": true,
+    "assist": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/k2so.png",
     "description": "Adds: {calculate}{jam}<br/>During the System Phase, you may choose a friendly ship at range 0-3. That ship gains 1 calculate token and 1 stress token."
   },
@@ -276,7 +296,7 @@
     "cost": 7,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/agentterex.png",
-    "description": "Setup: Equip this side faceup and place 3 calculate tokens on this card. At the start of the Engagement Phase, you may choose a friendly ship at range 0-3 and remove 1 calculate token from this card to have that ship gain a matching token. Then, if there are no calculate tokens on this card, flip it.",
+    "description": "Setup: Equip this side faceup and place 3 calculate tokens on this card. At the start of the Engagement Phase, you may choose a friendly ship at range 0-3 and choose to remove 1 calculate token from this card to have that ship gain a matching token. Then, if there are no calculate tokens on this card, flip it.",
     "flippable": true,
     "flippedDescription": "During the System Phase, roll 1 attack die. On a {hit} or {crit} result, gain 1 calculate token. Otherwise gain 1 jam token.<br/>Action: Transfer 1 jam token to a ship at range 0-3.",
     "flippedImage": "https://infinitearenas.com/xw2/images/artwork/upgrades/agentterex-sideb.png",
@@ -309,8 +329,9 @@
     "faction": "Republic",
     "cost": 8,
     "unique": true,
+    "assist": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/kitfisto.png",
-    "description": "Adds purple {evade}<br/>At the start of the Engagement Phase, you may choose 1 friendly ship at range 0-1 and spend 1 [Force]. If you do, it may perform a red [Evade] action.",
+    "description": "Adds @{evade}<br/>At the start of the Engagement Phase, you may choose 1 friendly ship at range 0-1 and spend 1 {forcecharge}. If you do, it may perform a red {evade} action.",
     "force": 1,
     "recurringForce": 1
   },
@@ -362,10 +383,11 @@
     "name": "Plo Koon",
     "type": "Crew",
     "faction": "Republic",
-    "cost": 9,
+    "cost": 8,
+    "assist": true,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/plokoon.png",
-    "description": "Adds purple {reinforce}<br/>At the start of the End Phase, if you are reinforced, you may choose 1 friendly ship at range 0 or in your [Left Arc] or [Right Arc] at range 1. That ship removes 1 deplete or strain token, or repairs 1 faceup damage card.",
+    "description": "Adds @{reinforce}<br/>At the start of the End Phase, if you are reinforced, you may choose 1 friendly ship at range 0 or in your {al} or {ar} at range 1. That ship removes 1 deplete or strain token, or repairs 1 faceup damage card.",
     "force": 1,
     "recurringForce": 1
   },
@@ -383,11 +405,15 @@
     "id": "ahsokatano-crew",
     "name": "Ahsoka Tano",
     "type": "Crew",
-    "faction": ["Republic", "Scum"],
+    "faction": [
+      "Republic",
+      "Scum"
+    ],
     "cost": 10,
     "unique": true,
+    "assist": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/ahsokatano-crew.png",
-    "description": "After you fully execute a maneuver, you may spend 1 [Force] to choose 1 friendly ship in your [Full Rear Arc] at range 1-2. If you do, that ship may perform a red [Focus] action, even while stressed.",
+    "description": "After you fully execute a maneuver, you may spend 1 {forcecharge} to choose 1 friendly ship in your {afr} at range 1-2. If you do, that ship may perform a red {focus} action, even while stressed.",
     "force": 1,
     "recurringForce": 1
   },
@@ -395,11 +421,15 @@
     "id": "savageopress",
     "name": "Savage Opress",
     "type": "Crew",
-    "faction": ["Scum", "Separatist"],
+    "faction": [
+      "Scum",
+      "Separatist"
+    ],
     "cost": 10,
     "unique": true,
+    "assist": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/savageopress.png",
-    "description": "After a friendly ship in your [Front Arc] at range 1-2 gains a stress of strain token, you may spend 1 [Force]. If you do, that ship gains 1 focus token.",
+    "description": "After a friendly ship in your {af} at range 1-2 gains a stress of strain token, you may spend 1 {forcecharge}. If you do, that ship gains 1 focus token.",
     "force": 1,
     "recurringForce": 1
   },
@@ -410,8 +440,9 @@
     "faction": "Republic",
     "cost": 12,
     "unique": true,
+    "assist": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/aaylasecura.png",
-    "description": "While an enemy ship in your [Bullseye Arc] performs an attack, if the defender is friendly and at range 0-2, the defender may change 1 blank result to a [Focus] result.",
+    "description": "While an enemy ship in your {ab} performs an attack, if the defender is friendly and at range 0-2, the defender may change 1 blank result to a {focus} result.",
     "force": 1,
     "recurringForce": 1
   },
@@ -454,7 +485,10 @@
     "id": "000",
     "name": "0-0-0",
     "type": "Crew",
-    "faction": ["Empire", "Scum"],
+    "faction": [
+      "Empire",
+      "Scum"
+    ],
     "cost": 5,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/000.png",
@@ -524,7 +558,7 @@
     "cost": 9,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/seventhsister.png",
-    "description": "If an enemy ship at range 0-1 would gain a stress token, you may spend 1 [Force] to have it gain 1 jam or tractor token instead.",
+    "description": "If an enemy ship at range 0-1 would gain a stress token, you may spend 1 {forcecharge} to have it gain 1 jam or tractor token instead.",
     "force": 1,
     "recurringForce": 1
   },
@@ -536,7 +570,7 @@
     "cost": 15,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/grandinquisitor.png",
-    "description": "After an enemy ship at range 0-2 reveals its dial, you may spend 1 [Force] to perform 1 white action on your action bar, treating that action as red.",
+    "description": "After an enemy ship at range 0-2 reveals its dial, you may spend 1 {forcecharge} to perform 1 white action on your action bar, treating that action as red.",
     "force": 1,
     "recurringForce": 1
   },
@@ -559,7 +593,7 @@
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/pettyofficerthanisson.png",
-    "description": "Adds {calculate}<br/>During the Activation or Engagement Phase, after an enemy ship in your [Front Arc] at range 0-1 gains a red or orange token, if you are not stressed, you may gain 1 stress token. If you do, that ship gains 1 additional token of the type that it gained."
+    "description": "Adds {calculate}<br/>During the Activation or Engagement Phase, after an enemy ship in your {af} at range 0-1 gains a red or orange token, if you are not stressed, you may gain 1 stress token. If you do, that ship gains 1 additional token of the type that it gained."
   },
   {
     "id": "cassianandor",
@@ -576,10 +610,11 @@
     "name": "Kanan Jarrus",
     "type": "Crew",
     "faction": "Neutral",
+    "assist": true,
     "cost": 12,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/kananjarrus.png",
-    "description": "After a friendly ship at range 0-2 fully executes a white maneuver, you may spend 1 [Force] to remove 1 stress token from that ship.",
+    "description": "After a friendly ship at range 0-2 fully executes a white maneuver, you may spend 1 {forcecharge} to remove 1 stress token from that ship.",
     "force": 1,
     "recurringForce": 1
   },
@@ -590,8 +625,9 @@
     "faction": "Republic",
     "cost": 7,
     "unique": true,
+    "assist": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/korkiekryze.png",
-    "description": "After a friendly ship in your [Full Front Arc] at range 1-2 becomes the defender, you may transfer 1 green token to it. \n\nWhile a friendly ship in your [Full Front Arc] at range 1-2 defends, if you obstruct the attack, the defender rolls 1 additional defense die."
+    "description": "After a friendly ship in your {aff} at range 1-2 becomes the defender, you may transfer 1 green token to it. <br/>While a friendly ship in your {aff} at range 1-2 defends, if you obstruct the attack, the defender rolls 1 additional defense die."
   },
   {
     "id": "c3po-republic",
@@ -601,7 +637,7 @@
     "cost": 7,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/c3po-republic.png",
-    "description": "Adds {calculate}<br/>While you defend, if you are calculating, you may reroll 1 defense die. After you perform a [Calculate] action, gain 1 calculate token."
+    "description": "Adds {calculate}<br/>While you defend, if you are calculating, you may reroll 1 defense die. After you perform a {calculate} action, gain 1 calculate token."
   },
   {
     "id": "satinekryze",
@@ -611,7 +647,7 @@
     "cost": 9,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/satinekryze.png",
-    "description": "At the start of the Engagement Phase, you may spend 2 [Charge]. If you do, each friendly ship may choose to gain 1 deplete token and 1 focus tokken or to gain 1 disarm token and 1 evade token.",
+    "description": "At the start of the Engagement Phase, you may spend 2 {charge}. If you do, each friendly ship may choose to gain 1 deplete token and 1 focus tokken or to gain 1 disarm token and 1 evade token.",
     "energy": 2,
     "recurringEnergy": 1
   },
@@ -620,10 +656,11 @@
     "name": "Obi-wan Kenobi",
     "type": "Crew",
     "faction": "Republic",
-    "cost": 11,
+    "cost": 9,
+    "assist": true,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/obiwankenobi.png",
-    "description": "After a friendly ship at range 0-2 spends a focus or evade token, you may spend 1 [Force]. If you do, that ship gains 1 focus token.",
+    "description": "After a friendly ship at range 0-2 spends a focus or evade token, you may spend 1 {forcecharge}. If you do, that ship gains 1 focus token.",
     "force": 1,
     "recurringForce": 1
   },
@@ -635,7 +672,7 @@
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hansolo-crew.png",
-    "description": "After you perform an [Evade] action, gain additional evade tokens equal to the number of enemy ships at range 0-1."
+    "description": "Adds !{evade}<br/>After you perform an {evade} action, gain additional evade tokens equal to the number of enemy ships at range 0-1."
   },
   {
     "id": "chewbacca-crew-swz19",
@@ -645,7 +682,7 @@
     "cost": 4,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/chewbacca-crew-swz19.png",
-    "description": "Setup: Lose 1 [Charge]. After a friendly ship at range 0-3 is dealt 1 damage card, recover 1 [Charge]. While you perform an attack, you may spend 2 [Charge] to change 1 [Focus] result to a [Critical Hit] result.",
+    "description": "Setup: Lose 1 {charge}. After a friendly ship at range 0-3 is dealt 1 damage card, recover 1 {charge}. While you perform an attack, you may spend 2 {charge} to change 1 {focus} result to a {crit} result.",
     "energy": 2
   },
   {
@@ -656,7 +693,7 @@
     "cost": 2,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/larmadacy.png",
-    "description": "While you have 2 or fewer stress tokens, you can perform [Reinforce], [Coordinate], and [Jam] actions, even while stressed. While you perform a white [Reinforce], [Coordinate], or [Jam] action, if you are stressed, treat that action as red."
+    "description": "While you have 2 or fewer stress tokens, you can perform {reinforce}, {coordinate}, and {jam} actions, even while stressed. While you perform a white {reinforce}, {coordinate}, or {jam} action, if you are stressed, treat that action as red."
   },
   {
     "id": "ga97",
@@ -685,6 +722,7 @@
     "type": "Crew",
     "faction": "Resistance",
     "cost": 3,
+    "assist": true,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/pz4co.png",
     "description": "At the end of the Activation Phase, you may choose 1 friendly ship at range 1-2. If you do, transfer 1 calculate token to that ship. If your revealed maneuver is blue, you may transfer 1 focus token instead."
@@ -707,7 +745,7 @@
     "cost": 6,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/c3po-crew.png",
-    "description": "Adds {calculate} !{coordinate}<br/>While you coordinate, you can choose friendly ships beyond range 2 if they have [Calculate] on their action bar. After you perform the [Calculate] or [Coordinate] action, gain 1 calculate token."
+    "description": "Adds {calculate} !{coordinate}<br/>While you coordinate, you can choose friendly ships beyond range 2 if they have {calculate} on their action bar. After you perform the {calculate} or {coordinate} action, gain 1 calculate token."
   },
   {
     "id": "amilynholdo",
@@ -715,6 +753,7 @@
     "type": "Crew",
     "faction": "Resistance",
     "cost": 8,
+    "assist": true,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/amilynholdo.png",
     "description": "Before you engage, you may choose another friendly ship at range 1-2. You may transfer to that ship 1 token of a type that ship does not have. That ship may transfer 1 token to you of a type you do not have."
@@ -787,7 +826,7 @@
     "cost": 2,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/themandalorian.png",
-    "description": "During the End Phase, if you did not defend this round, recover 1 non-recurring [Force], if able."
+    "description": "Adds {reinforce}<br/>During the End Phase, if you did not defend this round, recover 1 non-recurring {forcecharge}, if able."
   },
   {
     "id": "unkarplutt",
@@ -817,7 +856,7 @@
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/cadbane.png",
-    "description": "After you drop or launch a device, you may perform a red [Boost] action."
+    "description": "After you drop or launch a device, you may perform a red {boost} action."
   },
   {
     "id": "chewbacca-crew",
@@ -837,7 +876,7 @@
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/pelimotto.png",
-    "description": "During the System Phase, you may perform an action on 1 of your damage cards, even while stressed. After you repair a faceup Ship damage card, you may roll 1 attack die. On a [Hit] result, repair another faceup Ship damage card. On a [Critical Hit] result, expose 1 damage card."
+    "description": "During the System Phase, you may perform an action on 1 of your damage cards, even while stressed. After you repair a faceup Ship damage card, you may roll 1 attack die. On a {hit} result, repair another faceup Ship damage card. On a {crit} result, expose 1 damage card."
   },
   {
     "id": "kuiil",
@@ -847,7 +886,7 @@
     "cost": 6,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/kuiil.png",
-    "description": "Action: Roll 1 attack die for each damage card you have. For each [Hit] result, repair 1 faceup Ship damage card, then for each [Critical Hit] result, repair 1 facedown damage card. For each blank result, remove 1 orange token, then for each [Focus] result, gain 1 focus token."
+    "description": "Action: Roll 1 attack die for each damage card you have. For each {hit} result, repair 1 faceup Ship damage card, then for each {crit} result, repair 1 facedown damage card. For each blank result, remove 1 orange token, then for each {focus} result, gain 1 focus token."
   },
   {
     "id": "l337",
@@ -881,7 +920,7 @@
     "cost": 5,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/lattsrazzi.png",
-    "description": "While you defend, if the attacker is stressed, you may remove 1 stress from the attacker to change 1 of your blank/[Focus] results to an [Evade] result."
+    "description": "While you defend, if the attacker is stressed, you may remove 1 stress from the attacker to change 1 of your blank/{focus} results to an {evade} result."
   },
   {
     "id": "greefkarga",
@@ -901,7 +940,7 @@
     "cost": 8,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/gamutkey.png",
-    "description": "At the start of the End Phase, you may spend 2 [Charge] to choose a ship at range 0-1 with 1 or more circular tokens. During the End Phase, circular tokens are not removed from that ship.",
+    "description": "At the start of the End Phase, you may spend 2 {charge} to choose a ship at range 0-1 with 1 or more circular tokens. During the End Phase, circular tokens are not removed from that ship.",
     "energy": 2,
     "recurringEnergy": 1
   },
@@ -913,7 +952,7 @@
     "cost": 8,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/rookkast.png",
-    "description": "Adds !{lock}<br/>After you perform a red action, you may gain 1 strain token. While you perform an attack, if you are strained, you may change 1 of your blank or [Focus] results to a result."
+    "description": "Adds !{lock}<br/>After you perform a red action, you may gain 1 strain token. While you perform an attack, if you are strained, you may change 1 of your blank or {focus} results to a result."
   },
   {
     "id": "generalgrievous",
@@ -923,7 +962,7 @@
     "cost": 3,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/generalgrievous.png",
-    "description": "While you defend, after the Neutralize Results step, if there are 2 or more [Hit]/[Critical Hit] results, you may spend 1 [Charge] to cancel 1 [Hit] or [Critical Hit] result. After a friendly ship is destroyed, recover 1 [Charge].",
+    "description": "While you defend, after the Neutralize Results step, if there are 2 or more {hit}/{crit} results, you may spend 1 {charge} to cancel 1 {hit} or {crit} result. After a friendly ship is destroyed, recover 1 {charge}.",
     "energy": 1
   },
   {
@@ -934,7 +973,7 @@
     "cost": 14,
     "unique": true,
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/countdooku.png",
-    "description": "During an attack, before a ship at range 0-2 rolls attack or defense dice, if all of your [Force] are active, you may spend 1 [Force] and name a result. If the roll does not contain the named result, the ship must change 1 die to that result.",
+    "description": "During an attack, before a ship at range 0-2 rolls attack or defense dice, if all of your {forcecharge} are active, you may spend 1 {forcecharge} and name a result. If the roll does not contain the named result, the ship must change 1 die to that result.",
     "force": 1,
     "recurringForce": 1
   }

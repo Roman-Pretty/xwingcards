@@ -56,7 +56,7 @@
     "faction": "Republic",
     "cost": 6,
     "unique": false,
-    "description": "Adds: purple {coordinate}.",
+    "description": "Adds: @{coordinate}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/battlemeditation.png"
   },
   {

@@ -295,13 +295,15 @@ const displayedImage = computed(() => flipped.value && props.flippable ? props.f
 const displayedDescription = computed(() => {
   const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || '';
 
-  // First, replace tokens, handling ! prefix for red color
-  let replaced = raw.replace(/(!)?\{([^}]+)\}/g, (_, exclamation, token) => {
+  // First, replace tokens, handling ! prefix for red color and @ prefix for light pinkish purple color
+  let replaced = raw.replace(/([!@])?\{([^}]+)\}/g, (_, prefix, token) => {
     const letter = tokenToLetterMap[token.toLowerCase()] || '?';
     const span = `<span class="font-[xwing]">${letter}</span>`;
 
-    if (exclamation) {
+    if (prefix === '!') {
       return `<span class="text-red-400">${span}</span>`;
+    } else if (prefix === '@') {
+      return `<span class="text-pink-300">${span}</span>`;
     }
     return span;
   });
