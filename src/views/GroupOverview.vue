@@ -30,8 +30,8 @@
             </div>
 
             <div tabindex="0"
-              class="dropdown-content z-10 h-[40vh] overflow-auto p-2 rounded-box shadow-md text-xs text-white bg-neutral-800 flex flex-col gap-1 w-80">
-              <div class="text-sm font-semibold text-white mb-2 px-2">Include in Average Rank Calculation:</div>
+              class="dropdown-content z-10 h-[40vh] overflow-auto p-2 rounded-box shadow-md text-xs text-white bg-neutral-950 flex flex-col gap-1 w-80">
+              <div class="text-sm cursor-default text-white mb-2 px-2">Include in Average Rank Calculation:</div>
               
               <!-- Pilot selection buttons -->
               <label v-for="pilot in store.pilots" :key="pilot.id" 
@@ -40,16 +40,16 @@
                        :checked="selectedPilotIds.includes(pilot.id)"
                        @change="togglePilot(pilot.id)"
                        class="checkbox checkbox-xs checkbox-primary">
-                <span class="font-[xwing] text-sm -mt-1" :style="{ color: getClassColor(pilot.class) }">
+                <span class="font-[xwing] text-xl -mt-1" :style="{ color: getClassColor(pilot.class) }">
                   {{ getClassIcon(pilot.class) }}
                 </span>
-                <span class="flex-1 truncate">{{ pilot.name }}</span>
-                <span class="text-xs text-gray-400">R{{ pilot.rank }}</span>
+                <span class="flex-1 truncate text-md">{{ pilot.name }}</span>
+                <span class="text-md text-gray-400">Rank {{ pilot.rank }}</span>
               </label>
               
               <!-- Action buttons -->
               <div class="flex justify-between items-center mt-2 pt-2 border-t border-neutral-700 px-2">
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-gray-400 cursor-default">
                   {{ selectedPilots.length }} selected
                 </div>
                 <div class="flex gap-1">

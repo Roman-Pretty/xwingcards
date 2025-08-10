@@ -67,7 +67,7 @@
   {
     "id": "protoncannons",
     "name": "Proton Cannons",
-    "type": "Cannon",
+    "type": ["Cannon", "Cannon"],
     "faction": "Neutral",
     "cost": 5,
     "unique": false,
@@ -77,14 +77,12 @@
     "arc": "}",
     "ranged": "2-3",
     "energy": 2,
-    "recurringEnergy": 1,
-    "requires": "{cannon} {cannon}",
-    "double": true
+    "recurringEnergy": 1
   },
   {
     "id": "syncedlasercannons",
     "name": "Synced Laser Cannons",
-    "type": "Cannon",
+    "type": ["Cannon", "Cannon"],
     "faction": "Neutral",
     "cost": 7,
     "unique": false,
@@ -92,9 +90,7 @@
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/syncedlasercannons.png",
     "damage": 3,
     "arc": "{",
-    "ranged": "2-3",
-    "requires": "{cannon} {cannon}",
-    "double": true
+    "ranged": "2-3"
   },
   {
     "id": "underslungblastercannon",

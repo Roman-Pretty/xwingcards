@@ -30,20 +30,35 @@ export function useCardFilter() {
     [...arr].sort((a, b) => (a.cost ?? 0) - (b.cost ?? 0));
 
   const byType = (type) => {
-    const filtered = cards.filter((c) => c.type.toLowerCase() === type.toLowerCase());
+    const filtered = cards.filter((c) => {
+      // Support both single type (string) and multiple types (array)
+      const cardTypes = Array.isArray(c.type) ? c.type : [c.type];
+      return cardTypes.some(cardType => cardType?.toLowerCase() === type.toLowerCase());
+    });
     return sortByCost(applySettingsFilter(filtered));
   };
 
   const byFaction = (faction) => {
-    const filtered = cards.filter((c) => c.faction.toLowerCase() === faction.toLowerCase());
+    const filtered = cards.filter((c) => {
+      // Support both single faction (string) and multiple factions (array)
+      const cardFactions = Array.isArray(c.faction) ? c.faction : [c.faction];
+      return cardFactions.some(cardFaction => cardFaction?.toLowerCase() === faction.toLowerCase());
+    });
     return sortByCost(applySettingsFilter(filtered));
   };
 
   const byTypeAndFaction = (type, faction) => {
     const filtered = cards.filter(
-      (c) =>
-        c.type.toLowerCase() === type.toLowerCase() &&
-        c.faction.toLowerCase() === faction.toLowerCase()
+      (c) => {
+        // Support both single type (string) and multiple types (array)
+        const cardTypes = Array.isArray(c.type) ? c.type : [c.type];
+        const cardFactions = Array.isArray(c.faction) ? c.faction : [c.faction];
+        
+        const typeMatch = cardTypes.some(cardType => cardType?.toLowerCase() === type.toLowerCase());
+        const factionMatch = cardFactions.some(cardFaction => cardFaction?.toLowerCase() === faction.toLowerCase());
+        
+        return typeMatch && factionMatch;
+      }
     );
     return sortByCost(applySettingsFilter(filtered));
   };

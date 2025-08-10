@@ -540,17 +540,16 @@ const availableSlots = computed(() => {
   const pilot = store.currentPilot;
   if (!pilot || !pendingMobileCard.value) return [];
   
-  console.log('Pending mobile card:', pendingMobileCard.value);
-  
-  const cardType = pendingMobileCard.value.type?.toLowerCase();
-  console.log('Card type:', cardType);
+  // Support both single type (string) and multiple types (array)
+  const cardTypes = Array.isArray(pendingMobileCard.value.type) 
+    ? pendingMobileCard.value.type 
+    : [pendingMobileCard.value.type];
   
   const slots = [];
   
   // Get class data for the pilot
   const classInfo = classData[pilot.class];
   if (!classInfo) {
-    console.log('No class info found for:', pilot.class);
     return [];
   }
   
@@ -559,21 +558,13 @@ const availableSlots = computed(() => {
   const shipSlots = shipEntry?.slots || [];
   const lockedSlots = shipEntry?.lockedSlots || [];
   
-  console.log('Ship slots:', shipSlots);
-  console.log('Selected ship:', pilot.selectedShip);
-  
   // Get rank data
   const rankData = classInfo.ranks.find(r => r.rank === pilot.rank);
   const rankSlots = rankData?.slots || [];
   const optionalSlots = rankData?.optionalslots || [];
   
-  console.log('Rank slots:', rankSlots);
-  console.log('Optional slots:', optionalSlots);
-  
   // Combine all fixed slots (ship + rank)
   const allFixedSlots = [...shipSlots, ...rankSlots];
-  
-  console.log('All fixed slots:', allFixedSlots);
   
   // Create a mapping of card types to slot letters
   const cardTypeToSlotMap = {
@@ -620,20 +611,17 @@ const availableSlots = computed(() => {
     'n': 'Configuration'
   };
   
-  const expectedSlotLetter = cardTypeToSlotMap[cardType];
-  console.log('Expected slot letter for', cardType, ':', expectedSlotLetter);
+  // Get all expected slot letters for this card's types
+  const expectedSlotLetters = cardTypes.map(type => cardTypeToSlotMap[type?.toLowerCase()]).filter(Boolean);
   
   // Check fixed slots
   allFixedSlots.forEach((slot, index) => {
     const slotKey = `fixed-${index}`;
-    console.log('Checking slot:', slot, 'against expected:', expectedSlotLetter);
     
-    // Check if this slot type can accept the card type
-    if (slot === expectedSlotLetter) {
+    // Check if this slot type can accept any of the card types
+    if (expectedSlotLetters.includes(slot)) {
       const currentCard = pilot.slotCards?.[slotKey];
       const currentCardInfo = currentCard ? store.getCardDisplayInfo(currentCard) : null;
-      
-      console.log('Found matching slot:', slotKey, 'occupied by:', currentCardInfo?.name);
       
       slots.push({
         key: slotKey,
@@ -652,11 +640,9 @@ const availableSlots = computed(() => {
         slotGroup.forEach((slot, slotIndex) => {
           const slotKey = `optional-${groupIndex}`;
           
-          if (slot === expectedSlotLetter) {
+          if (expectedSlotLetters.includes(slot)) {
             const currentCard = pilot.slotCards?.[slotKey];
             const currentCardInfo = currentCard ? store.getCardDisplayInfo(currentCard) : null;
-            
-            console.log('Found matching optional slot:', slotKey);
             
             slots.push({
               key: slotKey,
@@ -671,11 +657,9 @@ const availableSlots = computed(() => {
         // Single optional slot
         const slotKey = `optional-${groupIndex}`;
         
-        if (slotGroup === expectedSlotLetter) {
+        if (expectedSlotLetters.includes(slotGroup)) {
           const currentCard = pilot.slotCards?.[slotKey];
           const currentCardInfo = currentCard ? store.getCardDisplayInfo(currentCard) : null;
-          
-          console.log('Found matching single optional slot:', slotKey);
           
           slots.push({
             key: slotKey,
@@ -689,7 +673,6 @@ const availableSlots = computed(() => {
     });
   }
   
-  console.log('Available slots found:', slots);
   return slots;
 });
 
@@ -730,7 +713,10 @@ const forceCount = computed(() => {
 
   return Object.values(pilot.slotCards)
     .map(cardId => store.ownedCards.find(c => c.id === cardId))
-    .filter(card => card?.type?.toLowerCase() === 'force' || card?.type?.toLowerCase() === 'sensitive')
+    .filter(card => {
+      const types = Array.isArray(card?.type) ? card.type : [card?.type];
+      return types.some(type => type?.toLowerCase() === 'force' || type?.toLowerCase() === 'sensitive');
+    })
     .length;
 });
 
@@ -753,6 +739,7 @@ const cardsToShow = computed(() => {
   if (activeTab.value === "hand") {
     const slotCardIds = Object.values(store.currentPilot?.slotCards || {});
     baseCards = slotCardIds
+      .filter(id => id && id !== null && id !== undefined) // Filter out null/undefined values
       .map(id => {
         const cardInfo = store.getCardDisplayInfo(id);
         return cardInfo;
@@ -773,7 +760,11 @@ const cardsToShow = computed(() => {
 
   // Apply type filter
   if (selectedType.value !== 'all') {
-    baseCards = baseCards.filter(card => card.type?.toLowerCase() === selectedType.value);
+    baseCards = baseCards.filter(card => {
+      // Support both single type (string) and multiple types (array)
+      const cardTypes = Array.isArray(card.type) ? card.type : [card.type];
+      return cardTypes.some(type => type?.toLowerCase() === selectedType.value);
+    });
   }
 
   // Apply search filter
@@ -791,7 +782,8 @@ const cardsToShow = computed(() => {
       return (
         card.name?.toLowerCase().includes(query) ||
         card.description?.toLowerCase().includes(query) ||
-        card.type?.toLowerCase().includes(query) ||
+        // Support both single type (string) and multiple types (array)
+        (Array.isArray(card.type) ? card.type : [card.type]).some(type => type?.toLowerCase().includes(query)) ||
         factionMatch
       );
     });
@@ -1058,28 +1050,54 @@ function equipCardToSlot(slotKey) {
     return;
   }
   
-  const success = store.assignCardToSlot(slotKey, pendingMobileCard.value.id);
-  if (success !== false) {
-    pendingMobileCard.value = null;
-    // Switch to loadout tab to show the equipped card
-    mobileActiveTab.value = 'loadout';
+  // Check if this is a multi-slot card
+  if (store.isMultiSlotCard(pendingMobileCard.value.id)) {
+    const success = store.assignMultiSlotCard(pendingMobileCard.value.id);
+    if (success !== false) {
+      pendingMobileCard.value = null;
+      // Switch to loadout tab to show the equipped card
+      mobileActiveTab.value = 'loadout';
+    } else {
+      alert("Could not equip this multi-slot card. Make sure all required slots are available.");
+    }
   } else {
-    alert("Could not equip this card to the selected slot.");
+    const success = store.assignCardToSlot(slotKey, pendingMobileCard.value.id);
+    if (success !== false) {
+      pendingMobileCard.value = null;
+      // Switch to loadout tab to show the equipped card
+      mobileActiveTab.value = 'loadout';
+    } else {
+      alert("Could not equip this card to the selected slot.");
+    }
   }
 }
 
 function equipCardWithSpecificFaction(slotKey, faction) {
   if (!pendingMobileCard.value) return;
   
-  const success = store.assignCardToSlot(slotKey, pendingMobileCard.value.id);
-  if (success !== false) {
-    // Store the faction choice
-    store.equipCardWithFaction(pendingMobileCard.value.id, faction);
-    pendingMobileCard.value = null;
-    // Switch to loadout tab to show the equipped card
-    mobileActiveTab.value = 'loadout';
+  // Check if this is a multi-slot card
+  if (store.isMultiSlotCard(pendingMobileCard.value.id)) {
+    const success = store.assignMultiSlotCard(pendingMobileCard.value.id);
+    if (success !== false) {
+      // Store the faction choice
+      store.equipCardWithFaction(pendingMobileCard.value.id, faction);
+      pendingMobileCard.value = null;
+      // Switch to loadout tab to show the equipped card
+      mobileActiveTab.value = 'loadout';
+    } else {
+      alert("Could not equip this multi-slot card. Make sure all required slots are available.");
+    }
   } else {
-    alert("Could not equip this card to the selected slot.");
+    const success = store.assignCardToSlot(slotKey, pendingMobileCard.value.id);
+    if (success !== false) {
+      // Store the faction choice
+      store.equipCardWithFaction(pendingMobileCard.value.id, faction);
+      pendingMobileCard.value = null;
+      // Switch to loadout tab to show the equipped card
+      mobileActiveTab.value = 'loadout';
+    } else {
+      alert("Could not equip this card to the selected slot.");
+    }
   }
 }
 

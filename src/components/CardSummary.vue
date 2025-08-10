@@ -143,7 +143,7 @@ import { tokenToLetterMap } from '../utils/mappings'
 const props = defineProps({
     id: String,
     name: String,
-    type: String,
+    type: [String, Array],
     faction: [String, Array],
     cost: [Number, String],
     description: String,
@@ -162,7 +162,7 @@ const props = defineProps({
     unique: Boolean,
     flippable: Boolean,
     showXP: Boolean,
-    damage: String,
+    damage: [Number, String],
     ranged: String,
     arc: String,
     isMissile: Boolean,
@@ -238,7 +238,14 @@ function getFactionIcon(faction) {
 function getFactionBookmarkClass(faction) {
     return `faction-bookmark-${faction}`
 }
-const typeLetter = computed(() => tokenToLetterMap[(props.type || '').toLowerCase()] || '?')
+const typeLetter = computed(() => {
+    const type = props.type;
+    if (Array.isArray(type)) {
+        // For multi-slot cards, use the first type for the display letter
+        return tokenToLetterMap[(type[0] || '').toLowerCase()] || '?';
+    }
+    return tokenToLetterMap[(type || '').toLowerCase()] || '?';
+})
 const energyLetter = 'g'
 const forceLetter = 'h'
 const recurringSymbols = ['', '`', '_', '', '']

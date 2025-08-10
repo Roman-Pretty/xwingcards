@@ -1,8 +1,8 @@
 <!-- src/components/Slots.vue -->
 <template>
-  <div class="flex flex-row gap-4 flex-wrap mb-4 min-h-[20vh]">
+  <div :class="['flex flex-row gap-4 flex-wrap mb-4 min-h-[20vh]', $attrs.class]" :key="slotUpdateKey">
     <!-- Fixed slots -->
-    <Slot v-for="slot in allFixedSlots" :key="slot.key" :slot-key="slot.key" :options="[slot.token]"
+    <Slot v-for="slot in allFixedSlots" :key="`${slot.key}-${slotUpdateKey}`" :slot-key="slot.key" :options="[slot.token]"
       :unlocked="slot.unlocked" :xpCost="slot.xpCost" :isLocked="slot.isLocked"
       :card="currentPilot?.slotCards[slot.key] || null" 
       :currently-dragged-card="props.currentlyDraggedCard"
@@ -11,7 +11,7 @@
 
 
     <!-- Optional slots -->
-    <Slot v-for="(opts, index) in optionalSlots" :key="'optional-' + index" :slot-key="'optional-' + index"
+    <Slot v-for="(opts, index) in optionalSlots" :key="`optional-${index}-${slotUpdateKey}`" :slot-key="'optional-' + index"
       :options="opts" :unlocked="true" :card="currentPilot?.slotCards['optional-' + index] || null"
       :currently-dragged-card="props.currentlyDraggedCard"
       @card-drop="handleCardDrop('optional-' + index, $event)"
@@ -35,17 +35,33 @@
     @confirm="confirmFactionSelection"
     @cancel="cancelFactionSelection"
   />
+
+  <!-- Slot Combination Selection Modal -->
+  <SlotCombinationModal
+    ref="slotCombinationModal"
+    :card-name="pendingSlotCard?.name || ''"
+    :card-id="pendingSlotCard?.cardId || ''"
+    :combinations="pendingSlotCard?.combinations || []"
+    @confirm="confirmSlotCombination"
+    @cancel="cancelSlotCombination"
+  />
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, nextTick, watch } from "vue";
 import { usePilotStore } from "../stores/PilotStore";
 import Slot from "./Slot.vue";
 import SlotPurchaseModal from "./ui/SlotPurchaseModal.vue";
 import FactionSelectionModal from "./ui/FactionSelectionModal.vue";
+import SlotCombinationModal from "./ui/SlotCombinationModal.vue";
 import { letterToTokenMap } from "../utils/mappings";
 import classData from "../data/classes.json";
 import cards from "../data/cards.js";
+
+// Disable automatic attribute inheritance since we have multiple root elements
+defineOptions({
+  inheritAttrs: false
+});
 
 const props = defineProps({
   currentlyDraggedCard: {
@@ -63,10 +79,20 @@ const store = usePilotStore();
 const selectedSlotKey = ref(null)
 const selectedSlotXP = ref(0)
 const pendingFactionCard = ref(null)
+const pendingSlotCard = ref(null)
+
+// Force reactivity updates
+const slotUpdateKey = ref(0);
 
 // Component refs
 const slotPurchaseModal = ref(null);
 const factionSelectionModal = ref(null);
+const slotCombinationModal = ref(null);
+
+// Watch for slot changes to force re-render
+watch(() => store.currentPilot?.slotCards, () => {
+  slotUpdateKey.value++;
+}, { deep: true });
 
 function openPurchaseModal(slotKey, xp) {
   selectedSlotKey.value = slotKey
@@ -102,10 +128,43 @@ function cancelSlotPurchase() {
 function confirmFactionSelection(faction) {
   if (!pendingFactionCard.value) return;
   
-  const { slotKey, cardId } = pendingFactionCard.value;
-  const success = store.assignCardToSlot(slotKey, cardId);
-  if (success !== false) {
-    store.equipCardWithFaction(cardId, faction);
+  const { slotKey, slotKeys, cardId } = pendingFactionCard.value;
+  
+  if (store.isMultiSlotCard(cardId)) {
+    // Use specific slot keys if provided (from slot combination selection)
+    if (slotKeys && slotKeys.length > 0) {
+      const success = store.assignMultiSlotCardToSlots(cardId, slotKeys);
+      if (success !== false) {
+        store.equipCardWithFaction(cardId, faction);
+        // Force reactivity update
+        nextTick(() => {
+          slotUpdateKey.value++;
+        });
+      } else {
+        alert("Could not equip this multi-slot card to the selected slots.");
+      }
+    } else {
+      // Fall back to auto-assignment
+      const success = store.assignMultiSlotCard(cardId);
+      if (success !== false) {
+        store.equipCardWithFaction(cardId, faction);
+        // Force reactivity update
+        nextTick(() => {
+          slotUpdateKey.value++;
+        });
+      } else {
+        alert("Could not equip this multi-slot card. Make sure all required slots are available.");
+      }
+    }
+  } else {
+    const success = store.assignCardToSlot(slotKey, cardId);
+    if (success !== false) {
+      store.equipCardWithFaction(cardId, faction);
+      // Force reactivity update
+      nextTick(() => {
+        slotUpdateKey.value++;
+      });
+    }
   }
   
   pendingFactionCard.value = null;
@@ -113,6 +172,26 @@ function confirmFactionSelection(faction) {
 
 function cancelFactionSelection() {
   pendingFactionCard.value = null;
+}
+
+function confirmSlotCombination(combinationIndex) {
+  if (!pendingSlotCard.value) return;
+  
+  const { cardId, combinations } = pendingSlotCard.value;
+  const selectedCombination = combinations[combinationIndex];
+  
+  if (selectedCombination) {
+    handleMultiSlotCardEquip(cardId, selectedCombination.slotKeys);
+  }
+  
+  // Clear pending state and close modal
+  pendingSlotCard.value = null;
+  slotCombinationModal.value?.close();
+}
+
+function cancelSlotCombination() {
+  pendingSlotCard.value = null;
+  slotCombinationModal.value?.close();
 }
 
 const currentPilot = computed(() => store.currentPilot);
@@ -170,7 +249,7 @@ const fixedSlots = computed(() => {
     });
   });
 
-  // Add locked slots with purchase cost
+  // Add locked slots with purchase cost - these should NOT be mixed with fixed slots
   locked.forEach((lockedSlot, index) => {
     const key = `${ship}-${index}`;
     const token = capitalize(letterToTokenMap[lockedSlot.slot] ?? lockedSlot.slot);
@@ -228,10 +307,40 @@ function handleCardDrop(slotKey, cardId) {
     return;
   }
 
+  // Check if this is a multi-slot card
+  if (store.isMultiSlotCard(cardId)) {
+    const combinations = store.getMultiSlotCombinations(cardId, slotKey);
+    
+    if (combinations.length === 0) {
+      alert("Cannot equip this multi-slot card: No available slot combinations.");
+      return;
+    } else if (combinations.length === 1) {
+      // Only one combination available, equip directly
+      handleMultiSlotCardEquip(cardId, combinations[0].slotKeys);
+    } else {
+      // Multiple combinations available, show selection modal
+      const card = cards.find(c => c.id === cardId);
+      
+      // Clear previous state first
+      pendingSlotCard.value = null;
+      
+      // Use nextTick to ensure reactivity
+      nextTick(() => {
+        pendingSlotCard.value = {
+          name: card?.name || 'Unknown Card',
+          cardId: cardId,
+          combinations: combinations
+        };
+        slotCombinationModal.value?.open();
+      });
+    }
+    return;
+  }
+
+  // For regular cards, continue with existing logic
   // Check if card requires faction selection
   if (store.requiresFactionSelection(cardId)) {
     const availableFactions = store.getAvailableFactionsForCard(cardId);
-    console.log('Slots - availableFactions for', cardId, ':', availableFactions);
     
     if (availableFactions.length === 0) {
       alert("Cannot equip this card: No available faction slots.");
@@ -246,11 +355,6 @@ function handleCardDrop(slotKey, cardId) {
     } else {
       // Multiple factions available, show selection modal
       const card = cards.find(c => c.id === cardId);
-      console.log('Setting up pendingFactionCard:', {
-        name: card?.name,
-        cardId: cardId,
-        factions: availableFactions
-      });
       pendingFactionCard.value = {
         name: card?.name || 'Unknown Card',
         factions: availableFactions,
@@ -264,6 +368,52 @@ function handleCardDrop(slotKey, cardId) {
 
   // Regular card equipping (no faction selection needed)
   store.assignCardToSlot(slotKey, cardId);
+}
+
+// Helper function to handle multi-slot card equipping
+function handleMultiSlotCardEquip(cardId, slotKeys) {
+  // Check if card requires faction selection
+  if (store.requiresFactionSelection(cardId)) {
+    const availableFactions = store.getAvailableFactionsForCard(cardId);
+    
+    if (availableFactions.length === 0) {
+      alert("Cannot equip this card: No available faction slots.");
+      return;
+    } else if (availableFactions.length === 1) {
+      // Only one faction available, equip directly
+      const success = store.assignMultiSlotCardToSlots(cardId, slotKeys);
+      if (success !== false) {
+        store.equipCardWithFaction(cardId, availableFactions[0]);
+        // Force reactivity update
+        nextTick(() => {
+          slotUpdateKey.value++;
+        });
+      } else {
+        alert("Could not equip this multi-slot card to the selected slots.");
+      }
+    } else {
+      // Multiple factions available, store slot selection for after faction choice
+      const card = cards.find(c => c.id === cardId);
+      pendingFactionCard.value = {
+        name: card?.name || 'Unknown Card',
+        factions: availableFactions,
+        slotKeys: slotKeys, // Store the slot keys for multi-slot cards
+        cardId: cardId
+      };
+      factionSelectionModal.value?.open();
+    }
+  } else {
+    // No faction selection needed, equip directly
+    const success = store.assignMultiSlotCardToSlots(cardId, slotKeys);
+    if (success === false) {
+      alert("Could not equip this multi-slot card to the selected slots.");
+    } else {
+      // Force reactivity update
+      nextTick(() => {
+        slotUpdateKey.value++;
+      });
+    }
+  }
 }
 
 // Handle slot type switch event emitted from Slot component

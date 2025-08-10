@@ -116,10 +116,15 @@ const store = usePilotStore();
 const canAcceptDrop = computed(() => {
   if (!props.currentlyDraggedCard || !props.unlocked) return false;
   
+  // Handle both single type (string) and multiple types (array)
+  const cardTypes = Array.isArray(props.currentlyDraggedCard.type) 
+    ? props.currentlyDraggedCard.type 
+    : [props.currentlyDraggedCard.type];
+  
   // Check if this is an "Any" slot - it can accept any card type
   const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
     props.options.some(opt =>
-      opt.toLowerCase() === props.currentlyDraggedCard.type.toLowerCase()
+      cardTypes.some(cardType => opt.toLowerCase() === cardType.toLowerCase())
     );
   
   if (!typeMatches) return false;
@@ -135,10 +140,15 @@ const canAcceptDrop = computed(() => {
 const isBlockedByFactionLimit = computed(() => {
   if (!props.currentlyDraggedCard || !props.unlocked) return false;
   
+  // Handle both single type (string) and multiple types (array)
+  const cardTypes = Array.isArray(props.currentlyDraggedCard.type) 
+    ? props.currentlyDraggedCard.type 
+    : [props.currentlyDraggedCard.type];
+  
   // Check if type matches but faction limit prevents drop
   const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
     props.options.some(opt =>
-      opt.toLowerCase() === props.currentlyDraggedCard.type.toLowerCase()
+      cardTypes.some(cardType => opt.toLowerCase() === cardType.toLowerCase())
     );
   
   if (!typeMatches) return false;
@@ -154,10 +164,15 @@ const isBlockedByFactionLimit = computed(() => {
 const isBlockedByInitiativeRequirement = computed(() => {
   if (!props.currentlyDraggedCard || !props.unlocked) return false;
   
+  // Handle both single type (string) and multiple types (array)
+  const cardTypes = Array.isArray(props.currentlyDraggedCard.type) 
+    ? props.currentlyDraggedCard.type 
+    : [props.currentlyDraggedCard.type];
+  
   // Check if type matches but initiative requirement prevents drop
   const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
     props.options.some(opt =>
-      opt.toLowerCase() === props.currentlyDraggedCard.type.toLowerCase()
+      cardTypes.some(cardType => opt.toLowerCase() === cardType.toLowerCase())
     );
   
   if (!typeMatches) return false;

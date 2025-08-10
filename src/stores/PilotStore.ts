@@ -130,6 +130,8 @@ export const usePilotStore = defineStore("pilotStore", {
      * Gets display information for a card including upgrade modifications
      */
     getCardDisplayInfo: (state) => (cardId) => {
+      if (!cardId || cardId === null || cardId === undefined) return null;
+      
       const card = cards.find((c) => c.id === cardId) as any;
       const pilot = state.pilots.find((p) => p.id === state.currentPilotId);
       
@@ -560,6 +562,30 @@ export const usePilotStore = defineStore("pilotStore", {
     },
 
     /**
+     * Checks if a card occupies multiple slot types
+     */
+    isMultiSlotCard(cardId: string) {
+      const card = cards.find((c) => c.id === cardId) as any;
+      return card && Array.isArray(card.type) && card.type.length > 1;
+    },
+
+    /**
+     * Gets all slot keys occupied by a multi-slot card
+     */
+    getOccupiedSlotKeys(cardId: string): string[] {
+      const pilot = this.currentPilot;
+      if (!pilot) return [];
+      
+      const occupiedKeys: string[] = [];
+      for (const [slotKey, occupiedCardId] of Object.entries(pilot.slotCards)) {
+        if (occupiedCardId === cardId) {
+          occupiedKeys.push(slotKey);
+        }
+      }
+      return occupiedKeys;
+    },
+
+    /**
      * Assigns a card to a specific slot with validation checks
      */
     assignCardToSlot(slotKey: string, cardId: string) {
@@ -601,6 +627,575 @@ export const usePilotStore = defineStore("pilotStore", {
     },
 
     /**
+     * Gets all possible slot combinations for a multi-slot card
+     */
+    getMultiSlotCombinations(cardId: string, targetSlot?: string): { combination: string[], slotKeys: string[] }[] {
+      const pilot = this.currentPilot;
+      if (!pilot) return [];
+
+      const card = cards.find((c) => c.id === cardId) as any;
+      if (!card || !Array.isArray(card.type) || card.type.length === 0) return [];
+
+      // Get class and ship data
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return [];
+
+      const shipEntry = classInfo.ships.find(s => s.ship === pilot.selectedShip);
+      const shipSlots = shipEntry?.slots || [];
+      
+      // Get cumulative rank slots (all ranks up to current rank, matching UI logic)
+      const unlockedRanks = classInfo.ranks.filter(r => r.rank <= pilot.rank);
+      const rankSlots: string[] = [];
+      const optionalSlots: any[] = [];
+      
+      unlockedRanks.forEach(r => {
+        if (r.slots) rankSlots.push(...r.slots);
+        if (r.optionalslots) {
+          if (Array.isArray(r.optionalslots[0])) {
+            optionalSlots.push(...r.optionalslots);
+          } else {
+            optionalSlots.push(r.optionalslots);
+          }
+        }
+      });
+
+      // Add ship's optional slots
+      const shipOptionalSlots = shipEntry?.optionalSlots || [];
+      if (shipOptionalSlots.length > 0) {
+        optionalSlots.push(...shipOptionalSlots);
+      }
+
+      // Create a map of slot types for available slots
+      const slotsByType = new Map();
+      
+      // Add fixed slots
+      const allFixedSlots = [...shipSlots, ...rankSlots];
+      
+      allFixedSlots.forEach((slotType, index) => {
+        const slotKey = `fixed-${index}`;
+        
+        if (pilot.slotCards[slotKey]) return; // Skip occupied slots
+        
+        // Convert slot letter to type name
+        const typeName = this.getTypeNameFromLetter(slotType);
+        
+        if (typeName) {
+          // Convert to proper case to match card.type format
+          const properCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+          
+          if (!slotsByType.has(properCaseTypeName)) {
+            slotsByType.set(properCaseTypeName, []);
+          }
+          slotsByType.get(properCaseTypeName).push(slotKey);
+          
+          // If it's an "Any" slot, add it to all possible types
+          if (slotType === ')') {
+            for (const cardType of card.type) {
+              if (!slotsByType.has(cardType)) {
+                slotsByType.set(cardType, []);
+              }
+              if (!slotsByType.get(cardType).includes(slotKey)) {
+                slotsByType.get(cardType).push(slotKey);
+              }
+            }
+          }
+        }
+      });
+
+      // Add locked slots
+      const lockedSlots = shipEntry?.lockedSlots || [];
+      lockedSlots.forEach((lockedSlot, index) => {
+        const slotKey = `${pilot.selectedShip}-${index}`;
+        if (pilot.slotCards[slotKey]) return; // Skip occupied slots
+        
+        const typeName = this.getTypeNameFromLetter(lockedSlot.slot);
+        if (typeName) {
+          // Convert to proper case to match card.type format
+          const properCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+          
+          if (!slotsByType.has(properCaseTypeName)) {
+            slotsByType.set(properCaseTypeName, []);
+          }
+          slotsByType.get(properCaseTypeName).push(slotKey);
+          
+          // If it's an "Any" slot, add it to all possible types
+          if (lockedSlot.slot === ')') {
+            for (const cardType of card.type) {
+              if (!slotsByType.has(cardType)) {
+                slotsByType.set(cardType, []);
+              }
+              if (!slotsByType.get(cardType).includes(slotKey)) {
+                slotsByType.get(cardType).push(slotKey);
+              }
+            }
+          }
+        }
+      });
+
+      // Add optional slots
+      optionalSlots.forEach((slotGroup, index) => {
+        const slotKey = `optional-${index}`;
+        if (pilot.slotCards[slotKey]) return; // Skip occupied slots
+        
+        const slotTypes = Array.isArray(slotGroup) ? slotGroup : [slotGroup];
+        for (const slotType of slotTypes) {
+          const typeName = this.getTypeNameFromLetter(slotType);
+          if (typeName) {
+            // Convert to proper case to match card.type format
+            const properCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+            
+            if (!slotsByType.has(properCaseTypeName)) {
+              slotsByType.set(properCaseTypeName, []);
+            }
+            slotsByType.get(properCaseTypeName).push(slotKey);
+          }
+        }
+      });
+
+      if (targetSlot) {
+        // Check if target slot can accept any of the card types
+        let acceptedType = null;
+        
+        for (const cardType of card.type) {
+          const slotLetter = this.getSlotLetterForType(cardType);
+          
+          if (this.canSlotAcceptType(targetSlot, slotLetter)) {
+            acceptedType = cardType;
+            break;
+          }
+        }
+        
+        if (!acceptedType) {
+          return [];
+        }
+
+        // Generate combinations that include the target slot
+        const combinations: { combination: string[], slotKeys: string[] }[] = [];
+        
+        // Count how many slots of each type we need
+        const typeCounts = new Map();
+        for (const type of card.type) {
+          typeCounts.set(type, (typeCounts.get(type) || 0) + 1);
+        }
+
+        // Generate all possible combinations
+        const generateCombinations = (types: string[]): string[][] => {
+          if (types.length === 0) return [[]];
+          
+          const [firstType, ...restTypes] = types;
+          const availableSlots = slotsByType.get(firstType) || [];
+          const restCombinations = generateCombinations(restTypes);
+          
+          const results: string[][] = [];
+          for (const slot of availableSlots) {
+            for (const restCombo of restCombinations) {
+              if (!restCombo.includes(slot)) {
+                results.push([slot, ...restCombo]);
+              }
+            }
+          }
+          
+          return results;
+        };
+
+        const allCombinations = generateCombinations(card.type);
+        
+        // Filter combinations that include the target slot
+        const filteredCombinations = allCombinations.filter(combo => combo.includes(targetSlot));
+        
+        // Deduplicate combinations by sorting slot keys to remove order variations
+        const seenCombinations = new Set<string>();
+        
+        for (const slotKeys of filteredCombinations) {
+          const sortedSlotKeys = [...slotKeys].sort();
+          const combinationKey = sortedSlotKeys.join('|');
+          
+          if (!seenCombinations.has(combinationKey)) {
+            seenCombinations.add(combinationKey);
+            combinations.push({
+              combination: card.type,
+              slotKeys: sortedSlotKeys
+            });
+          }
+        }
+
+        return combinations;
+      }
+
+      // No target slot specified, return all possible combinations
+      const combinations: { combination: string[], slotKeys: string[] }[] = [];
+      
+      // Count required slots by type 
+      const typeCounts = new Map();
+      for (const type of card.type) {
+        typeCounts.set(type, (typeCounts.get(type) || 0) + 1);
+      }
+
+      // Generate combinations for each required type
+      const generateCombinations = (types: string[]): string[][] => {
+        if (types.length === 0) return [[]];
+        
+        const [firstType, ...restTypes] = types;
+        const availableSlots = slotsByType.get(firstType) || [];
+        const restCombinations = generateCombinations(restTypes);
+        
+        const results: string[][] = [];
+        for (const slot of availableSlots) {
+          for (const restCombo of restCombinations) {
+            if (!restCombo.includes(slot)) {
+              results.push([slot, ...restCombo]);
+            }
+          }
+        }
+        
+        return results;
+      };
+
+      const allCombinations = generateCombinations(card.type);
+      
+      // Deduplicate combinations by sorting slot keys to remove order variations
+      const seenCombinations = new Set<string>();
+      
+      for (const slotKeys of allCombinations) {
+        const sortedSlotKeys = [...slotKeys].sort();
+        const combinationKey = sortedSlotKeys.join('|');
+        
+        if (!seenCombinations.has(combinationKey)) {
+          seenCombinations.add(combinationKey);
+          combinations.push({
+            combination: card.type,
+            slotKeys: sortedSlotKeys
+          });
+        }
+      }
+
+      return combinations;
+    },
+
+    /**
+     * Helper method to get slot letter for a card type
+     */
+    getSlotLetterForType(cardType: string): string | null {
+      const typeMapping = {
+        'ace': 'x',
+        'talent': 'E', 
+        'astromech': 'A',
+        'modification': 'm',
+        'missile': 'M',
+        'title': 't',
+        'torpedo': 'P',
+        'cannon': 'C',
+        'crew': 'W',
+        'force': 'F',
+        'illicit': 'I',
+        'tech': 'X',
+        'sensitive': 'Î',
+        'tactical': 'Z',
+        'turret': 'U',
+        'payload': 'B',
+        'sensor': 'S',
+        'configuration': 'n'
+      };
+      
+      return typeMapping[cardType.toLowerCase()] || null;
+    },
+
+    /**
+     * Helper method to get type name from slot letter
+     */
+    getTypeNameFromLetter(slotLetter: string): string | null {
+      const letterMapping = {
+        'x': 'ace',
+        'E': 'talent',
+        'A': 'astromech',
+        'm': 'modification',
+        'M': 'missile',
+        't': 'title',
+        'P': 'torpedo',
+        'C': 'cannon',
+        'W': 'crew',
+        'F': 'force',
+        'I': 'illicit',
+        'X': 'tech',
+        'Î': 'sensitive',
+        'Z': 'tactical',
+        'U': 'turret',
+        'B': 'payload',
+        'S': 'sensor',
+        'n': 'configuration',
+        ')': 'any'  // Special "Any" slot type
+      };
+      
+      return letterMapping[slotLetter] || null;
+    },
+
+    /**
+     * Helper method to check if a slot can accept a specific type letter
+     */
+    canSlotAcceptType(slotKey: string, typeLetter: string): boolean {
+      const pilot = this.currentPilot;
+      if (!pilot) return false;
+
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return false;
+
+      const shipEntry = classInfo.ships.find(s => s.ship === pilot.selectedShip);
+      const shipSlots = shipEntry?.slots || [];
+      
+      // Get cumulative rank slots (all ranks up to current rank, matching UI logic)
+      const unlockedRanks = classInfo.ranks.filter(r => r.rank <= pilot.rank);
+      const rankSlots: string[] = [];
+      const optionalSlots: any[] = [];
+      
+      unlockedRanks.forEach(r => {
+        if (r.slots) rankSlots.push(...r.slots);
+        if (r.optionalslots) {
+          if (Array.isArray(r.optionalslots[0])) {
+            optionalSlots.push(...r.optionalslots);
+          } else {
+            optionalSlots.push(r.optionalslots);
+          }
+        }
+      });
+
+      // Add ship's optional slots
+      const shipOptionalSlots = shipEntry?.optionalSlots || [];
+      if (shipOptionalSlots.length > 0) {
+        optionalSlots.push(...shipOptionalSlots);
+      }
+
+      // Check if this is a locked slot (uses ship-index format)
+      if (slotKey.includes('-') && !slotKey.startsWith('fixed-') && !slotKey.startsWith('optional-')) {
+        // For locked slots, we need to check if the slot type matches
+        const lockedSlots = shipEntry?.lockedSlots || [];
+        
+        const [shipName, indexStr] = slotKey.split('-');
+        const index = parseInt(indexStr);
+        
+        if (lockedSlots[index]) {
+          const lockedSlotType = lockedSlots[index].slot;
+          
+          // "Any" slot type (')') accepts all card types
+          if (lockedSlotType === ')') {
+            return true;
+          }
+          
+          return lockedSlotType === typeLetter;
+        }
+        return false;
+      }
+
+      // Check fixed slots
+      if (slotKey.startsWith('fixed-')) {
+        const index = parseInt(slotKey.split('-')[1]);
+        const allFixedSlots = [...shipSlots, ...rankSlots];
+        
+        // Check if index is out of bounds
+        if (index >= allFixedSlots.length) {
+          return false;
+        }
+        
+        const slotType = allFixedSlots[index];
+        // "Any" slot type (')') accepts all card types
+        if (slotType === ')') {
+          return true;
+        }
+        
+        return slotType === typeLetter;
+      }
+
+      // Check optional slots
+      if (slotKey.startsWith('optional-')) {
+        const index = parseInt(slotKey.split('-')[1]);
+        if (Array.isArray(optionalSlots) && optionalSlots[index]) {
+          const slotGroup = optionalSlots[index];
+          if (Array.isArray(slotGroup)) {
+            // Check if the slot group includes the type letter or "Any" slot
+            return slotGroup.includes(typeLetter) || slotGroup.includes(')');
+          } else {
+            // Single slot type - check direct match or "Any" slot
+            return slotGroup === typeLetter || slotGroup === ')';
+          }
+        }
+      }
+
+      return false;
+    },
+
+    /**
+     * Assigns a multi-slot card using specific slot keys
+     */
+    assignMultiSlotCardToSlots(cardId: string, slotKeys: string[]) {
+      const pilot = this.currentPilot;
+      if (!pilot) return false;
+
+      const card = cards.find((c) => c.id === cardId) as any;
+      if (!card || !Array.isArray(card.type) || card.type.length === 0) return false;
+
+      if (!this.canEquipFactionCard(cardId)) {
+        return false;
+      }
+
+      if (!this.canEquipInitiativeCard(cardId)) {
+        return false;
+      }
+
+      // Check all slots are available
+      for (const slotKey of slotKeys) {
+        if (pilot.slotCards[slotKey]) {
+          return false;
+        }
+      }
+
+      // Remove from selected cards and assign to all specified slots
+      pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
+
+      slotKeys.forEach(slotKey => {
+        pilot.slotCards = {
+          ...pilot.slotCards,
+          [slotKey]: cardId,
+        };
+      });
+
+      // Handle free slots if any
+      if (card?.freeSlots?.length) {
+        card.freeSlots.forEach((slot, index) => {
+          const key = `free-${cardId}-${index}`;
+          pilot.slots.push(key);
+          if (!pilot.slotCards[key]) {
+            pilot.slotCards[key] = null;
+          }
+        });
+      }
+
+      this.updateUsedFactionSlots();
+      return true;
+    },
+
+    /**
+     * Assigns a multi-slot card to multiple appropriate slots
+     */
+    assignMultiSlotCard(cardId: string) {
+      const pilot = this.currentPilot;
+      if (!pilot) return false;
+
+      const card = cards.find((c) => c.id === cardId) as any;
+      if (!card || !Array.isArray(card.type) || card.type.length === 0) return false;
+
+      if (!this.canEquipFactionCard(cardId)) {
+        return false;
+      }
+
+      if (!this.canEquipInitiativeCard(cardId)) {
+        return false;
+      }
+
+      // Get class and ship data
+      const classInfo = classData[pilot.class];
+      if (!classInfo) return false;
+
+      const shipEntry = classInfo.ships.find(s => s.ship === pilot.selectedShip);
+      const shipSlots = shipEntry?.slots || [];
+      
+      const rankData = classInfo.ranks.find(r => r.rank === pilot.rank);
+      const rankSlots = rankData?.slots || [];
+      const optionalSlots = rankData?.optionalslots || [];
+
+      // Combine all available slots
+      const allFixedSlots = [...shipSlots, ...rankSlots];
+
+      // Find available slots for each type the card can occupy
+      const slotsToAssign: string[] = [];
+      const slotsAssignedByType = new Map<string, number>(); // Track how many slots assigned per type
+
+      // Check each card type
+      for (const cardType of card.type) {
+        if (!cardType || typeof cardType !== 'string') continue;
+        const slotLetter = this.getSlotLetterForType(cardType);
+        if (!slotLetter) continue;
+
+        // Find an available slot of this type
+        let slotAssigned = false;
+
+        // Check fixed slots first
+        for (let i = 0; i < allFixedSlots.length && !slotAssigned; i++) {
+          const slot = allFixedSlots[i];
+          const slotKey = `fixed-${i}`;
+          
+          if ((slot === slotLetter || slot === ')') && !pilot.slotCards[slotKey]) {
+            slotsToAssign.push(slotKey);
+            slotsAssignedByType.set(slotLetter, (slotsAssignedByType.get(slotLetter) || 0) + 1);
+            slotAssigned = true;
+          }
+        }
+
+        // Check optional slots if no fixed slot found
+        if (!slotAssigned && Array.isArray(optionalSlots)) {
+          for (let groupIndex = 0; groupIndex < optionalSlots.length && !slotAssigned; groupIndex++) {
+            const slotGroup = optionalSlots[groupIndex];
+            const slotKey = `optional-${groupIndex}`;
+            
+            if (Array.isArray(slotGroup)) {
+              if ((slotGroup.includes(slotLetter) || slotGroup.includes(')')) && !pilot.slotCards[slotKey]) {
+                slotsToAssign.push(slotKey);
+                slotsAssignedByType.set(slotLetter, (slotsAssignedByType.get(slotLetter) || 0) + 1);
+                slotAssigned = true;
+              }
+            } else if ((slotGroup === slotLetter || slotGroup === ')') && !pilot.slotCards[slotKey]) {
+              slotsToAssign.push(slotKey);
+              slotsAssignedByType.set(slotLetter, (slotsAssignedByType.get(slotLetter) || 0) + 1);
+              slotAssigned = true;
+            }
+          }
+        }
+
+        // Check locked slots if no other slot found
+        if (!slotAssigned) {
+          const lockedSlots = shipEntry?.lockedSlots || [];
+          for (let i = 0; i < lockedSlots.length && !slotAssigned; i++) {
+            const lockedSlot = lockedSlots[i];
+            const slotKey = `${pilot.selectedShip}-${i}`;
+            
+            if ((lockedSlot.slot === slotLetter || lockedSlot.slot === ')') && !pilot.slotCards[slotKey]) {
+              slotsToAssign.push(slotKey);
+              slotsAssignedByType.set(slotLetter, (slotsAssignedByType.get(slotLetter) || 0) + 1);
+              slotAssigned = true;
+            }
+          }
+        }
+      }
+
+      // Only proceed if we can assign ALL required types
+      if (slotsToAssign.length !== card.type.length) {
+        return false;
+      }
+
+      // Remove from selected cards and assign to all found slots
+      pilot.selectedCards = pilot.selectedCards.filter((c) => c !== cardId);
+
+      slotsToAssign.forEach(slotKey => {
+        pilot.slotCards = {
+          ...pilot.slotCards,
+          [slotKey]: cardId,
+        };
+      });
+
+      // Handle free slots if any
+      if (card?.freeSlots?.length) {
+        card.freeSlots.forEach((slot, index) => {
+          const key = `free-${cardId}-${index}`;
+          pilot.slots.push(key);
+          if (!pilot.slotCards[key]) {
+            pilot.slotCards[key] = null;
+          }
+        });
+      }
+
+      this.updateUsedFactionSlots();
+      return true;
+    },
+
+    /**
      * Removes a card from a specific slot and cleans up free slots
      */
     removeCardFromSlot(slotKey: string) {
@@ -608,10 +1203,21 @@ export const usePilotStore = defineStore("pilotStore", {
       if (!pilot) return;
 
       const cardId = pilot.slotCards[slotKey];
+      if (!cardId) return;
+      
       const card = cards.find((c) => c.id === cardId) as any;
 
-      const { [slotKey]: removed, ...rest } = pilot.slotCards;
-      pilot.slotCards = rest;
+      // For multi-slot cards, remove from all occupied slots
+      if (this.isMultiSlotCard(cardId)) {
+        const occupiedKeys = this.getOccupiedSlotKeys(cardId);
+        occupiedKeys.forEach(key => {
+          const { [key]: removed, ...rest } = pilot.slotCards;
+          pilot.slotCards = rest;
+        });
+      } else {
+        const { [slotKey]: removed, ...rest } = pilot.slotCards;
+        pilot.slotCards = rest;
+      }
 
       if (card?.freeSlots?.length) {
         card.freeSlots.forEach((slot, index) => {

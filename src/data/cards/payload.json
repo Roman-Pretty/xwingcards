@@ -110,29 +110,26 @@
   {
     "id": "bombletgenerator",
     "name": "Bomblet Generator",
-    "type": "Payload",
+    "type": ["Payload", "Payload"],
     "faction": "Neutral",
     "cost": 3,
     "unique": false,
     "description": "During the System Phase, you may spend 1{charge} to drop a Bomblet using the [1{s}] template.<br/>At the start of the Activation Phase, you may spend 1 shield to recover 2{charge}.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/bombletgenerator.png",
     "energy": 2,
-    "upgradeable": true,
-    "requires": "{payload}{payload}",
-    "double": true
+    "upgradeable": true
   },
   {
     "id": "electroprotonbomb",
     "name": "Electro-Proton Bomb",
-    "type": "Payload",
+    "type": ["Payload", "Modification"],
     "faction": "Neutral",
     "cost": 8,
     "unique": true,
     "description": "During the System Phase, you may spend 1 {charge} to drop an Electro-Proton Bomb with the [1{s}] template. Then place 1 fuse marker on that device. This card's {charge} cannot be recovered.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/electroprotonbomb.png",
     "energy": 1,
-    "upgradeable": true,
-    "requires": "{payload}{modification}"
+    "upgradeable": true
   },
   {
     "id": "drk1probedroids",

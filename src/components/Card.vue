@@ -103,10 +103,25 @@
       'h-2/3 p-1': mobileMode 
     }">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="font-[xwing] text-white/2 leading-none" :class="{ 
+        <!-- Single type: show one large symbol -->
+        <span v-if="!typeSymbols" class="font-[xwing] text-white/2 leading-none" :class="{ 
           'text-[18rem] -mt-[6rem]': !mobileMode, 
           'text-[12rem] -mt-[4rem]': mobileMode 
         }">{{ typeLetter }}</span>
+        
+        <!-- Multiple types: show multiple smaller symbols horizontally -->
+        <div v-else class="flex items-center justify-center -space-x-5" :class="{ 
+          '-mt-[4.2rem]': !mobileMode, 
+          '-mt-[4rem]': mobileMode 
+        }">
+          <span v-for="(symbol, index) in typeSymbols" :key="index" 
+                class="font-[xwing] text-white/2 leading-none" :class="{ 
+                  'text-[14rem]': !mobileMode, 
+                  'text-[8rem]': mobileMode 
+                }">
+            {{ symbol }}
+          </span>
+        </div>
       </div>
 
       <h2 class="font-bold mb-1" :class="{ 
@@ -173,7 +188,7 @@ const props = defineProps({
   id: String,
   name: String,
   flippedName: String,
-  type: String,
+  type: [String, Array],
   cost: [Number, String],
   faction: [String, Array],
   description: String,
@@ -191,7 +206,7 @@ const props = defineProps({
   unique: Boolean,
   flippable: Boolean,
   showXP: Boolean,
-  damage: String,
+  damage: [Number, String],
   ranged: String,
   arc: String,
   isMissile: Boolean,
@@ -273,7 +288,24 @@ function getFactionIcon(faction) {
 function getFactionBookmarkClass(faction) {
   return `faction-bookmark-${faction}`
 }
-const typeLetter = computed(() => tokenToLetterMap[(props.type || '').toLowerCase()] || '?')
+const typeLetter = computed(() => {
+  const type = props.type;
+  if (Array.isArray(type)) {
+    // For multi-slot cards, use the first type for the display letter
+    return tokenToLetterMap[(type[0] || '').toLowerCase()] || '?';
+  }
+  return tokenToLetterMap[(type || '').toLowerCase()] || '?';
+})
+
+// Computed property for multi-type symbols
+const typeSymbols = computed(() => {
+  const type = props.type;
+  if (Array.isArray(type) && type.length > 1) {
+    // Return array of symbols for multi-slot cards
+    return type.map(t => tokenToLetterMap[(t || '').toLowerCase()] || '?');
+  }
+  return null; // Return null for single-type cards
+})
 const energyLetter = 'g'
 const forceLetter = 'h'
 const recurringSymbols = ['', '`', '_', '', '']

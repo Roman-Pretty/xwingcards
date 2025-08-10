@@ -185,15 +185,13 @@
   {
     "id": "supercommandos",
     "name": "Super Commandos",
-    "type": "Crew",
+    "type": ["Crew", "Crew"],
     "faction": "Neutral",
     "cost": 10,
     "image": "https://infinitearenas.com/xw2/images/artwork/remotes/deathwatchcommandos.png",
     "description": "During the System Phase, you may spend 1 {charge} to drop a Commando Team remote using the [1{s}] template. You can place that device using its front or rear guides. This card's {charge} cannot be recovered.",
     "energy": 1,
-    "upgradeable": true,
-    "requires": "{crew} {crew}",
-    "double": "true"
+    "upgradeable": true
   },
   {
     "id": "torynfarr",
@@ -208,7 +206,7 @@
   {
     "id": "wolfpack",
     "name": "Wolfpack",
-    "type": "Crew",
+    "type": ["Crew", "Gunner"],
     "faction": "Republic",
     "cost": 4,
     "unique": true,
@@ -228,10 +226,11 @@
   {
     "id": "ghostcompany",
     "name": "Ghost Company",
-    "type": "Crew",
+    "type": ["Crew", "Gunner"],
     "faction": "Republic",
     "cost": 5,
     "unique": true,
+    "requires": "{rotate}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/ghostcompany.png",
     "description": "Adds {rotate}{to}!{focus}<br/>After you perform a primary attack, if you are focused, you may perform a {at} attack against a ship you have not attacked this round as a bonus attack."
   },
