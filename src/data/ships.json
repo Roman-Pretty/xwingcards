@@ -55,8 +55,10 @@
     "ability": "Vectored Thrusters: After you perform an action, you may perform a red {boost} action",
     "abilityLetters": [
       { "id": 1, "symbol": "f", "color": "text-white" },
-      { "id": 2, "symbol": "l", "color": "text-white" },
-      { "id": 3, "symbol": "r", "color": "text-white" }
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "l", "color": "text-white" },
+      { "id": 4, "symbol": "r", "color": "text-white" },
+      { "id": 5, "symbol": "b", "color": "text-white" }
     ],
     "maneuverDial": {
       "0": [0, 0, 0, 0, 0, 0, 0, 0],
@@ -105,12 +107,299 @@
       { "id": 5, "symbol": "j", "color": "text-red-400" }
     ],
     "maneuverDial": {
-      "0": [0, 0, 0, 0, 0, 0, 0, 0],
-      "1": [3, 3, 1, 1, 1, 3, 3, 0],
-      "2": [0, 2, 2, 1, 2, 2, 0, 3],
-      "3": [0, 0, 3, 1, 3, 0, 0, 0],
-      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "0": [0, 0, 0, 3, 0, 0, 0, 0],
+      "1": [0, 0, 1, 1, 1, 0, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [0, 3, 2, 1, 2, 3, 0, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 0],
       "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "NR2 Y-Wing": {
+    "attack": 2,
+    "agility": 1,
+    "hull": 4,
+    "shields": 3,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/wilsateshlo.png",
+    "arc": "{",
+    "ability": "Intuitive Interface: After you perform an action added to your action bar by a {talent}, {illicit}, or {modification} upgrade, you may perform a {calculate} action.",
+    "description": "Designed for customization, the BTA-NR2 Y-wing is used by numerous military organizations across the galaxy in a variety of roles, from law enforcement craft to wartime bombers.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-red-400" },
+      { "id": 3, "symbol": "r", "color": "text-red-400" },
+      { "id": 4, "symbol": "b", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 1, 1, 1, 0, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [0, 3, 2, 2, 2, 3, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 3]
+    }
+  },
+  "RZ-2 A-Wing": {
+    "attack": 2,
+    "agility": 3,
+    "hull": 2,
+    "shields": 2,
+    "arc": "p",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/greensquadronexpert.png",
+    "description": "Years of field-expedient modifications were standardized in the RZ-2 design, but daring pilots see the ship's improved reliability as a challenge to further push the limits of its performance.",
+    "ability": "Refined Gyrostabilizers: You can rotate your {at} indicator only to your {af} or {arear}. After you perform an action, you may perform a red {boost} or red {rotate} action.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "l", "color": "text-white" },
+      { "id": 4, "symbol": "r", "color": "text-white" },
+      { "id": 5, "symbol": "b", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 0, 0, 0, 2, 0, 0],
+      "2": [0, 1, 1, 1, 1, 1, 0, 0],
+      "3": [{ "difficulty": 3, "type": "sloop" }, 2, 1, 1, 1, 2, { "difficulty": 3, "type": "sloop" }, 0],
+      "4": [0, 0, 0, 1, 0, 0, 0, 0],
+      "5": [0, 0, 0, 1, 0, 0, 0, 3]
+    }
+  },
+  "T-70 X-Wing": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 4,
+    "shields": 3,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/karekun.png",
+    "description": "The Incom-FreiTek T-70 X-Wing was designed to improve upon the tactical flexibility of the venerable T-65. The starfighter's advanced droid socket is compatible with a wide array of astromechs, and its modular weapons pods allow ground crews to tailor its payload for specific missions.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 1, 1, 1, 0, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [3, 2, 2, 1, 2, 2, 3, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "TIE Interceptor": {
+    "attack": 3,
+    "agility": 3,
+    "hull": 3,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/nashwindrider.png",
+    "description": "Sienar Fleet Systems designed the TIE interceptor with four wing-mounted laser cannons, a dramatic increase in firepower over its predecessors.",
+    "ability": "Autothrusters: After you perform an action, you may perform a red {barrel} or red {boost} action.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" },
+      { "id": 4, "symbol": "b", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 0, 0, 0, 2, 0, 0],
+      "2": [0, 1, 1, 1, 1, 1, 0, 0],
+      "3": [{ "difficulty": 3, "type": "sloop" }, 2, 2, 1, 2, 2, { "difficulty": 3, "type": "sloop" }, 0],
+      "4": [0, 0, 0, 1, 0, 0, 0, 3],
+      "5": [0, 0, 0, 2, 0, 0, 0, 0]
+    }
+  },
+  "TIE Phantom": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 3,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/whisper.png",
+    "description": "Featuring a hyperdrive and shields, the TIE phantom is also equipped with five laser cannons, giving it substantial firepower for an Imperial fighter.",
+    "ability": "Stygium Array: After you decloak, you may perform an {evade} action. At the start of the End Phase, you may spend 1 evade token to gain 1 cloak token.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" },
+      { "id": 4, "symbol": "k", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 2, 0, 2, 2, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [0, 2, 2, 1, 2, 2, 0, 3],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "BTL-B Y-Wing": {
+    "attack": 2,
+    "agility": 1,
+    "hull": 5,
+    "shields": 3,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/r2d2.png",
+    "arc": "{",
+    "ability": "Plated Hull: While you defend, if you are not critically damaged, change 1 {crit} result to a {hit} result.",
+    "description": "The BTL-B Y-Wing was the original model of Y-Wing starfighter used by the Galactic Republic during the Clone Wars.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-red-400" },
+      { "id": 4, "symbol": "=", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 2, 1, 2, 0, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [0, 3, 2, 2, 2, 3, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "ARC-170": {
+    "attack": 3,
+    "secondAttack": 2,
+    "agility": 1,
+    "hull": 6,
+    "shields": 3,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/norrawexley.png",
+    "arc": "{",
+    "secondArc": "|",
+    "description": "The ARC-170 was designed as a dominating heavy escort fighter with powerful front and rear lasers, ordnance, and an astromech for navigation. Squadrons of these mighty ships bolstered the Republic Navy's presence at any battle where they were deployed.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 1, 1, 1, 0, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [0, 3, 2, 2, 2, 3, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "Kihraxz Fighter": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 5,
+    "shields": 1,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/talonbanecobra.png",
+    "arc": "{",
+    "description": "The versatile Kihraxz was modeled after Incom's popular X-wing starfighter, but an array of after-market modification kits ensure a wide variety of designs.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 1, 0, 1, 2, 0, 0],
+      "2": [3, 2, 1, 1, 1, 2, 3, 0],
+      "3": [0, 0, 2, 1, 2, 0, 0, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "StarViper": {
+    "attack": 3,
+    "agility": 3,
+    "hull": 4,
+    "shields": 1,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/blacksunenforcer.png",
+    "arc": "{",
+    "ability": "Microthrusters: While you perform a barrel roll, you must use the {bl} or {br} template instead of the {s} template.",
+    "description": "Prince Xizor himself collaborated with MandalMotors to design the StarViper-class attack platform, one of the most formidable starfighters in the galaxy.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r>f*", "color": "text-white" },
+      { "id": 4, "symbol": "b>f*", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 1, 1, 1, 2, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [{ "difficulty": 3, "type": "sloop" }, 0, 2, 1, 2, 0, { "difficulty": 3, "type": "sloop" }, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "N-1 Starfighter": {
+    "attack": 2,
+    "agility": 2,
+    "hull": 3,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/padmeamidala.png",
+    "ability": "Full Throttle: After you fully execute a speed 3-5 maneuver, you may perform an {evade} action.",
+    "description": "The N-1 starfighter was a sleek single-pilot craft used by the Naboo and demonstrated the marriage of art and function present in Naboo technology.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" },
+      { "id": 4, "symbol": "b", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 2, 2, 2, 0, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [3, 2, 1, 1, 1, 2, 3, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 0],
+      "5": [0, 0, 0, 2, 0, 0, 0, 0]
+    }
+  },
+  "Delta-7": {
+    "attack": 2,
+    "agility": 3,
+    "hull": 3,
+    "shields": 1,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/macewindu.png",
+    "ability": "Fine-tuned Controls: After you fully execute a maneuver, you may spend 1 {forcecharge} to perform a {boost} or {barrel} action.",
+    "description": "The Delta-7 Aethersprite-class light interceptor, also known as the Delta-7 Jedi starfighter or Delta-7 Jedi Interceptor, was designed by Kuat Systems Engineering and used by the Jedi Order before and during the Clone Wars.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-violet-300" },
+      { "id": 3, "symbol": "l", "color": "text-white" },
+      { "id": 4, "symbol": "r", "color": "text-white" },
+      { "id": 5, "symbol": "b", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 1, 0, 1, 2, 0, 0],
+      "2": [{ "difficulty": 3, "type": "sloop" }, 2, 1, 1, 1, 2, { "difficulty": 3, "type": "sloop" }, 0],
+      "3": [0, 0, 2, 1, 2, 0, 0, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 2, 0, 0, 0, 3]
+    }
+  },
+  "Eta-2 Actis": {
+    "attack": 3,
+    "secondAttack": 2,
+    "agility": 3,
+    "hull": 3,
+    "arc": "}",
+    "secondArc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/kitfisto.png",
+    "ability": "Intuitive Controls: During the System Phase, you may perform a purple {barrel} or purple {boost} action.",
+    "description": "The Eta-2 Actis-class light interceptor, also known as the Jedi starfighter or Jedi interceptor, was a starfighter used by the Jedi during the Clone Wars.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "l", "color": "text-violet-300" },
+      { "id": 4, "symbol": "r", "color": "text-white" },
+      { "id": 5, "symbol": "b", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 0, 0, 0, 2, 0, 0],
+      "2": [4, 2, 1, 1, 1, 2, 4, 0],
+      "3": [0, 2, 1, 1, 1, 2, 0, 0],
+      "4": [0, 0, 0, 1, 0, 0, 0, 3],
+      "5": [0, 0, 0, 2, 0, 0, 0, 0]
     }
   }
 }

@@ -48,8 +48,7 @@
                   <div class="relative z-10">
                     <!-- Ship Ability Letters -->
                     <div class="mb-3">
-                      <div class="grid gap-2 justify-center"
-                           :class="getAbilityLetterGridClass(store.currentPilot.selectedShip)">
+                      <div class="flex justify-evenly items-center gap-2">
                         <div v-for="letter in getShipAbilityLetters(store.currentPilot.selectedShip)" 
                              :key="letter.id"
                              class="font-[xwing] text-lg flex items-center justify-center">
@@ -90,20 +89,29 @@
                   
                   <!-- Ship Stats at bottom -->
                   <div class="relative z-10">
-                    <div class="grid grid-cols-4 gap-2">
+                    <div class="grid gap-2" :class="getStatsGridClass(store.currentPilot.selectedShip)">
+                      <!-- Primary Attack -->
                       <div class="flex items-center justify-center gap-1">
                         <span class="font-[xwing] text-red-400 text-lg pb-1">{{ getShipStats(store.currentPilot.selectedShip).arc }}</span>
                         <span class="text-lg font-bold text-red-400">{{ getShipStats(store.currentPilot.selectedShip).attack }}</span>
+                        <!-- Secondary Attack -->
+                        <template v-if="getShipStats(store.currentPilot.selectedShip).secondAttack">
+                          <span class="font-[xwing] text-red-400 text-lg pb-1 ml-2">{{ getShipStats(store.currentPilot.selectedShip).secondArc || getShipStats(store.currentPilot.selectedShip).arc }}</span>
+                          <span class="text-lg font-bold text-red-400">{{ getShipStats(store.currentPilot.selectedShip).secondAttack }}</span>
+                        </template>
                       </div>
-                      <div class="flex items-center justify-center gap-1">
+                      <!-- Agility (if exists) -->
+                      <div v-if="getShipStats(store.currentPilot.selectedShip).agility !== undefined" class="flex items-center justify-center gap-1">
                         <span class="font-[xwing] text-green-400 text-lg pb-1">e</span>
                         <span class="text-lg font-bold text-green-400">{{ getShipStats(store.currentPilot.selectedShip).agility }}</span>
                       </div>
-                      <div class="flex items-center justify-center gap-1">
+                      <!-- Hull (if exists) -->
+                      <div v-if="getShipStats(store.currentPilot.selectedShip).hull !== undefined" class="flex items-center justify-center gap-1">
                         <span class="font-[xwing] text-yellow-400 text-lg pb-1">&</span>
                         <span class="text-lg font-bold text-yellow-400">{{ getShipStats(store.currentPilot.selectedShip).hull }}</span>
                       </div>
-                      <div class="flex items-center justify-center gap-1">
+                      <!-- Shields (if exists) -->
+                      <div v-if="getShipStats(store.currentPilot.selectedShip).shields !== undefined" class="flex items-center justify-center gap-1">
                         <span class="font-[xwing] text-blue-400 text-lg pb-1">*</span>
                         <span class="text-lg font-bold text-blue-400">{{ getShipStats(store.currentPilot.selectedShip).shields }}</span>
                       </div>
@@ -414,13 +422,6 @@ const getShipAbilityLetters = (shipName) => {
   ]
 }
 
-const getAbilityLetterGridClass = (shipName) => {
-  const letterCount = getShipAbilityLetters(shipName).length
-  if (letterCount <= 2) return 'grid-cols-2'
-  if (letterCount <= 3) return 'grid-cols-3'
-  return 'grid-cols-4'
-}
-
 // Text processing functions for ship descriptions and abilities
 const processShipText = (raw) => {
   if (!raw) return ''
@@ -466,6 +467,24 @@ const getShipIcon = (shipName) => {
   return 'x' // default fallback
 }
 
+// Function to determine grid class based on number of stats
+const getStatsGridClass = (shipName) => {
+  const ship = getShipStats(shipName)
+  let statCount = 1 // Always have attack
+  
+  if (ship.agility !== undefined) statCount++
+  if (ship.hull !== undefined) statCount++
+  if (ship.shields !== undefined) statCount++
+  
+  switch(statCount) {
+    case 1: return 'grid-cols-1'
+    case 2: return 'grid-cols-2'
+    case 3: return 'grid-cols-3'
+    case 4: return 'grid-cols-4'
+    default: return 'grid-cols-4'
+  }
+}
+
 // Maneuver dial functions
 const getManeuverRow = (shipName, speed) => {
   const ship = shipData[shipName]
@@ -474,14 +493,14 @@ const getManeuverRow = (shipName, speed) => {
     
     // Define the symbols and types for each position
     const maneuverTemplates = [
-      { type: 'sloop', symbol: ':' },    // Position 0: sloop (left side, uses 1)
-      { type: 'bl', symbol: '4' },       // Position 1: bank left
-      { type: 'tl', symbol: '7' },       // Position 2: turn left
-      { type: 'st', symbol: '8' },       // Position 3: straight
-      { type: 'tr', symbol: '9' },       // Position 4: turn right
-      { type: 'br', symbol: '6' },       // Position 5: bank right
-      { type: 'sloop', symbol: ';' },    // Position 6: sloop (right side, uses 3)
-      { type: 'kturn', symbol: '2' }     // Position 7: kturn
+      { type: 'sloop', symbol: speed === 0 ? '5' : ':' },    // Position 0: sloop (left side, uses 1 normally, 5 at speed 0)
+      { type: 'bl', symbol: speed === 0 ? '5' : '4' },       // Position 1: bank left
+      { type: 'tl', symbol: speed === 0 ? '5' : '7' },       // Position 2: turn left
+      { type: 'st', symbol: speed === 0 ? '5' : '8' },       // Position 3: straight
+      { type: 'tr', symbol: speed === 0 ? '5' : '9' },       // Position 4: turn right
+      { type: 'br', symbol: speed === 0 ? '5' : '6' },       // Position 5: bank right
+      { type: 'sloop', symbol: speed === 0 ? '5' : ';' },    // Position 6: sloop (right side, uses 3 normally, 5 at speed 0)
+      { type: 'kturn', symbol: speed === 0 ? '5' : '2' }     // Position 7: kturn
     ]
     
     // Convert numeric difficulty ratings to difficulty names
@@ -500,12 +519,12 @@ const getManeuverRow = (shipName, speed) => {
         let symbol, type
         
         if (item.type === 'sloop') {
-          // Sloop: 1 for left (position 0), 3 for right (position 6)
-          symbol = index === 0 ? '1' : '3'
+          // Sloop: 1 for left (position 0), 3 for right (position 6), but 5 at speed 0
+          symbol = speed === 0 ? '5' : (index === 0 ? '1' : '3')
           type = 'sloop'
         } else if (item.type === 'talon' || item.type === 't') {
-          // Talon/troll: : for left (position 0), ; for right (position 6)
-          symbol = index === 0 ? ':' : ';'
+          // Talon/troll: : for left (position 0), ; for right (position 6), but 5 at speed 0
+          symbol = speed === 0 ? '5' : (index === 0 ? ':' : ';')
           type = 'talon'
         } else {
           // Fallback to template
