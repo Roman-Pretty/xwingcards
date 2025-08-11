@@ -1,17 +1,147 @@
 <template>
-  <main class="bg-neutral-900 w-full h-screen p-4 flex flex-col gap-4 inria-sans-regular overflow-hidden">
-    <div class="flex justify-between items-center mb-2">
-      <h1 class="text-2xl font-bold text-white">Pilot Overview</h1>
-      <button class="btn btn-ghost text-white" @click="$router.push('/dashboard')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
-          <path d="m18 6-12 12"/>
-          <path d="m6 6 12 12"/>
-        </svg>
-        Close
-      </button>
+  <main class="bg-neutral-900 w-full h-screen flex flex-col overflow-hidden">
+    <!-- Header -->
+    <div class="flex-shrink-0 bg-neutral-800 border-b border-neutral-700 p-6">
+      <div class="max-w-4xl px-6 mx-auto flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-white mb-2">Pilot Overview</h1>
+          <p class="text-gray-400">Track your pilot's ship kill statistics and milestones</p>
+        </div>
+        <button class="btn btn-ghost text-white" @click="$router.push('/dashboard')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+            <path d="m18 6-12 12"/>
+            <path d="m6 6 12 12"/>
+          </svg>
+          Close
+        </button>
+      </div>
     </div>
 
-    <div class="flex-1 overflow-hidden">
+    <!-- Form Content -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="max-w-4xl mx-auto p-6 space-y-6">
+        
+        <!-- Ship Overview Section -->
+        <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
+          <h2 class="text-xl font-semibold text-white mb-4">Ship Overview</h2>
+          
+          <div v-if="store.currentPilot?.selectedShip" class="flex gap-6">
+            <!-- Ship Card (Left Side) -->
+            <div class="flex-shrink-0 w-80">
+              <div class="bg-neutral-700 border border-neutral-600 rounded-2xl shadow-lg overflow-hidden flex flex-col aspect-[2/3] relative">
+                <!-- Ship Image/Icon -->
+                <div class="relative h-1/3 bg-neutral-600 flex items-center justify-center overflow-hidden">
+                  <!-- Actual ship image -->
+                  <img :src="getShipStats(store.currentPilot.selectedShip).image" 
+                       alt="Ship Image" 
+                       class="w-full h-full object-cover" />
+                </div>
+                
+                <!-- Ship Details -->
+                <div class="relative h-2/3 p-4 flex flex-col justify-between text-center max-h-full">
+                  <!-- Background type symbol -->
+                  <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                    <span class="font-[ships] text-white/5 text-[16rem] -mt-8">{{ getShipIcon(store.currentPilot.selectedShip) }}</span>
+                  </div>
+                  
+                  <!-- Top content: Ship Ability Letters with divider -->
+                  <div class="relative z-10">
+                    <!-- Ship Ability Letters -->
+                    <div class="mb-3">
+                      <div class="grid gap-2 justify-center"
+                           :class="getAbilityLetterGridClass(store.currentPilot.selectedShip)">
+                        <div v-for="letter in getShipAbilityLetters(store.currentPilot.selectedShip)" 
+                             :key="letter.id"
+                             class="font-[xwing] text-lg flex items-center justify-center">
+                          <template v-if="letter.symbol.includes('*')">
+                            <!-- Multi-character symbol with red third character -->
+                            <span v-for="(char, index) in letter.symbol.replace('*', '')" 
+                                  :key="index"
+                                  :class="index === 2 ? 'text-red-400' : letter.color">
+                              {{ char }}
+                            </span>
+                          </template>
+                          <template v-else>
+                            <!-- Single character symbol -->
+                            <span :class="letter.color">{{ letter.symbol }}</span>
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <!-- Faint divider beneath top symbols -->
+                    <div class="border-t border-gray-600/30 mx-4"></div>
+                    
+                    <!-- Ship Title just under divider -->
+                    <h3 class="text-lg font-bold text-white mt-3 mb-2">{{ store.currentPilot.selectedShip }}</h3>
+                    
+                    <!-- Description just beneath ship name -->
+                    <p class="text-xs text-gray-300 leading-tight px-2 text-center" v-html="getProcessedShipDescription(store.currentPilot.selectedShip)"></p>
+                  </div>
+                  
+                  <!-- Middle content: Ship ability -->
+                  <div class="relative z-10 flex-1 flex flex-col justify-center max-h-full">
+                    <!-- Ship Ability (if exists) -->
+                    <div v-if="getShipStats(store.currentPilot.selectedShip).ability" class="px-2">
+                      <div class="border-t border-gray-500 my-2"></div>
+                      <p class="text-xs text-gray-300 leading-tight italic text-center" v-html="getProcessedShipAbility(store.currentPilot.selectedShip)"></p>
+                    </div>
+                  </div>
+                  
+                  <!-- Ship Stats at bottom -->
+                  <div class="relative z-10">
+                    <div class="grid grid-cols-4 gap-2">
+                      <div class="flex items-center justify-center gap-1">
+                        <span class="font-[xwing] text-red-400 text-lg pb-1">{{ getShipStats(store.currentPilot.selectedShip).arc }}</span>
+                        <span class="text-lg font-bold text-red-400">{{ getShipStats(store.currentPilot.selectedShip).attack }}</span>
+                      </div>
+                      <div class="flex items-center justify-center gap-1">
+                        <span class="font-[xwing] text-green-400 text-lg pb-1">e</span>
+                        <span class="text-lg font-bold text-green-400">{{ getShipStats(store.currentPilot.selectedShip).agility }}</span>
+                      </div>
+                      <div class="flex items-center justify-center gap-1">
+                        <span class="font-[xwing] text-yellow-400 text-lg pb-1">&</span>
+                        <span class="text-lg font-bold text-yellow-400">{{ getShipStats(store.currentPilot.selectedShip).hull }}</span>
+                      </div>
+                      <div class="flex items-center justify-center gap-1">
+                        <span class="font-[xwing] text-blue-400 text-lg pb-1">*</span>
+                        <span class="text-lg font-bold text-blue-400">{{ getShipStats(store.currentPilot.selectedShip).shields }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Maneuver Dial (Right Side) -->
+            <div class="flex-1">
+              <div class="bg-neutral-700 border border-neutral-600 rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-white mb-4">Maneuver Dial</h3>
+                
+                <!-- Larger Maneuver grid (8 wide) -->
+                <div class="inline-block">
+                  <div class="space-y-1">
+                    <div v-for="speed in [5, 4, 3, 2, 1, 0]" :key="speed" class="flex items-center">
+                      <span class="text-sm font-bold text-white w-6 text-center mr-2">{{ speed }}</span>
+                      <div class="flex">
+                        <div v-for="maneuver in getManeuverRow(store.currentPilot.selectedShip, speed)" :key="maneuver.type" 
+                             class="w-6 h-6 flex items-center justify-center text-sm font-bold font-[xwing] border border-gray-600 mr-1"
+                             :class="getManeuverBackgroundClass(maneuver.difficulty)">
+                          <span :class="getManeuverTextClass(maneuver.difficulty)">{{ maneuver.symbol }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div v-else class="text-center py-8 text-gray-400">
+            <p>No ship selected. Select a ship from the dashboard to see it here.</p>
+          </div>
+        </div>
+
       <!-- Kill Tracker Card - Full Width -->
       <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex flex-col h-full">
         <div class="flex justify-between items-center mb-4">
@@ -32,7 +162,7 @@
         </div>
         
         <!-- Ship Kill Grid -->
-        <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-1 md:gap-4 flex-1 overflow-y-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-1 md:gap-4 flex-1 overflow-y-auto">
           <div v-for="ship in allEnemies" :key="ship.icon" 
                class="bg-neutral-700 border border-neutral-600 rounded-lg p-1 md:p-4 flex flex-col items-center justify-between min-h-[80px] md:min-h-[120px]">
             
@@ -112,6 +242,7 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
     </div>
   </main>
@@ -120,7 +251,9 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import { usePilotStore } from '../stores/PilotStore'
+import { tokenToLetterMap } from '../utils/mappings'
 import classData from '../data/classes.json'
+import shipData from '../data/ships.json'
 
 const store = usePilotStore()
 
@@ -255,5 +388,194 @@ const getClassIcon = (className) => {
 
 const getClassColor = (className) => {
   return classData[className]?.color || '#a8a8a8'
+}
+
+// Ship data and helper functions
+const getShipStats = (shipName) => {
+  return shipData[shipName] || {
+    attack: 2,
+    agility: 2,
+    hull: 3,
+    shields: 1,
+    arc: "{",
+    description: "A standard fighter craft with balanced capabilities.",
+    abilityLetters: [
+      { id: 1, symbol: 'C', color: 'text-white' },
+      { id: 2, symbol: 'C', color: 'text-white' }
+    ]
+  }
+}
+
+const getShipAbilityLetters = (shipName) => {
+  const ship = shipData[shipName]
+  return ship?.abilityLetters || [
+    { id: 1, symbol: 'C', color: 'text-white' },
+    { id: 2, symbol: 'C', color: 'text-white' }
+  ]
+}
+
+const getAbilityLetterGridClass = (shipName) => {
+  const letterCount = getShipAbilityLetters(shipName).length
+  if (letterCount <= 2) return 'grid-cols-2'
+  if (letterCount <= 3) return 'grid-cols-3'
+  return 'grid-cols-4'
+}
+
+// Text processing functions for ship descriptions and abilities
+const processShipText = (raw) => {
+  if (!raw) return ''
+  
+  // First, replace tokens, handling ! prefix for red color and @ prefix for light pinkish purple color
+  let replaced = raw.replace(/([!@])?\{([^}]+)\}/g, (_, prefix, token) => {
+    const letter = tokenToLetterMap[token.toLowerCase()] || '?'
+    const span = `<span class="font-[xwing]">${letter}</span>`
+
+    if (prefix === '!') {
+      return `<span class="text-red-400">${span}</span>`
+    } else if (prefix === '@') {
+      return `<span class="text-pink-300">${span}</span>`
+    }
+    return span
+  })
+
+  // Then, bold full words directly before a colon (including the colon)
+  replaced = replaced.replace(/\b(\w+):/g, '<span class="font-semibold">$1:</span>')
+
+  return replaced
+}
+
+const getProcessedShipDescription = (shipName) => {
+  const ship = shipData[shipName]
+  return processShipText(ship?.description || '')
+}
+
+const getProcessedShipAbility = (shipName) => {
+  const ship = shipData[shipName]
+  return processShipText(ship?.ability || '')
+}
+
+const getShipIcon = (shipName) => {
+  // Find ship icon from classes data
+  for (const className of Object.keys(classData)) {
+    const classInfo = classData[className]
+    if (classInfo.ships) {
+      const ship = classInfo.ships.find(s => s.ship === shipName)
+      if (ship) return ship.icon
+    }
+  }
+  return 'x' // default fallback
+}
+
+// Maneuver dial functions
+const getManeuverRow = (shipName, speed) => {
+  const ship = shipData[shipName]
+  if (ship?.maneuverDial?.[speed]) {
+    const maneuverArray = ship.maneuverDial[speed]
+    
+    // Define the symbols and types for each position
+    const maneuverTemplates = [
+      { type: 'sloop', symbol: ':' },    // Position 0: sloop (left side, uses 1)
+      { type: 'bl', symbol: '4' },       // Position 1: bank left
+      { type: 'tl', symbol: '7' },       // Position 2: turn left
+      { type: 'st', symbol: '8' },       // Position 3: straight
+      { type: 'tr', symbol: '9' },       // Position 4: turn right
+      { type: 'br', symbol: '6' },       // Position 5: bank right
+      { type: 'sloop', symbol: ';' },    // Position 6: sloop (right side, uses 3)
+      { type: 'kturn', symbol: '2' }     // Position 7: kturn
+    ]
+    
+    // Convert numeric difficulty ratings to difficulty names
+    const difficultyMap = {
+      0: 'none',      // hidden/not available
+      1: 'easy',      // blue
+      2: 'normal',    // white
+      3: 'hard',      // red
+      4: 'advanced'   // pink
+    }
+    
+    return maneuverArray.map((item, index) => {
+      // Handle both simple numbers and objects for sloop/talon specification
+      if (typeof item === 'object' && item !== null) {
+        // Object format: { difficulty: 1, type: 'sloop' } or { difficulty: 1, type: 'talon' }
+        let symbol, type
+        
+        if (item.type === 'sloop') {
+          // Sloop: 1 for left (position 0), 3 for right (position 6)
+          symbol = index === 0 ? '1' : '3'
+          type = 'sloop'
+        } else if (item.type === 'talon' || item.type === 't') {
+          // Talon/troll: : for left (position 0), ; for right (position 6)
+          symbol = index === 0 ? ':' : ';'
+          type = 'talon'
+        } else {
+          // Fallback to template
+          symbol = maneuverTemplates[index].symbol
+          type = item.type || maneuverTemplates[index].type
+        }
+        
+        return {
+          type: type,
+          symbol: symbol,
+          difficulty: difficultyMap[item.difficulty] || 'none'
+        }
+      } else {
+        // Simple number format
+        const difficultyRating = item
+        return {
+          type: maneuverTemplates[index].type,
+          symbol: maneuverTemplates[index].symbol,
+          difficulty: difficultyMap[difficultyRating] || 'none'
+        }
+      }
+    })
+  }
+  
+  // Default fallback maneuver row
+  return [
+    { type: 'sloop', symbol: '1', difficulty: 'none' },     // Left sloop
+    { type: 'bl', symbol: '4', difficulty: 'none' },
+    { type: 'tl', symbol: '7', difficulty: 'none' },
+    { type: 'st', symbol: '8', difficulty: 'normal' },
+    { type: 'tr', symbol: '9', difficulty: 'none' },
+    { type: 'br', symbol: '6', difficulty: 'none' },
+    { type: 'sloop', symbol: '3', difficulty: 'none' },     // Right sloop
+    { type: 'kturn', symbol: ':', difficulty: 'none' }
+  ]
+}
+
+const getManeuverClass = (difficulty) => {
+  const classes = {
+    'easy': 'bg-blue-500 text-white',    // Blue for easy (1)
+    'normal': 'bg-white text-black',     // White for normal (2)
+    'hard': 'bg-red-500 text-white',
+    'advanced': 'bg-pink-500 text-white',
+    'none': 'bg-gray-800 text-gray-600'
+  }
+  
+  return classes[difficulty] || classes.none
+}
+
+const getManeuverBackgroundClass = (difficulty) => {
+  const classes = {
+    'easy': 'bg-neutral-800',
+    'normal': 'bg-neutral-800',
+    'hard': 'bg-neutral-800',
+    'advanced': 'bg-neutral-800',
+    'none': 'bg-transparent border-transparent'
+  }
+  
+  return classes[difficulty] || classes.none
+}
+
+const getManeuverTextClass = (difficulty) => {
+  const classes = {
+    'easy': 'text-blue-500',    // Blue text for easy (1)
+    'normal': 'text-white',     // White text for normal (2)
+    'hard': 'text-red-500',
+    'advanced': 'text-pink-500',
+    'none': 'text-transparent'
+  }
+  
+  return classes[difficulty] || classes.none
 }
 </script>

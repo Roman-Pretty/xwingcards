@@ -1,18 +1,26 @@
 <template>
-  <main class="bg-neutral-900 w-full h-screen p-4 flex flex-col gap-4 inria-sans-regular overflow-hidden">
-    <div class="flex justify-between items-center mb-2">
-      <h1 class="text-2xl font-bold text-white">Settings</h1>
-      <button class="btn btn-ghost text-white" @click="$router.push('/dashboard')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
-          <path d="m18 6-12 12"/>
-          <path d="m6 6 12 12"/>
-        </svg>
-        Close
-      </button>
+  <main class="bg-neutral-900 w-full h-screen flex flex-col overflow-hidden">
+    <!-- Header -->
+    <div class="flex-shrink-0 bg-neutral-800 border-b border-neutral-700 p-6">
+      <div class="max-w-4xl px-6 mx-auto flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-white mb-2">Settings</h1>
+          <p class="text-gray-400">Manage your pilots and application settings</p>
+        </div>
+        <button class="btn btn-ghost text-white" @click="$router.push('/dashboard')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+            <path d="m18 6-12 12"/>
+            <path d="m6 6 12 12"/>
+          </svg>
+          Close
+        </button>
+      </div>
     </div>
 
-    <div class="flex-1 overflow-hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+    <!-- Form Content -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="max-w-4xl mx-auto p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
         <!-- Left Column: Pilot Management -->
         <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex flex-col overflow-hidden">
           <h2 class="text-xl font-semibold text-white mb-4">Pilot Management</h2>
@@ -149,6 +157,7 @@
                 Reset All Data
               </button>
             </div>
+          </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,116 @@
+{
+  "X-Wing": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 4,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/edriotwotubes.png",
+    "description": "A versatile fighter with balanced offense and defense. The backbone of the Rebel fleet with reliable performance across all combat scenarios.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 1, 1, 1, 0, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [3, 2, 2, 2, 2, 2, 3, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "Y-Wing": {
+    "attack": 2,
+    "agility": 1,
+    "hull": 6,
+    "shields": 2,
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/goldsquadronveteran.png",
+    "arc": "{",
+    "description": "A heavy bomber with extensive upgrade capacity. Slower but more durable, ideal for prolonged engagements and ordnance delivery.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-red-400" },
+      { "id": 4, "symbol": "=", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 1, 1, 1, 0, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [0, 3, 2, 2, 2, 3, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "A-Wing": {
+    "attack": 2,
+    "agility": 3,
+    "hull": 2,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/wedgeantilles-rz1awing.png",
+    "description": "A fast and agile interceptor designed for hit-and-run tactics. Excellent at evading enemy fire while delivering quick strikes.",
+    "ability": "Vectored Thrusters: After you perform an action, you may perform a red {boost} action",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 0, 0, 0, 2, 0, 0],
+      "2": [0, 1, 1, 1, 1, 1, 0, 0],
+      "3": [{ "difficulty": 3, "type": "sloop" }, 2, 2, 1, 2, 2, { "difficulty": 3, "type": "sloop" }, 0],
+      "4": [0, 0, 0, 1, 0, 0, 0, 0],
+      "5": [0, 0, 0, 1, 0, 0, 0, 3]
+    }
+  },
+  "B-Wing": {
+    "attack": 3,
+    "agility": 1,
+    "hull": 4,
+    "shields": 4,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/tennumb.png",
+    "description": "Due to its heavy weapons array and resilient shielding, the B-wing has solidified itself as the Rebel Alliance's most innovative assault fighter.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f>r*", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [3, 3, 1, 1, 1, 3, 3, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 3],
+      "3": [0, 0, 3, 1, 3, 0, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "HWK-290": {
+    "attack": 2,
+    "agility": 2,
+    "hull": 3,
+    "shields": 2,
+    "arc": "p",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/roarkgarnet.png",
+    "description": "Designed to look like a bird in flight by the Corellian Engineering Corporation, “hawk” series ships are exemplary transport craft. Swift and rugged, the HWK-290 is often employed by Rebel agents as a mobile base of operations.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f>R*", "color": "text-white" },
+      { "id": 2, "symbol": "l>R*", "color": "text-white" },
+      { "id": 3, "symbol": "b", "color": "text-red-400" },
+      { "id": 4, "symbol": "R", "color": "text-white" },
+      { "id": 5, "symbol": "j", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [3, 3, 1, 1, 1, 3, 3, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 3],
+      "3": [0, 0, 3, 1, 3, 0, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  }
+}
