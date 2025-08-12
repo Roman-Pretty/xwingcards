@@ -91,15 +91,14 @@
                   <div class="relative z-10">
                     <div class="grid gap-2" :class="getStatsGridClass(store.currentPilot.selectedShip)">
                       <!-- Primary Attack -->
-                      <div class="flex items-center justify-center gap-1">
+                      <div v-if="getShipStats(store.currentPilot.selectedShip).attack !== undefined" class="flex items-center justify-center gap-1">
                         <span class="font-[xwing] text-red-400 text-lg pb-1">{{ getShipStats(store.currentPilot.selectedShip).arc }}</span>
                         <span class="text-lg font-bold text-red-400">{{ getShipStats(store.currentPilot.selectedShip).attack }}</span>
-                        <!-- Secondary Attack -->
-                        <template v-if="getShipStats(store.currentPilot.selectedShip).secondAttack">
+                      </div>
+                      <div v-if="getShipStats(store.currentPilot.selectedShip).secondAttack !== undefined" class="flex items-center justify-center gap-1">
                           <span class="font-[xwing] text-red-400 text-lg pb-1 ml-2">{{ getShipStats(store.currentPilot.selectedShip).secondArc || getShipStats(store.currentPilot.selectedShip).arc }}</span>
                           <span class="text-lg font-bold text-red-400">{{ getShipStats(store.currentPilot.selectedShip).secondAttack }}</span>
-                        </template>
-                      </div>
+                        </div>
                       <!-- Agility (if exists) -->
                       <div v-if="getShipStats(store.currentPilot.selectedShip).agility !== undefined" class="flex items-center justify-center gap-1">
                         <span class="font-[xwing] text-green-400 text-lg pb-1">e</span>
@@ -485,12 +484,14 @@ const getStatsGridClass = (shipName) => {
   if (ship.agility !== undefined) statCount++
   if (ship.hull !== undefined) statCount++
   if (ship.shields !== undefined) statCount++
+  if (ship.secondAttack !== undefined) statCount++
   
   switch(statCount) {
     case 1: return 'grid-cols-1'
     case 2: return 'grid-cols-2'
     case 3: return 'grid-cols-3'
     case 4: return 'grid-cols-4'
+    case 5: return 'grid-cols-5'
     default: return 'grid-cols-4'
   }
 }
