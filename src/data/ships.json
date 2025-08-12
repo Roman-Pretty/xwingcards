@@ -546,5 +546,55 @@
       "4": [0, 0, 0, 1, 0, 0, 0, 0],
       "5": [0, 0, 0, 2, 0, 0, 0, 3]
     }
+  },
+  "ST-70 Assault Ship": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 7,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/themandalorian.png",
+    "description": "Designed as a military craft, the ST-70 assault ship is a durable and versatile vessel. For someone travelling in the Outer Rim, this ship can be a transport, combat craft, and home all in one.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "l", "color": "text-white" },
+      { "id": 4, "symbol": "r", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 3, 0, 0, 0, 0],
+      "1": [0, 3, 2, 1, 2, 3, 0, 0],
+      "2": [3, 2, 2, 1, 2, 2, 3, 0],
+      "3": [0, 3, 2, 1, 2, 3, 0, 0],
+      "4": [0, 0, 0, 1, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 3]
+    },
+    "notes": ["This Ship uses a Medium Base"]
+  },
+  "Firespray Patrol Craft": {
+    "attack": 3,
+    "secondAttack": 3,
+    "agility": 2,
+    "hull": 6,
+    "shields": 4,
+    "arc": "{",
+    "secondArc": "|",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/bobafett.png",
+    "description": "The Firespray-class patrol craft is infamous for its association with the deadly bounty hunters Jango Fett and Boba Fett, who packed their craft with countless deadly armaments.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "i", "color": "text-red-400" },
+      { "id": 4, "symbol": "b", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 1, 1, 1, 2, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [3, 0, 2, 1, 2, 0, 3, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "notes": ["This Ship uses a Medium Base"]
   }
 }
