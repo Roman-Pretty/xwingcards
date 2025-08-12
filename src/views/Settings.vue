@@ -158,6 +158,117 @@
               </button>
             </div>
           </div>
+
+          <!-- Horizontal Divider -->
+          <div class="border-t border-neutral-700"></div>
+
+          <!-- Download Resources -->
+          <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex-1">
+            <h2 class="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-down text-accent">
+                <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
+                <path d="M12 10v6"/>
+                <path d="m15 13-3 3-3-3"/>
+              </svg>
+              Download Resources
+            </h2>
+            
+            <div class="space-y-4">
+              <!-- Core Game Files -->
+              <div class="space-y-3">
+                <h3 class="text-sm font-medium text-gray-300 uppercase tracking-wide">Core Game Files</h3>
+                
+                <div class="space-y-2">
+                  <a 
+                    href="https://drive.usercontent.google.com/u/0/uc?id=1fRB5fA6imKSRvGlBJs6g6ZitwNFDYsS_&export=download"
+                    target="_blank"
+                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7,10 12,15 17,10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Mission Book
+                  </a>
+                  
+                  <a 
+                    href="https://drive.usercontent.google.com/u/0/uc?id=1larIT35yMnbcNETOTXlNeQ-xB15ni3j3&export=download"
+                    target="_blank"
+                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7,10 12,15 17,10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Rule Book
+                  </a>
+                  <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
+                    <p class="text-xs text-amber-200 flex items-start gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info mt-0.5 flex-shrink-0">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 16v-4"/>
+                        <path d="M12 8h.01"/>
+                      </svg>
+                      <span><strong>Note:</strong> Ignore pages 8 and 9 on spending XP and character creation as X-Wing Unlimited replaces them<br/><br/>Enemy spawns are now based on Average Rank not Average Initiative.</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Ground Assault Expansion -->
+              <div class="space-y-3">
+                <h3 class="text-sm font-medium text-gray-300 uppercase tracking-wide">Ground Assault Expansion</h3>
+                
+                <div class="space-y-2">
+                  <a 
+                    href="https://drive.usercontent.google.com/u/0/uc?id=1H_drZpu8q7v6KH_FE6TRkgUt5FjeRzwx&export=download"
+                    target="_blank"
+                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7,10 12,15 17,10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Ground Assault Rule Book
+                  </a>
+                  
+                  <a 
+                    href="https://drive.usercontent.google.com/u/0/uc?id=1hiC-KuGXOY1a52RJhQO-LMOC1JKaeiyV&export=download"
+                    target="_blank"
+                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7,10 12,15 17,10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Ground Assault Mission Book
+                  </a>
+                </div>
+              </div>
+              
+              <!-- Additional Resources -->
+              <div class="space-y-3">
+                <h3 class="text-sm font-medium text-gray-300 uppercase tracking-wide">Additional Resources</h3>
+                
+                <a 
+                  href="https://www.goonhammer.com/heroes-of-the-aturi-cluster-everything-you-need-to-know-about-x-wings-fan-made-co-op-campaign/"
+                  target="_blank"
+                  class="btn btn-info w-full justify-start hover:scale-[1.02] transition-transform duration-200"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link">
+                    <path d="M15 3h6v6"/>
+                    <path d="M10 14 21 3"/>
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  </svg>
+                  Game Components Guide
+                </a>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>

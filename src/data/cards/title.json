@@ -25,9 +25,9 @@
   {
     "id": "havoc",
     "name": "Havoc",
-    "type": "Title",
+    "type": ["Title", "Crew"],
     "faction": "Neutral",
-    "cost": 10,
+    "cost": 5,
     "unique": true,
     "description": "Adds: {sensor}, {astromech}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/havoc.png",
