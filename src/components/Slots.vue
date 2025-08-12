@@ -444,7 +444,29 @@ const freeSlots = computed(() => {
   return result;
 });
 
+const titleSlots = computed(() => {
+  const pilot = currentPilot.value;
+  if (!pilot) return [];
+
+  const result = [];
+
+  Object.entries(pilot.slotCards).forEach(([slotKey, cardId]) => {
+    const card = cards.find((c) => c.id === cardId);
+    if (card?.type === 'Title' && card?.slots?.length) {
+      card.slots.forEach((slot, index) => {
+        result.push({
+          token: capitalize(letterToTokenMap[slot] ?? slot),
+          unlocked: true,
+          key: `title-${cardId}-${index}`,
+        });
+      });
+    }
+  });
+
+  return result;
+});
+
 const allFixedSlots = computed(() => {
-  return [...fixedSlots.value, ...freeSlots.value];
+  return [...fixedSlots.value, ...freeSlots.value, ...titleSlots.value];
 });
 </script>

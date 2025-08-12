@@ -19,18 +19,20 @@
     "unique": true,
     "description": "Adds: {gunner}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/b6bladewingprototype.png",
-    "requires": "B-Wing"
+    "requires": "B-Wing",
+    "slots": ["gunner"]
   },
   {
     "id": "havoc",
     "name": "Havoc",
     "type": "Title",
     "faction": "Neutral",
-    "cost": 5,
+    "cost": 10,
     "unique": true,
-    "description": "Adds: {sensor}, {astromech} Removes: {crew}",
+    "description": "Adds: {sensor}, {astromech}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/havoc.png",
-    "requires": "Scurrg Bomber"
+    "requires": "Scurrg Bomber",
+    "slots": ["sensor", "astromech"]
   },
   {
     "id": "misthunter",
@@ -41,7 +43,8 @@
     "unique": true,
     "description": "Adds: {barrel}, {cannon}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/misthunter.png",
-    "requires": "G1A-Starfighter"
+    "requires": "G1A-Starfighter",
+    "slots": ["cannon"]
   },
   {
     "id": "blackone",
@@ -65,7 +68,8 @@
     "description": "Adds: {shield}, {modification}<br/>During the End Phase, you may spend 1{charge} to perform a red {barrel} action.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/virago.png",
     "energy": 2,
-    "requires": "Starviper"
+    "requires": "Starviper",
+    "slots": ["modification"]
   },
   {
     "id": "slavei2",
@@ -76,7 +80,8 @@
     "unique": true,
     "description": "Adds: {torpedo}<br/>After you reveal a turn ({bl} or {br}) or bank ({sl} or {sr}) maneuver, you may set your dial to the maneuver of the same speed and bearing in the other direction.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/slavei.png",
-    "requires": "Firespray"
+    "requires": "Firespray",
+    "slots": ["torpedo"]
   },
   {
     "id": "marauder",
@@ -87,7 +92,8 @@
     "unique": true,
     "description": "Adds: {gunner}<br/>While you perform a primary {arear} attack, you may reroll 1 attack die.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/marauder.png",
-    "requires": "Firespray"
+    "requires": "Firespray",
+    "slots": ["gunner"]
   },
   {
     "id": "andrasta",
@@ -98,7 +104,8 @@
     "unique": true,
     "description": "Adds: {payload}, {reload}.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/andrasta.png",
-    "requires": "Firespray"
+    "requires": "Firespray",
+    "slots": ["payload"]
   },
   {
     "id": "soullessone",
@@ -120,7 +127,8 @@
     "unique": true,
     "description": "Adds: !{cloak}, {crew}, {payload}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/xanadublood.png",
-    "requires": "Rogue Class"
+    "requires": "Rogue Class",
+    "slots": ["crew", "payload"]
   },
    {
     "id": "slavei",
@@ -131,7 +139,8 @@
     "unique": true,
     "description": "Adds: {gunner}<br/>While you perform a {af} attack, if you are in the defender's {afr}, you may change 1 {hit} result to a {crit} result.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/slavei-swz82.png",
-    "requires": "Firespray"
+    "requires": "Firespray",
+    "slots": ["gunner"]
   },
   {
     "id": "moldycrow",
