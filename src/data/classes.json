@@ -229,8 +229,8 @@
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "Belballub-22", "icon": "[", "slots": ["Z","m"], "lockedSlots": [{ "slot": "t", "xp": 11 }],"cost": 6, "rank": 3 },
-      { "ship": "Gunship", "icon": ".", "slots": ["M","M","C","C","Z","m","n"], "cost": 12, "rank": 4 },
-      { "ship": "Tri-Fighter", "icon": "+", "slots": ["S","M","m","m","n"], "cost": 12, "rank": 4 }
+      { "ship": "HMP Droid Gunship", "icon": ".", "slots": ["M","M","C","C","Z","m","n"], "cost": 12, "rank": 4 },
+      { "ship": "Droid Tri-Fighter", "icon": "+", "slots": ["S","M","m","m","n"], "cost": 12, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "faction": ["."], "other": ["a"] },

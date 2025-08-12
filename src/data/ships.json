@@ -596,5 +596,76 @@
       "5": [0, 0, 0, 0, 0, 0, 0, 0]
     },
     "notes": ["This Ship uses a Medium Base"]
+  },
+  "Belballub-22": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 3,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/skakoanace.png",
+    "description": "With its powerful engines, devastating triple laser cannons, and high customizability, the Belbullab-22 is the chosen craft of several elite Separatist Alliance pilots, including the infamous General Grievous.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r>f*", "color": "text-white" },
+      { "id": 4, "symbol": "b>f*", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 2, 0, 2, 2, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [{ "difficulty": 3, "type": "sloop" }, 3, 2, 1, 2, 3, { "difficulty": 3, "type": "sloop" }, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 0],
+      "5": [0, 0, 0, 2, 0, 0, 0, 0]
+    }
+  },
+  "HMP Droid Gunship": {
+    "attack": 2,
+    "agility": 1,
+    "hull": 5,
+    "shields": 3,
+    "arc": "~",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/dgs286.png",
+    "ability": "Networked Aim: You cannot spend your locks to reroll attack dice. While you perform an attack, you may reroll a number of attack dice up to the number of friendly locks on the defender.",
+    "description": "A late-war development for the Confederacy of Independent Systems, the droid gunship uses specialized repulsors to nimbly strafe targets and precisely drop battle droids.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-red-400" },
+      { "id": 4, "symbol": "=>f*", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 3, 0, 0, 0, 0],
+      "1": [0, 0, 3, 1, 3, 0, 0, 0],
+      "2": [0, 1, 2, 1, 2, 1, 0, 0],
+      "3": [0, 2, 3, 2, 3, 2, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "5": [0, 0, 0, 3, 0, 0, 0, 0]
+    }
+  },
+  "Droid Tri-Fighter": {
+    "attack": 3,
+    "agility": 3,
+    "hull": 3,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/fearsomepredator.png",
+    "ability": "Networked Calculations: While you defend or perform an attack, you may spend 1 calculate token from a friendly ship at range 0-1 to change 1 {focus} result to an {evade} or {hit} result.",
+    "description": "Designed by the Colicoid Creation Nest and manufactured by Phlac-Arphocc Automata Industries, the heuristic processors of Droid Tri-Fighters allow these deadly ships to analyze and adapt to enemy tactics in-flight.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "l", "color": "text-white" },
+      { "id": 4, "symbol": "r>e*", "color": "text-white" },
+      { "id": 5, "symbol": "b>f*", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [3, 2, 0, 0, 0, 2, 3, 0],
+      "2": [0, 1, 2, 1, 2, 1, 0, 0],
+      "3": [0, 1, 2, 1, 2, 1, 0, 3],
+      "4": [0, 0, 0, 1, 0, 0, 0, 0],
+      "5": [0, 0, 0, 2, 0, 0, 0, 3]
+    }
   }
 }

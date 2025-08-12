@@ -425,10 +425,20 @@ const getShipStats = (shipName) => {
 
 const getShipAbilityLetters = (shipName) => {
   const ship = shipData[shipName]
-  return ship?.abilityLetters || [
+  let abilityLetters = ship?.abilityLetters || [
     { id: 1, symbol: 'C', color: 'text-white' },
     { id: 2, symbol: 'C', color: 'text-white' }
   ]
+  
+  // If current pilot class is Droid, replace 'f' with 'a' in symbols
+  if (store.currentPilot?.class === 'Droid') {
+    abilityLetters = abilityLetters.map(letter => ({
+      ...letter,
+      symbol: letter.symbol.replace(/f/g, 'a')
+    }))
+  }
+  
+  return abilityLetters
 }
 
 // Text processing functions for ship descriptions and abilities
