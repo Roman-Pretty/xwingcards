@@ -279,7 +279,8 @@
       "3": [0, 3, 2, 2, 2, 3, 0, 0],
       "4": [0, 0, 0, 3, 0, 0, 0, 3],
       "5": [0, 0, 0, 0, 0, 0, 0, 0]
-    }
+    },
+    "notes": ["This Ship uses a Medium Base"]
   },
   "Kihraxz Fighter": {
     "attack": 3,
@@ -400,6 +401,150 @@
       "3": [0, 2, 1, 1, 1, 2, 0, 0],
       "4": [0, 0, 0, 1, 0, 0, 0, 3],
       "5": [0, 0, 0, 2, 0, 0, 0, 0]
+    }
+  },
+  "Resistance Transport": {
+    "attack": 2,
+    "agility": 1,
+    "hull": 5,
+    "shields": 3,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/logisticsdivisionpilot.png",
+    "description": "Built from the chassis of a modified B-Wing, the Resistance Transport is a well armed and armored transport ship that can carry a squad of ground troops into battle.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "o", "color": "text-red-400" },
+      { "id": 4, "symbol": "j", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 3, 3, 3, 0, 0, 0],
+      "1": [0, 3, 1, 1, 1, 3, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [0, 0, 3, 2, 3, 0, 0, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "I-TS Transport": {
+    "attack": 2,
+    "agility": 1,
+    "hull": 6,
+    "shields": 3,
+    "arc": "p",
+    "image": "/src/assets/ships/its-transport.png",
+    "ability": "Experimental Commsware: You may coordinate at range 1-4.",
+    "description": "With its reinforced hull, modular design, and command uplink suite, the I-TS Transport has earned a reputation as a reliable mid-range tactical coordination vessel.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "R", "color": "text-white" },
+      { "id": 4, "symbol": "o", "color": "text-red-400" },
+      { "id": 5, "symbol": "j", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 3],
+      "1": [0, 0, 2, 1, 2, 0, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [0, 3, 2, 1, 2, 3, 0, 3],
+      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "notes": ["This Ship uses a Medium Base", "Uses the Sheathipede-class Shuttle Dial"]
+  },
+  "U-Wing": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 5,
+    "shields": 3,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/hefftobber.png",
+    "description": "Used for deploying troops under the cover of darkness or into the heat of battle, the UT-60D U-wing fulfills the Rebellion's need for a swift and hardy troop transport.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "o", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 3, 0, 0, 0, 0],
+      "1": [0, 0, 1, 1, 1, 0, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [0, 0, 2, 2, 2, 0, 0, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "notes": ["This Ship uses a Medium Base"]
+  },
+  "E-Wing": {
+    "attack": 3,
+    "agility": 3,
+    "hull": 3,
+    "shields": 3,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/gavindarklighter.png",
+    "ability": "Experimental Scanners: You can acquire locks beyond range 3. You cannot acquire locks at range 1.",
+    "description": "Designed to combine the best features of the X-wing series with the A-wing series, the E-wing boasts superior firepower, speed, and maneuverability.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "l", "color": "text-white" },
+      { "id": 4, "symbol": "r>l*", "color": "text-white" },
+      { "id": 5, "symbol": "b>l*", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 3, 1, 1, 1, 3, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [{ "difficulty": 3, "type": "sloop" }, 2, 2, 1, 2, 2, { "difficulty": 3, "type": "sloop" }, 0],
+      "4": [0, 0, 0, 1, 0, 0, 0, 3],
+      "5": [0, 0, 0, 2, 0, 0, 0, 0]
+    }
+  },
+  "Z-95 Headhunter": {
+    "attack": 2,
+    "agility": 2,
+    "hull": 2,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/kaatoleeachos.png",
+    "description": "The Z-95 Headhunter was the primary inspiration for Incom Corporation's exemplary T-65 X-wing starfighter. Though it is considered outdated by modern standards, it remains a versatile and potent snub fighter, especially with the right after-market modifications.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "l", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 0, 2, 1, 2, 0, 0, 0],
+      "2": [0, 2, 1, 1, 1, 2, 0, 0],
+      "3": [0, 2, 2, 1, 2, 2, 0, 3],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "Rogue-class Starfighter": {
+    "attack": 2,
+    "agility": 2,
+    "hull": 5,
+    "shields": 2,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/outerrimhunter.png",
+    "ability": "Dead to Rights: While you perform an attack, if the defender is in your {ab}, defense dice cannot be modified using green tokens.",
+    "description": "Due to its association with Cad Bane, the Rogue-class Starfighter has found its way into the hands of other bounty hunters, especially those who operate in the lawless Outer Rim.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f>b*", "color": "text-white" },
+      { "id": 2, "symbol": "f>r*", "color": "text-white" },
+      { "id": 3, "symbol": "e>r*", "color": "text-white" },
+      { "id": 4, "symbol": "l", "color": "text-white" },
+      { "id": 5, "symbol": "b", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 1, 0, 1, 2, 0, 0],
+      "2": [3, 2, 1, 1, 1, 2, 3, 0],
+      "3": [0, 3, 2, 1, 2, 3, 0, 0],
+      "4": [0, 0, 0, 1, 0, 0, 0, 0],
+      "5": [0, 0, 0, 2, 0, 0, 0, 3]
     }
   }
 }

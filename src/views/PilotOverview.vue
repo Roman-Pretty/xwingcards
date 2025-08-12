@@ -142,6 +142,16 @@
                   </div>
                 </div>
               </div>
+              
+              <!-- Notes Section -->
+              <div v-if="getShipNotes(store.currentPilot.selectedShip).length > 0" class="bg-neutral-700 border border-neutral-600 rounded-lg p-4 mt-4">
+                <h3 class="text-lg font-semibold text-white mb-4">Notes</h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-300">
+                  <li v-for="note in getShipNotes(store.currentPilot.selectedShip)" :key="note" class="text-sm">
+                    {{ note }}
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           
@@ -493,14 +503,14 @@ const getManeuverRow = (shipName, speed) => {
     
     // Define the symbols and types for each position
     const maneuverTemplates = [
-      { type: 'sloop', symbol: speed === 0 ? '5' : ':' },    // Position 0: sloop (left side, uses 1 normally, 5 at speed 0)
-      { type: 'bl', symbol: speed === 0 ? '5' : '4' },       // Position 1: bank left
-      { type: 'tl', symbol: speed === 0 ? '5' : '7' },       // Position 2: turn left
+      { type: 'sloop', symbol: speed === 0 ? 'K' : ':' },    // Position 0: sloop (left side, uses 1 normally, 5 at speed 0)
+      { type: 'bl', symbol: speed === 0 ? 'K' : '4' },       // Position 1: bank left
+      { type: 'tl', symbol: speed === 0 ? 'J' : '7' },       // Position 2: turn left
       { type: 'st', symbol: speed === 0 ? '5' : '8' },       // Position 3: straight
-      { type: 'tr', symbol: speed === 0 ? '5' : '9' },       // Position 4: turn right
-      { type: 'br', symbol: speed === 0 ? '5' : '6' },       // Position 5: bank right
-      { type: 'sloop', symbol: speed === 0 ? '5' : ';' },    // Position 6: sloop (right side, uses 3 normally, 5 at speed 0)
-      { type: 'kturn', symbol: speed === 0 ? '5' : '2' }     // Position 7: kturn
+      { type: 'tr', symbol: speed === 0 ? 'L' : '9' },       // Position 4: turn right
+      { type: 'br', symbol: speed === 0 ? 'K' : '6' },       // Position 5: bank right
+      { type: 'sloop', symbol: speed === 0 ? 'K' : ';' },    // Position 6: sloop (right side, uses 3 normally, 5 at speed 0)
+      { type: 'kturn', symbol: speed === 0 ? 'K' : '2' }     // Position 7: kturn
     ]
     
     // Convert numeric difficulty ratings to difficulty names
@@ -567,7 +577,7 @@ const getManeuverClass = (difficulty) => {
     'easy': 'bg-blue-500 text-white',    // Blue for easy (1)
     'normal': 'bg-white text-black',     // White for normal (2)
     'hard': 'bg-red-500 text-white',
-    'advanced': 'bg-pink-500 text-white',
+    'advanced': 'bg-violet-300 text-white',
     'none': 'bg-gray-800 text-gray-600'
   }
   
@@ -591,10 +601,15 @@ const getManeuverTextClass = (difficulty) => {
     'easy': 'text-blue-500',    // Blue text for easy (1)
     'normal': 'text-white',     // White text for normal (2)
     'hard': 'text-red-500',
-    'advanced': 'text-pink-500',
+    'advanced': 'text-violet-300',
     'none': 'text-transparent'
   }
   
   return classes[difficulty] || classes.none
+}
+
+const getShipNotes = (shipName) => {
+  const ship = shipData[shipName]
+  return ship?.notes || []
 }
 </script>

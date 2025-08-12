@@ -154,15 +154,16 @@
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
-      { "ship": "Res. Transport", "icon": ">", "slots": ["C","C","W","A","m"], "cost": 8, "rank": 3 },
-      { "ship": "U-Wing", "icon": "u", "slots": ["S","W","W","m","n"], "cost": 12, "rank": 4 }
+      { "ship": "Resistance Transport", "icon": ">", "slots": ["C","C","W","A","m"], "cost": 8, "rank": 3 },
+      { "ship": "U-Wing", "icon": "u", "slots": ["S","W","W","m","n"], "cost": 12, "rank": 4 },
+      { "ship": "I-TS Transport", "icon": "8", "slots": ["C","C","W","W","S"], "optionalSlots": [["A", "Y"]], "cost": 12, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "other": ["o"] },
       { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["E", "W"], "ships": ["a", "h", "b"] },
-      { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"], "other": ["><o"] },
-      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["E", "W"], "ships": [">"] },
-      { "rank": 5, "xp": "18", "initiative": 6, "optionalslots": ["E", "x", "W"], "slots": ["m"], "ships": ["u"] },
+      { "rank": 3, "xp": "12", "initiative": 4, "slots": ["m"], "other": ["><o"], "ships": [">"] },
+      { "rank": 4, "xp": "15", "initiative": 5, "optionalslots": ["E", "W"], "ships": ["u", "8"] },
+      { "rank": 5, "xp": "18", "initiative": 6, "optionalslots": ["E", "x", "W"], "slots": ["m"] },
       { "rank": 6, "xp": "21", "initiative": 6, "slots": [")"] }
     ]
   },
@@ -178,12 +179,13 @@
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
+      { "ship": "Z-95 Headhunter", "icon": "z", "slots": ["M","M","m","m","m"], "optionalSlots": [["I", "S"]], "cost": 8, "rank": 3 },
       { "ship": "E-Wing", "icon": "e", "slots": ["X","S","P","A","m"], "cost": 15, "rank": 4 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "slots": ["m"] },
       { "rank": 2, "xp": "9", "initiative": 3, "optionalslots": ["x","E"], "ships": ["a", "h", "b"], "other": ["a"] },
-      { "rank": 3, "xp": "12", "initiative": 3, "optionalslots": ["m","X"], "other": ["><a"] },
+      { "rank": 3, "xp": "12", "initiative": 3, "optionalslots": ["m","X"], "ships": ["z"], "other": ["><a"] },
       { "rank": 4, "xp": "15", "initiative": 4, "slots": ["I"], "ships": ["e"], "other": ["j"] },
       { "rank": 5, "xp": "18", "initiative": 5, "slots": ["S"], "optionalslots": ["x", "E"], "other": [">a"] },
       { "rank": 6, "xp": "21", "initiative": 5, "slots": [")"] }
@@ -201,7 +203,7 @@
       { "ship": "A-Wing", "icon": "a", "slots": ["E", "M", "m", "n"], "cost": 5, "rank": 2 },
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
-      { "ship": "Rogue", "icon": "6", "slots": ["C","C","I","m"], "cost": 8, "rank": 3 },
+      { "ship": "Rogue-class Starfighter", "icon": "6", "slots": ["C","C","I","m"], "cost": 8, "rank": 3 },
       { "ship": "ST-70", "icon": "7", "slots": ["W","Y","I","I","m"], "lockedSlots": [{ "slot": "t", "xp": 12 }],  "cost": 14, "rank": 4 },
       { "ship": "Firespray", "icon": "f", "slots": ["C","M","B","I","m"], "lockedSlots": [{ "slot": "t", "xp": 14 }], "cost": 16, "rank": 5 }
     ],
