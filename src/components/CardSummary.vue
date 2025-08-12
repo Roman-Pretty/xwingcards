@@ -284,8 +284,8 @@ const displayedDescription = computed(() => {
         return span;
     });
 
-    // Then, bold full words directly before a colon (including the colon)
-    replaced = replaced.replace(/\b(\w+):/g, '<span class="font-semibold">$1:</span>');
+    // Then, bold full sentence directly before a colon (including the colon)
+    replaced = replaced.replace(/([^.!?]*?):/g, '<span class="font-semibold">$1:</span>');
 
     return replaced;
 })

@@ -667,5 +667,141 @@
       "4": [0, 0, 0, 1, 0, 0, 0, 0],
       "5": [0, 0, 0, 2, 0, 0, 0, 3]
     }
-  }
+  },
+  "Quadrijet": {
+    "attack": 2,
+    "agility": 2,
+    "hull": 5,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/unkarplutt.png",
+    "ability": "Spacetug Tractor Array: Action: Choose a ship in your {af} at range 1. That ship gains 1 tractor token, or 2 tractor tokens if it is in your {ab} at range 1.",
+    "description": "The Quadrijet transfer spacetug, commonly called a “Quadjumper,” is nimble in space and atmosphere alike, making it popular among both smugglers and explorers.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-red-400" },
+      { "id": 3, "symbol": "r", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 3, 0, 3, 0, 0, 3],
+      "1": [0, 2, 2, 2, 2, 2, 0, 0],
+      "2": [{ "difficulty": 3, "type": "sloop" }, 2, 1, 1, 1, 2, { "difficulty": 3, "type": "sloop" }, 0],
+      "3": [0, 0, 2, 1, 2, 0, 0, 0],
+      "4": [0, 0, 0, 0, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "Fireball": {
+    "attack": 2,
+    "agility": 2,
+    "hull": 6,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/jarekyeager.png",
+    "description": "The Fringer makes use of any parts they can find, and the Fireball is no exception. This ship is a patchwork of parts from various ships, but it is still a fast and nimble craft.",
+    "ability": "Explosion with Wings:<br/>Setup: You are dealt 1 facedown damage card. After you perform a {slam} action, you may expose 1 damage card to remove 1 disarm token.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "r", "color": "text-white" },
+      { "id": 4, "symbol": "s", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 1, 1, 1, 2, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [3, 3, 2, 2, 2, 3, 3, 0],
+      "4": [0, 0, 0, 3, 0, 0, 0, 0],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    }
+  },
+  "M3-A Interceptor": {
+    "attack": 2,
+    "agility": 3,
+    "hull": 3,
+    "shields": 1,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/cartelspacer.png",
+    "description": "MandalMotors' M3-A “Scyk” Interceptor is purchased in large quantities by the Hutt Cartel and the Car'das smugglers due to its low cost and customizability.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "l", "color": "text-white" },
+      { "id": 4, "symbol": "r", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 2, 1, 0, 1, 2, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [0, 0, 2, 1, 2, 0, 0, 3],
+      "4": [0, 0, 0, 2, 0, 0, 0, 0],
+      "5": [0, 0, 0, 2, 0, 0, 0, 3]
+    }
+  },
+  "Attack Shuttle": {
+    "attack": 3,
+    "agility": 2,
+    "hull": 3,
+    "shields": 1,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/zeborrelios.png",
+    "description": "The VCX-series auxiliary starfighter was a short-range starfighter that was attachable to the VCX-100 light freighter manufactured by Corellian Engineering Corporation.",
+    "abilityLetters": [
+      { "id": 1, "symbol": "f", "color": "text-white" },
+      { "id": 2, "symbol": "e", "color": "text-white" },
+      { "id": 3, "symbol": "r>e*", "color": "text-white" }
+    ],
+    "maneuverDial": {
+      "0": [0, 0, 0, 0, 0, 0, 0, 0],
+      "1": [0, 3, 1, 1, 1, 3, 0, 0],
+      "2": [0, 2, 2, 1, 2, 2, 0, 0],
+      "3": [0, 3, 2, 2, 2, 3, 0, 0],
+      "4": [0, 0, 0, 2, 0, 0, 0, 3],
+      "5": [0, 0, 0, 0, 0, 0, 0, 0]
+        }
+    },
+    "G-1A Starfighter": {
+        "attack": 3,
+        "agility": 1,
+        "hull": 5,
+        "shields": 4,
+        "arc": "{",
+        "image": "https://infinitearenas.com/xw2/images/artwork/pilots/gandfindsman.png",
+        "description": "A stealth-equipped starfighter used by the legendary Findsmen of Gand, who worship the enshrouding mists of their home planet, using signs, augurs, and mystical rituals to track their quarry.",
+        "abilityLetters": [
+            { "id": 1, "symbol": "f", "color": "text-white" },
+            { "id": 2, "symbol": "l", "color": "text-white" },
+            { "id": 3, "symbol": "j", "color": "text-white" }
+        ],
+        "maneuverDial": {
+            "0": [0, 0, 0, 3, 0, 0, 0, 0],
+            "1": [0, 3, 1, 1, 1, 3, 0, 0],
+            "2": [0, 2, 2, 1, 2, 2, 0, 3],
+            "3": [0, 0, 3, 2, 3, 0, 0, 0],
+            "4": [0, 0, 0, 3, 0, 0, 0, 3],
+            "5": [0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        "notes": ["This Ship uses a Medium Base"]
+    },
+    "JumpMaster 5000": {
+        "attack": 2,
+        "agility": 2,
+        "hull": 6,
+        "shields": 3,
+        "arc": "p",
+        "image": "https://infinitearenas.com/xw2/images/artwork/pilots/contractedscout.png",
+        "description": "Built for long-distance reconnaissance and plotting new standard routes, the lightly armed JumpMaster 5000 is often extensively retrofitted with custom upgrades.",
+        "abilityLetters": [
+            { "id": 1, "symbol": "f>R*", "color": "text-white" },
+            { "id": 2, "symbol": "l>R*", "color": "text-white" },
+            { "id": 3, "symbol": "r", "color": "text-red-400" }
+        ],
+        "maneuverDial": {
+            "0": [0, 0, 0, 0, 0, 0, 0, 0],
+            "1": [0, 2, 1, 1, 2, 3, 0, 0],
+            "2": [0, 2, 1, 1, 2, 3, 0, 0],
+            "3": [{ "difficulty": 3, "type": "sloop" }, 0, 1, 1, 2, 0, 0, 0],
+            "4": [0, 0, 0, 3, 0, 0, 0, 3],
+            "5": [0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        "notes": ["This Ship uses a Large Base", "Roll 1 additional attack die when destroyed"]
+    }
 }
