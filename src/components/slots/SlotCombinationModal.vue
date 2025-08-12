@@ -52,7 +52,7 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import BaseModal from './BaseModal.vue'
+import BaseModal from '../modals/BaseModal.vue'
 
 const props = defineProps({
   cardName: {

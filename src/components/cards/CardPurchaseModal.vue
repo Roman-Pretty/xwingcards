@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-import BaseModal from './BaseModal.vue'
+import BaseModal from '../modals/BaseModal.vue'
 import { computed } from 'vue'
 import { usePilotStore } from '../../stores/PilotStore'
 

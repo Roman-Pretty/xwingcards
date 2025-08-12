@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import BaseModal from './BaseModal.vue';
+import BaseModal from '../modals/BaseModal.vue';
 
 defineProps({
   cardName: String,

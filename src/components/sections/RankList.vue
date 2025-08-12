@@ -105,9 +105,9 @@
 
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
-import { usePilotStore } from '../stores/PilotStore'
-import classData from '../data/classes.json'
-import RankPurchaseModal from './ui/RankPurchaseModal.vue'
+import { usePilotStore } from '../../stores/PilotStore'
+import classData from '../../data/classes.json'
+import RankPurchaseModal from '../modals/RankPurchaseModal.vue'
 
 const store = usePilotStore()
 

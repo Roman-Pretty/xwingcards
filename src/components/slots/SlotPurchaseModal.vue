@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import BaseModal from './BaseModal.vue'
+import BaseModal from '../modals/BaseModal.vue'
 
 const props = defineProps({
   xpCost: {

@@ -182,7 +182,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { tokenToLetterMap } from '../utils/mappings'
+import { tokenToLetterMap } from '../../utils/mappings'
 
 const props = defineProps({
   id: String,

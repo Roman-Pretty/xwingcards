@@ -1,290 +1,57 @@
+/**
+ * Settings.vue
+ * 
+ * Main settings page component that provides pilot management, application settings,
+ * data import/export functionality, and resource downloads.
+ */
 <template>
   <main class="bg-neutral-900 w-full h-screen flex flex-col overflow-hidden">
-    <!-- Header -->
-    <div class="flex-shrink-0 bg-neutral-800 border-b border-neutral-700 p-6">
-      <div class="max-w-4xl px-6 mx-auto flex items-center justify-between">
-        <div>
-          <h1 class="text-2xl font-bold text-white mb-2">Settings</h1>
-          <p class="text-gray-400">Manage your pilots and application settings</p>
-        </div>
-        <button class="btn btn-ghost text-white" @click="$router.push('/dashboard')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
-            <path d="m18 6-12 12"/>
-            <path d="m6 6 12 12"/>
-          </svg>
-          Close
-        </button>
-      </div>
-    </div>
+    <SettingsHeader @close="$router.push('/dashboard')" />
 
-    <!-- Form Content -->
     <div class="flex-1 overflow-y-auto">
       <div class="max-w-4xl mx-auto p-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-        <!-- Left Column: Pilot Management -->
-        <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex flex-col overflow-hidden">
-          <h2 class="text-xl font-semibold text-white mb-4">Pilot Management</h2>
-          
-          <div class="space-y-4 overflow-y-auto flex-1 pr-2 pb-6">
-            <div v-for="pilot in store.pilots" :key="pilot.id" class="bg-neutral-900 border border-neutral-600 rounded-lg p-4">
-              <div class="flex justify-between items-start mb-3">
-                <div class="flex items-center gap-3">
-                  <div class="flex items-center gap-2">
-                    <span class="font-[xwing] text-2xl -mt-1" :style="{ color: getPilotColor(pilot.class) }">{{ getPilotIcon(pilot.class) }}</span>
-                    <div>
-                      <h3 class="text-lg font-semibold text-white">{{ pilot.name }}</h3>
-                      <p class="text-sm text-gray-400">{{ pilot.class }} - Rank {{ pilot.rank }}</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="flex gap-2">
-                  <button class="btn btn-sm btn-primary" @click="openEditPilot(pilot)">Edit</button>
-                  <button class="btn btn-sm btn-error" @click="openDeletePilot(pilot)">Delete</button>
-                </div>
-              </div>
+          <PilotManagementSection 
+            :pilots="store.pilots"
+            @edit-pilot="openEditPilot"
+            @delete-pilot="openDeletePilot"
+          />
 
-              <div class="grid grid-cols-2 gap-4 text-sm">
-                <div class="flex items-center gap-2 text-yellow-300">
-                  <span class="font-[xwing] text-lg -mt-1">Ì</span>
-                  <span>XP: {{ pilot.xp || 0 }}</span>
-                </div>
-                <div class="text-gray-300">
-                  <span>Cards: {{ pilot.ownedCards?.length || 0 }}</span>
-                </div>
-                <div class="text-gray-300">
-                  <span>Ships: {{ pilot.ships?.length || 0 }}</span>
-                </div>
-                <div class="text-gray-300">
-                  <span>Current Ship: {{ pilot.selectedShip || 'None' }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          <div class="space-y-6 flex flex-col h-full">
+            <GeneralSettingsSection 
+              :enable-custom-cards="store.enableCustomCards"
+              :enable-faction-filtering="store.enableFactionFiltering"
+              :enable-unique-card-restriction="store.enableUniqueCardRestriction"
+              @update:enable-custom-cards="updateSetting('enableCustomCards', $event)"
+              @update:enable-faction-filtering="updateSetting('enableFactionFiltering', $event)"
+              @update:enable-unique-card-restriction="updateSetting('enableUniqueCardRestriction', $event)"
+            />
 
-        <!-- Right Column: Settings and Actions -->
-        <div class="space-y-6 flex flex-col h-full">
-          <!-- General Settings -->
-          <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex-1">
-            <h2 class="text-xl font-semibold text-white mb-4">General Settings</h2>
-            
-            <div class="space-y-4">
-              <!-- Enable Custom Cards -->
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-white font-medium">Enable Custom Cards</h3>
-                  <p class="text-sm text-gray-400">Show custom cards in the shop (owned custom cards will always be visible)</p>
-                </div>
-                <input 
-                  type="checkbox" 
-                  class="toggle toggle-primary" 
-                  :checked="store.enableCustomCards"
-                  @change="updateCustomCardsEnabled"
-                />
-              </div>
+            <QuickActionsSection 
+              @create-pilot="$router.push('/create-pilot')"
+              @export-data="exportData"
+              @import-data="importData"
+              @reset-all="openResetAll"
+            />
 
-              <!-- Enable Faction Filtering -->
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-white font-medium">Enable Faction Filtering</h3>
-                  <p class="text-sm text-gray-400">Only show cards from your class's allowed factions in the shop</p>
-                </div>
-                <input 
-                  type="checkbox" 
-                  class="toggle toggle-primary" 
-                  :checked="store.enableFactionFiltering"
-                  @change="updateFactionFilteringEnabled"
-                />
-              </div>
+            <div class="border-t border-neutral-700"></div>
 
-              <!-- Enable Unique Card Restriction -->
-              <div class="flex items-center justify-between">
-                <div>
-                  <h3 class="text-white font-medium">Enable Unique Card Restriction</h3>
-                  <p class="text-sm text-gray-400">Prevent multiple pilots from equipping unique cards with the same name</p>
-                </div>
-                <input 
-                  type="checkbox" 
-                  class="toggle toggle-primary" 
-                  :checked="store.enableUniqueCardRestriction"
-                  @change="updateUniqueCardRestrictionEnabled"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Actions -->
-          <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex-1">
-            <h2 class="text-xl font-semibold text-white mb-4">Quick Actions</h2>
-            
-            <div class="space-y-3">
-              <button class="btn btn-primary w-full justify-start" @click="$router.push('/create-pilot')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <line x1="19" y1="8" x2="19" y2="14"/>
-                  <line x1="22" y1="11" x2="16" y2="11"/>
-                </svg>
-                Create New Pilot
-              </button>
-              
-              <button class="btn btn-secondary w-full justify-start" @click="exportData">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7,10 12,15 17,10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                Export Data
-              </button>
-              
-              <button class="btn btn-secondary w-full justify-start" @click="importData">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-upload">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="17,8 12,3 7,8"/>
-                  <line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
-                Import Data
-              </button>
-              
-              <button class="btn btn-error w-full justify-start" @click="openResetAll">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2">
-                  <polyline points="3,6 5,6 21,6"/>
-                  <path d="m19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6"/>
-                  <line x1="10" y1="11" x2="10" y2="17"/>
-                  <line x1="14" y1="11" x2="14" y2="17"/>
-                </svg>
-                Reset All Data
-              </button>
-            </div>
-          </div>
-
-          <!-- Horizontal Divider -->
-          <div class="border-t border-neutral-700"></div>
-
-          <!-- Download Resources -->
-          <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex-1">
-            <h2 class="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-down text-accent">
-                <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
-                <path d="M12 10v6"/>
-                <path d="m15 13-3 3-3-3"/>
-              </svg>
-              Download Resources
-            </h2>
-            
-            <div class="space-y-4">
-              <!-- Core Game Files -->
-              <div class="space-y-3">
-                <h3 class="text-sm font-medium text-gray-300 uppercase tracking-wide">Core Game Files</h3>
-                
-                <div class="space-y-2">
-                  <a 
-                    href="https://drive.usercontent.google.com/u/0/uc?id=1fRB5fA6imKSRvGlBJs6g6ZitwNFDYsS_&export=download"
-                    target="_blank"
-                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7,10 12,15 17,10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Mission Book
-                  </a>
-                  
-                  <a 
-                    href="https://drive.usercontent.google.com/u/0/uc?id=1larIT35yMnbcNETOTXlNeQ-xB15ni3j3&export=download"
-                    target="_blank"
-                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7,10 12,15 17,10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Rule Book
-                  </a>
-                  <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
-                    <p class="text-xs text-amber-200 flex items-start gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info mt-0.5 flex-shrink-0">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 16v-4"/>
-                        <path d="M12 8h.01"/>
-                      </svg>
-                      <span><strong>Note:</strong> Ignore pages 8 and 9 on spending XP and character creation as X-Wing Unlimited replaces them<br/><br/>Enemy spawns are now based on Average Rank not Average Initiative.</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Ground Assault Expansion -->
-              <div class="space-y-3">
-                <h3 class="text-sm font-medium text-gray-300 uppercase tracking-wide">Ground Assault Expansion</h3>
-                
-                <div class="space-y-2">
-                  <a 
-                    href="https://drive.usercontent.google.com/u/0/uc?id=1H_drZpu8q7v6KH_FE6TRkgUt5FjeRzwx&export=download"
-                    target="_blank"
-                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7,10 12,15 17,10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Ground Assault Rule Book
-                  </a>
-                  
-                  <a 
-                    href="https://drive.usercontent.google.com/u/0/uc?id=1hiC-KuGXOY1a52RJhQO-LMOC1JKaeiyV&export=download"
-                    target="_blank"
-                    class="btn btn-accent w-full justify-start hover:scale-[1.02] transition-transform duration-200"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7,10 12,15 17,10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Ground Assault Mission Book
-                  </a>
-                </div>
-              </div>
-              
-              <!-- Additional Resources -->
-              <div class="space-y-3">
-                <h3 class="text-sm font-medium text-gray-300 uppercase tracking-wide">Additional Resources</h3>
-                
-                <a 
-                  href="https://www.goonhammer.com/heroes-of-the-aturi-cluster-everything-you-need-to-know-about-x-wings-fan-made-co-op-campaign/"
-                  target="_blank"
-                  class="btn btn-info w-full justify-start hover:scale-[1.02] transition-transform duration-200"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link">
-                    <path d="M15 3h6v6"/>
-                    <path d="M10 14 21 3"/>
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  </svg>
-                  Game Components Guide
-                </a>
-              </div>
-            </div>
-          </div>
+            <DownloadResourcesSection />
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modals -->
     <EditPilotModal
       ref="editPilotModal"
-      :pilot="selectedPilot"
+      :pilot="selectedPilot || undefined"
       @confirm="confirmEditPilot"
       @cancel="cancelEditPilot"
     />
 
     <DeletePilotModal
       ref="deletePilotModal"
-      :pilot="selectedPilot"
+      :pilot="selectedPilot || undefined"
       @confirm="confirmDeletePilot"
       @cancel="cancelDeletePilot"
     />
@@ -297,7 +64,6 @@
       @cancel="cancelAction"
     />
 
-    <!-- Hidden file input for import -->
     <input
       ref="fileInput"
       type="file"
@@ -308,50 +74,57 @@
   </main>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePilotStore } from '../stores/PilotStore'
-import classData from '../data/classes.json'
+import type { Pilot } from '../stores/PilotStore'
 
-import EditPilotModal from '../components/ui/EditPilotModal.vue'
-import DeletePilotModal from '../components/ui/DeletePilotModal.vue'
-import ConfirmationModal from '../components/ui/ConfirmationModal.vue'
+// Component imports
+import SettingsHeader from '../components/layout/SettingsHeader.vue'
+import PilotManagementSection from '../components/pilots/PilotManagementSection.vue'
+import GeneralSettingsSection from '../components/sections/GeneralSettingsSection.vue'
+import QuickActionsSection from '../components/sections/QuickActionsSection.vue'
+import DownloadResourcesSection from '../components/sections/DownloadResourcesSection.vue'
+import EditPilotModal from '../components/modals/EditPilotModal.vue'
+import DeletePilotModal from '../components/modals/DeletePilotModal.vue'
+import ConfirmationModal from '../components/modals/ConfirmationModal.vue'
 
 const router = useRouter()
 const store = usePilotStore()
 
-// Component refs
-const editPilotModal = ref(null)
-const deletePilotModal = ref(null)
-const confirmationModal = ref(null)
-const fileInput = ref(null)
+/**
+ * Template refs for modal components
+ */
+const editPilotModal = ref<InstanceType<typeof EditPilotModal> | null>(null)
+const deletePilotModal = ref<InstanceType<typeof DeletePilotModal> | null>(null)
+const confirmationModal = ref<InstanceType<typeof ConfirmationModal> | null>(null)
+const fileInput = ref<HTMLInputElement | null>(null)
 
-// Modal state
-const selectedPilot = ref(null)
+/**
+ * Modal state management
+ */
+const selectedPilot = ref<Pilot | null>(null)
 const confirmationTitle = ref('')
 const confirmationMessage = ref('')
-const pendingAction = ref(null)
+const pendingAction = ref<(() => void) | null>(null)
 
-// Helper functions
-function getPilotIcon(pilotClass) {
-  return classData[pilotClass]?.icon || ''
-}
-
-function getPilotColor(pilotClass) {
-  return classData[pilotClass]?.color || '#fbbf24'
-}
-
-// Pilot management
-function openEditPilot(pilot) {
+/**
+ * Open edit pilot modal
+ * @param pilot - The pilot to edit
+ */
+function openEditPilot(pilot: Pilot): void {
   selectedPilot.value = pilot
   editPilotModal.value?.open()
 }
 
-function confirmEditPilot(updatedPilot) {
+/**
+ * Confirm pilot edit changes
+ * @param updatedPilot - The updated pilot data
+ */
+function confirmEditPilot(updatedPilot: Partial<Pilot>): void {
   if (selectedPilot.value) {
-    // Update the pilot in the store
-    const pilotIndex = store.pilots.findIndex(p => p.id === selectedPilot.value.id)
+    const pilotIndex = store.pilots.findIndex(p => p.id === selectedPilot.value!.id)
     if (pilotIndex !== -1) {
       store.pilots[pilotIndex] = { ...store.pilots[pilotIndex], ...updatedPilot }
     }
@@ -359,22 +132,32 @@ function confirmEditPilot(updatedPilot) {
   selectedPilot.value = null
 }
 
-function cancelEditPilot() {
+/**
+ * Cancel pilot edit
+ */
+function cancelEditPilot(): void {
   selectedPilot.value = null
 }
 
-function openDeletePilot(pilot) {
+/**
+ * Open delete pilot modal
+ * @param pilot - The pilot to delete
+ */
+function openDeletePilot(pilot: Pilot): void {
   selectedPilot.value = pilot
   deletePilotModal.value?.open()
 }
 
-function confirmDeletePilot() {
+/**
+ * Confirm pilot deletion
+ */
+function confirmDeletePilot(): void {
   if (selectedPilot.value) {
-    const pilotIndex = store.pilots.findIndex(p => p.id === selectedPilot.value.id)
+    const pilotIndex = store.pilots.findIndex(p => p.id === selectedPilot.value!.id)
     if (pilotIndex !== -1) {
       store.pilots.splice(pilotIndex, 1)
       
-      // If we deleted the current pilot, switch to another one or go to create pilot
+      // Handle current pilot switching
       if (store.currentPilotId === selectedPilot.value.id) {
         if (store.pilots.length > 0) {
           store.currentPilotId = store.pilots[0].id
@@ -387,12 +170,17 @@ function confirmDeletePilot() {
   selectedPilot.value = null
 }
 
-function cancelDeletePilot() {
+/**
+ * Cancel pilot deletion
+ */
+function cancelDeletePilot(): void {
   selectedPilot.value = null
 }
 
-// Data management
-function exportData() {
+/**
+ * Export pilot data as JSON file
+ */
+function exportData(): void {
   const data = {
     pilots: store.pilots,
     currentPilotId: store.currentPilotId,
@@ -411,18 +199,26 @@ function exportData() {
   URL.revokeObjectURL(url)
 }
 
-function importData() {
+/**
+ * Trigger file import dialog
+ */
+function importData(): void {
   fileInput.value?.click()
 }
 
-function handleFileImport(event) {
-  const file = event.target.files[0]
+/**
+ * Handle file import process
+ * @param event - The file input change event
+ */
+function handleFileImport(event: Event): void {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
   if (!file) return
   
   const reader = new FileReader()
   reader.onload = (e) => {
     try {
-      const data = JSON.parse(e.target.result)
+      const data = JSON.parse(e.target?.result as string)
       
       if (data.pilots && Array.isArray(data.pilots)) {
         confirmationTitle.value = 'Import Data'
@@ -442,11 +238,13 @@ function handleFileImport(event) {
   }
   reader.readAsText(file)
   
-  // Reset the file input
-  event.target.value = ''
+  target.value = ''
 }
 
-function openResetAll() {
+/**
+ * Open reset all data confirmation
+ */
+function openResetAll(): void {
   confirmationTitle.value = 'Reset All Data'
   confirmationMessage.value = 'This will permanently delete all pilots and their data. This action cannot be undone.'
   pendingAction.value = () => {
@@ -457,27 +255,29 @@ function openResetAll() {
   confirmationModal.value?.open()
 }
 
-function confirmAction() {
+/**
+ * Confirm pending action
+ */
+function confirmAction(): void {
   if (pendingAction.value) {
     pendingAction.value()
     pendingAction.value = null
   }
 }
 
-function cancelAction() {
+/**
+ * Cancel pending action
+ */
+function cancelAction(): void {
   pendingAction.value = null
 }
 
-// Settings methods
-function updateCustomCardsEnabled(event) {
-  store.updateSetting('enableCustomCards', event.target.checked)
-}
-
-function updateFactionFilteringEnabled(event) {
-  store.updateSetting('enableFactionFiltering', event.target.checked)
-}
-
-function updateUniqueCardRestrictionEnabled(event) {
-  store.updateSetting('enableUniqueCardRestriction', event.target.checked)
+/**
+ * Update a store setting
+ * @param key - The setting key to update
+ * @param value - The new value
+ */
+function updateSetting(key: 'enableCustomCards' | 'enableFactionFiltering' | 'enableUniqueCardRestriction', value: boolean): void {
+  store.updateSetting(key, value)
 }
 </script>

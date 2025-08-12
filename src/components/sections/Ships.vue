@@ -66,10 +66,10 @@
 
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
-import { usePilotStore } from '../stores/PilotStore'
+import { usePilotStore } from '../../stores/PilotStore'
 import { storeToRefs } from 'pinia'
-import classData from '../data/classes.json'
-import ShipPurchaseModal from './ui/ShipPurchaseModal.vue'
+import classData from '../../data/classes.json'
+import ShipPurchaseModal from '../modals/ShipPurchaseModal.vue'
 
 const pilotStore = usePilotStore()
 const { currentPilot } = storeToRefs(pilotStore)

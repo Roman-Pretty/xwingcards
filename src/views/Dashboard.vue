@@ -456,17 +456,17 @@
 import { computed, ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 
-import Card from "../components/Card.vue";
-import CardSummary from "../components/CardSummary.vue";
-import PilotTabs from "../components/PilotTabs.vue";
-import RankList from "../components/RankList.vue";
-import Ships from "../components/Ships.vue";
-import Slots from "../components/Slots.vue";
-import CardPurchaseModal from "../components/ui/CardPurchaseModal.vue";
-import AddXpModal from "../components/ui/AddXpModal.vue";
-import CardSwapModal from "../components/ui/CardSwapModal.vue";
-import CardEquipModal from "../components/ui/CardEquipModal.vue";
-import FactionSelectionModal from "../components/ui/FactionSelectionModal.vue";
+import Card from "../components/cards/Card.vue";
+import CardSummary from "../components/cards/CardSummary.vue";
+import PilotTabs from "../components/pilots/PilotTabs.vue";
+import RankList from "../components/sections/RankList.vue";
+import Ships from "../components/sections/Ships.vue";
+import Slots from "../components/slots/Slots.vue";
+import CardPurchaseModal from "../components/cards/CardPurchaseModal.vue";
+import AddXpModal from "../components/modals/AddXpModal.vue";
+import CardSwapModal from "../components/cards/CardSwapModal.vue";
+import CardEquipModal from "../components/cards/CardEquipModal.vue";
+import FactionSelectionModal from "../components/modals/FactionSelectionModal.vue";
 
 import classData from "../data/classes.json";
 

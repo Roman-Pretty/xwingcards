@@ -49,14 +49,14 @@
 
 <script setup>
 import { computed, ref, nextTick, watch } from "vue";
-import { usePilotStore } from "../stores/PilotStore";
+import { usePilotStore } from "../../stores/PilotStore";
 import Slot from "./Slot.vue";
-import SlotPurchaseModal from "./ui/SlotPurchaseModal.vue";
-import FactionSelectionModal from "./ui/FactionSelectionModal.vue";
-import SlotCombinationModal from "./ui/SlotCombinationModal.vue";
-import { letterToTokenMap } from "../utils/mappings";
-import classData from "../data/classes.json";
-import cards from "../data/cards.js";
+import SlotPurchaseModal from "./SlotPurchaseModal.vue";
+import FactionSelectionModal from "../modals/FactionSelectionModal.vue";
+import SlotCombinationModal from "./SlotCombinationModal.vue";
+import { letterToTokenMap } from "../../utils/mappings";
+import classData from "../../data/classes.json";
+import cards from "../../data/cards.js";
 
 // Disable automatic attribute inheritance since we have multiple root elements
 defineOptions({
