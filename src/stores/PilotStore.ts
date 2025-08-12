@@ -702,10 +702,14 @@ export const usePilotStore = defineStore("pilotStore", {
         }
       });
 
-      // Add locked slots
+      // Add locked slots (only if they have been purchased/unlocked)
       const lockedSlots = shipEntry?.lockedSlots || [];
       lockedSlots.forEach((lockedSlot, index) => {
         const slotKey = `${pilot.selectedShip}-${index}`;
+        
+        // Only include locked slots that have been purchased/unlocked
+        if (!pilot.unlockedSlots?.includes(slotKey)) return;
+        
         if (pilot.slotCards[slotKey]) return; // Skip occupied slots
         
         const typeName = this.getTypeNameFromLetter(lockedSlot.slot);
@@ -749,6 +753,50 @@ export const usePilotStore = defineStore("pilotStore", {
             }
             slotsByType.get(properCaseTypeName).push(slotKey);
           }
+        }
+      });
+
+      // Add slots provided by equipped cards (freeSlots and additional slots)
+      Object.entries(pilot.slotCards).forEach(([slotKey, equippedCardId]) => {
+        if (!equippedCardId) return;
+        
+        const equippedCard = cards.find(c => c.id === equippedCardId) as any;
+        if (!equippedCard) return;
+        
+        // Add free slots from equipped cards
+        if (equippedCard.freeSlots?.length) {
+          equippedCard.freeSlots.forEach((slotType, index) => {
+            const freeSlotKey = `free-${equippedCardId}-${index}`;
+            if (pilot.slotCards[freeSlotKey]) return; // Skip occupied slots
+            
+            const typeName = this.getTypeNameFromLetter(slotType);
+            if (typeName) {
+              const properCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+              
+              if (!slotsByType.has(properCaseTypeName)) {
+                slotsByType.set(properCaseTypeName, []);
+              }
+              slotsByType.get(properCaseTypeName).push(freeSlotKey);
+            }
+          });
+        }
+        
+        // Add additional slots from equipped cards (like title cards)
+        if (equippedCard.slots?.length) {
+          equippedCard.slots.forEach((slotType, index) => {
+            const titleSlotKey = `title-${equippedCardId}-${index}`;
+            if (pilot.slotCards[titleSlotKey]) return; // Skip occupied slots
+            
+            const typeName = this.getTypeNameFromLetter(slotType);
+            if (typeName) {
+              const properCaseTypeName = typeName.charAt(0).toUpperCase() + typeName.slice(1);
+              
+              if (!slotsByType.has(properCaseTypeName)) {
+                slotsByType.set(properCaseTypeName, []);
+              }
+              slotsByType.get(properCaseTypeName).push(titleSlotKey);
+            }
+          });
         }
       });
 
@@ -965,11 +1013,19 @@ export const usePilotStore = defineStore("pilotStore", {
       }
 
       // Check if this is a locked slot (uses ship-index format)
-      if (slotKey.includes('-') && !slotKey.startsWith('fixed-') && !slotKey.startsWith('optional-')) {
-        // For locked slots, we need to check if the slot type matches
+      if (slotKey.includes('-') && !slotKey.startsWith('fixed-') && !slotKey.startsWith('optional-') && !slotKey.startsWith('free-') && !slotKey.startsWith('title-')) {
+        // For locked slots, we need to check if the slot type matches AND if it's been unlocked
         const lockedSlots = shipEntry?.lockedSlots || [];
         
-        const [shipName, indexStr] = slotKey.split('-');
+        // First check if the slot has been purchased/unlocked
+        if (!pilot.unlockedSlots?.includes(slotKey)) {
+          return false;
+        }
+        
+        // Extract ship name and index from slot key (handle ship names with hyphens)
+        const lastHyphenIndex = slotKey.lastIndexOf('-');
+        const shipName = slotKey.substring(0, lastHyphenIndex);
+        const indexStr = slotKey.substring(lastHyphenIndex + 1);
         const index = parseInt(indexStr);
         
         if (lockedSlots[index]) {
@@ -1015,6 +1071,38 @@ export const usePilotStore = defineStore("pilotStore", {
           } else {
             // Single slot type - check direct match or "Any" slot
             return slotGroup === typeLetter || slotGroup === ')';
+          }
+        }
+      }
+
+      // Check free slots from equipped cards
+      if (slotKey.startsWith('free-')) {
+        // Extract cardId from slot key: free-{cardId}-{index}
+        const parts = slotKey.split('-');
+        if (parts.length >= 3) {
+          const cardId = parts.slice(1, -1).join('-'); // Handle card IDs with hyphens
+          const index = parseInt(parts[parts.length - 1]);
+          
+          const equippedCard = cards.find(c => c.id === cardId) as any;
+          if (equippedCard?.freeSlots?.[index]) {
+            const slotType = equippedCard.freeSlots[index];
+            return slotType === typeLetter || slotType === ')';
+          }
+        }
+      }
+
+      // Check additional slots from equipped cards (like title cards)
+      if (slotKey.startsWith('title-')) {
+        // Extract cardId from slot key: title-{cardId}-{index}
+        const parts = slotKey.split('-');
+        if (parts.length >= 3) {
+          const cardId = parts.slice(1, -1).join('-'); // Handle card IDs with hyphens
+          const index = parseInt(parts[parts.length - 1]);
+          
+          const equippedCard = cards.find(c => c.id === cardId) as any;
+          if (equippedCard?.slots?.[index]) {
+            const slotType = equippedCard.slots[index];
+            return slotType === typeLetter || slotType === ')';
           }
         }
       }

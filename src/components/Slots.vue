@@ -245,7 +245,8 @@ const fixedSlots = computed(() => {
     processedSlots.push({
       token: capitalize(letterToTokenMap[slot] ?? slot),
       unlocked: true,
-      key: `fixed-${index}`
+      key: `fixed-${index}`,
+      slotType: slot // Add the original slot type
     });
   });
 
@@ -259,6 +260,7 @@ const fixedSlots = computed(() => {
       xpCost: lockedSlot.xp,
       key,
       isLocked: true,
+      slotType: lockedSlot.slot // Add the original slot type
     });
   });
 
@@ -436,6 +438,7 @@ const freeSlots = computed(() => {
           token: capitalize(letterToTokenMap[slot] ?? slot),
           unlocked: true,
           key: `free-${cardId}-${index}`,
+          slotType: slot // Add the original slot type
         });
       });
     }
@@ -458,6 +461,7 @@ const titleSlots = computed(() => {
           token: capitalize(letterToTokenMap[slot] ?? slot),
           unlocked: true,
           key: `title-${cardId}-${index}`,
+          slotType: slot // Add the original slot type
         });
       });
     }
