@@ -103,7 +103,7 @@
             </div>
             <div class="text-sm space-y-1" :class="averageRank >= 3 ? 'text-green-200' : 'text-gray-400'">
               <div class="flex items-center gap-1">
-                <span class="font-[ships] text-2xl pt-1">F</span> when <span class="font-[xwing]">2</span>, may <span class="font-[xwing]">1</span> or <span class="font-[xwing]">3</span> to swerve to get a shot
+                When a <span class="font-[ships] text-2xl">F</span> would perform a <span class="font-[xwing]">2</span> maneuver, they may perform a <span class="font-[xwing] pb-1">1</span> or <span class="font-[xwing] pb-1">3</span> maneuver to get a better shot or avoid an obstacle
               </div>
             </div>
             <div v-if="averageRank < 3" class="text-xs text-gray-500 mt-2 italic text-center">
@@ -127,7 +127,7 @@
             </div>
             <div class="text-sm space-y-1" :class="averageRank >= 4 ? 'text-green-200' : 'text-gray-400'">
               <div class="flex items-center gap-1">
-                <span class="font-[ships] text-2xl pt-1">F</span> gain 1 Hull & Predator
+                All <span class="font-[ships] text-2xl">F</span> gain 1 hull & predator ( if the defender is in their <span class="font-[xwing] pb-1">}</span>, they may reroll 1 attack die )
               </div>
             </div>
             <div v-if="averageRank < 4" class="text-xs text-gray-500 mt-2 italic text-center">

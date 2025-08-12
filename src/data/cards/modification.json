@@ -66,6 +66,56 @@
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hullupgrade.png"
   },
   {
+    "id": "hullupgrade1",
+    "name": "Hull Upgrade I",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "Adds: {hull}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hullupgrade.png"
+  },
+  {
+    "id": "hullupgrade2",
+    "name": "Hull Upgrade II",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "Adds: {hull}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hullupgrade.png"
+  },
+  {
+    "id": "hullupgrade3",
+    "name": "Hull Upgrade III",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "Adds: {hull}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hullupgrade.png"
+  },
+  {
+    "id": "hullupgrade4",
+    "name": "Hull Upgrade IV",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "Adds: {hull}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hullupgrade.png"
+  },
+  {
+    "id": "hullupgrade5",
+    "name": "Hull Upgrade V",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 6,
+    "unique": false,
+    "description": "Adds: {hull}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/hullupgrade.png"
+  },
+  {
     "id": "munitionsfailsafe",
     "name": "Munitions Failsafe",
     "type": "Modification",
@@ -78,6 +128,56 @@
   {
     "id": "shieldupgrade",
     "name": "Shield Upgrade",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "Adds: {shield}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/shieldupgrade.png"
+  },
+  {
+    "id": "shieldupgrade1",
+    "name": "Shield Upgrade I",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "Adds: {shield}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/shieldupgrade.png"
+  },
+  {
+    "id": "shieldupgrade2",
+    "name": "Shield Upgrade II",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "Adds: {shield}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/shieldupgrade.png"
+  },
+  {
+    "id": "shieldupgrade3",
+    "name": "Shield Upgrade III",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "Adds: {shield}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/shieldupgrade.png"
+  },
+  {
+    "id": "shieldupgrade4",
+    "name": "Shield Upgrade IV",
+    "type": "Modification",
+    "faction": "Neutral",
+    "cost": 8,
+    "unique": false,
+    "description": "Adds: {shield}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/shieldupgrade.png"
+  },
+  {
+    "id": "shieldupgrade5",
+    "name": "Shield Upgrade V",
     "type": "Modification",
     "faction": "Neutral",
     "cost": 8,

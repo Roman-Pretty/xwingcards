@@ -17,7 +17,7 @@
     "faction": "Neutral",
     "cost": 5,
     "unique": true,
-    "description": "Adds: {turret}",
+    "description": "Adds: {gunner}",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/b6bladewingprototype.png",
     "requires": "B-Wing"
   },
@@ -68,14 +68,36 @@
     "requires": "Starviper"
   },
   {
-    "id": "slavei",
+    "id": "slavei2",
     "name": "Slave I",
     "type": "Title",
     "faction": "Neutral",
-    "cost": 10,
+    "cost": 11,
     "unique": true,
-    "description": "Adds: {gunner}<br/>While you perform a {af} attack, if you are in the defender's {afr}, you may change 1 {hit} result to a {crit} result.",
+    "description": "Adds: {torpedo}<br/>After you reveal a turn ({bl} or {br}) or bank ({sl} or {sr}) maneuver, you may set your dial to the maneuver of the same speed and bearing in the other direction.",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/slavei.png",
+    "requires": "Firespray"
+  },
+  {
+    "id": "marauder",
+    "name": "Marauder",
+    "type": "Title",
+    "faction": "Neutral",
+    "cost": 11,
+    "unique": true,
+    "description": "Adds: {gunner}<br/>While you perform a primary {arear} attack, you may reroll 1 attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/marauder.png",
+    "requires": "Firespray"
+  },
+  {
+    "id": "andrasta",
+    "name": "Andrasta",
+    "type": "Title",
+    "faction": "Neutral",
+    "cost": 11,
+    "unique": true,
+    "description": "Adds: {payload}, {reload}.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/andrasta.png",
     "requires": "Firespray"
   },
   {
@@ -100,6 +122,17 @@
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/xanadublood.png",
     "requires": "Rogue Class"
   },
+   {
+    "id": "slavei",
+    "name": "Slave I",
+    "type": "Title",
+    "faction": "Neutral",
+    "cost": 10,
+    "unique": true,
+    "description": "Adds: {gunner}<br/>While you perform a {af} attack, if you are in the defender's {afr}, you may change 1 {hit} result to a {crit} result.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/slavei-swz82.png",
+    "requires": "Firespray"
+  },
   {
     "id": "moldycrow",
     "name": "Moldy Crow",
@@ -110,5 +143,16 @@
     "description": "Adds: !{af} 3<br/> Gain a primary {af} weapon with a value of 3. During the End Phase, do not remove up to 2 of your focus tokens",
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/moldycrow.png",
     "requires": "HWK-290"
+  },
+  {
+    "id": "razorcrest",
+    "name": "Razor Crest",
+    "type": "Title",
+    "faction": "Neutral",
+    "cost": 4,
+    "unique": true,
+    "description": "Adds: {evade}{to}!{barrel}",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/razorcrest.png",
+    "requires": "ST-70"
   }
 ]
