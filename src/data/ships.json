@@ -757,8 +757,8 @@
       "4": [0, 0, 0, 2, 0, 0, 0, 3],
       "5": [0, 0, 0, 0, 0, 0, 0, 0]
         }
-    },
-    "G-1A Starfighter": {
+  },
+  "G-1A Starfighter": {
         "attack": 3,
         "agility": 1,
         "hull": 5,
@@ -780,28 +780,74 @@
             "5": [0, 0, 0, 0, 0, 0, 0, 0]
         },
         "notes": ["This Ship uses a Medium Base"]
+  },
+  "JumpMaster 5000": {
+    "attack": 2,
+    "agility": 2,
+    "hull": 6,
+    "shields": 3,
+    "arc": "p",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/contractedscout.png",
+    "description": "Built for long-distance reconnaissance and plotting new standard routes, the lightly armed JumpMaster 5000 is often extensively retrofitted with custom upgrades.",
+    "abilityLetters": [
+        { "id": 1, "symbol": "f>R*", "color": "text-white" },
+        { "id": 2, "symbol": "l>R*", "color": "text-white" },
+        { "id": 3, "symbol": "r", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+        "0": [0, 0, 0, 0, 0, 0, 0, 0],
+        "1": [0, 2, 1, 1, 2, 3, 0, 0],
+        "2": [0, 2, 1, 1, 2, 3, 0, 0],
+        "3": [{ "difficulty": 3, "type": "sloop" }, 0, 1, 1, 2, 0, 0, 0],
+        "4": [0, 0, 0, 3, 0, 0, 0, 3],
+        "5": [0, 0, 0, 0, 0, 0, 0, 0]
     },
-    "JumpMaster 5000": {
-        "attack": 2,
-        "agility": 2,
-        "hull": 6,
-        "shields": 3,
-        "arc": "p",
-        "image": "https://infinitearenas.com/xw2/images/artwork/pilots/contractedscout.png",
-        "description": "Built for long-distance reconnaissance and plotting new standard routes, the lightly armed JumpMaster 5000 is often extensively retrofitted with custom upgrades.",
-        "abilityLetters": [
-            { "id": 1, "symbol": "f>R*", "color": "text-white" },
-            { "id": 2, "symbol": "l>R*", "color": "text-white" },
-            { "id": 3, "symbol": "r", "color": "text-red-400" }
-        ],
-        "maneuverDial": {
-            "0": [0, 0, 0, 0, 0, 0, 0, 0],
-            "1": [0, 2, 1, 1, 2, 3, 0, 0],
-            "2": [0, 2, 1, 1, 2, 3, 0, 0],
-            "3": [{ "difficulty": 3, "type": "sloop" }, 0, 1, 1, 2, 0, 0, 0],
-            "4": [0, 0, 0, 3, 0, 0, 0, 3],
-            "5": [0, 0, 0, 0, 0, 0, 0, 0]
-        },
-        "notes": ["This Ship uses a Large Base", "Roll 1 additional attack die when destroyed"]
+    "notes": ["This Ship uses a Large Base", "Roll 1 additional attack die when destroyed"]
+  },
+  "Fang Fighter": {
+    "attack": 3,
+    "agility": 3,
+    "hull": 4,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/bodicavenj.png",
+    "ability": "Concordia Faceoff: While you defend, if the attack range is 1 and you are in the attacker's {af}, change 1 result to an {evade} result.",
+    "description": "Mandalorian Fang fighter pilots must master the Concordia Faceoff maneuver, leveraging their ships' narrow attack profile to execute deadly head-on charges.",
+    "abilityLetters": [
+        { "id": 1, "symbol": "f", "color": "text-white" },   
+        { "id": 2, "symbol": "l", "color": "text-white" },
+        { "id": 3, "symbol": "r>f*", "color": "text-white" },
+        { "id": 4, "symbol": "b>f*", "color": "text-white" }
+    ],
+    "maneuverDial": {
+        "0": [0, 0, 0, 0, 0, 0, 0, 0],
+        "1": [0, 2, 0, 0, 0, 2, 0, 0],
+        "2": [3, 1, 1, 1, 1, 1, 3, 0],
+        "3": [0, 2, 2, 1, 2, 2, 0, 0],
+        "4": [0, 0, 0, 2, 0, 0, 0, 3],
+        "5": [0, 0, 0, 2, 0, 0, 0, 0]
     }
+  },
+  "Scurrg H-6": {
+    "attack": 3,
+    "agility": 1,
+    "hull": 6,
+    "shields": 4,
+    "arc": "{",
+    "image": "https://infinitearenas.com/xw2/images/artwork/pilots/captainnym.png",
+    "description": "The Nubian Design Collective crafted the Scurrg H-6 Bomber with combat versatility in mind, arming it with powerful shields and a bristling array of destructive weaponry.",
+    "abilityLetters": [
+        { "id": 1, "symbol": "f", "color": "text-white" },   
+        { "id": 2, "symbol": "l", "color": "text-white" },
+        { "id": 3, "symbol": "r", "color": "text-red-400" }
+    ],
+    "maneuverDial": {
+        "0": [0, 0, 0, 0, 0, 0, 0, 0],
+        "1": [0, 0, 1, 1, 1, 0, 0, 0],
+        "2": [0, 2, 2, 1, 2, 2, 0, 0],
+        "3": [3, 3, 2, 2, 2, 3, 3, 0],
+        "4": [0, 0, 0, 3, 0, 0, 0, 0],
+        "5": [0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "notes": ["This Ship uses a Medium Base"]
+  }
 }

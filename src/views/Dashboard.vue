@@ -682,7 +682,7 @@ function getFactionColor(symbol) {
     "@": "#609bca", // empire
     "h": "#f9a8d4", // force
     "!": "#ff9900", // resistance
-    "+": "#870000", // firstorder
+    "+": "#ff4e32", // firstorder
     "#": "#2ec22b", // scum
     "/": "#ff6048", // republic  
     ".": "#72b8f0"  // separatists 
