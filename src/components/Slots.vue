@@ -452,7 +452,7 @@ const titleSlots = computed(() => {
 
   Object.entries(pilot.slotCards).forEach(([slotKey, cardId]) => {
     const card = cards.find((c) => c.id === cardId);
-    if (card?.type === 'Title' && card?.slots?.length) {
+    if (card?.slots?.length) {
       card.slots.forEach((slot, index) => {
         result.push({
           token: capitalize(letterToTokenMap[slot] ?? slot),
