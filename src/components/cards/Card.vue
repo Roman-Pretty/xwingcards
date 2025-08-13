@@ -344,6 +344,9 @@ const displayedDescription = computed(() => {
   // ([^.!?]*?):  matches any sentence before colon, capturing the sentence + colon
   replaced = replaced.replace(/([^.!?]*?):/g, '<span class="font-semibold">$1:</span>');
 
+  // Process break tags - convert <br> and <br/> to actual HTML breaks
+  replaced = replaced.replace(/<br\s*\/?>/gi, '<br>');
+
   return replaced;
 });
 

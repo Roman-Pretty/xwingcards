@@ -21,6 +21,7 @@ export * from './pilots'
 export * from './slots'
 export * from './sections'
 export * from './create-pilot'
+export * from './dashboard'
 
 // Group Components
 export * from './group'
