@@ -4,26 +4,41 @@
  * Navigation tabs for Hand, Deck, and Store with search and filter
  */
 <template>
-  <div class="flex justify-between items-center flex-row">
+  <div :class="[
+    'flex items-center',
+    isMobile ? 'flex-col gap-3' : 'justify-between flex-row'
+  ]">
     <!-- Tab Navigation -->
-    <div class="join">
+    <div class="join" :class="isMobile ? 'w-full' : ''">
       <button 
         class="btn join-item"
-        :class="{ 'btn-active': activeTab === 'hand', 'btn-neutral': activeTab !== 'hand' }"
+        :class="{ 
+          'btn-active': activeTab === 'hand', 
+          'btn-neutral': activeTab !== 'hand',
+          'flex-1': isMobile
+        }"
         @click="$emit('switch-tab', 'hand')"
       >
         Hand
       </button>
       <button 
         class="btn join-item"
-        :class="{ 'btn-active': activeTab === 'deck', 'btn-neutral': activeTab !== 'deck' }"
+        :class="{ 
+          'btn-active': activeTab === 'deck', 
+          'btn-neutral': activeTab !== 'deck',
+          'flex-1': isMobile
+        }"
         @click="$emit('switch-tab', 'deck')"
       >
         Deck
       </button>
       <button 
         class="btn join-item"
-        :class="{ 'btn-active': activeTab === 'store', 'btn-neutral': activeTab !== 'store' }"
+        :class="{ 
+          'btn-active': activeTab === 'store', 
+          'btn-neutral': activeTab !== 'store',
+          'flex-1': isMobile
+        }"
         @click="$emit('switch-tab', 'store')"
       >
         Store
@@ -31,19 +46,36 @@
     </div>
 
     <!-- Search and Filter Controls -->
-    <div class="flex items-center gap-4">
+    <div :class="[
+      'flex items-center',
+      isMobile ? 'w-full justify-between gap-2' : 'gap-4'
+    ]">
       <!-- Search Input -->
-      <div class="form-control">
-        <input 
-          type="text" 
-          :value="searchQuery" 
-          @input="$emit('update:search-query', $event.target.value)"
-          placeholder="Search cards..." 
-          :class="[
-            'input input-bordered text-white bg-neutral-800 border-neutral-600 focus:border-neutral-400',
-            isMobile ? 'input-xs w-32' : 'input-sm w-48'
-          ]"
-        />
+      <div class="form-control" :class="isMobile ? 'flex-1' : ''">
+        <label :class="[
+          'input flex items-center gap-2',
+          isMobile ? 'input-xs' : 'input-sm'
+        ]">
+          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke-width="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+          <input 
+            type="search" 
+            class="grow" 
+            placeholder="Search cards..."
+            :value="searchQuery" 
+            @input="$emit('update:search-query', $event.target.value)"
+          />
+        </label>
       </div>
 
       <!-- Type Filter Dropdown -->
