@@ -1,7 +1,16 @@
+<!--
+  GroupOverview View
+  
+  Main view component for displaying AI difficulty adjustments based on group average rank.
+  Includes pilot selection interface and difficulty level progression system.
+  
+  @component GroupOverview
+  @requires PilotStore - For accessing pilot data
+  @requires AIDifficultyCard - Main difficulty adjustment interface
+-->
 <template>
   <main class="bg-neutral-900 w-full h-screen flex flex-col overflow-hidden">
-    <!-- Header -->
-    <div class="flex-shrink-0 bg-neutral-800 border-b border-neutral-700 p-6">
+    <header class="flex-shrink-0 bg-neutral-800 border-b border-neutral-700 p-6">
       <div class="max-w-4xl px-6 mx-auto flex items-center justify-between">
         <div>
           <h1 class="text-2xl font-bold text-white mb-2">Group Overview</h1>
@@ -15,225 +24,57 @@
           Close
         </button>
       </div>
-    </div>
+    </header>
 
-    <!-- Form Content -->
     <div class="flex-1 overflow-y-auto">
       <div class="max-w-4xl mx-auto p-6">
-      <!-- AI Difficulty Adjustments Card - Full Width -->
-      <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6 flex flex-col h-full">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-semibold text-white">AI Difficulty Adjustments</h2>
-          
-          <!-- Pilot Selection Dropdown -->
-          <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button"
-              class="text-white gap-2 hover:opacity-70 cursor-pointer duration-200 transition-opacity mb-1 flex flex-row items-center">
-              {{ selectedPilots.length }} of {{ store.pilots.length }} pilots
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-chevron-down">
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </div>
-
-            <div tabindex="0"
-              class="dropdown-content z-10 h-[40vh] overflow-auto p-2 rounded-box shadow-md text-xs text-white bg-neutral-950 flex flex-col gap-1 w-80">
-              <div class="text-sm cursor-default text-white mb-2 px-2">Include in Average Rank Calculation:</div>
-              
-              <!-- Pilot selection buttons -->
-              <label v-for="pilot in store.pilots" :key="pilot.id" 
-                     class="flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-neutral-700 transition-colors duration-150">
-                <input type="checkbox" 
-                       :checked="selectedPilotIds.includes(pilot.id)"
-                       @change="togglePilot(pilot.id)"
-                       class="checkbox checkbox-xs checkbox-primary">
-                <span class="font-[xwing] text-xl -mt-1" :style="{ color: getClassColor(pilot.class) }">
-                  {{ getClassIcon(pilot.class) }}
-                </span>
-                <span class="flex-1 truncate text-md">{{ pilot.name }}</span>
-                <span class="text-md text-gray-400">Rank {{ pilot.rank }}</span>
-              </label>
-              
-              <!-- Action buttons -->
-              <div class="flex justify-between items-center mt-2 pt-2 border-t border-neutral-700 px-2">
-                <div class="text-xs text-gray-400 cursor-default">
-                  {{ selectedPilots.length }} selected
-                </div>
-                <div class="flex gap-1">
-                  <button @click="selectAllPilots" class="btn btn-xs btn-ghost text-gray-400 hover:text-white">
-                    All
-                  </button>
-                  <button @click="clearAllPilots" class="btn btn-xs btn-ghost text-gray-400 hover:text-white">
-                    Clear
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="space-y-4 flex-1">
-          <!-- Standard -->
-          <div class="bg-green-900/30 border border-green-700 rounded-lg p-4"
-               :class="{ 'opacity-50': averageRank >= 3 }">
-            <div class="mb-3">
-              <h3 class="font-semibold text-green-400 mb-1">Standard</h3>
-              <span class="text-xs px-2 py-1 rounded inline-block" 
-                    :class="averageRank < 3 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
-                {{ averageRank < 3 ? 'ACTIVE' : 'INACTIVE' }}
-              </span>
-            </div>
-            <p class="text-sm text-green-200">AI operates at normal difficulty levels. Base game experience.</p>
-          </div>
-
-          <!-- Enhanced (Rank 3+) -->
-          <div class="rounded-lg p-4 border"
-               :class="averageRank >= 3 ? 
-                 'bg-green-900/30 border-green-700' : 
-                 'bg-gray-900/30 border-gray-700 opacity-60'">
-            <div class="mb-3">
-              <h3 class="font-semibold mb-1" :class="averageRank >= 3 ? 'text-green-400' : 'text-gray-400'">
-                Enhanced
-              </h3>
-              <span class="text-xs px-2 py-1 rounded inline-block" 
-                    :class="averageRank >= 3 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
-                {{ averageRank >= 3 ? 'UNLOCKED' : 'LOCKED' }}
-              </span>
-            </div>
-            <div class="text-sm space-y-1" :class="averageRank >= 3 ? 'text-green-200' : 'text-gray-400'">
-              <div class="flex items-center gap-1">
-                When a <span class="font-[ships] text-2xl">F</span> would perform a <span class="font-[xwing]">2</span> maneuver, they may perform a <span class="font-[xwing] pb-1">1</span> or <span class="font-[xwing] pb-1">3</span> maneuver to get a better shot or avoid an obstacle
-              </div>
-            </div>
-            <div v-if="averageRank < 3" class="text-xs text-gray-500 mt-2 italic text-center">
-              Unlocks at Average Rank 3
-            </div>
-          </div>
-          
-          <!-- Veteran (Rank 4+) -->
-          <div class="rounded-lg p-4 border"
-               :class="averageRank >= 4 ? 
-                 'bg-green-900/30 border-green-700' : 
-                 'bg-gray-900/30 border-gray-700 opacity-60'">
-            <div class="mb-3">
-              <h3 class="font-semibold mb-1" :class="averageRank >= 4 ? 'text-green-400' : 'text-gray-400'">
-                Veteran
-              </h3>
-              <span class="text-xs px-2 py-1 rounded inline-block" 
-                    :class="averageRank >= 4 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
-                {{ averageRank >= 4 ? 'UNLOCKED' : 'LOCKED' }}
-              </span>
-            </div>
-            <div class="text-sm space-y-1" :class="averageRank >= 4 ? 'text-green-200' : 'text-gray-400'">
-              <div class="flex items-center gap-1">
-                All <span class="font-[ships] text-2xl">F</span> gain 1 hull & predator ( if the defender is in their <span class="font-[xwing] pb-1">}</span>, they may reroll 1 attack die )
-              </div>
-            </div>
-            <div v-if="averageRank < 4" class="text-xs text-gray-500 mt-2 italic text-center">
-              Unlocks at Average Rank 4
-            </div>
-          </div>
-          
-          <!-- Ace (Rank 5+) -->
-          <div class="rounded-lg p-4 border"
-               :class="averageRank >= 5 ? 
-                 'bg-green-900/30 border-green-700' : 
-                 'bg-gray-900/30 border-gray-700 opacity-60'">
-            <div class="mb-3">
-              <h3 class="font-semibold mb-1" :class="averageRank >= 5 ? 'text-green-400' : 'text-gray-400'">
-                Ace
-              </h3>
-              <span class="text-xs px-2 py-1 rounded inline-block" 
-                    :class="averageRank >= 5 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
-                {{ averageRank >= 5 ? 'UNLOCKED' : 'LOCKED' }}
-              </span>
-            </div>
-            <div class="text-sm" :class="averageRank >= 5 ? 'text-green-200' : 'text-gray-400'">
-              All Non-Elites gain 1 shield and predator
-            </div>
-            <div v-if="averageRank < 5" class="text-xs text-gray-500 mt-2 italic text-center">
-              Unlocks at Average Rank 5
-            </div>
-          </div>
-
-          <!-- Legendary (Rank 6+) -->
-          <div class="rounded-lg p-4 border"
-               :class="averageRank >= 6 ? 
-                 'bg-green-900/30 border-green-700' : 
-                 'bg-gray-900/30 border-gray-700 opacity-60'">
-            <div class="mb-3">
-              <h3 class="font-semibold mb-1" :class="averageRank >= 6 ? 'text-green-400' : 'text-gray-400'">
-                Legendary
-              </h3>
-              <span class="text-xs px-2 py-1 rounded inline-block" 
-                    :class="averageRank >= 6 ? 'bg-green-600 text-green-100' : 'bg-gray-600 text-gray-300'">
-                {{ averageRank >= 6 ? 'UNLOCKED' : 'LOCKED' }}
-              </span>
-            </div>
-            <div class="text-sm" :class="averageRank >= 6 ? 'text-green-200' : 'text-gray-400'">
-              Elites gain 1 shield and predator
-            </div>
-            <div v-if="averageRank < 6" class="text-xs text-gray-500 mt-2 italic text-center">
-              Unlocks at Average Rank 6
-            </div>
-          </div>
-        </div>
-
-        <!-- Current Group Status -->
-        <div class="mt-6 pt-4 border-t border-neutral-600 flex-1">
-          <div class="flex justify-center items-center gap-6 text-center">
-            <div>
-              <div class="text-2xl font-bold text-yellow-400">{{ averageRank }}</div>
-              <div class="text-sm text-gray-400">Average Rank</div>
-            </div>
-            <div>
-              <div class="text-xl font-bold text-blue-400">{{ selectedPilots.length }}</div>
-              <div class="text-sm text-gray-400">Selected Pilots</div>
-            </div>
-            <div>
-              <div class="text-xl font-bold text-green-400">{{ totalXP }}</div>
-              <div class="text-sm text-gray-400">Total XP</div>
-            </div>
-          </div>
-        </div>
-        </div>
+        <AIDifficultyCard 
+          :all-pilots="store.pilots"
+          :selected-pilot-ids="selectedPilotIds"
+          @toggle-pilot="togglePilot"
+          @select-all-pilots="selectAllPilots"
+          @clear-all-pilots="clearAllPilots"
+        />
       </div>
     </div>
   </main>
 </template>
 
+/**
+ * GroupOverview View Script
+ * 
+ * Main logic for the group overview page. Manages pilot selection for
+ * calculating average rank and determining AI difficulty adjustments.
+ * 
+ * @requires PilotStore - For accessing pilot data
+ * @requires AIDifficultyCard - Component for difficulty adjustment interface
+ */
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { usePilotStore } from '../stores/PilotStore'
-import classData from '../data/classes.json'
+import AIDifficultyCard from '../components/group/AIDifficultyCard.vue'
 
+/**
+ * Pilot store instance for accessing pilot data
+ */
 const store = usePilotStore()
+
+/**
+ * Array of selected pilot IDs for average rank calculation
+ */
 const selectedPilotIds = ref([])
 
-// Initialize with all pilots selected
+/**
+ * Initialize component with all pilots selected
+ */
 onMounted(() => {
   selectedPilotIds.value = store.pilots.map(pilot => pilot.id)
 })
 
-// Computed properties for statistics
-const totalPilots = computed(() => store.pilots.length)
-
-const selectedPilots = computed(() => {
-  return store.pilots.filter(pilot => selectedPilotIds.value.includes(pilot.id))
-})
-
-const averageRank = computed(() => {
-  if (selectedPilots.value.length === 0) return 0
-  const total = selectedPilots.value.reduce((sum, pilot) => sum + pilot.rank, 0)
-  return Math.ceil(total / selectedPilots.value.length)
-})
-
-const totalXP = computed(() => {
-  return selectedPilots.value.reduce((sum, pilot) => sum + pilot.xp, 0)
-})
-
-// Pilot selection methods
+/**
+ * Toggle pilot selection status
+ * @param {string} pilotId - ID of pilot to toggle
+ */
 const togglePilot = (pilotId) => {
   const index = selectedPilotIds.value.indexOf(pilotId)
   if (index > -1) {
@@ -243,20 +84,17 @@ const togglePilot = (pilotId) => {
   }
 }
 
+/**
+ * Select all available pilots
+ */
 const selectAllPilots = () => {
   selectedPilotIds.value = store.pilots.map(pilot => pilot.id)
 }
 
+/**
+ * Clear all pilot selections
+ */
 const clearAllPilots = () => {
   selectedPilotIds.value = []
-}
-
-// Helper functions
-const getClassIcon = (className) => {
-  return classData[className]?.icon || '?'
-}
-
-const getClassColor = (className) => {
-  return classData[className]?.color || '#a8a8a8'
 }
 </script>
