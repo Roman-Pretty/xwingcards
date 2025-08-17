@@ -2,7 +2,7 @@
   <div @click="handleClick" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
     'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative self-start',
     {
-      'w-[80%] lg:w-[60%] xl:w-[48%] 3xl:w-[31%] aspect-[2/3]': !mobileMode,
+      'w-[80%] lg:w-[60%] xl:w-[48%] [@media(min-width:112rem)]:w-[31%] aspect-[2/3]': !mobileMode,
       'w-[60%] aspect-[2/3]': mobileMode,
       'custom-card': !displayedImage
     }
