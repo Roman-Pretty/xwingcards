@@ -299,8 +299,9 @@ const cardsToShow = computed(() => {
 
   if (activeTab.value === "hand") {
     const slotCardIds = Object.values(store.currentPilot?.slotCards || {})
+    const seen = new Set()
     baseCards = slotCardIds
-      .filter(id => id && id !== null && id !== undefined)
+      .filter(id => id && id !== null && id !== undefined && !seen.has(id) && seen.add(id))
       .map(id => {
         const cardInfo = store.getCardDisplayInfo(id)
         return cardInfo
@@ -706,14 +707,22 @@ function cancelMobileCardSelection() {
 
 function equipCardToSlot(slotKey) {
   if (!pendingMobileCard.value) return
-  
+
+  // Prevent equipping unique card if already taken and restriction is enabled
+  if (store.isCardTaken(pendingMobileCard.value.id)) {
+    const warning = store.getUniqueCardWarningText(pendingMobileCard.value.id) || 'This unique card is already equipped by another pilot.'
+    alert(`Cannot equip this card: ${warning}`)
+    pendingMobileCard.value = null
+    return
+  }
+
   if (!store.canEquipInitiativeCard(pendingMobileCard.value.id)) {
     const warning = store.getInitiativeRequirementText(pendingMobileCard.value.id)
     alert(`Cannot equip this card: ${warning}`)
     pendingMobileCard.value = null
     return
   }
-  
+
   if (store.requiresFactionSelection(pendingMobileCard.value.id)) {
     const availableFactions = store.getAvailableFactionsForCard(pendingMobileCard.value.id)
     if (availableFactions.length === 0) {
@@ -734,14 +743,14 @@ function equipCardToSlot(slotKey) {
       return
     }
   }
-  
+
   if (!store.canEquipFactionCard(pendingMobileCard.value.id)) {
     const warning = store.getFactionRequirementText(pendingMobileCard.value.id)
     alert(`Cannot equip this card: ${warning}`)
     pendingMobileCard.value = null
     return
   }
-  
+
   if (store.isMultiSlotCard(pendingMobileCard.value.id)) {
     const success = store.assignMultiSlotCard(pendingMobileCard.value.id)
     if (success !== false) {
@@ -763,7 +772,15 @@ function equipCardToSlot(slotKey) {
 
 function equipCardWithSpecificFaction(slotKey, faction) {
   if (!pendingMobileCard.value) return
-  
+
+  // Prevent equipping unique card if already taken and restriction is enabled
+  if (store.isCardTaken(pendingMobileCard.value.id)) {
+    const warning = store.getUniqueCardWarningText(pendingMobileCard.value.id) || 'This unique card is already equipped by another pilot.'
+    alert(`Cannot equip this card: ${warning}`)
+    pendingMobileCard.value = null
+    return
+  }
+
   if (store.isMultiSlotCard(pendingMobileCard.value.id)) {
     const success = store.assignMultiSlotCard(pendingMobileCard.value.id)
     if (success !== false) {

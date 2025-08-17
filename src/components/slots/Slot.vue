@@ -38,9 +38,13 @@
       class="absolute inset-0 bg-red-900/90 cursor-not-allowed text-white text-center flex items-center justify-center text-sm font-semibold rounded z-30"
     >
       <div class="text-center">
-        <div class="text-xs">FACTION LIMIT</div>
-        <div class="text-xs">REACHED</div>
-        <div class="text-xs" v-if="props.currentlyDraggedCard">{{ props.currentlyDraggedCard.faction }}</div>
+        <div v-if="isBlockedByFactionLimit === 'unique'">
+          <div class="text-sm">Restricted</div>
+        </div>
+        <div v-else>
+          <div class="text-sm" v-if="props.currentlyDraggedCard">{{ props.currentlyDraggedCard.faction }} Faction</div>
+          <div class="text-sm">Limit Reached</div>
+        </div>
       </div>
     </div>
 
@@ -50,9 +54,8 @@
       class="absolute inset-0 bg-red-900/90 cursor-not-allowed text-white text-center flex items-center justify-center text-sm font-semibold rounded z-30"
     >
       <div class="text-center">
-        <div class="text-xs">INITIATIVE</div>
-        <div class="text-xs">REQUIRED</div>
-        <div class="text-xs">{{ store.getInitiativeRequirementText(props.currentlyDraggedCard?.id)?.split(' ')[2] || '' }}</div>
+        <div class="text-sm">Initiative {{ store.getInitiativeRequirementText(props.currentlyDraggedCard?.id)?.split(' ')[2] || '' }}</div>
+        <div class="text-sm">Required</div>
       </div>
     </div>
 
@@ -115,19 +118,22 @@ const store = usePilotStore();
 
 const canAcceptDrop = computed(() => {
   if (!props.currentlyDraggedCard || !props.unlocked) return false;
-  
+
   // Handle both single type (string) and multiple types (array)
-  const cardTypes = Array.isArray(props.currentlyDraggedCard.type) 
-    ? props.currentlyDraggedCard.type 
+  const cardTypes = Array.isArray(props.currentlyDraggedCard.type)
+    ? props.currentlyDraggedCard.type
     : [props.currentlyDraggedCard.type];
-  
+
   // Check if this is an "Any" slot - it can accept any card type
   const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
     props.options.some(opt =>
       cardTypes.some(cardType => opt.toLowerCase() === cardType.toLowerCase())
     );
-  
+
   if (!typeMatches) return false;
+
+  // Unique card restriction check
+  if (store.enableUniqueCardRestriction && store.isCardTaken(props.currentlyDraggedCard.id)) return false;
 
   // Check faction limits
   if (!store.canEquipFactionCard(props.currentlyDraggedCard.id)) return false;
@@ -139,22 +145,25 @@ const canAcceptDrop = computed(() => {
 // Computed property to check if drop is being prevented due to faction limits
 const isBlockedByFactionLimit = computed(() => {
   if (!props.currentlyDraggedCard || !props.unlocked) return false;
-  
+
   // Handle both single type (string) and multiple types (array)
-  const cardTypes = Array.isArray(props.currentlyDraggedCard.type) 
-    ? props.currentlyDraggedCard.type 
+  const cardTypes = Array.isArray(props.currentlyDraggedCard.type)
+    ? props.currentlyDraggedCard.type
     : [props.currentlyDraggedCard.type];
-  
+
   // Check if type matches but faction limit prevents drop
   const typeMatches = props.options.some(opt => opt.toLowerCase() === 'any') ||
     props.options.some(opt =>
       cardTypes.some(cardType => opt.toLowerCase() === cardType.toLowerCase())
     );
-  
+
   if (!typeMatches) return false;
 
+  // Unique card restriction block
+  if (store.enableUniqueCardRestriction && store.isCardTaken(props.currentlyDraggedCard.id)) return 'unique';
+
   // If type matches but can't equip due to faction limits, it's a faction issue
-  if (!store.canEquipFactionCard(props.currentlyDraggedCard.id)) return true;
+  if (!store.canEquipFactionCard(props.currentlyDraggedCard.id)) return 'faction';
 
   // Return false for initiative issues (we'll handle those separately)
   return false;
