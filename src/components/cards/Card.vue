@@ -2,8 +2,8 @@
   <div @click="handleClick" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
     'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative self-start',
     {
-      'w-[48%] 2xl:w-[31%] aspect-[2/3]': !mobileMode,
-      'w-[70%] aspect-[2/3]': mobileMode,
+      'w-[48%] 3xl:w-[31%] aspect-[2/3]': !mobileMode,
+      'w-[60%] aspect-[2/3]': mobileMode,
       'custom-card': !displayedImage
     }
   ]">
