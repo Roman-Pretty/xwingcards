@@ -11,13 +11,12 @@
   <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
     <h2 class="text-xl font-semibold text-white mb-4">Ship Overview</h2>
     
-    <div v-if="selectedShip" class="flex gap-6">
+    <div v-if="selectedShip" class="flex flex-col lg:flex-row gap-4 lg:gap-6">
       <ShipStatsCard 
         :ship-name="selectedShip" 
-        class="flex-shrink-0 w-80" 
+        class="w-full lg:w-80 flex-shrink-0" 
       />
-      
-      <div class="flex-1">
+      <div class="flex-1 mt-4 lg:mt-0">
         <ManeuverDial :ship-name="selectedShip" />
         <ShipNotes 
           v-if="shipNotes.length > 0" 

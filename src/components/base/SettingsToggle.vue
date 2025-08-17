@@ -5,7 +5,7 @@
  */
 <template>
   <div class="flex items-center justify-between">
-    <div>
+    <div class="pr-4">
       <h3 class="text-white font-medium">{{ title }}</h3>
       <p class="text-sm text-gray-400">{{ description }}</p>
     </div>
