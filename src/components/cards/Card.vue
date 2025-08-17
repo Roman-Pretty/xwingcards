@@ -2,7 +2,7 @@
   <div @click="handleClick" @mouseenter="isHovered = true" @mouseleave="isHovered = false" :class="[
     'inria-sans-regular balatro-card group bg-neutral-900 cursor-pointer rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform duration-300 ease-in-out transform-style-preserve-3d relative self-start',
     {
-      'w-[48%] 3xl:w-[31%] aspect-[2/3]': !mobileMode,
+      'w-[80%] lg:w-[60%] xl:w-[48%] 3xl:w-[31%] aspect-[2/3]': !mobileMode,
       'w-[60%] aspect-[2/3]': mobileMode,
       'custom-card': !displayedImage
     }
@@ -63,9 +63,10 @@
     </div>
 
 
+
     <figure class="relative rounded-t-lg overflow-hidden" :class="{ 'h-1/2': !mobileMode, 'h-1/3': mobileMode }">
-      <!-- Custom procedural background when no image is provided -->
-      <div v-if="!displayedImage" class="custom-space-background">
+      <!-- Show procedural background while image is loading or not present -->
+      <div v-if="!displayedImage || !shouldShowImage" class="custom-space-background">
         <div class="stars-field"></div>
         <div class="nebula-glow"></div>
         <div class="card-type-symbol" :style="{ '--card-hash': cardHash }">{{ typeLetter }}</div>
@@ -75,11 +76,11 @@
         <!-- Top half background to match card background and prevent lower content overlap -->
         <div class="top-half-background"></div>
       </div>
-      
-      <!-- Custom holographic overlay when no image is provided -->
-      <div v-if="!displayedImage" class="custom-holographic-overlay pointer-events-none absolute inset-0 z-20" />
-      
-      <!-- Owned badge with upgrade status -->
+
+      <!-- Custom holographic overlay when no image is provided or image is loading -->
+      <div v-if="!displayedImage || !shouldShowImage" class="custom-holographic-overlay pointer-events-none absolute inset-0 z-20" />
+
+      <!-- Owned badge with upgrade status (always shown) -->
       <div v-if="owned"
         class="absolute bottom-0 left-0 transform z-20 w-full text-center"
         :class="{
@@ -92,9 +93,18 @@
         <span v-else-if="upgradeLevel > 0">Fully Upgraded</span>
         <span v-else>Owned</span>
       </div>
-      
-      <!-- Regular image when image is provided -->
-      <img v-if="displayedImage" :src="displayedImage" alt="Card art" class="w-full h-full object-cover z-10 relative" />
+
+      <!-- Lazy loaded image -->
+      <img
+        v-if="displayedImage"
+        :src="displayedImage"
+        alt="Card art"
+        class="w-full h-full object-cover z-10 relative"
+        loading="lazy"
+        @load="imageLoaded = true"
+        @error="imageLoaded = false"
+        v-show="shouldShowImage"
+      />
     </figure>
 
     <!-- Card content -->
@@ -180,8 +190,9 @@
   </div>
 </template>
 
+
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { tokenToLetterMap } from '../../utils/mappings'
 
 const props = defineProps({
@@ -237,8 +248,14 @@ const props = defineProps({
 
 const emit = defineEmits(['card-click'])
 
+
 const isHovered = ref(false)
 const flipped = ref(false)
+
+
+
+// Lazy image loading state
+const imageLoaded = ref(true) // Start as true so fallback always shows if no image
 
 onMounted(() => window.addEventListener('keydown', handleKeyDown))
 onBeforeUnmount(() => window.removeEventListener('keydown', handleKeyDown))
@@ -324,6 +341,24 @@ const displayedName = computed(() => {
   return baseName;
 });
 const displayedImage = computed(() => flipped.value && props.flippable ? props.flippedImage || props.image : props.image)
+
+// Only show image if loaded and there is an image to show
+const shouldShowImage = computed(() => {
+  // If no image, fallback background is shown
+  if (!displayedImage.value) return false
+  // If imageLoaded is true, show image
+  return imageLoaded.value
+})
+
+// Watch for displayedImage changes to reset loading state only if there is an image
+watch(() => displayedImage.value, (newVal) => {
+  if (newVal) {
+    imageLoaded.value = false // Wait for @load event
+  } else {
+    imageLoaded.value = true // No image, fallback always visible
+  }
+})
+
 const displayedDescription = computed(() => {
   const raw = flipped.value && props.flippable ? props.flippedDescription || '' : props.description || '';
 
