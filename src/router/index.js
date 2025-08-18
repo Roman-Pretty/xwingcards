@@ -61,6 +61,10 @@ const routes = [
         next()
       }
     }
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/'
   }
 ]
 

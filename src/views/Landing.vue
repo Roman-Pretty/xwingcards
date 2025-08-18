@@ -19,7 +19,7 @@
                 </span>
               </h1>
               <p class="text-xl text-neutral-300 max-w-lg">
-                Manage your Heroes of the Aturi Cluster pilots with ease. Track experience, upgrade cards, and stop the Empire!
+                Manage your Heroes of the Aturi Cluster pilots with ease. Track experience, purchase cards, and stop the Empire!
               </p>
             </div>
           </div>
@@ -76,11 +76,11 @@
             <div class="space-y-4">
               <div class="flex items-center justify-between p-3 bg-neutral-700/30 rounded-lg">
                 <div>
-                  <div class="text-yellow-400 font-semibold">Josh Derkson</div>
-                  <p class="text-neutral-400 text-sm">Creator of HoTAC</p>
+                  <div class="text-yellow-400 font-semibold">Josh Derksen</div>
+                  <p class="text-neutral-400 text-sm">Creator of HotAC</p>
                 </div>
                 <a 
-                  href="https://hotac.fandom.com/wiki/Heroes_of_the_Aturi_Cluster_Wiki" 
+                  href="https://boardgamegeek.com/boardgamedesigner/94661/josh-derksen" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   class="text-white hover:text-neutral-300 transition-colors duration-200"
@@ -113,10 +113,10 @@
               <div class="flex items-center justify-between p-3 bg-neutral-700/30 rounded-lg">
                 <div>
                   <div class="text-yellow-400 font-semibold">Dovi Anderson</div>
-                  <p class="text-neutral-400 text-sm">Designer of Classes and Card Edits</p>
+                  <p class="text-neutral-400 text-sm">Designer of Base Classes and Card Edits</p>
                 </div>
                 <a 
-                  href="https://github.com/dovi-anderson" 
+                  href="https://drive.google.com/drive/folders/1R0As4XtBw-XTYm4JGBnv3D9ut7bXS6nI" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   class="text-white hover:text-neutral-300 transition-colors duration-200"
