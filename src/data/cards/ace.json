@@ -1017,12 +1017,12 @@
     "id": "scythe6-tactical-strike",
     "name": "Tactical Strike",
     "type": "Ace",
-    "cost": 4,
+    "cost": 10,
     "description": "While you perform an attack at attack range 1-2, roll 1 additional attack die.",
     "image": "https://infinitearenas.com/xw2/images/artwork/pilots/scythe6-battleoverendor.png",
     "unique": true,
     "faction": "Empire",
-    "initiative": 2
+    "initiative": 5
   },
   {
     "id": "captaindobbs-take-the-hit",
@@ -1669,12 +1669,12 @@
     "id": "maulermithel-point-blank",
     "name": "Point Blank",
     "type": "Ace",
-    "cost": 10,
+    "cost": 4,
     "description": "While you perform an attack at attack range 1, spend 2 {charge} to roll 1 additional attack die.",
     "image": "https://infinitearenas.com/xw2/images/artwork/pilots/maulermithel.png",
     "unique": true,
     "faction": "Empire",
-    "initiative": 5,
+    "initiative": 2,
     "energy": 2,
     "recurringEnergy": 1
   },
