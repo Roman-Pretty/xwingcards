@@ -4,7 +4,7 @@
     <div class="flex items-center justify-center min-h-screen px-8">
       <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Side - Content -->
-        <div class="space-y-8 flex flex-col justify-center min-h-[600px]">
+        <div class="space-y-8 flex flex-col justify-center min-h-[600px] pt-20 md:pt-0">
           <div class="space-y-6">
             <img 
               src="../assets/logolong.png" 
@@ -48,7 +48,7 @@
           </div>
 
           <!-- Quick Stats or Features -->
-          <div class="grid grid-cols-4 gap-6 pt-8 border-t border-neutral-700">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-neutral-700">
             <div class="text-center">
               <div class="text-2xl font-bold text-yellow-400">UNLIMITED</div>
               <div class="text-sm text-neutral-400">Pilots</div>
