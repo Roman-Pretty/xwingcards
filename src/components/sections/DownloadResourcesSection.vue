@@ -52,12 +52,12 @@ const coreGameResources: Resource[] = [
   {
     name: 'Mission Book',
     url: 'https://drive.usercontent.google.com/u/0/uc?id=1fRB5fA6imKSRvGlBJs6g6ZitwNFDYsS_&export=download',
-    buttonClass: 'btn-accent'
+    buttonClass: ''
   },
   {
     name: 'Rule Book',
     url: 'https://drive.usercontent.google.com/u/0/uc?id=1larIT35yMnbcNETOTXlNeQ-xB15ni3j3&export=download',
-    buttonClass: 'btn-accent'
+    buttonClass: ''
   }
 ]
 
@@ -68,12 +68,12 @@ const groundAssaultResources: Resource[] = [
   {
     name: 'Ground Assault Rule Book',
     url: 'https://drive.usercontent.google.com/u/0/uc?id=1H_drZpu8q7v6KH_FE6TRkgUt5FjeRzwx&export=download',
-    buttonClass: 'btn-accent'
+    buttonClass: ''
   },
   {
     name: 'Ground Assault Mission Book',
     url: 'https://drive.usercontent.google.com/u/0/uc?id=1hiC-KuGXOY1a52RJhQO-LMOC1JKaeiyV&export=download',
-    buttonClass: 'btn-accent'
+    buttonClass: ''
   }
 ]
 
@@ -84,7 +84,7 @@ const additionalResources: Resource[] = [
   {
     name: 'Game Components Guide',
     url: 'https://www.goonhammer.com/heroes-of-the-aturi-cluster-everything-you-need-to-know-about-x-wings-fan-made-co-op-campaign/',
-    buttonClass: 'btn-info'
+    buttonClass: ''
   }
 ]
 </script>

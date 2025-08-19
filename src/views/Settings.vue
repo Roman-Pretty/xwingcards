@@ -34,8 +34,6 @@
               @reset-all="openResetAll"
             />
 
-            <div class="border-t border-neutral-700"></div>
-
             <DownloadResourcesSection />
           </div>
         </div>
