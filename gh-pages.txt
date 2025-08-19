@@ -1,0 +1,6 @@
+Just the git commands for gh-pages as I am very forgetful :)
+
+npm run build
+git add dist -f
+git commit -m "Build for gh-pages"
+git subtree push --prefix dist origin gh-pages
