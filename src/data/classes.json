@@ -204,7 +204,7 @@
       { "ship": "B-Wing", "icon": "b", "slots": ["S", "P", "m", "C", "C", "n"], "lockedSlots": [{ "slot": "t", "xp": 8 },{ "slot": "n", "xp": 10 }], "cost": 5, "rank": 2 },
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "Rogue-class Starfighter", "icon": "6", "slots": ["C","C","I","m"], "cost": 8, "rank": 3 },
-      { "ship": "ST-70 Assault Ship", "icon": "7", "slots": ["W","Y","I","I","m"], "lockedSlots": [{ "slot": "t", "xp": 12 }],  "cost": 14, "rank": 4 },
+      { "ship": "ST-70 Assault Ship", "icon": "7", "slots": ["W","I","I","m"], "lockedSlots": [{ "slot": "t", "xp": 12 }],  "cost": 14, "rank": 4 },
       { "ship": "Firespray Patrol Craft", "icon": "f", "slots": ["C","M","B","I","m"], "lockedSlots": [{ "slot": "t", "xp": 14 }], "cost": 16, "rank": 5 }
     ],
     "ranks": [
@@ -280,7 +280,7 @@
       { "ship": "HWK-290", "icon": "h", "slots": ["A", "W", "I", "m", "m", "B"], "lockedSlots": [{ "slot": "t", "xp": 16 }], "cost": 5, "rank": 2 },
       { "ship": "Attack Shuttle", "icon": "g", "slots": ["W","m","U"],"cost": 4, "rank": 3 },
       { "ship": "G-1A Starfighter", "icon": "n", "slots": ["S","W","W","I","m"], "lockedSlots": [{ "slot": "t", "xp": 5 }],  "cost": 13, "rank": 4 },
-      { "ship": "JumpMaster 5000", "icon": "p", "slots": ["C","P","Y","I","m"], "lockedSlots": [{ "slot": "C", "xp": 8 },{ "slot": "W", "xp": 10 }],  "cost": 16, "rank": 5 }
+      { "ship": "JumpMaster 5000", "icon": "p", "slots": ["C","P","Y","I","m"], "lockedSlots": [{ "slot": "C", "xp": 8 },{ "slot": "W", "xp": 10 },{ "slot": "t", "xp": 2 }],  "cost": 16, "rank": 5 }
     ],
     "ranks": [
       { "rank": 1, "xp": "FREE", "initiative": 2, "slots": ["S"] },

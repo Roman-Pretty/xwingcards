@@ -35,6 +35,18 @@
     "slots": ["sensor", "astromech"]
   },
   {
+    "id": "punishingone",
+    "name": "Punishing One",
+    "type": ["Title", "Crew"],
+    "faction": "Neutral",
+    "cost": 5,
+    "unique": true,
+    "description": "Adds: {astromech}<br/>While you perform a primary attack, if the defender is in your {af}, roll 1 additional attack die.",
+    "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/punishingone.png",
+    "requires": "Jumpmaster 5000",
+    "slots": ["astromech"]
+  },
+  {
     "id": "misthunter",
     "name": "Mist Hunter",
     "type": "Title",
@@ -160,7 +172,9 @@
     "faction": "Neutral",
     "cost": 4,
     "unique": true,
-    "description": "Adds: {evade}{to}!{barrel}",
+    "description": "Adds: {illicit}, {evade}{to}!{lock}",
+    "custom": true,
+    "slots": ["illicit"],
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/razorcrest.png",
     "requires": "ST-70"
   }

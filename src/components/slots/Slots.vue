@@ -451,18 +451,24 @@ const titleSlots = computed(() => {
   const pilot = currentPilot.value;
   if (!pilot) return [];
 
+  // Use a Set to deduplicate slot types per card
   const result = [];
+  const seen = new Set();
 
   Object.entries(pilot.slotCards).forEach(([slotKey, cardId]) => {
     const card = cards.find((c) => c.id === cardId);
     if (card?.slots?.length) {
-      card.slots.forEach((slot, index) => {
-        result.push({
-          token: capitalize(letterToTokenMap[slot] ?? slot),
-          unlocked: true,
-          key: `title-${cardId}-${index}`,
-          slotType: slot // Add the original slot type
-        });
+      card.slots.forEach((slot) => {
+        const uniqueKey = `${cardId}-${slot}`;
+        if (!seen.has(uniqueKey)) {
+          seen.add(uniqueKey);
+          result.push({
+            token: capitalize(letterToTokenMap[slot] ?? slot),
+            unlocked: true,
+            key: `title-${cardId}-${slot}`,
+            slotType: slot // Add the original slot type
+          });
+        }
       });
     }
   });

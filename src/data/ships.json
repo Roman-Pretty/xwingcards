@@ -432,7 +432,7 @@
     "hull": 6,
     "shields": 3,
     "arc": "p",
-    "image": "/src/assets/ships/its-transport.png",
+    "image": "/its-transport.png",
     "ability": "Experimental Commsware: You may coordinate at range 1-4.",
     "description": "With its reinforced hull, modular design, and command uplink suite, the I-TS Transport has earned a reputation as a reliable mid-range tactical coordination vessel.",
     "abilityLetters": [
