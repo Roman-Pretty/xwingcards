@@ -3,7 +3,7 @@ import { usePilotStore } from '../stores/PilotStore'
 import Landing from '../views/Landing.vue'
 import CreatePilot from '../views/CreatePilot.vue'
 import Dashboard from '../views/Dashboard.vue'
-import Settings from '../views/Settings.vue'
+import Menu from '../views/Menu.vue'
 import GroupOverview from '../views/GroupOverview.vue'
 import PilotOverview from '../views/PilotOverview.vue'
 
@@ -32,9 +32,9 @@ const routes = [
     component: CreatePilot
   },
   {
-    path: '/settings',
-    name: 'Settings',
-    component: Settings
+    path: '/menu',
+    name: 'Menu',
+    component: Menu
   },
   {
     path: '/group-overview',

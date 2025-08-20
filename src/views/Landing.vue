@@ -47,7 +47,7 @@
             </router-link>
           </div>
 
-          <!-- Quick Stats or Features -->
+          <!-- Features -->
           <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-neutral-700">
             <div class="text-center">
               <div class="text-2xl font-bold text-yellow-400">UNLIMITED</div>
@@ -68,9 +68,9 @@
           </div>
         </div>
 
-        <!-- Right Side - Visual/Cards Preview -->
+        <!-- Right Side - Credits -->
         <div class="space-y-6 flex flex-col justify-center min-h-[600px]">
-          <!-- Credits Section - Redesigned as Cards -->
+          <!-- Credits Section -->
           <div class="bg-gradient-to-br from-neutral-800/80 to-neutral-900/80 rounded-2xl p-6 backdrop-blur-sm border border-neutral-700">
             <h2 class="text-xl font-semibold text-white mb-4">Built on the Foundation of</h2>
             <div class="space-y-4">
@@ -130,7 +130,7 @@
             </div>
           </div>
 
-          <!-- Support Section - Redesigned -->
+          <!-- Support Section -->
           <div class="bg-gradient-to-r from-orange-600/20 to-yellow-600/20 rounded-2xl p-6 border border-orange-500/30">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-3">
@@ -155,7 +155,6 @@
 </template>
 
 <script setup>
-// No additional logic needed for a simple landing page
 </script>
 
 <style scoped>

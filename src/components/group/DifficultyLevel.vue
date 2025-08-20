@@ -6,7 +6,7 @@
 <template>
   <div 
     class="rounded-lg p-4 border"
-    :class="containerClasses"
+    :class="[containerClasses, !isActive ? 'opacity-60' : '']"
   >
     <div class="mb-3">
       <h3 

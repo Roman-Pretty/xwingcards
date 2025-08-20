@@ -46,7 +46,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 text-sm">
+        <div class="flex flex-wrap w-full justify-between gap-4 text-sm">
           <div class="flex items-center gap-2 text-yellow-300">
             <span class="font-[xwing] text-lg -mt-1">Ì</span>
             <span>XP: {{ pilot.xp || 0 }}</span>

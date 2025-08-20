@@ -7,5 +7,4 @@
 
 export { default as SettingsToggle } from './SettingsToggle.vue'
 
-// Re-export types if needed
 export type * from './SettingsToggle.vue'

@@ -70,8 +70,8 @@
           </svg>
           <span>
             <strong>Note:</strong> Ignore pages 8 and 9 on spending XP and character creation 
-            as X-Wing Unlimited replaces them<br/><br/>
-            Enemy spawns are now based on Average Rank not Average Initiative.
+            as X-Wing Unlimited replaces them.<br/><br/>
+            Enemy spawn levels may instead be based on Average Rank, not Average Initiative.
           </span>
         </p>
       </div>

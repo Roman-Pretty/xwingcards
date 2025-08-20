@@ -1,23 +1,19 @@
 /**
- * Settings.vue
+ * Menu.vue
  * 
- * Main settings page component that provides pilot management, application settings,
+ * Main menu page component that provides pilot management, application settings,
  * data import/export functionality, and resource downloads.
  */
 <template>
   <main class="bg-neutral-900 w-full h-screen flex flex-col overflow-hidden">
-    <SettingsHeader @close="$router.push('/dashboard')" />
+    <MenuHeader @close="$router.push('/dashboard')" />
+
 
     <div class="flex-1 overflow-y-auto">
-      <div class="max-w-4xl mx-auto p-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-          <PilotManagementSection 
-            :pilots="store.pilots"
-            @edit-pilot="openEditPilot"
-            @delete-pilot="openDeletePilot"
-          />
-
-          <div class="space-y-6 flex flex-col h-full">
+      <div class="max-w-4xl mx-auto p-6 flex flex-col gap-6">
+        <div class="flex flex-col lg:flex-row gap-6 h-full min-h-[350px]">
+          <!-- Left: General Settings (top), Quick Actions (bottom) -->
+          <div class="flex-1 flex flex-col gap-6 h-full">
             <GeneralSettingsSection 
               :enable-custom-cards="store.enableCustomCards"
               :enable-faction-filtering="store.enableFactionFiltering"
@@ -26,16 +22,27 @@
               @update:enable-faction-filtering="updateSetting('enableFactionFiltering', $event)"
               @update:enable-unique-card-restriction="updateSetting('enableUniqueCardRestriction', $event)"
             />
-
             <QuickActionsSection 
               @create-pilot="$router.push('/create-pilot')"
               @export-data="exportData"
               @import-data="importData"
               @reset-all="openResetAll"
             />
-
-            <DownloadResourcesSection />
           </div>
+          <!-- Right: Download Resources (half width, full height) -->
+          <div class="lg:w-1/2 w-full h-full flex flex-col">
+            <div class="flex-1 flex flex-col justify-stretch">
+              <DownloadResourcesSection class="h-full w-full" />
+            </div>
+          </div>
+        </div>
+        <!-- Beneath all: Pilot Management -->
+        <div>
+          <PilotManagementSection 
+            :pilots="store.pilots"
+            @edit-pilot="openEditPilot"
+            @delete-pilot="openDeletePilot"
+          />
         </div>
       </div>
     </div>
@@ -79,7 +86,7 @@ import { usePilotStore } from '../stores/PilotStore'
 import type { Pilot } from '../stores/PilotStore'
 
 // Component imports
-import SettingsHeader from '../components/layout/SettingsHeader.vue'
+import MenuHeader from '../components/layout/MenuHeader.vue'
 import PilotManagementSection from '../components/pilots/PilotManagementSection.vue'
 import GeneralSettingsSection from '../components/sections/GeneralSettingsSection.vue'
 import QuickActionsSection from '../components/sections/QuickActionsSection.vue'

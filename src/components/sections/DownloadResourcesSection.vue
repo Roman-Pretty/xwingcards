@@ -9,17 +9,20 @@
     <h2 class="text-xl font-semibold text-white mb-6 flex items-center gap-2">
       Download Resources
     </h2>
-    
     <div class="space-y-4">
       <ResourceCategory 
         title="Core Game Files" 
         :resources="coreGameResources" 
       />
+
+      <div class="divider"></div>
       
       <ResourceCategory 
         title="Ground Assault Expansion" 
         :resources="groundAssaultResources" 
       />
+
+      <div class="divider"></div>
       
       <ResourceCategory 
         title="Additional Resources" 

@@ -1,5 +1,5 @@
 /**
- * SettingsHeader.vue
+ * MenuHeader.vue
  * 
  * Header component for the settings page with title and close functionality.
  */
@@ -7,7 +7,7 @@
   <div class="flex-shrink-0 bg-neutral-800 border-b border-neutral-700 p-6">
     <div class="max-w-4xl px-6 mx-auto flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-white mb-2">Settings</h1>
+        <h1 class="text-2xl font-bold text-white mb-2">Menu</h1>
         <p class="text-gray-400">Manage your pilots and application settings</p>
       </div>
       <button 
