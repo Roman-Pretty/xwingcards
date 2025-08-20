@@ -173,7 +173,6 @@
     "cost": 4,
     "unique": true,
     "description": "Adds: {illicit}, {evade}{to}!{lock}",
-    "custom": true,
     "slots": ["illicit"],
     "image": "https://infinitearenas.com/xw2/images/artwork/upgrades/razorcrest.png",
     "requires": "ST-70"
