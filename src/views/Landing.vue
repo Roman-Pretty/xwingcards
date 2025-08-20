@@ -54,7 +54,7 @@
               <div class="text-sm text-neutral-400">Pilots</div>
             </div>
             <div class="text-center">
-              <div class="text-2xl font-bold text-blue-400">200+</div>
+              <div class="text-2xl font-bold text-blue-400">750+</div>
               <div class="text-sm text-neutral-400">Cards</div>
             </div>
             <div class="text-center">
